@@ -151,3 +151,9 @@ def tweet_tests_hosp_rec(prev_diff, curr_diff, data):
     print(out)
     print(len(out))
     return out
+
+def export_tweets(tweet_contents):
+    with open('tweets.dat', 'w') as file:
+        for tweet in tweet_contents:
+            file.write(tweet + '===\n')
+    file.close

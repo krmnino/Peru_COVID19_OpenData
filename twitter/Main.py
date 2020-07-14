@@ -6,6 +6,7 @@ from ExportUtility import tweet_highlights
 from ExportUtility import tweet_cases
 from ExportUtility import tweet_deaths
 from ExportUtility import tweet_tests_hosp_rec
+from ExportUtility import export_tweets
 from ParseData import parse_file
 from ParseData import compute_data
 from ParseData import diff_prev_day
@@ -72,3 +73,5 @@ tweets.append(tweet_highlights(prev_day, curr_day, data))
 tweets.append(tweet_cases(prev_day, curr_day, data))  #attach cases.png, gf_cases.png, active_cases.png, new_active_cases.png
 tweets.append(tweet_deaths(prev_day, curr_day, data)) #attach deaths.png, gf_deaths.png, mortality_rate.png
 tweets.append(tweet_tests_hosp_rec(prev_day, curr_day, data)) #attach tests.png perc_daily_positive_tests.png recovered.png hospitalized.png
+
+export_tweets(tweets)
