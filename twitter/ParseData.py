@@ -73,6 +73,7 @@ def compute_data(parsed_data):
     hospitalized_growth_factor = np.array([])
     mortality_rate = np.array([])
     active_cases = np.array([])
+    new_active_cases = np.array([])
     daily_positives = np.array([])
     for i, entry in enumerate(parsed_data[0]):
         if(i == 0):
@@ -88,6 +89,7 @@ def compute_data(parsed_data):
             hospitalized_growth_factor = np.append(hospitalized_growth_factor, 0)
             mortality_rate = np.append(mortality_rate, calc_rate(parsed_data[2][i], parsed_data[1][i]))
             active_cases = np.append(active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i]))
+            new_active_cases = np.append(new_active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i] - 0))
             daily_positives = np.append(daily_positives, calc_rate(parsed_data[1][i], parsed_data[3][i]))
             days = np.append(days, i)
             continue
@@ -103,6 +105,7 @@ def compute_data(parsed_data):
         hospitalized_growth_factor = np.append(hospitalized_growth_factor, calc_gf(parsed_data[5][i], parsed_data[5][i-1]))
         mortality_rate = np.append(mortality_rate, calc_rate(parsed_data[2][i], parsed_data[1][i]))
         active_cases = np.append(active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i]))
+        new_active_cases = np.append(new_active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i]) - (parsed_data[1][i-1] - parsed_data[4][i-1] - parsed_data[2][i-1]))
         daily_positives = np.append(daily_positives, calc_rate(parsed_data[1][i] - parsed_data[1][i-1], parsed_data[3][i] - parsed_data[3][i-1]))
         days = np.append(days, i)
     parsed_data.append(days)
@@ -118,11 +121,29 @@ def compute_data(parsed_data):
     parsed_data.append(tests_growth_factor)
     parsed_data.append(mortality_rate)
     parsed_data.append(active_cases)
+    parsed_data.append(new_active_cases)
     parsed_data.append(daily_positives)
     return parsed_data
 
-def diff_days(data):
-    return [data[0][len(data[0])-1], data[7][len(data[0])-1], data[9][len(data[0])-1], data[11][len(data[0])-1],
-            data[13][len(data[0])-1], data[15][len(data[0])-1], data[18][len(data[0])-1]]
+'''
+Structure of diff list
+Index   Contents
+0       Date
+1       New Cases
+2       New Deaths
+3       New Recovered
+4       New Hospitalized
+5       New Tests
+6       Active Cases
+7       New Active Cases
+8       % Daily Positives
+9       % Mortality
+'''
 
+def diff_prev_day(data):
+    return [data[0][len(data[0])-2], data[7][len(data[0])-2], data[9][len(data[0])-2], data[11][len(data[0])-2], data[13][len(data[0])-2],
+            data[15][len(data[0])-2], data[18][len(data[0])-2], data[19][len(data[0])-2], data[20][len(data[0])-2], data[17][len(data[0])-2]]
 
+def diff_curr_day(data):
+    return [data[0][len(data[0])-1], data[7][len(data[0])-1], data[9][len(data[0])-1], data[11][len(data[0])-1], data[13][len(data[0])-1],
+            data[15][len(data[0])-1], data[18][len(data[0])-1], data[19][len(data[0])-1], data[20][len(data[0])-1], data[17][len(data[0])-1]]
