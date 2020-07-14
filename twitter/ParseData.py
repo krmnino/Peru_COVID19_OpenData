@@ -13,12 +13,12 @@ def parse_file(header = True):
     recovered = np.array([])
     hospitalized = np.array([])
     try:
-        open(os.path.dirname(__file__) + '../PER_data.csv', 'r')
+        open(os.path.dirname(__file__) + '/../PER_data.csv', 'r')
     except:
         print('Could not access data file.')
         return 1
     else:
-        with open(os.path.dirname(__file__) + '../PER_data.csv', 'r') as file:
+        with open(os.path.dirname(__file__) + '/../PER_data.csv', 'r') as file:
             for line in file:
                 if(header == True):
                     header = False
@@ -44,7 +44,7 @@ def parse_file(header = True):
         file.close()
     return [dates, cases, deaths, tests, recovered, hospitalized]
 
-def calc_rate(data1, data2):
+def calc_gf(data1, data2):
     if(data2 == 0):
         return data1
     else:
@@ -53,7 +53,7 @@ def calc_rate(data1, data2):
         else:
             return data1 / data2
 
-def calc_mort_rate(data1, data2):
+def calc_rate(data1, data2):
     if(data2 == 0):
         return 0
     else:
@@ -73,6 +73,7 @@ def compute_data(parsed_data):
     hospitalized_growth_factor = np.array([])
     mortality_rate = np.array([])
     active_cases = np.array([])
+    daily_positives = np.array([])
     for i, entry in enumerate(parsed_data[0]):
         if(i == 0):
             new_cases = np.append(new_cases, parsed_data[1][i] - 0)
@@ -85,22 +86,24 @@ def compute_data(parsed_data):
             recovered_growth_factor = np.append(recovered_growth_factor, 0)
             new_hospitalized = np.append(new_hospitalized, parsed_data[5][i] - 0)
             hospitalized_growth_factor = np.append(hospitalized_growth_factor, 0)
-            mortality_rate = np.append(mortality_rate, calc_mort_rate(parsed_data[2][i], parsed_data[1][i]))
+            mortality_rate = np.append(mortality_rate, calc_rate(parsed_data[2][i], parsed_data[1][i]))
             active_cases = np.append(active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i]))
+            daily_positives = np.append(daily_positives, calc_rate(parsed_data[1][i], parsed_data[3][i]))
             days = np.append(days, i)
             continue
         new_cases = np.append(new_cases, parsed_data[1][i] - parsed_data[1][i-1])
-        cases_growth_factor = np.append(cases_growth_factor, calc_rate(parsed_data[1][i], parsed_data[1][i-1]))
+        cases_growth_factor = np.append(cases_growth_factor, calc_gf(parsed_data[1][i], parsed_data[1][i-1]))
         new_deaths = np.append(new_deaths, parsed_data[2][i] - parsed_data[2][i-1])
-        deaths_growth_factor = np.append(deaths_growth_factor, calc_rate(parsed_data[2][i], parsed_data[2][i-1]))
+        deaths_growth_factor = np.append(deaths_growth_factor, calc_gf(parsed_data[2][i], parsed_data[2][i-1]))
         new_tests = np.append(new_tests, parsed_data[3][i] - parsed_data[3][i-1])
-        tests_growth_factor = np.append(tests_growth_factor, calc_rate(parsed_data[3][i], parsed_data[3][i-1]))
+        tests_growth_factor = np.append(tests_growth_factor, calc_gf(parsed_data[3][i], parsed_data[3][i-1]))
         new_recovered = np.append(new_recovered, parsed_data[4][i] - parsed_data[4][i-1])
-        recovered_growth_factor = np.append(recovered_growth_factor, calc_rate(parsed_data[4][i], parsed_data[4][i-1]))
+        recovered_growth_factor = np.append(recovered_growth_factor, calc_gf(parsed_data[4][i], parsed_data[4][i-1]))
         new_hospitalized = np.append(new_hospitalized, parsed_data[5][i] - parsed_data[5][i-1])
-        hospitalized_growth_factor = np.append(hospitalized_growth_factor, calc_rate(parsed_data[5][i], parsed_data[5][i-1]))
-        mortality_rate = np.append(mortality_rate, calc_mort_rate(parsed_data[2][i], parsed_data[1][i]))
+        hospitalized_growth_factor = np.append(hospitalized_growth_factor, calc_gf(parsed_data[5][i], parsed_data[5][i-1]))
+        mortality_rate = np.append(mortality_rate, calc_rate(parsed_data[2][i], parsed_data[1][i]))
         active_cases = np.append(active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i]))
+        daily_positives = np.append(daily_positives, calc_rate(parsed_data[1][i] - parsed_data[1][i-1], parsed_data[3][i] - parsed_data[3][i-1]))
         days = np.append(days, i)
     parsed_data.append(days)
     parsed_data.append(new_cases)
@@ -115,56 +118,11 @@ def compute_data(parsed_data):
     parsed_data.append(tests_growth_factor)
     parsed_data.append(mortality_rate)
     parsed_data.append(active_cases)
+    parsed_data.append(daily_positives)
     return parsed_data
 
-def previous_current_days(data, header = False):
-    previous_day = [data[0][len(data[0])-2], data[1][len(data[0])-2], data[2][len(data[0])-2], data[3][len(data[0])-2],
-                    data[4][len(data[0])-2], data[5][len(data[0])-2], data[18][len(data[0])-2]]
-    current_day = [data[0][len(data[0])-1], data[1][len(data[0])-1], data[2][len(data[0])-1], data[3][len(data[0])-1],
-                    data[4][len(data[0])-1], data[5][len(data[0])-1], data[18][len(data[0])-1]]
-    return [previous_day, current_day]
+def diff_days(data):
+    return [data[0][len(data[0])-1], data[7][len(data[0])-1], data[9][len(data[0])-1], data[11][len(data[0])-1],
+            data[13][len(data[0])-1], data[15][len(data[0])-1], data[18][len(data[0])-1]]
 
 
-def diff_data(days):
-    diff_cases = days[1][1] - days[0][1]
-    diff_deaths = days[1][2] - days[0][2]
-    diff_tests = days[1][3] - days[0][3]
-    diff_recovered = days[1][4] - days[0][4]
-    diff_hospitalized = days[1][5] - days[0][5]
-    diff_active = days[1][6] - days[0][6]
-    data_difference = [diff_cases, diff_deaths, diff_tests, diff_recovered, diff_hospitalized, diff_active]
-    return data_difference       
-
-def mortality_rate(days):
-    return float(days[1][2] / days[1][1])
-
-'''
-Structure of parsed_data list after computation
-index   contents
-0	    Dates
-1	    Cases
-2	    Deaths
-3	    Tests
-4       Recovered
-5       Hospitalized
-6   	Days
-7   	New Cases
-8	    % Cases
-9   	New Deaths
-10	    % Deaths
-11      New Recovered
-12      % Recovered
-13      New Hospitalized  
-14      % Hospitalized
-15	    New Tests
-16	    % Tests
-17      Mortality Rate
-18      Active Cases
-'''
-raw_data = parse_file()
-data = compute_data(raw_data)
-days = previous_current_days(data)
-diff = diff_data(days)
-print(diff)
-#mort_rate = mortality_rate(days)
-#print(mort_rate)
