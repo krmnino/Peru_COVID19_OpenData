@@ -30,17 +30,30 @@ index   contents
 16	    % Tests
 17      Mortality Rate
 18      Active Cases
-19      Daily Positives
+19      % Daily Positives
 '''
 raw_data = parse_file()
 data = compute_data(raw_data)
 diff = diff_days(data)
-plot_graph(data[6], data[1], 'r', "Dias", "# de Casos", "Casos de COVID19 en el Peru: cumulativo", "cases.png")
-plot_graph(data[6], data[2], 'k', "Dias", "# de Muertes", "Muertes por COVID19 en el Peru: cumulativo", "deaths.png")
-plot_graph(data[6], data[3], 'b', "Dias", "# de Pruebas", "Pruebas de COVID19 en el Peru: cumulativo", "tests.png")
-plot_graph(data[6], data[4], 'g', "Dias", "# de Recuperados", "Recuperados de COVID19 en el Peru: cumulativo", "recovered.png")
-plot_graph(data[6], data[5], 'y', "Dias", "# de Hospitalizados", "Hospitalizados por COVID19 en el Peru: cumulativo", "hospitalized.png")
 list_to_csv(data)
+
+plot_graph(data[6], data[1], 'r', "Dias", "# de Casos", "Casos de COVID19 en el Peru: cumulativo", "cases.png")
+plot_graph(data[6][-30:], data[8][-30:], 'r', "Dias", "Casos: Porcentaje de Crecimiento",
+            "% de Crecimiento de Casos de COVID19 en el Peru: ultimos 30 dias", "gf_cases.png")
+plot_graph(data[6][-30:], data[18][-30:], 'r', "Dias", "Casos Activos",
+            "Casos Activos de COVID19 en el Peru: ultimos 30 dias", "active_cases.png")
+
+plot_graph(data[6], data[2], 'k', "Dias", "# de Muertes", "Muertes por COVID19 en el Peru: cumulativo", "deaths.png")
+plot_graph(data[6][-30:], data[10][-30:], 'k', "Dias", "Muertes: Porcentaje de Crecimiento",
+            "% de Crecimiento de Muertes por COVID19 en el Peru: ultimos 30 dias", "gf_deaths.png")
+
+plot_graph(data[6][-30:], data[3][-30:], 'b', "Dias", "# de Pruebas", "Pruebas de COVID19 en el Peru: ultimos 30 dias", "tests.png")
+plot_graph(data[6][-30:], data[19][-30:], 'b', "Dias", "% de Casos Diarios Confirmados * 100",
+            "% Casos Diarios Confirmados de COVID19 en el Peru: ultimos 30 dias", "perc_confirmed_cases.png")
+
+plot_graph(data[6][-30:], data[4][-30:], 'g', "Dias", "# de Recuperados", "Recuperados de COVID19 en el Peru: ultimos 30 dias", "recovered.png")
+
+plot_graph(data[6][-30:], data[5][-30:], 'y', "Dias", "# de Hospitalizados", "Hospitalizados por COVID19 en el Peru: ultimos 30 dias", "hospitalized.png")
 
 
 
