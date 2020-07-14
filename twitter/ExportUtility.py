@@ -8,7 +8,7 @@ def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date):
     plt.ticklabel_format(style='plain')
     plt.plot(x, y, 'ko', x, y, color)
     plt.title(chart_title, fontdict={'fontsize' : 25})
-    plt.suptitle(date + ' | Elaborado por Kurt Manrique-Nino(@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)')
+    plt.suptitle(date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)')
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.grid()

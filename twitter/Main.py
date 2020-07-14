@@ -55,7 +55,7 @@ plot_graph(data[6][-30:], data[19][-30:], 'r', "Dias", "Nuevos Casos Activos",
 
 plot_graph(data[6], data[2], 'k', "Dias", "# de Muertes", "Muertes por COVID19 en el Peru: cumulativo", "deaths.png", data[0][len(data[0])-1])
 plot_graph(data[6][-30:], data[10][-30:], 'k', "Dias", "Muertes: Tasa de Crecimiento",
-            "%Tasa de Crecimiento de Muertes por COVID19 en el Peru: ultimos 30 dias", "gf_deaths.png", data[0][len(data[0])-1])
+            "Tasa de Crecimiento de Muertes por COVID19 en el Peru: ultimos 30 dias", "gf_deaths.png", data[0][len(data[0])-1])
 plot_graph(data[6][-30:], data[17][-30:], 'k', "Dias", "Tasa de Mortalidad",
             "Tasa de Mortalidad por COVID19 en el Peru: ultimos 30 dias", "mortality_rate.png", data[0][len(data[0])-1])
 
