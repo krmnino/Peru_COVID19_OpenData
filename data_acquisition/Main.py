@@ -7,6 +7,9 @@ from ParseData import compute_data
 from ParseData import diff_prev_day
 from ParseData import diff_curr_day
 from ParseData import update_file
+from ParseData import get_raw_image_path
+from ParseData import crop_image
+from ParseData import read_image
 from ExportUtility import plot_graph
 from ExportUtility import plot_triple_graph
 from ExportUtility import list_to_csv
@@ -18,9 +21,8 @@ from ExportUtility import export_tweets_to_file
 from TwitterUtility import load_auth
 from TwitterUtility import fetch_images
 from TwitterUtility import sleep_until
-from ParseData import get_raw_image_path
-from ParseData import crop_image
-from ParseData import read_image
+from TwitterUtility import send_tweet
+
 
 start_quarantine = datetime.datetime(2020, 3, 15)
 
@@ -102,11 +104,11 @@ def run(loop=True):
                 plot_graph(data[6][-30:], data[19][-30:], 'r', "Dias", "Nuevos Casos Activos",
                     "Nuevos Casos Activos de COVID19 en el Peru (ultimos 30 dias)", "new_active_cases.png", data[0][len(data[0])-1], x_min=data[6][-30])
                 
-                plot_graph(data[6], data[2], 'k', "Dias", "# de Muertes", "Muertes por COVID19 en el Peru (cumulativo)",
+                plot_graph(data[6], data[2], 'k', "Dias", "# de Fallecidos", "Fallecidos por COVID19 en el Peru (cumulativo)",
                     "deaths.png", data[0][len(data[0])-1], x_min=0, y_min=0)
                 
-                plot_graph(data[6][-30:], data[10][-30:], 'k', "Dias", "Muertes: Tasa de Crecimiento (* 100% - 100%)",
-                    "Tasa de Crecimiento: Muertes por COVID19 en el Peru (ultimos 30 dias)", "gf_deaths.png", data[0][len(data[0])-1], x_min=data[6][-30])
+                plot_graph(data[6][-30:], data[10][-30:], 'k', "Dias", "Fallecidos: Tasa de Crecimiento (* 100% - 100%)",
+                    "Tasa de Crecimiento: Fallecidos por COVID19 en el Peru (ultimos 30 dias)", "gf_deaths.png", data[0][len(data[0])-1], x_min=data[6][-30])
                 
                 plot_graph(data[6][-30:], data[17][-30:], 'k', "Dias", "Tasa de Mortalidad (* 100%)",
                     "Tasa de Mortalidad por COVID19 en el Peru (ultimos 30 dias)", "mortality_rate.png", data[0][len(data[0])-1], x_min=data[6][-30])
@@ -124,13 +126,17 @@ def run(loop=True):
                 plot_graph(data[6][-30:], data[5][-30:], 'y', "Dias", "# de Hospitalizados", "Hospitalizados por COVID19 en el Peru (ultimos 30 dias)",
                     "hospitalized.png", data[0][len(data[0])-1], x_min=data[6][-30])
                 tweets = []
-                tweets.append(tweet_highlights(prev_day, curr_day, data))  #attach conf_act_rec__cumulative.png, gf_cases.png, conf_act_rec__days.png, new_active_cases.png
-                tweets.append(tweet_deaths(prev_day, curr_day, data)) #attach deaths.png, gf_deaths.png, mortality_rate.png
-                tweets.append(tweet_tests_hosp_rec(prev_day, curr_day, data)) #attach tests.png perc_daily_positive_tests.png recovered.png hospitalized.png
-                tweets.append(tweet_repo(tweet_info[1]))
+                images = [['conf_act_rec_cumulative.png', 'gf_cases.png', 'conf_act_rec_days.png', 'new_active_cases.png'],
+                        ['deaths.png', 'gf_deaths.png', 'mortality_rate.png'],
+                        ['tests.png', 'perc_daily_positive_tests.png', 'gf_recovered.png', 'hospitalized.png']]
+                tweets.append(tweet_highlights(prev_day, curr_day, data)) 
+                tweets.append(tweet_deaths(prev_day, curr_day, data)) 
+                tweets.append(tweet_tests_hosp_rec(prev_day, curr_day, data))
+                tweets.append(tweet_repo(tweet_info[0]))
                 if(export_tweets_to_file(tweets) == 0):
                     print('Tweets contents successfully exported in tweets.dat')
-
+                send_tweet(auth_data, tweets, tweet_info[1], images)
+                    
                 if(loop == False):
                     break
 
