@@ -77,7 +77,7 @@ def tweet_highlights(prev_diff, curr_diff, data):
     else:
         out += u'\U0001F7E2' + ' Muertes: ' + str(int(data[2][len(data[2])-1])) + ' (+' + str(int(curr_diff[2])) + ')\n'
 
-    if(data[18][len(data[18])-2] <= data[18][len(data[18])-1]):
+    if(prev_diff[7] <= curr_diff[7]):
         out += u'\U0001F534' + ' Casos Activos: ' + str(int(curr_diff[6])) + ' (+' + str(int(curr_diff[7])) + ')' + '\n'
     else:
         out += u'\U0001F7E2' + ' Casos Activos: ' + str(int(curr_diff[6])) + ' (' + str(int(curr_diff[7])) + ')' + '\n'
@@ -168,9 +168,9 @@ def tweet_tests_hosp_rec(prev_diff, curr_diff, data):
         out += u'\U0001F7E2' + ' Hospital.: ' + str(int(data[5][len(data[5])-1])) + ' (' + str(int(curr_diff[4])) + ')\n'
     
     if(data[14][len(data[14])-2] <= data[14][len(data[14])-1]):
-        out += u'\U0001F7E2' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] + '%\n'
+        out += u'\U0001F534' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] + '%\n'
     else:
-        out += u'\U0001F534' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] +'%\n'
+        out += u'\U0001F7E2' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] +'%\n'
     return out
 
 def tweet_repo(date):
