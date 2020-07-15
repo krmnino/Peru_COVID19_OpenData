@@ -1,6 +1,8 @@
 import os
 import datetime
 import numpy as np
+from datetime import date
+
 
 #Do not print in scientific notiation
 np.set_printoptions(suppress=True)
@@ -147,3 +149,16 @@ def diff_prev_day(data):
 def diff_curr_day(data):
     return [data[0][len(data[0])-1], data[7][len(data[0])-1], data[9][len(data[0])-1], data[11][len(data[0])-1], data[13][len(data[0])-1],
             data[15][len(data[0])-1], data[18][len(data[0])-1], data[19][len(data[0])-1], data[20][len(data[0])-1], data[17][len(data[0])-1]]
+
+def update_file(date, cases, deaths, tests, recovered, hospitalized):
+    try:
+        open('../PER_data.csv', 'a')
+    except:
+        print('Could not access', '../PER_data.csv')
+        return False
+    else:
+        with open('../PER_data.csv', 'a') as file:
+            new_data = date + ',' + cases + ',' + deaths + ',' + tests + ',' + recovered + ',' + hospitalized + '\n'
+            file.writelines(new_data)
+        file.close()
+        return True

@@ -37,14 +37,17 @@ def fetch_images(auth_data):
     path = str(pathlib.Path().absolute()) + '/raw_images'
     tweets = api.user_timeline(screen_name='Minsa_Peru', count=20, include_rts=False, include_replies=False, tweet_mode='extended')
     image_urls = []
+    tweet_date = ''
     for tweet in tweets:
         if('media' in tweet.entities and 'Sala situacional' in tweet.full_text):
+            tweet_date = tweet.created_at.strftime("%Y-%m-%d")
             for media in tweet.extended_entities['media']:
                 image_urls.append(media['media_url'])
     if(len(image_urls) == 0):
         return 1
     for media_file in image_urls:
         wget.download(media_file, path)
+        return tweet_date
 
 def get_raw_image_path():
     for file in os.listdir('raw_images'):

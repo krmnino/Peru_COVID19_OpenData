@@ -1,5 +1,11 @@
 import datetime
+import os
 
+from ParseData import parse_file
+from ParseData import compute_data
+from ParseData import diff_prev_day
+from ParseData import diff_curr_day
+from ParseData import update_file
 from ExportUtility import plot_graph
 from ExportUtility import list_to_csv
 from ExportUtility import tweet_highlights
@@ -7,10 +13,11 @@ from ExportUtility import tweet_cases
 from ExportUtility import tweet_deaths
 from ExportUtility import tweet_tests_hosp_rec
 from ExportUtility import export_tweets
-from ParseData import parse_file
-from ParseData import compute_data
-from ParseData import diff_prev_day
-from ParseData import diff_curr_day
+from TweetAcquisitionUtility import load_auth
+from TweetAcquisitionUtility import fetch_images
+from TweetAcquisitionUtility import get_raw_image_path
+from TweetAcquisitionUtility import crop_image
+from TweetAcquisitionUtility import read_image
 
 start_quarantine = datetime.datetime(2020, 3, 15)
 
@@ -38,6 +45,7 @@ index   contents
 18      Active Cases
 19      New Active Cases
 20      % Daily Positives
+'''
 '''
 raw_data = parse_file()
 data = compute_data(raw_data)
@@ -75,3 +83,34 @@ tweets.append(tweet_deaths(prev_day, curr_day, data)) #attach deaths.png, gf_dea
 tweets.append(tweet_tests_hosp_rec(prev_day, curr_day, data)) #attach tests.png perc_daily_positive_tests.png recovered.png hospitalized.png
 
 export_tweets(tweets)
+'''
+
+while(True):
+    auth_data = load_auth()
+    if(auth_data == 1):
+        break
+    tweet_date = fetch_images(auth_data)
+    if(tweet_date == 1):
+        break
+    raw_image_path = get_raw_image_path()
+
+    if(raw_image_path != 1):
+        crop_image(raw_image_path, 'raw_images/cases.jpg', (120, 360, 404, 440), grescale=True, contrast=2.0)
+        crop_image(raw_image_path, 'raw_images/deaths.jpg', (175, 800, 470, 920), grescale=True, contrast=2.0)
+        crop_image(raw_image_path, 'raw_images/tests.jpg', (650, 310, 970, 430), grescale=True, invert=True, contrast=3.5)
+        crop_image(raw_image_path, 'raw_images/recovered.jpg', (180, 700, 480, 820), grescale=True, invert=True, contrast=4.0)
+        crop_image(raw_image_path, 'raw_images/hospitalized.jpg', (690, 710, 955, 830), grescale=True, invert=True, contrast=2.5)
+
+        cases = ''.join(c for c in read_image('raw_images/cases.jpg') if c.isdigit())
+        deaths = ''.join(c for c in read_image('raw_images/deaths.jpg') if c.isdigit())
+        tests = ''.join(c for c in read_image('raw_images/tests.jpg') if c.isdigit())
+        recovered = ''.join(c for c in read_image('raw_images/recovered.jpg') if c.isdigit())
+        hospitalized = ''.join(c for c in read_image('raw_images/hospitalized.jpg') if c.isdigit())
+
+        os.remove(raw_image_path)
+        if(update_file(tweet_date, cases, deaths, tests, recovered, hospitalized)):
+            print(tweet_date + 'Data saved successfully')
+    break
+
+
+    

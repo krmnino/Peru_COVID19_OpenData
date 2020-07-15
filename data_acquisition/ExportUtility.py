@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import warnings
-from datetime import date
 
 def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date):
     warnings.filterwarnings('ignore')
@@ -14,7 +13,6 @@ def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date):
     plt.grid()
     plt.savefig('../graphs/' + file_name)
     print('Graph generated in graphs/' + file_name)
-
 
 def list_to_csv(parsed_data):
     try:
@@ -157,3 +155,4 @@ def export_tweets(tweet_contents):
         for tweet in tweet_contents:
             file.write(tweet + '===\n')
     file.close
+
