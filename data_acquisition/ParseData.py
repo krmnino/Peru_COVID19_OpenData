@@ -2,6 +2,10 @@ import os
 import datetime
 import numpy as np
 from datetime import date
+from PIL import Image
+from PIL import ImageOps 
+from PIL import ImageEnhance
+import pytesseract
 
 
 #Do not print in scientific notiation
@@ -162,3 +166,26 @@ def update_file(date, cases, deaths, tests, recovered, hospitalized):
             file.writelines(new_data)
         file.close()
         return True
+
+def get_raw_image_path():
+    for file in os.listdir('raw_images'):
+        filename = os.fsdecode(file)
+        return 'raw_images/' + filename
+
+def crop_image(input_path, output_path, limits, invert=False, grescale=False, contrast=0.0):
+    image = Image.open(input_path)
+    #left, up, right, down
+    image = image.crop((limits[0], limits[1], limits[2], limits[3])) 
+    if(invert):
+        image = ImageOps.invert(image)
+    if(grescale):
+        image = ImageOps.grayscale(image)
+    if(contrast != 0.0):
+        enhancer = ImageEnhance.Contrast(image)
+        image = enhancer.enhance(contrast)
+    image.save(output_path)
+    
+def read_image(path):
+    img_2_txt = str(pytesseract.image_to_string(Image.open(path)))
+    os.remove(path)
+    return img_2_txt

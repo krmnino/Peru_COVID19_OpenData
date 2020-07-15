@@ -15,12 +15,12 @@ from ExportUtility import tweet_deaths
 from ExportUtility import tweet_tests_hosp_rec
 from ExportUtility import tweet_repo
 from ExportUtility import export_tweets_to_file
-from TweetAcquisitionUtility import load_auth
-from TweetAcquisitionUtility import fetch_images
-from TweetAcquisitionUtility import get_raw_image_path
-from TweetAcquisitionUtility import crop_image
-from TweetAcquisitionUtility import read_image
-from TweetAcquisitionUtility import sleep_until
+from TwitterUtility import load_auth
+from TwitterUtility import fetch_images
+from TwitterUtility import sleep_until
+from ParseData import get_raw_image_path
+from ParseData import crop_image
+from ParseData import read_image
 
 start_quarantine = datetime.datetime(2020, 3, 15)
 
@@ -128,7 +128,8 @@ def run(loop=True):
                 tweets.append(tweet_deaths(prev_day, curr_day, data)) #attach deaths.png, gf_deaths.png, mortality_rate.png
                 tweets.append(tweet_tests_hosp_rec(prev_day, curr_day, data)) #attach tests.png perc_daily_positive_tests.png recovered.png hospitalized.png
                 tweets.append(tweet_repo(tweet_info[1]))
-                export_tweets_to_file(tweets)
+                if(export_tweets_to_file(tweets) == 0):
+                    print('Tweets contents successfully exported in tweets.dat')
 
                 if(loop == False):
                     break
