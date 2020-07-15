@@ -174,15 +174,23 @@ def tweet_tests_hosp_rec(prev_diff, curr_diff, data):
     return out
 
 def tweet_repo(date):
-    out = 'Repositorio de datos sobre el #COVID19 en #Peru actualizado al dia de hoy (' + date + ')\n'
+    out = 'Repositorio de datos sobre el #COVID19 en #Peru actualizado al dia ' + date + '\n'
+    out += 'Sugerencias son bienvenidas!\n'
     out += u'\U0001F4C8' + ' Disponible en formato CSV (Proximamente JSON)\n'
     out += u'\U0001F30E' + ' WEB https://krmnino.github.io/Peru_COVID19_Stats/\n'
     out += u'\U0001F4C1' + ' REPO https://github.com/krmnino/Peru_COVID19_Stats\n'
     return out
 
 def export_tweets_to_file(tweet_contents):
+    try:
+        file = open('tweets.dat', 'w')
+        file.close()
+    except:
+        print('Could not reach tweets.dat')
+        return 1
     with open('tweets.dat', 'w') as file:
         for tweet in tweet_contents:
             file.write(tweet + '===\n')
     file.close
+    return 0
 
