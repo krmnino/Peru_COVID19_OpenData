@@ -8,12 +8,13 @@ from ParseData import diff_prev_day
 from ParseData import diff_curr_day
 from ParseData import update_file
 from ExportUtility import plot_graph
+from ExportUtility import plot_triple_graph
 from ExportUtility import list_to_csv
 from ExportUtility import tweet_highlights
 from ExportUtility import tweet_deaths
 from ExportUtility import tweet_tests_hosp_rec
 from ExportUtility import tweet_repo
-from ExportUtility import export_tweets
+from ExportUtility import export_tweets_to_file
 from TweetAcquisitionUtility import load_auth
 from TweetAcquisitionUtility import fetch_images
 from TweetAcquisitionUtility import get_raw_image_path
@@ -53,12 +54,18 @@ def run(loop=True):
     while(True):
         auth_data = load_auth()
         if(auth_data == 1):
+            print('Could not load authenticator file. Waiting 60 seconds...')
+            time.sleep(60)
+            continue
+        tweet_info = fetch_images(auth_data) #index 0 = date, index 1 = url
+        if(tweet_info == 1 and loop == False):
+            print('Not matching image found. Exiting...')
             break
-        tweet_date = fetch_images(auth_data)
-        if(tweet_date == 1):
-            break
+        if(tweet_info == 1 and loop == True):
+            print('Not matching image found. Waiting 60 seconds...')
+            time.sleep(60)
+            continue
         raw_image_path = get_raw_image_path()
-
         if(raw_image_path != 1):
             crop_image(raw_image_path, 'raw_images/cases.jpg', (120, 360, 404, 440), grescale=True, contrast=2.0)
             crop_image(raw_image_path, 'raw_images/deaths.jpg', (175, 800, 470, 920), grescale=True, contrast=2.0)
@@ -73,50 +80,70 @@ def run(loop=True):
             hospitalized = ''.join(c for c in read_image('raw_images/hospitalized.jpg') if c.isdigit())
 
             os.remove(raw_image_path)
-            if(update_file(tweet_date, cases, deaths, tests, recovered, hospitalized)):
-                print(tweet_date + ': CSV updated successfully')
+            if(update_file(tweet_info[0], cases, deaths, tests, recovered, hospitalized)):
+                print(tweet_info[0] + ': CSV updated successfully')
                 raw_data = parse_file()
                 data = compute_data(raw_data)
                 prev_day = diff_prev_day(data)
                 curr_day = diff_curr_day(data)
                 list_to_csv(data)
-                plot_graph(data[6], data[1], 'r', "Dias", "# de Casos",
-                    "Casos de COVID19 en el Peru: cumulativo", "cases.png", data[0][len(data[0])-1])
-                plot_graph(data[6][-30:], data[8][-30:], 'r', "Dias", "Casos: Tasa de Crecimiento",
-                    "Tasa de Crecimiento de Casos de COVID19 en el Peru: ultimos 30 dias", "gf_cases.png", data[0][len(data[0])-1])
-                plot_graph(data[6][-30:], data[19][-30:], 'r', "Dias", "Casos Activos",
-                    "Casos Activos de COVID19 en el Peru: ultimos 30 dias", "active_cases.png", data[0][len(data[0])-1])
+                
+                plot_triple_graph(data[6], data[1], data[18], data[4], 'r', 'b', 'g', "Dias", "# de Casos Confirmados",
+                    "# de Casos Activos", "# de Recuperados", "Casos Confirmados, Activos y Recuperados de COVID19 en el Peru (cumulativo)",
+                    "conf_act_rec_cumulative.png", data[0][len(data[0])-1], x_min=0, y_min=0)
+                
+                plot_graph(data[6][-30:], data[8][-30:], 'r', "Dias", "Casos: Tasa de Crecimiento (* 100% - 100%)",
+                    "Tasa de Crecimiento: Casos de COVID19 en el Peru (ultimos 30 dias)", "gf_cases.png", data[0][len(data[0])-1], x_min=data[6][-30])
+                
+                plot_triple_graph(data[6][-30:], data[1][-30:], data[18][-30:], data[4][-30:], 'r', 'b', 'g', "Dias",
+                    "# de Casos Confirmados", "# de Casos Activos", "# de Recuperados", "Casos Confirmados, Activos y Recuperados de COVID19 en el Peru (ultimos 30 dias)",
+                    "conf_act_rec_days.png", data[0][len(data[0])-1], x_min=data[6][-30])
+                
                 plot_graph(data[6][-30:], data[19][-30:], 'r', "Dias", "Nuevos Casos Activos",
-                    "Nuevos Casos Activos de COVID19 en el Peru: ultimos 30 dias", "new_active_cases.png", data[0][len(data[0])-1])
-                plot_graph(data[6], data[2], 'k', "Dias", "# de Muertes",
-                    "Muertes por COVID19 en el Peru: cumulativo", "deaths.png", data[0][len(data[0])-1])
-                plot_graph(data[6][-30:], data[10][-30:], 'k', "Dias", "Muertes: Tasa de Crecimiento",
-                    "Tasa de Crecimiento de Muertes por COVID19 en el Peru: ultimos 30 dias", "gf_deaths.png", data[0][len(data[0])-1])
-                plot_graph(data[6][-30:], data[17][-30:], 'k', "Dias", "Tasa de Mortalidad",
-                    "Tasa de Mortalidad por COVID19 en el Peru: ultimos 30 dias", "mortality_rate.png", data[0][len(data[0])-1])
-                plot_graph(data[6][-30:], data[3][-30:], 'b', "Dias", "# de Pruebas",
-                    "Pruebas de COVID19 en el Peru: ultimos 30 dias", "tests.png", data[0][len(data[0])-1])
-                plot_graph(data[6][-30:], data[20][-30:], 'b', "Dias", "% de Pruebas Positivas Diarias * 100",
-                            "% de Pruebas Positivas Diarias de COVID19 en el Peru: ultimos 30 dias", "perc_daily_positive_tests.png", data[0][len(data[0])-1])
-                plot_graph(data[6][-30:], data[4][-30:], 'g', "Dias", "# de Recuperados",
-                    "Recuperados de COVID19 en el Peru: ultimos 30 dias", "recovered.png", data[0][len(data[0])-1])
-                plot_graph(data[6][-30:], data[5][-30:], 'y', "Dias", "# de Hospitalizados",
-                    "Hospitalizados por COVID19 en el Peru: ultimos 30 dias", "hospitalized.png", data[0][len(data[0])-1])
+                    "Nuevos Casos Activos de COVID19 en el Peru (ultimos 30 dias)", "new_active_cases.png", data[0][len(data[0])-1], x_min=data[6][-30])
+                
+                plot_graph(data[6], data[2], 'k', "Dias", "# de Muertes", "Muertes por COVID19 en el Peru (cumulativo)",
+                    "deaths.png", data[0][len(data[0])-1], x_min=0, y_min=0)
+                
+                plot_graph(data[6][-30:], data[10][-30:], 'k', "Dias", "Muertes: Tasa de Crecimiento (* 100% - 100%)",
+                    "Tasa de Crecimiento: Muertes por COVID19 en el Peru (ultimos 30 dias)", "gf_deaths.png", data[0][len(data[0])-1], x_min=data[6][-30])
+                
+                plot_graph(data[6][-30:], data[17][-30:], 'k', "Dias", "Tasa de Mortalidad (* 100%)",
+                    "Tasa de Mortalidad por COVID19 en el Peru (ultimos 30 dias)", "mortality_rate.png", data[0][len(data[0])-1], x_min=data[6][-30])
+                
+                plot_graph(data[6], data[3], 'b', "Dias", "# de Pruebas", "Pruebas de COVID19 en el Peru (cumulativo)",
+                    "tests.png", data[0][len(data[0])-1], x_min=0, y_min=0)
+                
+                plot_graph(data[6][-30:], data[20][-30:], 'b', "Dias", "% de Pruebas Positivas Diarias (* 100%)",
+                    "% de Pruebas Positivas Diarias de COVID19 en el Peru (ultimos 30 dias)", "perc_daily_positive_tests.png",
+                    data[0][len(data[0])-1], x_min=data[6][-30], y_min=0, y_max=1)
+                
+                plot_graph(data[6][-30:], data[12][-30:], 'g', "Dias", "Recuperados : Tasa de Crecimiento (* 100% - 100%)",
+                    "Tasa de Crecimiento: Recuperados de COVID19 en el Peru (ultimos 30 dias)", "gf_recovered.png", data[0][len(data[0])-1], x_min=data[6][-30])
+                
+                plot_graph(data[6][-30:], data[5][-30:], 'y', "Dias", "# de Hospitalizados", "Hospitalizados por COVID19 en el Peru (ultimos 30 dias)",
+                    "hospitalized.png", data[0][len(data[0])-1], x_min=data[6][-30])
                 tweets = []
-                tweets.append(tweet_highlights(prev_day, curr_day, data))  #attach cases.png, gf_cases.png, active_cases.png, new_active_cases.png
+                tweets.append(tweet_highlights(prev_day, curr_day, data))  #attach conf_act_rec__cumulative.png, gf_cases.png, conf_act_rec__days.png, new_active_cases.png
                 tweets.append(tweet_deaths(prev_day, curr_day, data)) #attach deaths.png, gf_deaths.png, mortality_rate.png
                 tweets.append(tweet_tests_hosp_rec(prev_day, curr_day, data)) #attach tests.png perc_daily_positive_tests.png recovered.png hospitalized.png
-                tweets.append(tweet_repo(tweet_date))
-                export_tweets(tweets)
+                tweets.append(tweet_repo(tweet_info[1]))
+                export_tweets_to_file(tweets)
 
                 if(loop == False):
                     break
 
-                delta_time = sleep_until(tweet_date)
+                delta_time = sleep_until(tweet_info[0])
                 print('Program will resume in ' + str(delta_time) + '(' + str(delta_time.seconds) + ' seconds)')
                 time.sleep(delta_time.seconds)
             else:
+                print('Could not update CSV file. Waiting 60 seconds...')
                 time.sleep(60)
+                continue
+        else:
+            print('Could not find fetched image from Twitter. Waiting 60 seconds...')
+            time.sleep(60)
+
 
 #####################################################################################################################
 

@@ -21,7 +21,6 @@ def load_auth():
     try:
         open('auth.dat', 'r')
     except:
-        print('Could not load authenticator file.')
         return 1
     else:
         with open('auth.dat', 'r') as file:
@@ -35,9 +34,10 @@ def fetch_images(auth_data):
     auth.set_access_token(auth_data[2], auth_data[3])
     api = tweepy.API(auth)
     path = str(pathlib.Path().absolute()) + '/raw_images'
-    tweets = api.user_timeline(screen_name='Minsa_Peru', count=20, include_rts=False, include_replies=False, tweet_mode='extended')
+    tweets = api.user_timeline(screen_name='Minsa_Peru', count=40, include_rts=False, include_replies=False, tweet_mode='extended')
     image_urls = []
     tweet_date = ''
+    tweet_url = ''
     for tweet in tweets:
         if('media' in tweet.entities and 'Sala situacional' in tweet.full_text):
             tweet_date = tweet.created_at.strftime("%Y-%m-%d")
@@ -48,7 +48,7 @@ def fetch_images(auth_data):
     for media_file in image_urls:
         wget.download(media_file, path)
         print()
-        return tweet_date
+        return (tweet_date, tweet_url)
 
 def get_raw_image_path():
     for file in os.listdir('raw_images'):

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import warnings
 
-def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date):
+def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, x_min=-1, y_min=-1, y_max=-1):
     warnings.filterwarnings('ignore')
     plt.figure(figsize=(14,10))
     plt.ticklabel_format(style='plain')
@@ -10,6 +10,37 @@ def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date):
     plt.suptitle(date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)')
     plt.xlabel(x_label)
     plt.ylabel(y_label)
+    if(x_min != -1):
+        plt.xlim(left=x_min)
+    if(y_min != -1):
+        plt.ylim(bottom=y_min)
+    if(y_max != -1):
+        plt.ylim(top=y_max)
+    plt.grid()
+    plt.savefig('../graphs/' + file_name)
+    print('Graph generated in graphs/' + file_name)
+
+def plot_triple_graph(x, y1, y2, y3, color1, color2, color3, x_label, y_label1, y_label2, y_label3, chart_title, file_name, date, x_min=-1, y_min=-1, y_max=-1):
+    warnings.filterwarnings('ignore')
+    plt.figure(figsize=(14,10))
+    plt.ticklabel_format(style='plain')
+    plt.plot(x, y1, 'ko')
+    plt.plot(x, y1, color1, label=y_label1)
+    plt.plot(x, y2, 'ko')
+    plt.plot(x, y2, color2, label=y_label2)
+    plt.plot(x, y3, 'ko')
+    plt.plot(x, y3, color3, label=y_label3)
+    plt.title(chart_title, fontdict={'fontsize' : 20})
+    plt.suptitle(date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)')
+    plt.legend(loc="upper left")
+    plt.xlabel(x_label)
+    plt.ylabel(y_label1 + ', ' + y_label2 + ', ' + y_label3)
+    if(x_min != -1):
+        plt.xlim(left=x_min)
+    if(y_min != -1):
+        plt.ylim(bottom=y_min)
+    if(y_max != -1):
+        plt.ylim(top=y_max)
     plt.grid()
     plt.savefig('../graphs/' + file_name)
     print('Graph generated in graphs/' + file_name)
@@ -70,8 +101,6 @@ def tweet_highlights(prev_diff, curr_diff, data):
         out += u'\U0001F534' + ' Tasa Mortalidad: ' + str((curr_diff[9]) * 100)[:5] + '%\n'
     else:
         out += u'\U0001F7E2' + ' Tasa Mortalidad: ' + str((curr_diff[9]) * 100)[:5] + '%\n'
-    print(out)
-    print(len(out))
     return out
     
 def tweet_cases(prev_diff, curr_diff, data):
@@ -90,8 +119,6 @@ def tweet_cases(prev_diff, curr_diff, data):
         out += u'\U0001F534' + ' Casos Activos: ' + str(int(curr_diff[6])) + ' (+' + str(int(curr_diff[7])) + ')' + '\n'
     else:
         out += u'\U0001F7E2' + ' Casos Activos: ' + str(int(curr_diff[6])) + ' (' + str(int(curr_diff[7])) + ')' + '\n'
-    print(out)
-    print(len(out))
     return out
 
 
@@ -111,8 +138,6 @@ def tweet_deaths(prev_diff, curr_diff, data):
         out += u'\U0001F534' + ' % Tasa Mortalidad: ' + str((curr_diff[9]) * 100)[:5] + '%\n'
     else:
         out += u'\U0001F7E2' + ' % Tasa Mortalidad: ' + str((curr_diff[9]) * 100)[:5] + '%\n'
-    print(out)
-    print(len(out))
     return out
 
 def tweet_tests_hosp_rec(prev_diff, curr_diff, data):
@@ -146,8 +171,6 @@ def tweet_tests_hosp_rec(prev_diff, curr_diff, data):
         out += u'\U0001F7E2' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] + '%\n'
     else:
         out += u'\U0001F534' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] +'%\n'
-    print(out)
-    print(len(out))
     return out
 
 def tweet_repo(date):
@@ -155,11 +178,9 @@ def tweet_repo(date):
     out += u'\U0001F4C8' + ' Disponible en formato CSV (Proximamente JSON)\n'
     out += u'\U0001F30E' + ' WEB https://krmnino.github.io/Peru_COVID19_Stats/\n'
     out += u'\U0001F4C1' + ' REPO https://github.com/krmnino/Peru_COVID19_Stats\n'
-    print(out)
-    print(len(out))
     return out
 
-def export_tweets(tweet_contents):
+def export_tweets_to_file(tweet_contents):
     with open('tweets.dat', 'w') as file:
         for tweet in tweet_contents:
             file.write(tweet + '===\n')
