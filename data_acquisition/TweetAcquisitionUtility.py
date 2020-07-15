@@ -47,6 +47,7 @@ def fetch_images(auth_data):
         return 1
     for media_file in image_urls:
         wget.download(media_file, path)
+        print()
         return tweet_date
 
 def get_raw_image_path():
@@ -72,6 +73,11 @@ def read_image(path):
     os.remove(path)
     return img_2_txt
 
-def sleep_until():
-    return 1
+def sleep_until(tweet_date):
+    tomorrow = datetime.datetime.strptime(tweet_date, '%Y-%m-%d') + datetime.timedelta(days=1)
+    tomorrow_str = tomorrow.strftime('%Y-%m-%d') + ' 15:00:00'
+    delta_time = datetime.datetime.strptime(tomorrow_str, '%Y-%m-%d %H:%M:%S') - datetime.datetime.now()
+    return delta_time
+
+
 

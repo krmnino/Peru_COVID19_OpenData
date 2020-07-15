@@ -46,7 +46,7 @@ def tweet_highlights(prev_diff, curr_diff, data):
     else:
         out += u'\U0001F7E2' + ' Muertes: ' + str(int(data[2][len(data[2])-1])) + ' (+' + str(int(curr_diff[2])) + ')\n'
 
-    if(prev_diff[7] <= curr_diff[7]):
+    if(data[18][len(data[18])-2] <= data[18][len(data[18])-1]):
         out += u'\U0001F534' + ' Casos Activos: ' + str(int(curr_diff[6])) + ' (+' + str(int(curr_diff[7])) + ')' + '\n'
     else:
         out += u'\U0001F7E2' + ' Casos Activos: ' + str(int(curr_diff[6])) + ' (' + str(int(curr_diff[7])) + ')' + '\n'
@@ -56,17 +56,17 @@ def tweet_highlights(prev_diff, curr_diff, data):
     else:
         out += u'\U0001F534' + ' Recuperados: ' + str(int(data[4][len(data[4])-1])) + ' (+' + str(int(curr_diff[3])) + ')\n'
 
-    if(prev_diff[4] <= curr_diff[4]):
+    if(data[5][len(data[5])-2] <= data[5][len(data[5])-1]):
         out += u'\U0001F534' + ' Hospital.: ' + str(int(data[5][len(data[5])-1])) + ' (+' + str(int(curr_diff[4])) + ')\n'
     else:
         out += u'\U0001F7E2' + ' Hospital.: ' + str(int(data[5][len(data[5])-1])) + ' (' + str(int(curr_diff[4])) + ')\n'
 
-    if(prev_diff[8] <= curr_diff[8]):
+    if(data[20][len(data[20])-2] <= data[20][len(data[20])-1]):
         out += u'\U0001F534' + ' % Pruebas Positivas: ' + str((curr_diff[8]) * 100)[:5] + '%\n'
     else:
         out += u'\U0001F7E2' + ' % Pruebas Positivas: ' + str((curr_diff[8]) * 100)[:5] + '%\n'
 
-    if(prev_diff[8] <= curr_diff[9]):
+    if(data[17][len(data[17])-2] <= data[17][len(data[17])-1]):
         out += u'\U0001F534' + ' Tasa Mortalidad: ' + str((curr_diff[9]) * 100)[:5] + '%\n'
     else:
         out += u'\U0001F7E2' + ' Tasa Mortalidad: ' + str((curr_diff[9]) * 100)[:5] + '%\n'
@@ -86,7 +86,7 @@ def tweet_cases(prev_diff, curr_diff, data):
     else:
         out += u'\U0001F7E2' + ' Tasa de Crecimiento: ' + str(data[8][len(data[8])-1] * 100 - 100)[:5] +'%\n'
 
-    if(prev_diff[7] <= curr_diff[7]):
+    if(data[18][len(data[18])-2] <= data[18][len(data[18])-1]):
         out += u'\U0001F534' + ' Casos Activos: ' + str(int(curr_diff[6])) + ' (+' + str(int(curr_diff[7])) + ')' + '\n'
     else:
         out += u'\U0001F7E2' + ' Casos Activos: ' + str(int(curr_diff[6])) + ' (' + str(int(curr_diff[7])) + ')' + '\n'
@@ -102,12 +102,12 @@ def tweet_deaths(prev_diff, curr_diff, data):
     else:
         out += u'\U0001F7E2' + ' Muertes: ' + str(int(data[2][len(data[2])-1])) + ' (+' + str(int(curr_diff[2])) + ')\n'
 
-    if(data[8][len(data[8])-2] <= data[8][len(data[8])-1]):
+    if(data[10][len(data[10])-2] <= data[10][len(data[10])-1]):
         out += u'\U0001F534' + ' Tasa de Crecimiento: ' + str(data[10][len(data[10])-1] * 100 - 100)[:5] + '%\n'
     else:
         out += u'\U0001F7E2' + ' Tasa de Crecimiento: ' + str(data[10][len(data[10])-1] * 100 - 100)[:5] +'%\n'
 
-    if(prev_diff[8] <= curr_diff[9]):
+    if(data[17][len(data[17])-2] <= data[17][len(data[17])-1]):
         out += u'\U0001F534' + ' % Tasa Mortalidad: ' + str((curr_diff[9]) * 100)[:5] + '%\n'
     else:
         out += u'\U0001F7E2' + ' % Tasa Mortalidad: ' + str((curr_diff[9]) * 100)[:5] + '%\n'
@@ -123,29 +123,38 @@ def tweet_tests_hosp_rec(prev_diff, curr_diff, data):
         out += u'\U0001F7E2' + ' Tests: ' + str(int(data[3][len(data[2])-1])) + ' (+' + str(int(curr_diff[5])) + ')\n'
 
     if(prev_diff[8] <= curr_diff[8]):
-        out += u'\U0001F534' + ' % Pruebas Positivas: ' + str((curr_diff[8]) * 100)[:5] + '%\n'
+        out += u'\U0001F534' + ' % Pruebas Positivas Hoy: ' + str((curr_diff[8]) * 100)[:5] + '%\n'
     else:
-        out += u'\U0001F7E2' + ' % Pruebas Positivas: ' + str((curr_diff[8]) * 100)[:5] + '%\n'
+        out += u'\U0001F7E2' + ' % Pruebas Positivas Hoy: ' + str((curr_diff[8]) * 100)[:5] + '%\n'
 
     if(prev_diff[3] <= curr_diff[3]):
         out += u'\U0001F7E2' + ' Recuperados: ' + str(int(data[4][len(data[4])-1])) + ' (+' + str(int(curr_diff[3])) + ')\n'
     else:
         out += u'\U0001F534' + ' Recuperados: ' + str(int(data[4][len(data[4])-1])) + ' (+' + str(int(curr_diff[3])) + ')\n'
     
-    if(data[8][len(data[8])-2] <= data[8][len(data[8])-1]):
+    if(data[12][len(data[12])-2] <= data[12][len(data[12])-1]):
         out += u'\U0001F7E2' + ' Tasa de Recup.: ' + str(data[12][len(data[12])-1] * 100 - 100)[:5] + '%\n'
     else:
         out += u'\U0001F534' + ' Tasa de Recup.: ' + str(data[12][len(data[12])-1] * 100 - 100)[:5] +'%\n'
 
-    if(prev_diff[4] <= curr_diff[4]):
+    if(data[5][len(data[5])-2] <= data[5][len(data[5])-1]):
         out += u'\U0001F534' + ' Hospital.: ' + str(int(data[5][len(data[5])-1])) + ' (+' + str(int(curr_diff[4])) + ')\n'
     else:
         out += u'\U0001F7E2' + ' Hospital.: ' + str(int(data[5][len(data[5])-1])) + ' (' + str(int(curr_diff[4])) + ')\n'
     
-    if(data[8][len(data[8])-2] <= data[8][len(data[8])-1]):
+    if(data[14][len(data[14])-2] <= data[14][len(data[14])-1]):
         out += u'\U0001F7E2' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] + '%\n'
     else:
         out += u'\U0001F534' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] +'%\n'
+    print(out)
+    print(len(out))
+    return out
+
+def tweet_repo(date):
+    out = 'Repositorio de datos sobre el #COVID19 en #Peru actualizado al dia de hoy (' + date + ')\n'
+    out += u'\U0001F4C8' + ' Disponible en formato CSV (Proximamente JSON)\n'
+    out += u'\U0001F30E' + ' WEB https://krmnino.github.io/Peru_COVID19_Stats/\n'
+    out += u'\U0001F4C1' + ' REPO https://github.com/krmnino/Peru_COVID19_Stats\n'
     print(out)
     print(len(out))
     return out
