@@ -211,3 +211,4 @@ def export_tweets_to_file(tweet_contents):
 def update_git_repo(date):
 
     os.system('./test.sh "' + date + '"')
+    

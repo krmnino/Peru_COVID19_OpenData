@@ -31,7 +31,7 @@ def fetch_images(auth_data):
     api = tweepy.API(auth)
     path = str(pathlib.Path().absolute())
     path = path[:path.rfind('/')] + '/res/raw_images/'
-    tweets = api.user_timeline(screen_name='Minsa_Peru', count=20, include_rts=False, include_replies=False, tweet_mode='extended')
+    tweets = api.user_timeline(screen_name='Minsa_Peru', count=10, include_rts=False, include_replies=False, tweet_mode='extended')
     image_urls = []
     tweet_date = ''
     tweet_identificator = ''
