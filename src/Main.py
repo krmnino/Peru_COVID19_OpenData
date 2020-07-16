@@ -19,6 +19,7 @@ from ExportUtility import tweet_tests_hosp_rec
 from ExportUtility import tweet_repo
 from ExportUtility import export_tweets_to_file
 from ExportUtility import update_git_repo
+from ExportUtility import generate_JSON_files
 from TwitterUtility import load_auth
 from TwitterUtility import fetch_images
 from TwitterUtility import sleep_until
@@ -85,6 +86,8 @@ def run(loop=True):
             os.remove(raw_image_path)
             if(update_file(tweet_info[0], cases, deaths, tests, recovered, hospitalized)):
                 print(tweet_info[0] + ': CSV updated successfully')
+
+                generate_JSON_files()
 
                 raw_data = parse_file()
                 data = compute_data(raw_data)
