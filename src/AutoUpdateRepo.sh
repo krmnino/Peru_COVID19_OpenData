@@ -1,6 +1,8 @@
 cd ..
 git add PER_data.csv
 git add PER_full_data.csv
+git add PER_data.json
+git add PER_full_data.json
 git commit -m "updated Peru data $1"
 git push
 git add ../res/graphs
