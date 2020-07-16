@@ -29,8 +29,9 @@ def fetch_images(auth_data):
     auth = tweepy.OAuthHandler(auth_data[0], auth_data[1])
     auth.set_access_token(auth_data[2], auth_data[3])
     api = tweepy.API(auth)
-    path = str(pathlib.Path().absolute()) + '/raw_images'
-    tweets = api.user_timeline(screen_name='Minsa_Peru', count=5, include_rts=False, include_replies=False, tweet_mode='extended')
+    path = str(pathlib.Path().absolute())
+    path = path[:path.rfind('/')] + '/res/raw_images/'
+    tweets = api.user_timeline(screen_name='Minsa_Peru', count=20, include_rts=False, include_replies=False, tweet_mode='extended')
     image_urls = []
     tweet_date = ''
     tweet_identificator = ''
@@ -53,7 +54,7 @@ def send_tweet(auth_data, tweet_contents, tweet_identificator, images):
     auth.set_access_token(auth_data[2], auth_data[3])
     api = tweepy.API(auth)
     image_prefix_path = str(pathlib.Path().absolute())
-    image_prefix_path = image_prefix_path[:image_prefix_path.rfind('/')] + '/graphs/'
+    image_prefix_path = image_prefix_path[:image_prefix_path.rfind('/')] + '/res/graphs/'
     for i in range(0, 4):
         if (i != 3):
             media_ids = [api.media_upload(image_prefix_path + j).media_id_string  for j in images[i]]

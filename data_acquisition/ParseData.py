@@ -1,11 +1,12 @@
 import os
 import datetime
 import numpy as np
+import pytesseract
+import pathlib
 from datetime import date
 from PIL import Image
 from PIL import ImageOps 
 from PIL import ImageEnhance
-import pytesseract
 
 
 #Do not print in scientific notiation
@@ -168,9 +169,11 @@ def update_file(date, cases, deaths, tests, recovered, hospitalized):
         return True
 
 def get_raw_image_path():
-    for file in os.listdir('raw_images'):
+    path = str(pathlib.Path().absolute())
+    path = path[:path.rfind('/')] + '/res/raw_images/'
+    for file in os.listdir(path):
         filename = os.fsdecode(file)
-        return 'raw_images/' + filename
+        return path + filename
 
 def crop_image(input_path, output_path, limits, invert=False, grescale=False, contrast=0.0):
     image = Image.open(input_path)

@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import warnings
+import os 
+
 
 def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, x_min=-1, y_min=-1, y_max=-1):
     warnings.filterwarnings('ignore')
@@ -17,8 +19,8 @@ def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, x_mi
     if(y_max != -1):
         plt.ylim(top=y_max)
     plt.grid()
-    plt.savefig('../graphs/' + file_name)
-    print('Graph generated in graphs/' + file_name)
+    plt.savefig('../res/graphs/' + file_name)
+    print('Graph generated in /res/graphs/' + file_name)
 
 def plot_triple_graph(x, y1, y2, y3, color1, color2, color3, x_label, y_label1, y_label2, y_label3, chart_title, file_name, date, x_min=-1, y_min=-1, y_max=-1):
     warnings.filterwarnings('ignore')
@@ -42,8 +44,8 @@ def plot_triple_graph(x, y1, y2, y3, color1, color2, color3, x_label, y_label1, 
     if(y_max != -1):
         plt.ylim(top=y_max)
     plt.grid()
-    plt.savefig('../graphs/' + file_name)
-    print('Graph generated in graphs/' + file_name)
+    plt.savefig('../res/graphs/' + file_name)
+    print('Graph generated in /res/graphs/' + file_name)
 
 def list_to_csv(parsed_data):
     try:
@@ -195,14 +197,17 @@ def tweet_repo(date):
 
 def export_tweets_to_file(tweet_contents):
     try:
-        file = open('tweets.dat', 'w')
+        file = open('../res/tweets.dat', 'w')
         file.close()
     except:
         print('Could not reach tweets.dat')
         return 1
-    with open('tweets.dat', 'w') as file:
+    with open('../res/tweets.dat', 'w') as file:
         for tweet in tweet_contents:
             file.write(tweet + '===\n')
     file.close
     return 0
 
+def update_git_repo(date):
+
+    os.system('./test.sh "' + date + '"')

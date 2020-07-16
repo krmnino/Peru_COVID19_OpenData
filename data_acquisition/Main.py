@@ -18,6 +18,7 @@ from ExportUtility import tweet_deaths
 from ExportUtility import tweet_tests_hosp_rec
 from ExportUtility import tweet_repo
 from ExportUtility import export_tweets_to_file
+from ExportUtility import update_git_repo
 from TwitterUtility import load_auth
 from TwitterUtility import fetch_images
 from TwitterUtility import sleep_until
@@ -69,17 +70,17 @@ def run(loop=True):
             continue
         raw_image_path = get_raw_image_path()
         if(raw_image_path != 1):
-            crop_image(raw_image_path, 'raw_images/cases.jpg', (120, 360, 404, 440), grescale=True, contrast=2.0)
-            crop_image(raw_image_path, 'raw_images/deaths.jpg', (175, 800, 470, 920), grescale=True, contrast=2.0)
-            crop_image(raw_image_path, 'raw_images/tests.jpg', (650, 310, 970, 430), grescale=True, invert=True, contrast=3.5)
-            crop_image(raw_image_path, 'raw_images/recovered.jpg', (180, 700, 480, 820), grescale=True, invert=True, contrast=4.0)
-            crop_image(raw_image_path, 'raw_images/hospitalized.jpg', (690, 710, 955, 830), grescale=True, invert=True, contrast=2.5)
+            crop_image(raw_image_path, '../res/raw_images/cases.jpg', (120, 360, 404, 440), grescale=True, contrast=2.0)
+            crop_image(raw_image_path, '../res/raw_images/deaths.jpg', (175, 800, 470, 920), grescale=True, contrast=2.0)
+            crop_image(raw_image_path, '../res/raw_images/tests.jpg', (650, 310, 970, 430), grescale=True, invert=True, contrast=3.5)
+            crop_image(raw_image_path, '../res/raw_images/recovered.jpg', (180, 700, 480, 820), grescale=True, invert=True, contrast=4.0)
+            crop_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (690, 710, 955, 830), grescale=True, invert=True, contrast=2.5)
 
-            cases = ''.join(c for c in read_image('raw_images/cases.jpg') if c.isdigit())
-            deaths = ''.join(c for c in read_image('raw_images/deaths.jpg') if c.isdigit())
-            tests = ''.join(c for c in read_image('raw_images/tests.jpg') if c.isdigit())
-            recovered = ''.join(c for c in read_image('raw_images/recovered.jpg') if c.isdigit())
-            hospitalized = ''.join(c for c in read_image('raw_images/hospitalized.jpg') if c.isdigit())
+            cases = ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit())
+            deaths = ''.join(c for c in read_image('../res/raw_images/deaths.jpg') if c.isdigit())
+            tests = ''.join(c for c in read_image('../res/raw_images/tests.jpg') if c.isdigit())
+            recovered = ''.join(c for c in read_image('../res/raw_images/recovered.jpg') if c.isdigit())
+            hospitalized = ''.join(c for c in read_image('../res/raw_images/hospitalized.jpg') if c.isdigit())
 
             os.remove(raw_image_path)
             if(update_file(tweet_info[0], cases, deaths, tests, recovered, hospitalized)):
@@ -135,8 +136,8 @@ def run(loop=True):
                 tweets.append(tweet_repo(tweet_info[0]))
                 if(export_tweets_to_file(tweets) == 0):
                     print('Tweets contents successfully exported in tweets.dat')
-                send_tweet(auth_data, tweets, tweet_info[1], images)
-                    
+                #send_tweet(auth_data, tweets, tweet_info[1], images)
+                update_git_repo(tweet_info[0])
                 if(loop == False):
                     break
 
@@ -155,3 +156,5 @@ def run(loop=True):
 #####################################################################################################################
 
 run(loop=False)
+
+#update_git_repo('2020-07-15')
