@@ -54,8 +54,10 @@ def list_to_csv(parsed_data):
         print('Could not export processed data.')
         return 
     out_file = open('../PER_full_data.csv', 'w')
-    out_file.write('Fecha,Dia,Casos,NuevosCasos,%DifCases,CasosActivos,NuevosCasesActivos,Fallecidos,NuevasFallecidos,%DifDeaths,TasaMortalidad,Pruebas,NuevasPruebas,\
-            %DifTests,%PruebasPositivasDiarias,Recuperados,NuevosRecuperados,%DifRecuperados,Hospitalizados,NuevosHospitalizados,%DiffHospitalized\n')
+    header = 'Fecha,Dia,Casos,NuevosCasos,%DifCases,CasosActivos,NuevosCasesActivos,Fallecidos,NuevasFallecidos,'
+    header += '%DifDeaths,TasaMortalidad,Pruebas,NuevasPruebas,%DifTests,%PruebasPositivasDiarias,Recuperados,'
+    header += 'NuevosRecuperados,%DifRecuperados,Hospitalizados,NuevosHospitalizados,%DiffHospitalized\n'
+    out_file.write(header)
     for i in range(0, len(parsed_data[0])):
         line = str(parsed_data[0][i]) + "," + str(parsed_data[6][i]) + "," + \
             str(parsed_data[1][i]) + "," + str(parsed_data[7][i]) + "," + str(parsed_data[8][i]) + "," + str(parsed_data[18][i]) + "," + str(parsed_data[19][i]) + "," + \

@@ -85,6 +85,7 @@ def run(loop=True):
             os.remove(raw_image_path)
             if(update_file(tweet_info[0], cases, deaths, tests, recovered, hospitalized)):
                 print(tweet_info[0] + ': CSV updated successfully')
+
                 raw_data = parse_file()
                 data = compute_data(raw_data)
                 prev_day = diff_prev_day(data)
@@ -136,8 +137,8 @@ def run(loop=True):
                 tweets.append(tweet_repo(tweet_info[0]))
                 if(export_tweets_to_file(tweets) == 0):
                     print('Tweets contents successfully exported in tweets.dat')
-                send_tweet(auth_data, tweets, tweet_info[1], images)
-                update_git_repo(tweet_info[0])
+                #send_tweet(auth_data, tweets, tweet_info[1], images)
+                #update_git_repo(tweet_info[0])
                 if(loop == False):
                     break
 
