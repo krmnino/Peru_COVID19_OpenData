@@ -1,5 +1,13 @@
 [
 	{
+		"Date": "2020-03-03",
+		"Cases": 0,
+		"Deaths": 0,
+		"Tests": 0,
+		"Recovered": 0,
+		"Hospitalized": 0
+	},
+	{
 		"Date": "2020-03-04",
 		"Cases": 0,
 		"Deaths": 0,

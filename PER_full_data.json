@@ -1,5 +1,28 @@
 [
 	{
+		"Fecha": "2020-03-03",
+		"Dia": 0.0,
+		"Casos": 0.0,
+		"NuevosCasos": 0.0,
+		"%DifCases": 0.0,
+		"CasosActivos": 0.0,
+		"NuevosCasesActivos": 0.0,
+		"Fallecidos": 0.0,
+		"NuevasFallecidos": 0.0,
+		"%DifDeaths": 0.0,
+		"TasaMortalidad": 0.0,
+		"Pruebas": 0.0,
+		"NuevasPruebas": 0.0,
+		"%DifTests": 0.0,
+		"%PruebasPositivasDiarias": 0.0,
+		"Recuperados": 0.0,
+		"NuevosRecuperados": 0.0,
+		"%DifRecuperados": 0.0,
+		"Hospitalizados": 0.0,
+		"NuevosHospitalizados": 0.0,
+		"%DiffHospitalized": 0.0
+	},
+	{
 		"Fecha": "2020-03-04",
 		"Dia": 1.0,
 		"Casos": 0.0,
@@ -742,7 +765,7 @@
 		"NuevosCasos": 535.0,
 		"%DifCases": 1.3064146620847652,
 		"CasosActivos": 1209.0,
-		"NuevosCasesActivos": "-464.0",
+		"NuevosCasesActivos": -464.0,
 		"Fallecidos": 83.0,
 		"NuevasFallecidos": 10.0,
 		"%DifDeaths": 1.1369863013698631,
@@ -995,7 +1018,7 @@
 		"NuevosCasos": 1016.0,
 		"%DifCases": 1.0885403050108933,
 		"CasosActivos": 6097.0,
-		"NuevosCasesActivos": "-2016.0",
+		"NuevosCasesActivos": -2016.0,
 		"Fallecidos": 274.0,
 		"NuevasFallecidos": 20.0,
 		"%DifDeaths": 1.078740157480315,
@@ -1031,8 +1054,8 @@
 		"NuevosRecuperados": 421.0,
 		"%DifRecuperados": 1.0687908496732026,
 		"Hospitalizados": 1219.0,
-		"NuevosHospitalizados": "-58.0",
-		"%DiffHospitalized": "-1.047579983593109"
+		"NuevosHospitalizados": -58.0,
+		"%DiffHospitalized": -1.047579983593109
 	},
 	{
 		"Fecha": "2020-04-18",
@@ -1376,8 +1399,8 @@
 		"NuevosRecuperados": 1305.0,
 		"%DifRecuperados": 1.117261209452781,
 		"Hospitalizados": 5098.0,
-		"NuevosHospitalizados": "-189.0",
-		"%DiffHospitalized": "-1.0370733621027854"
+		"NuevosHospitalizados": -189.0,
+		"%DiffHospitalized": -1.0370733621027854
 	},
 	{
 		"Fecha": "2020-05-03",
@@ -1652,8 +1675,8 @@
 		"NuevosRecuperados": 827.0,
 		"%DifRecuperados": 1.0339993422134517,
 		"Hospitalizados": 6941.0,
-		"NuevosHospitalizados": "-38.0",
-		"%DiffHospitalized": "-1.0054747154588677"
+		"NuevosHospitalizados": -38.0,
+		"%DiffHospitalized": -1.0054747154588677
 	},
 	{
 		"Fecha": "2020-05-15",
@@ -1754,7 +1777,7 @@
 		"NuevosCasos": 4550.0,
 		"%DifCases": 1.0479285390749264,
 		"CasosActivos": 60045.0,
-		"NuevosCasesActivos": "-1793.0",
+		"NuevosCasesActivos": -1793.0,
 		"Fallecidos": 2914.0,
 		"NuevasFallecidos": 125.0,
 		"%DifDeaths": 1.0448189315166727,
@@ -1777,7 +1800,7 @@
 		"NuevosCasos": 4537.0,
 		"%DifCases": 1.0456057818923836,
 		"CasosActivos": 59028.0,
-		"NuevosCasesActivos": "-1017.0",
+		"NuevosCasesActivos": -1017.0,
 		"Fallecidos": 3024.0,
 		"NuevasFallecidos": 110.0,
 		"%DifDeaths": 1.0377487989018532,
@@ -1813,8 +1836,8 @@
 		"NuevosRecuperados": 1629.0,
 		"%DifRecuperados": 1.038815287838353,
 		"Hospitalizados": 7455.0,
-		"NuevosHospitalizados": "-78.0",
-		"%DiffHospitalized": "-1.0104627766599596"
+		"NuevosHospitalizados": -78.0,
+		"%DiffHospitalized": -1.0104627766599596
 	},
 	{
 		"Fecha": "2020-05-22",
@@ -2066,8 +2089,8 @@
 		"NuevosRecuperados": 1299.0,
 		"%DifRecuperados": 1.0193280561837876,
 		"Hospitalizados": 8868.0,
-		"NuevosHospitalizados": "-14.0",
-		"%DiffHospitalized": "-1.001578709968426"
+		"NuevosHospitalizados": -14.0,
+		"%DiffHospitalized": -1.001578709968426
 	},
 	{
 		"Fecha": "2020-06-02",
@@ -2135,8 +2158,8 @@
 		"NuevosRecuperados": 3909.0,
 		"%DifRecuperados": 1.0540521854561042,
 		"Hospitalizados": 9063.0,
-		"NuevosHospitalizados": "-1038.0",
-		"%DiffHospitalized": "-1.1145316120489903"
+		"NuevosHospitalizados": -1038.0,
+		"%DiffHospitalized": -1.1145316120489903
 	},
 	{
 		"Fecha": "2020-06-05",
@@ -2214,7 +2237,7 @@
 		"NuevosCasos": 3181.0,
 		"%DifCases": 1.0161870595119966,
 		"CasosActivos": 104569.0,
-		"NuevosCasesActivos": "-262.0",
+		"NuevosCasesActivos": -262.0,
 		"Fallecidos": 5571.0,
 		"NuevasFallecidos": 106.0,
 		"%DifDeaths": 1.0193961573650503,
@@ -2260,7 +2283,7 @@
 		"NuevosCasos": 5087.0,
 		"%DifCases": 1.024968586798602,
 		"CasosActivos": 104889.0,
-		"NuevosCasesActivos": "-180.0",
+		"NuevosCasesActivos": -180.0,
 		"Fallecidos": 5903.0,
 		"NuevasFallecidos": 165.0,
 		"%DifDeaths": 1.028755663994423,
@@ -2329,7 +2352,7 @@
 		"NuevosCasos": 4383.0,
 		"%DifCases": 1.019855129581561,
 		"CasosActivos": 106910.0,
-		"NuevosCasesActivos": "-398.0",
+		"NuevosCasesActivos": -398.0,
 		"Fallecidos": 6498.0,
 		"NuevasFallecidos": 190.0,
 		"%DifDeaths": 1.0301204819277108,
@@ -2365,8 +2388,8 @@
 		"NuevosRecuperados": 3855.0,
 		"%DifRecuperados": 1.0345046722279905,
 		"Hospitalizados": 10297.0,
-		"NuevosHospitalizados": "-45.0",
-		"%DiffHospitalized": "-1.0043702049140526"
+		"NuevosHospitalizados": -45.0,
+		"%DiffHospitalized": -1.0043702049140526
 	},
 	{
 		"Fecha": "2020-06-15",
@@ -2375,7 +2398,7 @@
 		"NuevosCasos": 3256.0,
 		"%DifCases": 1.0141727896368005,
 		"CasosActivos": 106723.0,
-		"NuevosCasesActivos": "-746.0",
+		"NuevosCasesActivos": -746.0,
 		"Fallecidos": 6860.0,
 		"NuevasFallecidos": 172.0,
 		"%DifDeaths": 1.0257177033492824,
@@ -2388,8 +2411,8 @@
 		"NuevosRecuperados": 3830.0,
 		"%DifRecuperados": 1.0331375076787306,
 		"Hospitalizados": 10295.0,
-		"NuevosHospitalizados": "-2.0",
-		"%DiffHospitalized": "-1.0001942690626517"
+		"NuevosHospitalizados": -2.0,
+		"%DiffHospitalized": -1.0001942690626517
 	},
 	{
 		"Fecha": "2020-06-16",
@@ -2398,7 +2421,7 @@
 		"NuevosCasos": 4164.0,
 		"%DifCases": 1.0178718582612278,
 		"CasosActivos": 104895.0,
-		"NuevosCasesActivos": "-1828.0",
+		"NuevosCasesActivos": -1828.0,
 		"Fallecidos": 7056.0,
 		"NuevasFallecidos": 196.0,
 		"%DifDeaths": 1.0285714285714285,
@@ -2411,8 +2434,8 @@
 		"NuevosRecuperados": 5796.0,
 		"%DifRecuperados": 1.0485390548451121,
 		"Hospitalizados": 10177.0,
-		"NuevosHospitalizados": "-118.0",
-		"%DiffHospitalized": "-1.0115947725262848"
+		"NuevosHospitalizados": -118.0,
+		"%DiffHospitalized": -1.0115947725262848
 	},
 	{
 		"Fecha": "2020-06-17",
@@ -2467,7 +2490,7 @@
 		"NuevosCasos": 3537.0,
 		"%DifCases": 1.0144728873758122,
 		"CasosActivos": 104745.0,
-		"NuevosCasesActivos": "-992.0",
+		"NuevosCasesActivos": -992.0,
 		"Fallecidos": 7660.0,
 		"NuevasFallecidos": 199.0,
 		"%DifDeaths": 1.0266720278783006,
@@ -2490,7 +2513,7 @@
 		"NuevosCasos": 3413.0,
 		"%DifCases": 1.0137662599576485,
 		"CasosActivos": 104714.0,
-		"NuevosCasesActivos": "-31.0",
+		"NuevosCasesActivos": -31.0,
 		"Fallecidos": 7861.0,
 		"NuevasFallecidos": 201.0,
 		"%DifDeaths": 1.0262402088772846,
@@ -2526,8 +2549,8 @@
 		"NuevosRecuperados": 3204.0,
 		"%DifRecuperados": 1.0230897285299396,
 		"Hospitalizados": 10566.0,
-		"NuevosHospitalizados": "-11.0",
-		"%DiffHospitalized": "-1.001041075146697"
+		"NuevosHospitalizados": -11.0,
+		"%DiffHospitalized": -1.001041075146697
 	},
 	{
 		"Fecha": "2020-06-22",
@@ -2536,7 +2559,7 @@
 		"NuevosCasos": 2511.0,
 		"%DifCases": 1.0098495308626478,
 		"CasosActivos": 103904.0,
-		"NuevosCasesActivos": "-1020.0",
+		"NuevosCasesActivos": -1020.0,
 		"Fallecidos": 8223.0,
 		"NuevasFallecidos": 178.0,
 		"%DifDeaths": 1.0221255438160348,
@@ -2572,8 +2595,8 @@
 		"NuevosRecuperados": 3117.0,
 		"%DifRecuperados": 1.02144921552436,
 		"Hospitalizados": 10588.0,
-		"NuevosHospitalizados": "-126.0",
-		"%DiffHospitalized": "-1.0119002644503212"
+		"NuevosHospitalizados": -126.0,
+		"%DiffHospitalized": -1.0119002644503212
 	},
 	{
 		"Fecha": "2020-06-24",
@@ -2605,7 +2628,7 @@
 		"NuevosCasos": 3913.0,
 		"%DifCases": 1.0147833872960341,
 		"CasosActivos": 103767.0,
-		"NuevosCasesActivos": "-747.0",
+		"NuevosCasesActivos": -747.0,
 		"Fallecidos": 8761.0,
 		"NuevasFallecidos": 175.0,
 		"%DifDeaths": 1.0203820172373632,
@@ -2618,8 +2641,8 @@
 		"NuevosRecuperados": 4485.0,
 		"%DifRecuperados": 1.0295865795011512,
 		"Hospitalizados": 10587.0,
-		"NuevosHospitalizados": "-12.0",
-		"%DiffHospitalized": "-1.0011334655709834"
+		"NuevosHospitalizados": -12.0,
+		"%DiffHospitalized": -1.0011334655709834
 	},
 	{
 		"Fecha": "2020-06-26",
@@ -2628,7 +2651,7 @@
 		"NuevosCasos": 3762.0,
 		"%DifCases": 1.0140058525252977,
 		"CasosActivos": 103619.0,
-		"NuevosCasesActivos": "-148.0",
+		"NuevosCasesActivos": -148.0,
 		"Fallecidos": 8939.0,
 		"NuevasFallecidos": 178.0,
 		"%DifDeaths": 1.0203173153749572,
@@ -2651,7 +2674,7 @@
 		"NuevosCasos": 3625.0,
 		"%DifCases": 1.0133093947805143,
 		"CasosActivos": 102830.0,
-		"NuevosCasesActivos": "-789.0",
+		"NuevosCasesActivos": -789.0,
 		"Fallecidos": 9135.0,
 		"NuevasFallecidos": 196.0,
 		"%DifDeaths": 1.0219263899765074,
@@ -2664,8 +2687,8 @@
 		"NuevosRecuperados": 4218.0,
 		"%DifRecuperados": 1.0263945033352941,
 		"Hospitalizados": 10762.0,
-		"NuevosHospitalizados": "-202.0",
-		"%DiffHospitalized": "-1.0187697454004832"
+		"NuevosHospitalizados": -202.0,
+		"%DiffHospitalized": -1.0187697454004832
 	},
 	{
 		"Fecha": "2020-06-28",
@@ -2674,7 +2697,7 @@
 		"NuevosCasos": 3430.0,
 		"%DifCases": 1.0124280315519822,
 		"CasosActivos": 102104.0,
-		"NuevosCasesActivos": "-726.0",
+		"NuevosCasesActivos": -726.0,
 		"Fallecidos": 9317.0,
 		"NuevasFallecidos": 182.0,
 		"%DifDeaths": 1.0199233716475096,
@@ -2697,7 +2720,7 @@
 		"NuevosCasos": 2946.0,
 		"%DifCases": 1.0105433059312359,
 		"CasosActivos": 101702.0,
-		"NuevosCasesActivos": "-402.0",
+		"NuevosCasesActivos": -402.0,
 		"Fallecidos": 9504.0,
 		"NuevasFallecidos": 187.0,
 		"%DifDeaths": 1.0200708382526564,
@@ -2720,7 +2743,7 @@
 		"NuevosCasos": 2848.0,
 		"%DifCases": 1.0100862359003417,
 		"CasosActivos": 101001.0,
-		"NuevosCasesActivos": "-701.0",
+		"NuevosCasesActivos": -701.0,
 		"Fallecidos": 9677.0,
 		"NuevasFallecidos": 173.0,
 		"%DifDeaths": 1.018202861952862,
@@ -2743,7 +2766,7 @@
 		"NuevosCasos": 3264.0,
 		"%DifCases": 1.0114440786359669,
 		"CasosActivos": 100372.0,
-		"NuevosCasesActivos": "-629.0",
+		"NuevosCasesActivos": -629.0,
 		"Fallecidos": 9860.0,
 		"NuevasFallecidos": 183.0,
 		"%DifDeaths": 1.0189108194688437,
@@ -2766,7 +2789,7 @@
 		"NuevosCasos": 3527.0,
 		"%DifCases": 1.0122262780048323,
 		"CasosActivos": 99862.0,
-		"NuevosCasesActivos": "-510.0",
+		"NuevosCasesActivos": -510.0,
 		"Fallecidos": 10045.0,
 		"NuevasFallecidos": 185.0,
 		"%DifDeaths": 1.018762677484787,
@@ -2789,7 +2812,7 @@
 		"NuevosCasos": 3595.0,
 		"%DifCases": 1.0123114751852715,
 		"CasosActivos": 99521.0,
-		"NuevosCasesActivos": "-341.0",
+		"NuevosCasesActivos": -341.0,
 		"Fallecidos": 10226.0,
 		"NuevasFallecidos": 181.0,
 		"%DifDeaths": 1.0180189148830263,
@@ -2802,8 +2825,8 @@
 		"NuevosRecuperados": 3755.0,
 		"%DifRecuperados": 1.0206208778837653,
 		"Hospitalizados": 11131.0,
-		"NuevosHospitalizados": "-48.0",
-		"%DiffHospitalized": "-1.0043122810169796"
+		"NuevosHospitalizados": -48.0,
+		"%DiffHospitalized": -1.0043122810169796
 	},
 	{
 		"Fecha": "2020-07-04",
@@ -2812,7 +2835,7 @@
 		"NuevosCasos": 3481.0,
 		"%DifCases": 1.011776088552397,
 		"CasosActivos": 99047.0,
-		"NuevosCasesActivos": "-474.0",
+		"NuevosCasesActivos": -474.0,
 		"Fallecidos": 10412.0,
 		"NuevasFallecidos": 186.0,
 		"%DifDeaths": 1.0181889301779776,
@@ -2835,7 +2858,7 @@
 		"NuevosCasos": 3638.0,
 		"%DifCases": 1.0121639695064866,
 		"CasosActivos": 98172.0,
-		"NuevosCasesActivos": "-875.0",
+		"NuevosCasesActivos": -875.0,
 		"Fallecidos": 10589.0,
 		"NuevasFallecidos": 177.0,
 		"%DifDeaths": 1.016999615827891,
@@ -2858,7 +2881,7 @@
 		"NuevosCasos": 2985.0,
 		"%DifCases": 1.0098606623986681,
 		"CasosActivos": 97312.0,
-		"NuevosCasesActivos": "-860.0",
+		"NuevosCasesActivos": -860.0,
 		"Fallecidos": 10772.0,
 		"NuevasFallecidos": 183.0,
 		"%DifDeaths": 1.0172820851827369,
@@ -2904,7 +2927,7 @@
 		"NuevosCasos": 3633.0,
 		"%DifCases": 1.0117467133129419,
 		"CasosActivos": 97030.0,
-		"NuevosCasesActivos": "-358.0",
+		"NuevosCasesActivos": -358.0,
 		"Fallecidos": 11133.0,
 		"NuevasFallecidos": 181.0,
 		"%DifDeaths": 1.016526661796932,
@@ -2917,8 +2940,8 @@
 		"NuevosRecuperados": 3810.0,
 		"%DifRecuperados": 1.0189610725696483,
 		"Hospitalizados": 11626.0,
-		"NuevosHospitalizados": "-20.0",
-		"%DiffHospitalized": "-1.0017202821262687"
+		"NuevosHospitalizados": -20.0,
+		"%DiffHospitalized": -1.0017202821262687
 	},
 	{
 		"Fecha": "2020-07-09",
@@ -2973,7 +2996,7 @@
 		"NuevosCasos": 3064.0,
 		"%DifCases": 1.0095856040745075,
 		"CasosActivos": 96876.0,
-		"NuevosCasesActivos": "-632.0",
+		"NuevosCasesActivos": -632.0,
 		"Fallecidos": 11682.0,
 		"NuevasFallecidos": 182.0,
 		"%DifDeaths": 1.0158260869565217,
@@ -3009,8 +3032,8 @@
 		"NuevosRecuperados": 2959.0,
 		"%DifRecuperados": 1.0138172886547872,
 		"Hospitalizados": 11723.0,
-		"NuevosHospitalizados": "-209.0",
-		"%DiffHospitalized": "-1.0178282009724473"
+		"NuevosHospitalizados": -209.0,
+		"%DiffHospitalized": -1.0178282009724473
 	},
 	{
 		"Fecha": "2020-07-13",
@@ -3019,7 +3042,7 @@
 		"NuevosCasos": 3797.0,
 		"%DifCases": 1.0116356036601435,
 		"CasosActivos": 97061.0,
-		"NuevosCasesActivos": "-284.0",
+		"NuevosCasesActivos": -284.0,
 		"Fallecidos": 12054.0,
 		"NuevasFallecidos": 184.0,
 		"%DifDeaths": 1.0155012636899747,
