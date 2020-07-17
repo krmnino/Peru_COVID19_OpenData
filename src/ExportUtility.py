@@ -211,7 +211,7 @@ def export_tweets_to_file(tweet_contents):
     return 0
 
 def update_git_repo(date):
-    os.system('./test.sh "' + date + '"')
+    os.system('./AutoUpdateRepo.sh "' + date + '"')
     
 def generate_JSON_files():
     os.system('./CSVtoJSON ../PER_data.csv ../PER_data.json')
