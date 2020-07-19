@@ -179,6 +179,7 @@ def crop_image(input_path, output_path, limits, invert=False, grescale=False, co
     image = Image.open(input_path)
     #left, up, right, down
     image = image.crop((limits[0], limits[1], limits[2], limits[3])) 
+    image = image.convert('RGB')
     if(invert):
         image = ImageOps.invert(image)
     if(grescale):
