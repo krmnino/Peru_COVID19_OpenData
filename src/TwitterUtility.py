@@ -31,12 +31,12 @@ def fetch_images(auth_data):
     api = tweepy.API(auth)
     path = str(pathlib.Path().absolute())
     path = path[:path.rfind('/')] + '/res/raw_images/'
-    tweets = api.user_timeline(screen_name='Minsa_Peru', count=10, include_rts=False, include_replies=False, tweet_mode='extended')
+    tweets = api.user_timeline(screen_name='Minsa_Peru', count=20, include_rts=False, include_replies=False, tweet_mode='extended')
     image_urls = []
     tweet_date = ''
     tweet_identificator = ''
     for tweet in tweets:
-        if('media' in tweet.entities and 'Sala situacional' in tweet.full_text):
+        if('media' in tweet.entities and 'Esta es la situación del coronavirus' in tweet.full_text):
             tweet_date = tweet.created_at.strftime("%Y-%m-%d")
             tweet_identificator = tweet.id
             for media in tweet.extended_entities['media']:
