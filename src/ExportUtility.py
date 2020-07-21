@@ -70,7 +70,7 @@ def list_to_csv(parsed_data):
     print('Data successfully exported to /PER_full_data.csv')
 
 def tweet_highlights(prev_diff, curr_diff, data):
-    out = 'Info destacada de hoy en #Peru - #COVID19\n'
+    out = 'ANALISIS DIARIO del #COVID19 en #PERU\n'
     if(prev_diff[1] <= curr_diff[1]):
         out += u'\U0001F534' + ' Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'
     else:
