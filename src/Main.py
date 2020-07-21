@@ -76,14 +76,28 @@ def run(loop=True):
             crop_image(raw_image_path, '../res/raw_images/tests.jpg', (650, 310, 970, 430), grescale=True, invert=True, contrast=3.5)
             crop_image(raw_image_path, '../res/raw_images/recovered.jpg', (180, 700, 480, 820), grescale=True, invert=True, contrast=4.0)
             crop_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (690, 710, 955, 830), grescale=True, invert=True, contrast=2.5)
-
             cases = ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit())
             deaths = ''.join(c for c in read_image('../res/raw_images/deaths.jpg') if c.isdigit())
             tests = ''.join(c for c in read_image('../res/raw_images/tests.jpg') if c.isdigit())
             recovered = ''.join(c for c in read_image('../res/raw_images/recovered.jpg') if c.isdigit())
             hospitalized = ''.join(c for c in read_image('../res/raw_images/hospitalized.jpg') if c.isdigit())
-
             os.remove(raw_image_path)
+
+            verify = input('Verify the numbers below before continue. Proceed? [Y/N]')
+            print('Cases: ', cases)
+            print('Deaths: ', deaths)
+            print('Tests: ', tests)
+            print('Recovered: ', recovered)
+            print('Hospitalized: ', hospitalized)
+            if(verify == 'Y' or verify == 'y'):
+                pass
+            elif(verify == 'N' or verify == 'n'):
+                print('Exiting...')
+                break
+            else:
+                print('Invalid input. Exiting...')
+                break
+                
             if(update_file(tweet_info[0], cases, deaths, tests, recovered, hospitalized)):
                 print(tweet_info[0] + ': CSV updated successfully')
 

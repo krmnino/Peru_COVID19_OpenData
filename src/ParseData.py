@@ -21,12 +21,12 @@ def parse_file(header = True):
     recovered = np.array([])
     hospitalized = np.array([])
     try:
-        open(os.path.dirname(__file__) + '/../PER_data.csv', 'r')
+        open(os.path.dirname(__file__) + '/../data/PER_data.csv', 'r')
     except:
         print('Could not access data file.')
         return 1
     else:
-        with open(os.path.dirname(__file__) + '/../PER_data.csv', 'r') as file:
+        with open(os.path.dirname(__file__) + '/../data/PER_data.csv', 'r') as file:
             for line in file:
                 if(header == True):
                     header = False
@@ -158,12 +158,12 @@ def diff_curr_day(data):
 
 def update_file(date, cases, deaths, tests, recovered, hospitalized):
     try:
-        open('../PER_data.csv', 'a')
+        open('../data/PER_data.csv', 'a')
     except:
-        print('Could not access', '../PER_data.csv')
+        print('Could not access', '../data/PER_data.csv')
         return False
     else:
-        with open('../PER_data.csv', 'a') as file:
+        with open('../data/PER_data.csv', 'a') as file:
             new_data = date + ',' + cases + ',' + deaths + ',' + tests + ',' + recovered + ',' + hospitalized + '\n'
             file.writelines(new_data)
         file.close()

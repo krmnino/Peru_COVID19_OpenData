@@ -49,11 +49,11 @@ def plot_triple_graph(x, y1, y2, y3, color1, color2, color3, x_label, y_label1, 
 
 def list_to_csv(parsed_data):
     try:
-        open('../PER_full_data.csv', 'w')
+        open('../data/PER_full_data.csv', 'w')
     except:
         print('Could not export processed data.')
         return 
-    out_file = open('../PER_full_data.csv', 'w')
+    out_file = open('../data/PER_full_data.csv', 'w')
     header = 'Fecha,Dia,Casos,NuevosCasos,%DifCases,CasosActivos,NuevosCasesActivos,Fallecidos,NuevasFallecidos,'
     header += '%DifDeaths,TasaMortalidad,Pruebas,NuevasPruebas,%DifTests,%PruebasPositivasDiarias,Recuperados,'
     header += 'NuevosRecuperados,%DifRecuperados,Hospitalizados,NuevosHospitalizados,%DiffHospitalized\n'
@@ -214,5 +214,5 @@ def update_git_repo(date):
     os.system('./AutoUpdateRepo.sh "' + date + '"')
     
 def generate_JSON_files():
-    os.system('./CSVtoJSON ../PER_data.csv ../PER_data.json')
-    os.system('./CSVtoJSON ../PER_full_data.csv ../PER_full_data.json')
+    os.system('./CSVtoJSON ../data/PER_data.csv ../data/PER_data.json')
+    os.system('./CSVtoJSON ../data/PER_full_data.csv ../data/PER_full_data.json')
