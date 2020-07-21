@@ -1,4 +1,5 @@
 import os
+import cv2
 import datetime
 import numpy as np
 import pytesseract
@@ -188,6 +189,11 @@ def crop_image(input_path, output_path, limits, invert=False, grescale=False, co
         enhancer = ImageEnhance.Contrast(image)
         image = enhancer.enhance(contrast)
     image.save(output_path)
+    upper_black = np.array([255,255,255], dtype = "uint16")
+    lower_black = np.array([65,65,65], dtype = "uint16")
+    image = cv2.imread(output_path)
+    black_mask = cv2.inRange(image, lower_black, upper_black)
+    cv2.imwrite(output_path, black_mask)
     
 def read_image(path):
     img_2_txt = str(pytesseract.image_to_string(Image.open(path)))
