@@ -83,12 +83,12 @@ def run(loop=True):
             hospitalized = ''.join(c for c in read_image('../res/raw_images/hospitalized.jpg') if c.isdigit())
             os.remove(raw_image_path)
 
-            verify = input('Verify the numbers below before continue. Proceed? [Y/N]')
             print('Cases: ', cases)
             print('Deaths: ', deaths)
             print('Tests: ', tests)
             print('Recovered: ', recovered)
             print('Hospitalized: ', hospitalized)
+            verify = input('Verify the numbers below before continue. Proceed? [Y/N]: ')
             if(verify == 'Y' or verify == 'y'):
                 pass
             elif(verify == 'N' or verify == 'n'):
