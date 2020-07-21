@@ -73,7 +73,7 @@ def run(loop=True):
         if(raw_image_path != 1):
             crop_image(raw_image_path, '../res/raw_images/cases.jpg', (120, 360, 404, 440), grescale=True, contrast=2.0)
             crop_image(raw_image_path, '../res/raw_images/deaths.jpg', (175, 800, 470, 920), grescale=True, contrast=2.0)
-            crop_image(raw_image_path, '../res/raw_images/tests.jpg', (650, 310, 970, 430), grescale=True, invert=True, contrast=3.5)
+            crop_image(raw_image_path, '../res/raw_images/tests.jpg', (650, 330, 970, 430), grescale=True, invert=True, contrast=4.0)
             crop_image(raw_image_path, '../res/raw_images/recovered.jpg', (180, 700, 480, 820), grescale=True, invert=True, contrast=4.0)
             crop_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (690, 710, 955, 830), grescale=True, invert=True, contrast=2.5)
             cases = ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit())
@@ -108,7 +108,6 @@ def run(loop=True):
                 prev_day = diff_prev_day(data)
                 curr_day = diff_curr_day(data)
                 list_to_csv(data)
-                
                 plot_triple_graph(data[6], data[1], data[18], data[4], 'r', 'b', 'g', "Dias", "# de Casos Confirmados",
                     "# de Casos Activos", "# de Recuperados", "Casos Confirmados, Activos y Recuperados de COVID19 en el Peru (cumulativo)",
                     "conf_act_rec_cumulative.png", data[0][len(data[0])-1], x_min=0, y_min=0)
