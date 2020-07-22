@@ -193,8 +193,8 @@ def tweet_repo(date):
     out = 'Repositorio de datos sobre el #COVID19 en #Peru actualizado al dia ' + date + '\n'
     out += 'Sugerencias son bienvenidas!\n'
     out += u'\U0001F4C8' + ' Disponible en formato .CSV y .JSON\n'
-    out += u'\U0001F30E' + ' WEB https://krmnino.github.io/Peru_COVID19_Stats/\n'
-    out += u'\U0001F4C1' + ' REPO https://github.com/krmnino/Peru_COVID19_Stats\n'
+    out += u'\U0001F30E' + ' WEB https://krmnino.github.io/Peru_COVID19_OpenData/\n'
+    out += u'\U0001F4C1' + ' REPO https://github.com/krmnino/Peru_COVID19_OpenData\n'
     return out
 
 def export_tweets_to_file(tweet_contents):
