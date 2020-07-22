@@ -71,7 +71,7 @@ def run(loop=True):
             continue
         raw_image_path = get_raw_image_path()
         if(raw_image_path != 1):
-            crop_image(raw_image_path, '../res/raw_images/cases.jpg', (120, 360, 404, 440), grescale=True, contrast=2.0)
+            crop_image(raw_image_path, '../res/raw_images/cases.jpg', (120, 360, 410, 440), grescale=True, contrast=2.0)
             crop_image(raw_image_path, '../res/raw_images/deaths.jpg', (175, 800, 470, 920), grescale=True, contrast=2.0)
             crop_image(raw_image_path, '../res/raw_images/tests.jpg', (650, 330, 970, 430), grescale=True, invert=True, contrast=4.0)
             crop_image(raw_image_path, '../res/raw_images/recovered.jpg', (180, 700, 480, 820), grescale=True, invert=True, contrast=4.0)

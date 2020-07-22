@@ -1,4 +1,3 @@
-cd ..
 git add ../data/PER_data.csv
 git add ../data/PER_full_data.csv
 git add ../data/PER_data.json
