@@ -156,27 +156,41 @@ def diff_curr_day(data):
     return [data[0][len(data[0])-1], data[7][len(data[0])-1], data[9][len(data[0])-1], data[11][len(data[0])-1], data[13][len(data[0])-1],
             data[15][len(data[0])-1], data[18][len(data[0])-1], data[19][len(data[0])-1], data[20][len(data[0])-1], data[17][len(data[0])-1]]
 
+def check_date(input_date):
+    try:
+        datetime.datetime.strptime(input_date, '%Y-%m-%d').date()
+        return 0
+    except:
+        return 1
+
 def update_file(date, cases, deaths, tests, recovered, hospitalized):
     try:
         open('../data/PER_data.csv', 'a')
     except:
         print('Could not access', '../data/PER_data.csv')
-        return False
+        return 1
     else:
         with open('../data/PER_data.csv', 'a') as file:
             new_data = date + ',' + cases + ',' + deaths + ',' + tests + ',' + recovered + ',' + hospitalized + '\n'
             file.writelines(new_data)
         file.close()
-        return True
+        print('CSV was updated successfully.')
+        return 0
 
 def get_raw_image_path():
     path = str(pathlib.Path().absolute())
     path = path[:path.rfind('/')] + '/res/raw_images/'
+    out = ''
     for file in os.listdir(path):
         filename = os.fsdecode(file)
-        return path + filename
+        out += path + filename
+        break
+    if(out == path):
+        return 1
+    else:
+        return out
 
-def crop_image(input_path, output_path, limits, invert=False, grescale=False, contrast=0.0):
+def crop_process_image(input_path, output_path, limits, invert=False, grescale=False, contrast=0.0):
     image = Image.open(input_path)
     #left, up, right, down
     image = image.crop((limits[0], limits[1], limits[2], limits[3])) 

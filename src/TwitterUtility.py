@@ -36,7 +36,7 @@ def fetch_image(auth_data):
     tweet_identificator = ''
     tweet_message = ''
     image_urls = []
-    while(found_tweet == False):
+    while(found_tweet == False and query_tweets <= 15):
         tweets = api.user_timeline(screen_name='Minsa_Peru', count=query_tweets, include_rts=False, include_replies=False, tweet_mode='extended')
         for tweet in tweets:
             if('media' in tweet.entities and 'Esta es la situación del #COVID19' in tweet.full_text):
@@ -46,10 +46,8 @@ def fetch_image(auth_data):
                     image_urls.append(media['media_url'])
                     found_tweet = True
                 break
-            else:
-                print('Quering tweets...')
-                query_tweets += 1
-                break
+        print('Quering tweets...')
+        query_tweets += 1
     if(query_tweets == 15):
         return 1
     for media_file in image_urls:
@@ -60,7 +58,10 @@ def fetch_image(auth_data):
 def send_tweet(auth_data, tweet_contents, tweet_identificator, images):
     auth = tweepy.OAuthHandler(auth_data[0], auth_data[1])
     auth.set_access_token(auth_data[2], auth_data[3])
-    api = tweepy.API(auth)
+    try:
+        api = tweepy.API(auth)
+    except:
+        return 1
     image_prefix_path = str(pathlib.Path().absolute())
     image_prefix_path = image_prefix_path[:image_prefix_path.rfind('/')] + '/res/graphs/'
     for i in range(0, 4):
@@ -73,6 +74,7 @@ def send_tweet(auth_data, tweet_contents, tweet_identificator, images):
             api.update_status(status=tweet_contents[i], in_reply_to_status_id = tweet_identificator, auto_populate_reply_metadata=True)
         print('Sent tweet: ' + str(i + 1) + ' out of 4')
         time.sleep(i + 2)
+    return 0
 
 def sleep_until(tweet_date):
     tomorrow = datetime.datetime.strptime(tweet_date, '%Y-%m-%d') + datetime.timedelta(days=1)

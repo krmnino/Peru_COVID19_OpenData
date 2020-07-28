@@ -51,8 +51,7 @@ def list_to_csv(parsed_data):
     try:
         open('../data/PER_full_data.csv', 'w')
     except:
-        print('Could not export processed data.')
-        return 
+        return 1
     out_file = open('../data/PER_full_data.csv', 'w')
     header = 'Fecha,Dia,Casos,NuevosCasos,%DifCases,CasosActivos,NuevosCasesActivos,Fallecidos,NuevasFallecidos,'
     header += '%DifDeaths,TasaMortalidad,Pruebas,NuevasPruebas,%DifTests,%PruebasPositivasDiarias,Recuperados,'
@@ -68,6 +67,7 @@ def list_to_csv(parsed_data):
         out_file.write(line)
     out_file.close()
     print('Data successfully exported to /PER_full_data.csv')
+    return 0
 
 def tweet_highlights(prev_diff, curr_diff, data):
     out = 'ANALISIS DIARIO del #COVID19 en #PERU\n'
@@ -202,17 +202,13 @@ def export_tweets_to_file(tweet_contents):
         file = open('../res/tweets.dat', 'w')
         file.close()
     except:
-        print('Could not reach tweets.dat')
         return 1
     with open('../res/tweets.dat', 'w') as file:
         for tweet in tweet_contents:
             file.write(tweet + '===\n')
-    file.close
+    file.close()
+    print('Tweets contents successfully exported in tweets.dat')
     return 0
 
 def update_git_repo(date):
     os.system('./AutoUpdateRepo.sh "' + date + '"')
-    
-def generate_JSON_files():
-    os.system('./CSVtoJSON ../data/PER_data.csv ../data/PER_data.json')
-    os.system('./CSVtoJSON ../data/PER_full_data.csv ../data/PER_full_data.json')
