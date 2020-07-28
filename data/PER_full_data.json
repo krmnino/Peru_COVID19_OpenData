@@ -3335,7 +3335,7 @@
 		"%DiffHospitalized": 1.0095201238390092
 	},
 	{
-		"Fecha": "2020-07-27",
+		"Fecha": "2020-07-26",
 		"Dia": 145.0,
 		"Casos": 384797.0,
 		"NuevosCasos": 4913.0,
@@ -3356,5 +3356,28 @@
 		"Hospitalizados": 13304.0,
 		"NuevosHospitalizados": 261.0,
 		"%DiffHospitalized": 1.0200107337269033
+	},
+	{
+		"Fecha": "2020-07-27",
+		"Dia": 146.0,
+		"Casos": 389717.0,
+		"NuevosCasos": 4920.0,
+		"%DifCases": 1.0127859624685223,
+		"CasosActivos": 98752.0,
+		"NuevosCasesActivos": 34.0,
+		"Fallecidos": 18418.0,
+		"NuevasFallecidos": 189.0,
+		"%DifDeaths": 1.0103680947940095,
+		"TasaMortalidad": 0.047259934773181564,
+		"Pruebas": 2250256.0,
+		"NuevasPruebas": 20009.0,
+		"%DifTests": 1.0089716520188123,
+		"%PruebasPositivasDiarias": 0.24588934979259333,
+		"Recuperados": 272547.0,
+		"NuevosRecuperados": 4697.0,
+		"%DifRecuperados": 1.017535934291581,
+		"Hospitalizados": 13450.0,
+		"NuevosHospitalizados": 146.0,
+		"%DiffHospitalized": 1.0109741431148527
 	}
 ]
