@@ -25,29 +25,37 @@ def load_auth():
         file.close()
     return auth_data
 
-def fetch_images(auth_data):
+def fetch_image(auth_data):
     auth = tweepy.OAuthHandler(auth_data[0], auth_data[1])
     auth.set_access_token(auth_data[2], auth_data[3])
     api = tweepy.API(auth)
     path = str(pathlib.Path().absolute())
     path = path[:path.rfind('/')] + '/res/raw_images/'
-    tweets = api.user_timeline(screen_name='Minsa_Peru', count=20, include_rts=False, include_replies=False, tweet_mode='extended')
-    image_urls = []
-    tweet_date = ''
+    found_tweet = False
+    query_tweets = 1
     tweet_identificator = ''
-    for tweet in tweets:
-        if('media' in tweet.entities and 'Esta es la situación del coronavirus' in tweet.full_text):
-            tweet_date = tweet.created_at.strftime("%Y-%m-%d")
-            tweet_identificator = tweet.id
-            for media in tweet.extended_entities['media']:
-                image_urls.append(media['media_url'])
-    if(len(image_urls) == 0):
+    tweet_message = ''
+    image_urls = []
+    while(found_tweet == False):
+        tweets = api.user_timeline(screen_name='Minsa_Peru', count=query_tweets, include_rts=False, include_replies=False, tweet_mode='extended')
+        for tweet in tweets:
+            if('media' in tweet.entities and 'Esta es la situación del #COVID19' in tweet.full_text):
+                tweet_identificator = tweet.id
+                tweet_message = tweet.full_text
+                for media in tweet.extended_entities['media']:
+                    image_urls.append(media['media_url'])
+                    found_tweet = True
+                break
+            else:
+                print('Quering tweets...')
+                query_tweets += 1
+                break
+    if(query_tweets == 15):
         return 1
     for media_file in image_urls:
         wget.download(media_file, path)
         print()
-        return (tweet_date, tweet_identificator)
-
+        return (tweet_identificator, tweet_message)
 
 def send_tweet(auth_data, tweet_contents, tweet_identificator, images):
     auth = tweepy.OAuthHandler(auth_data[0], auth_data[1])
