@@ -127,7 +127,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not export processed data.')
 
     plot_triple_graph(data[6], data[1], data[18], data[4], 'r', 'b', 'g', "Dias", "# de Casos Confirmados",
-        "# de Casos Activos", "# de Recuperados", "Casos Confirmados, Activos y Recuperados de COVID19 en el Peru (cumulativo)",
+        "# de Casos Activos", "# de Recuperados", "Casos Confirmados, Activos y Recuperados de COVID19 en el Peru (acumulado)",
         "conf_act_rec_cumulative.png", opt_date, x_min=0, y_min=0)
     
     plot_graph(data[6][-30:], data[8][-30:], 'r', "Dias", "Casos: Tasa de Crecimiento (* 100% - 100%)",
@@ -140,7 +140,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     plot_graph(data[6][-30:], data[19][-30:], 'r', "Dias", "Nuevos Casos Activos",
         "Nuevos Casos Activos de COVID19 en el Peru (ultimos 30 dias)", "new_active_cases.png", opt_date, x_min=data[6][-30])
     
-    plot_graph(data[6], data[2], 'k', "Dias", "# de Fallecidos", "Fallecidos por COVID19 en el Peru (cumulativo)",
+    plot_graph(data[6], data[2], 'k', "Dias", "# de Fallecidos", "Fallecidos por COVID19 en el Peru (acumulado)",
         "deaths.png", opt_date, x_min=0, y_min=0)
     
     plot_graph(data[6][-30:], data[10][-30:], 'k', "Dias", "Fallecidos: Tasa de Crecimiento (* 100% - 100%)",
@@ -149,7 +149,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     plot_graph(data[6][-30:], data[17][-30:], 'k', "Dias", "Tasa de Mortalidad (* 100%)",
         "Tasa de Mortalidad por COVID19 en el Peru (ultimos 30 dias)", "mortality_rate.png", opt_date, x_min=data[6][-30])
     
-    plot_graph(data[6], data[3], 'b', "Dias", "# de Pruebas", "Pruebas de COVID19 en el Peru (cumulativo)",
+    plot_graph(data[6], data[3], 'b', "Dias", "# de Pruebas", "Pruebas de COVID19 en el Peru (acumulado)",
         "tests.png", opt_date, x_min=0, y_min=0)
     
     plot_graph(data[6][-30:], data[20][-30:], 'b', "Dias", "% de Pruebas Positivas Diarias (* 100%)",
@@ -176,11 +176,12 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not reach tweets.dat')
         return 1
 
+    '''
     success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0], images)
     if(success_send_tweet == 1):
         print('Could not authenticate session and send tweets.')
         return 1
-
+    '''
     update_git_repo(opt_date)
 
 #####################################################################################################################
