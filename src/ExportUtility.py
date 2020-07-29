@@ -1,9 +1,11 @@
 import matplotlib.pyplot as plt
+import matplotlib.ticker
+import numpy as np
 import warnings
 import os 
 
 
-def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, x_min=-1, y_min=-1, y_max=-1):
+def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, days, y_min=-1, y_max=-1):
     warnings.filterwarnings('ignore')
     plt.figure(figsize=(14,10))
     plt.ticklabel_format(style='plain')
@@ -12,8 +14,12 @@ def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, x_mi
     plt.suptitle(date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)')
     plt.xlabel(x_label)
     plt.ylabel(y_label)
-    if(x_min != -1):
-        plt.xlim(left=x_min)
+    if(len(x) == 30):
+        plt.xticks(x[::2], rotation=90)
+        plt.locator_params(axis='x', nbins=len(x)/2)
+    else:
+        plt.xticks(x[::5], rotation=90)
+        plt.locator_params(axis='x', nbins=len(x)/5)
     if(y_min != -1):
         plt.ylim(bottom=y_min)
     if(y_max != -1):
@@ -22,7 +28,7 @@ def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, x_mi
     plt.savefig('../res/graphs/' + file_name)
     print('Graph generated in /res/graphs/' + file_name)
 
-def plot_triple_graph(x, y1, y2, y3, color1, color2, color3, x_label, y_label1, y_label2, y_label3, chart_title, file_name, date, x_min=-1, y_min=-1, y_max=-1):
+def plot_triple_graph(x, y1, y2, y3, color1, color2, color3, x_label, y_label1, y_label2, y_label3, chart_title, file_name, date, days, y_min=-1, y_max=-1):
     warnings.filterwarnings('ignore')
     plt.figure(figsize=(14,10))
     plt.ticklabel_format(style='plain')
@@ -37,14 +43,19 @@ def plot_triple_graph(x, y1, y2, y3, color1, color2, color3, x_label, y_label1, 
     plt.legend(loc="upper left")
     plt.xlabel(x_label)
     plt.ylabel(y_label1 + ', ' + y_label2 + ', ' + y_label3)
-    if(x_min != -1):
-        plt.xlim(left=x_min)
     if(y_min != -1):
         plt.ylim(bottom=y_min)
     if(y_max != -1):
         plt.ylim(top=y_max)
     plt.grid()
+    if(len(x) == 30):
+        plt.xticks(x[::2], rotation=90)
+        plt.locator_params(axis='x', nbins=len(x)/2)
+    else:
+        plt.xticks(x[::5], rotation=90)
+        plt.locator_params(axis='x', nbins=len(x)/5)
     plt.savefig('../res/graphs/' + file_name)
+    plt.clf()
     print('Graph generated in /res/graphs/' + file_name)
 
 def list_to_csv(parsed_data):
