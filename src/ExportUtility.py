@@ -197,7 +197,7 @@ def tweet_tests_hosp_rec(prev_diff, curr_diff, data):
     if(data[14][len(data[14])-2] <= data[14][len(data[14])-1]):
         out += u'\U0001F534' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] + '%\n'
     else:
-        out += u'\U0001F7E2' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 - 100)[:5] +'%\n'
+        out += u'\U0001F7E2' + ' Tasa de Hospital.: ' + str(data[14][len(data[14])-1] * 100 + 100)[:5] +'%\n'
     return out
 
 def tweet_repo(date):
