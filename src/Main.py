@@ -126,41 +126,41 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     if(success_full_csv_write == 1):
         print('Could not export processed data.')
 
-    plot_triple_graph(data[6], data[1], data[18], data[4], 'r', 'b', 'g', "Dias", "# de Casos Confirmados",
+    plot_triple_graph(data[0], data[1], data[18], data[4], 'r', 'b', 'g', "Dias", "# de Casos Confirmados",
         "# de Casos Activos", "# de Recuperados", "Casos Confirmados, Activos y Recuperados de COVID19 en el Peru (acumulado)",
-        "conf_act_rec_cumulative.png", opt_date, x_min=0, y_min=0)
+        "conf_act_rec_cumulative.png", opt_date, y_min=0)
     
-    plot_graph(data[6][-30:], data[8][-30:], 'r', "Dias", "Casos: Tasa de Crecimiento (* 100% - 100%)",
-        "Tasa de Crecimiento: Casos de COVID19 en el Peru (ultimos 30 dias)", "gf_cases.png", opt_date, x_min=data[6][-30])
+    plot_graph(data[0][-30:], data[8][-30:], 'r', "Dias", "Casos: Tasa de Crecimiento (* 100% - 100%)",
+        "Tasa de Crecimiento: Casos de COVID19 en el Peru (ultimos 30 dias)", "gf_cases.png", opt_date)
     
-    plot_triple_graph(data[6][-30:], data[1][-30:], data[18][-30:], data[4][-30:], 'r', 'b', 'g', "Dias",
+    plot_triple_graph(data[0][-30:], data[1][-30:], data[18][-30:], data[4][-30:], 'r', 'b', 'g', "Dias",
         "# de Casos Confirmados", "# de Casos Activos", "# de Recuperados", "Casos Confirmados, Activos y Recuperados de COVID19 en el Peru (ultimos 30 dias)",
-        "conf_act_rec_days.png", opt_date, x_min=data[6][-30])
+        "conf_act_rec_days.png", opt_date)
     
-    plot_graph(data[6][-30:], data[19][-30:], 'r', "Dias", "Nuevos Casos Activos",
-        "Nuevos Casos Activos de COVID19 en el Peru (ultimos 30 dias)", "new_active_cases.png", opt_date, x_min=data[6][-30])
+    plot_graph(data[0][-30:], data[19][-30:], 'r', "Dias", "Nuevos Casos Activos",
+        "Nuevos Casos Activos de COVID19 en el Peru (ultimos 30 dias)", "new_active_cases.png", opt_date)
     
-    plot_graph(data[6], data[2], 'k', "Dias", "# de Fallecidos", "Fallecidos por COVID19 en el Peru (acumulado)",
-        "deaths.png", opt_date, x_min=0, y_min=0)
+    plot_graph(data[0], data[2], 'k', "Dias", "# de Fallecidos", "Fallecidos por COVID19 en el Peru (acumulado)",
+        "deaths.png", opt_date, y_min=0)
     
-    plot_graph(data[6][-30:], data[10][-30:], 'k', "Dias", "Fallecidos: Tasa de Crecimiento (* 100% - 100%)",
-        "Tasa de Crecimiento: Fallecidos por COVID19 en el Peru (ultimos 30 dias)", "gf_deaths.png", opt_date, x_min=data[6][-30])
+    plot_graph(data[0][-30:], data[10][-30:], 'k', "Dias", "Fallecidos: Tasa de Crecimiento (* 100% - 100%)",
+        "Tasa de Crecimiento: Fallecidos por COVID19 en el Peru (ultimos 30 dias)", "gf_deaths.png", opt_date)
     
-    plot_graph(data[6][-30:], data[17][-30:], 'k', "Dias", "Tasa de Mortalidad (* 100%)",
-        "Tasa de Mortalidad por COVID19 en el Peru (ultimos 30 dias)", "mortality_rate.png", opt_date, x_min=data[6][-30])
+    plot_graph(data[0][-30:], data[17][-30:], 'k', "Dias", "Tasa de Mortalidad (* 100%)",
+        "Tasa de Mortalidad por COVID19 en el Peru (ultimos 30 dias)", "mortality_rate.png", opt_date)
     
-    plot_graph(data[6], data[3], 'b', "Dias", "# de Pruebas", "Pruebas de COVID19 en el Peru (acumulado)",
-        "tests.png", opt_date, x_min=0, y_min=0)
+    plot_graph(data[0], data[3], 'b', "Dias", "# de Pruebas", "Pruebas de COVID19 en el Peru (acumulado)",
+        "tests.png", opt_date, y_min=0)
     
-    plot_graph(data[6][-30:], data[20][-30:], 'b', "Dias", "% de Pruebas Positivas Diarias (* 100%)",
+    plot_graph(data[0][-30:], data[20][-30:], 'b', "Dias", "% de Pruebas Positivas Diarias (* 100%)",
         "% de Pruebas Positivas Diarias de COVID19 en el Peru (ultimos 30 dias)", "perc_daily_positive_tests.png",
-        opt_date, x_min=data[6][-30], y_min=0, y_max=1)
+        opt_date, y_min=0, y_max=1)
     
-    plot_graph(data[6][-30:], data[12][-30:], 'g', "Dias", "Recuperados : Tasa de Crecimiento (* 100% - 100%)",
-        "Tasa de Crecimiento: Recuperados de COVID19 en el Peru (ultimos 30 dias)", "gf_recovered.png", opt_date, x_min=data[6][-30])
+    plot_graph(data[0][-30:], data[12][-30:], 'g', "Dias", "Recuperados : Tasa de Crecimiento (* 100% - 100%)",
+        "Tasa de Crecimiento: Recuperados de COVID19 en el Peru (ultimos 30 dias)", "gf_recovered.png", opt_date)
     
-    plot_graph(data[6][-30:], data[5][-30:], 'y', "Dias", "# de Hospitalizados", "Hospitalizados por COVID19 en el Peru (ultimos 30 dias)",
-        "hospitalized.png", opt_date, x_min=data[6][-30])
+    plot_graph(data[0][-30:], data[5][-30:], 'y', "Dias", "# de Hospitalizados", "Hospitalizados por COVID19 en el Peru (ultimos 30 dias)",
+        "hospitalized.png", opt_date)
     
     tweets = []
     images = [['conf_act_rec_cumulative.png', 'gf_cases.png', 'conf_act_rec_days.png', 'new_active_cases.png'],
@@ -181,9 +181,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     if(success_send_tweet == 1):
         print('Could not authenticate session and send tweets.')
         return 1
-    '''
-    update_git_repo(opt_date)
 
+    update_git_repo(opt_date)
+    '''
 #####################################################################################################################
 
 run()

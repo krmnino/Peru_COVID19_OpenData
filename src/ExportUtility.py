@@ -5,7 +5,7 @@ import warnings
 import os 
 
 
-def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, days, y_min=-1, y_max=-1):
+def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, y_min=-1, y_max=-1):
     warnings.filterwarnings('ignore')
     plt.figure(figsize=(14,10))
     plt.ticklabel_format(style='plain')
@@ -28,7 +28,7 @@ def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, days
     plt.savefig('../res/graphs/' + file_name)
     print('Graph generated in /res/graphs/' + file_name)
 
-def plot_triple_graph(x, y1, y2, y3, color1, color2, color3, x_label, y_label1, y_label2, y_label3, chart_title, file_name, date, days, y_min=-1, y_max=-1):
+def plot_triple_graph(x, y1, y2, y3, color1, color2, color3, x_label, y_label1, y_label2, y_label3, chart_title, file_name, date, y_min=-1, y_max=-1):
     warnings.filterwarnings('ignore')
     plt.figure(figsize=(14,10))
     plt.ticklabel_format(style='plain')
