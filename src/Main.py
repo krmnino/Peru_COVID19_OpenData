@@ -76,11 +76,12 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not retrieve image path. Exiting...')
         return 1
 
+    #left, up, right, down
     crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (120, 360, 420, 440), grescale=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (175, 800, 460, 920), grescale=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (650, 330, 970, 430), grescale=True, invert=True, contrast=4.0)
+    crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (170, 810, 460, 920), grescale=True, contrast=3.0)
+    crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (640, 310, 950, 430), grescale=True, invert=True, contrast=4.0)
     crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (180, 700, 450, 820), grescale=True, invert=True, contrast=2.5)
-    crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (690, 710, 955, 830), grescale=True, invert=True, contrast=2.5)
+    crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (690, 690, 955, 810), grescale=True, invert=True, contrast=2.5)
     read_image_data = []
     cases = ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit())
     deaths = ''.join(c for c in read_image('../res/raw_images/deaths.jpg') if c.isdigit())
@@ -176,14 +177,13 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not reach tweets.dat')
         return 1
 
-    '''
     success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0], images)
     if(success_send_tweet == 1):
         print('Could not authenticate session and send tweets.')
         return 1
 
     update_git_repo(opt_date)
-    '''
+
 #####################################################################################################################
 
 run()

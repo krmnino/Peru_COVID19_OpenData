@@ -204,7 +204,7 @@ def crop_process_image(input_path, output_path, limits, invert=False, grescale=F
         image = enhancer.enhance(contrast)
     image.save(output_path)
     upper_black = np.array([255,255,255], dtype = "uint16")
-    lower_black = np.array([65,65,65], dtype = "uint16")
+    lower_black = np.array([80,80,80], dtype = "uint16")
     image = cv2.imread(output_path)
     black_mask = cv2.inRange(image, lower_black, upper_black)
     cv2.imwrite(output_path, black_mask)
