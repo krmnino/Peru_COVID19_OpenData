@@ -77,11 +77,11 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         return 1
 
     #left, up, right, down
-    crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (120, 360, 420, 440), grescale=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (170, 810, 460, 920), grescale=True, contrast=3.0)
-    crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (640, 310, 950, 430), grescale=True, invert=True, contrast=4.0)
-    crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (180, 700, 450, 820), grescale=True, invert=True, contrast=2.5)
-    crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (690, 690, 955, 810), grescale=True, invert=True, contrast=2.5)
+    crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (630, 590, 940, 670), grescale=True, invert=True, contrast=2.0)
+    crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (660, 890, 920, 970), grescale=True, contrast=3.0)
+    crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (160, 560, 470, 660), grescale=True, invert=True, contrast=2.0)
+    crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (160, 910, 470, 1000), grescale=True, invert=True, contrast=2.0)
+    crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (630, 740, 940, 840), grescale=True, invert=True, contrast=2.0)
     read_image_data = []
     cases = ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit())
     deaths = ''.join(c for c in read_image('../res/raw_images/deaths.jpg') if c.isdigit())
