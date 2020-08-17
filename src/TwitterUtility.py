@@ -64,15 +64,15 @@ def send_tweet(auth_data, tweet_contents, tweet_identificator, images):
         return 1
     image_prefix_path = str(pathlib.Path().absolute())
     image_prefix_path = image_prefix_path[:image_prefix_path.rfind('/')] + '/res/graphs/'
-    for i in range(0, 4):
-        if (i != 3):
+    for i in range(0, 3):
+        if (i != 2):
             media_ids = [api.media_upload(image_prefix_path + j).media_id_string  for j in images[i]]
             api.update_status(media_ids=media_ids, status=tweet_contents[i], in_reply_to_status_id = tweet_identificator, auto_populate_reply_metadata=True)
             rply_tweets = api.user_timeline(screen_name='krm_nino', count=1, tweet_mode='extended')
             tweet_identificator = rply_tweets[0].id
         else:
             api.update_status(status=tweet_contents[i], in_reply_to_status_id = tweet_identificator, auto_populate_reply_metadata=True)
-        print('Sent tweet: ' + str(i + 1) + ' out of 4')
+        print('Sent tweet: ' + str(i + 1) + ' out of 3')
         time.sleep(i + 2)
     return 0
 
