@@ -1246,5 +1246,101 @@
 		"Tests": 2466745,
 		"Recovered": 306430,
 		"Hospitalized": 13751
+	},
+	{
+		"Date": "2020-08-06",
+		"Cases": 455409,
+		"Deaths": 20424,
+		"Tests": 2493429,
+		"Recovered": 310337,
+		"Hospitalized": 13659
+	},
+	{
+		"Date": "2020-08-07",
+		"Cases": 463875,
+		"Deaths": 20649,
+		"Tests": 2522993,
+		"Recovered": 314332,
+		"Hospitalized": 13820
+	},
+	{
+		"Date": "2020-08-08",
+		"Cases": 471012,
+		"Deaths": 20844,
+		"Tests": 2548439,
+		"Recovered": 319171,
+		"Hospitalized": 13680
+	},
+	{
+		"Date": "2020-08-09",
+		"Cases": 478024,
+		"Deaths": 21072,
+		"Tests": 2573691,
+		"Recovered": 324040,
+		"Hospitalized": 13768
+	},
+	{
+		"Date": "2020-08-10",
+		"Cases": 483133,
+		"Deaths": 21276,
+		"Tests": 2590078,
+		"Recovered": 329404,
+		"Hospitalized": 13808
+	},
+	{
+		"Date": "2020-08-11",
+		"Cases": 489680,
+		"Deaths": 21501,
+		"Tests": 2612599,
+		"Recovered": 335756,
+		"Hospitalized": 13775
+	},
+	{
+		"Date": "2020-08-12",
+		"Cases": 498555,
+		"Deaths": 21713,
+		"Tests": 2643464,
+		"Recovered": 341938,
+		"Hospitalized": 13823
+	},
+	{
+		"Date": "2020-08-13",
+		"Cases": 507996,
+		"Deaths": 25648,
+		"Tests": 2677014,
+		"Recovered": 348006,
+		"Hospitalized": 13987
+	},
+	{
+		"Date": "2020-08-14",
+		"Cases": 516296,
+		"Deaths": 25856,
+		"Tests": 2705122,
+		"Recovered": 354232,
+		"Hospitalized": 14175
+	},
+	{
+		"Date": "2020-08-15",
+		"Cases": 525803,
+		"Deaths": 26075,
+		"Tests": 2738229,
+		"Recovered": 359781,
+		"Hospitalized": 13947
+	},
+	{
+		"Date": "2020-08-16",
+		"Cases": 535946,
+		"Deaths": 26281,
+		"Tests": 2773412,
+		"Recovered": 365367,
+		"Hospitalized": 14074
+	},
+	{
+		"Date": "2020-08-17",
+		"Cases": 541493,
+		"Deaths": 26481,
+		"Tests": 2793614,
+		"Recovered": 370717,
+		"Hospitalized": 14181
 	}
 ]
