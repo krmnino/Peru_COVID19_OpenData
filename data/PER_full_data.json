@@ -3908,5 +3908,28 @@
 		"Hospitalizados": 13888.0,
 		"NuevosHospitalizados": -204.0,
 		"%DiffHospitalized": -1.014688940092166
+	},
+	{
+		"Fecha": "2020-08-20",
+		"Dia": 170.0,
+		"Casos": 567059.0,
+		"NuevosCasos": 8639.0,
+		"%DifCases": 1.0154704344400272,
+		"CasosActivos": 159295.0,
+		"NuevosCasesActivos": 5162.0,
+		"Fallecidos": 27034.0,
+		"NuevasFallecidos": 200.0,
+		"%DifDeaths": 1.007453230975628,
+		"TasaMortalidad": 0.0476740515537184,
+		"Pruebas": 2852011.0,
+		"NuevasPruebas": 0.0,
+		"%DifTests": 1.0,
+		"%PruebasPositivasDiarias": 0.0,
+		"Recuperados": 380730.0,
+		"NuevosRecuperados": 3277.0,
+		"%DifRecuperados": 1.00868187562425,
+		"Hospitalizados": 13779.0,
+		"NuevosHospitalizados": -109.0,
+		"%DiffHospitalized": -1.0079105885768198
 	}
 ]
