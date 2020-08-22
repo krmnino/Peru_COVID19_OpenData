@@ -1363,8 +1363,16 @@
 		"Date": "2020-08-20",
 		"Cases": 567059,
 		"Deaths": 27034,
-		"Tests": 2852011,
+		"Tests": 2883862,
 		"Recovered": 380730,
 		"Hospitalized": 13779
+	},
+	{
+		"Date": "2020-08-21",
+		"Cases": 576067,
+		"Deaths": 27245,
+		"Tests": 2915372,
+		"Recovered": 384908,
+		"Hospitalized": 13773
 	}
 ]
