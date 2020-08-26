@@ -190,6 +190,11 @@ def get_raw_image_path():
     else:
         return out
 
+def get_raw_image_dimensions(path):
+    image = Image.open(path)
+    width, height = image.size
+    return (width, height)
+
 def crop_process_image(input_path, output_path, limits, invert=False, grescale=False, contrast=0.0):
     image = Image.open(input_path)
     #left, up, right, down

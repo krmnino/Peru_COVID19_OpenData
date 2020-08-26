@@ -11,6 +11,7 @@ from ParseData import get_raw_image_path
 from ParseData import crop_process_image
 from ParseData import read_image
 from ParseData import check_date
+from ParseData import get_raw_image_dimensions
 from ExportUtility import plot_graph
 from ExportUtility import plot_triple_graph
 from ExportUtility import list_to_csv
@@ -75,20 +76,22 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not retrieve image path. Exiting...')
         return 1
 
-    #left, up, right, down
-    '''
-    crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (400, 370, 580, 420), grescale=True, invert=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (420, 550, 580, 620), grescale=True, invert=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (100, 370, 295, 415), grescale=True, invert=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (100, 570, 290, 630), grescale=True, invert=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (400, 470, 580, 520), grescale=True, invert=True, contrast=2.0)
-    '''
-    crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (640, 590, 930, 670), grescale=True, invert=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (650, 890, 900, 970), grescale=True, invert=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (160, 590, 470, 670), grescale=True, invert=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (160, 930, 470, 1010), grescale=True, invert=True, contrast=2.0)
-    crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (650, 750, 930, 850), grescale=True, invert=True, contrast=2.0)
+    image_dimensions = get_raw_image_dimensions(raw_image_path)
 
+    #left, up, right, down
+    if(image_dimensions[0] < 1000 or image_dimensions[1] < 1200):
+        crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (400, 370, 580, 420), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (420, 550, 580, 620), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (100, 370, 295, 415), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (100, 570, 290, 630), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (400, 470, 580, 520), grescale=True, invert=True, contrast=2.0)
+    else:
+        crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (640, 590, 930, 670), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (650, 890, 900, 970), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (160, 590, 470, 670), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (160, 930, 470, 1010), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (650, 750, 930, 850), grescale=True, invert=True, contrast=2.0)
+    
     read_image_data = []
     cases = ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit())
     deaths = ''.join(c for c in read_image('../res/raw_images/deaths.jpg') if c.isdigit())
