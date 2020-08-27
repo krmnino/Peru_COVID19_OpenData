@@ -1406,5 +1406,13 @@
 		"Tests": 3032744,
 		"Recovered": 414577,
 		"Hospitalized": 12950
+	},
+	{
+		"Date": "2020-08-26",
+		"Cases": 613378,
+		"Deaths": 28124,
+		"Tests": 3055850,
+		"Recovered": 421877,
+		"Hospitalized": 13051
 	}
 ]
