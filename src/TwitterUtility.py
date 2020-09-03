@@ -39,7 +39,7 @@ def fetch_image(auth_data):
     while(found_tweet == False and query_tweets <= 15):
         tweets = api.user_timeline(screen_name='Minsa_Peru', count=query_tweets, include_rts=False, include_replies=False, tweet_mode='extended')
         for tweet in tweets:
-            if('media' in tweet.entities and 'Esta es la situación del #COVID19' in tweet.full_text):
+            if('media' in tweet.entities and 'Esta es la situación del' in tweet.full_text):
                 tweet_identificator = tweet.id
                 tweet_message = tweet.full_text
                 for media in tweet.extended_entities['media']:
