@@ -1496,11 +1496,19 @@
 		"Hospitalized": 11362
 	},
 	{
-		"Date": "2020-09-05",
+		"Date": "2020-09-06",
 		"Cases": 689977,
 		"Deaths": 29838,
 		"Tests": 3379580,
 		"Recovered": 515039,
 		"Hospitalized": 11327
+	},
+	{
+		"Date": "2020-09-07",
+		"Cases": 691575,
+		"Deaths": 29976,
+		"Tests": 3386625,
+		"Recovered": 522251,
+		"Hospitalized": 11242
 	}
 ]
