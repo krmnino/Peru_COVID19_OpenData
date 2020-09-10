@@ -89,8 +89,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (660, 590, 960, 670), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (650, 900, 900, 990), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (170, 970, 480, 1050), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (150, 580, 520, 700), grescale=True, invert=False, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (670, 790, 950, 870), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (170, 580, 520, 700), grescale=True, invert=False, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
     
     read_image_data = []
     cases = ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit())
@@ -186,4 +186,4 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
 
 #####################################################################################################################
 
-run('2020-09-05')
+run()
