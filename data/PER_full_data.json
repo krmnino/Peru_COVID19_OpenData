@@ -4460,5 +4460,28 @@
 		"Hospitalizados": 10251.0,
 		"NuevosHospitalizados": -239.0,
 		"%DiffHospitalized": -1.0233147985562385
+	},
+	{
+		"Fecha": "2020-09-13",
+		"Dia": 194.0,
+		"Casos": 729619.0,
+		"NuevosCasos": 6787.0,
+		"%DifCases": 1.0093894570245923,
+		"CasosActivos": 132113.0,
+		"NuevosCasesActivos": -805.0,
+		"Fallecidos": 30710.0,
+		"NuevasFallecidos": 117.0,
+		"%DifDeaths": 1.0038244042754878,
+		"TasaMortalidad": 0.04209046091179095,
+		"Pruebas": 3534937.0,
+		"NuevasPruebas": 24940.0,
+		"%DifTests": 1.007105419178421,
+		"%PruebasPositivasDiarias": 0.27213311948676827,
+		"Recuperados": 566796.0,
+		"NuevosRecuperados": 7475.0,
+		"%DifRecuperados": 1.0133644186433193,
+		"Hospitalizados": 10122.0,
+		"NuevosHospitalizados": -129.0,
+		"%DiffHospitalized": -1.0127445168938944
 	}
 ]
