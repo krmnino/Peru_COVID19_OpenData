@@ -32,11 +32,11 @@ def fetch_image(auth_data):
     path = str(pathlib.Path().absolute())
     path = path[:path.rfind('/')] + '/res/raw_images/'
     found_tweet = False
-    query_tweets = 1
+    query_tweets = 0
     tweet_identificator = ''
     tweet_message = ''
     image_urls = []
-    while(found_tweet == False and query_tweets <= 15):
+    while(found_tweet == False and query_tweets < 15):
         tweets = api.user_timeline(screen_name='Minsa_Peru', count=query_tweets, include_rts=False, include_replies=False, tweet_mode='extended')
         for tweet in tweets:
             if('media' in tweet.entities and 'Esta es la situación del' in tweet.full_text):
