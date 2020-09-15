@@ -80,12 +80,15 @@ def list_to_csv(parsed_data):
     print('Data successfully exported to /PER_full_data.csv')
     return 0
 
-def first_tweet(prev_diff, curr_diff, data):
+def first_tweet(prev_diff, curr_diff, data, cases24h, avg_pos):
     out = 'ANALISIS DIARIO del #COVID19 en #PERU (1/2)\n'
     if(prev_diff[1] <= curr_diff[1]):
         out += u'\U0001F534' + ' Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'
     else:
         out += u'\U0001F7E2' + ' Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'
+
+    out += ' -> (+' + str(cases24h) + ') ult. 24 hrs\n'
+    out += ' -> (+' + str(int(curr_diff[1]) - cases24h) + ') 7 dias anteriores\n'
     
     if(prev_diff[6] < curr_diff[6]):
         out += u'\U0001F534' + ' Activos: ' + str(int(curr_diff[6])) + ' ('
@@ -107,6 +110,7 @@ def first_tweet(prev_diff, curr_diff, data):
         out += u'\U0001F534' + ' Positividad diaria: ' + str((curr_diff[8]) * 100)[:5] + '%\n'
     else:
         out += u'\U0001F7E2' + ' Positividad diaria: ' + str((curr_diff[8]) * 100)[:5] + '%\n'
+
     return out
 
 def second_tweet(prev_diff, curr_diff, data):
