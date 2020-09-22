@@ -80,7 +80,7 @@ def list_to_csv(parsed_data):
     print('Data successfully exported to /PER_full_data.csv')
     return 0
 
-def first_tweet(prev_diff, curr_diff, data, cases24h, avg_pos):
+def first_tweet(prev_diff, curr_diff, data, cases24h):
     out = 'ANALISIS DIARIO del #COVID19 en #PERU (1/2)\n'
     if(prev_diff[1] <= curr_diff[1]):
         out += u'\U0001F534' + ' Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'

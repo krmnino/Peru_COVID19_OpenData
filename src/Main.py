@@ -85,12 +85,14 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (100, 370, 295, 415), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (100, 570, 290, 630), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (400, 470, 580, 520), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/cases24h.jpg', (180, 180, 500, 310), grescale=True, invert=True, contrast=2.0)
     else:
         crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (660, 590, 960, 670), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (650, 900, 900, 990), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (170, 970, 480, 1050), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (175, 560, 520, 700), grescale=True, invert=False, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/cases24h.jpg', (150, 160, 530, 310), grescale=True, invert=True, contrast=2.0)
     
     read_image_data = []
     cases = ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit())
@@ -98,6 +100,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     tests = ''.join(c for c in read_image('../res/raw_images/tests.jpg') if c.isdigit())
     recovered = ''.join(c for c in read_image('../res/raw_images/recovered.jpg') if c.isdigit())
     hospitalized = ''.join(c for c in read_image('../res/raw_images/hospitalized.jpg') if c.isdigit())
+    cases24h = ''.join(c for c in read_image('../res/raw_images/cases24h.jpg') if c.isdigit())
     os.remove(raw_image_path)
 
     print('======================================================================')
@@ -108,6 +111,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     print('Tests: ', tests)
     print('Recovered: ', recovered)
     print('Hospitalized: ', hospitalized)
+    print('Cases 24H: ', cases24h)
     verify = input('Verify the numbers above before continuing. Proceed? [Y/N]: ')
     print('======================================================================')
     if(verify == 'Y' or verify == 'y'):
@@ -166,24 +170,22 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     tweets = []
     images = [['conf_act_rec_cumulative.png', 'new_active_cases.png', 'recovered.png', 'perc_daily_positive_tests.png'],
             ['deaths.png', 'mortality_rate.png', 'tests.png', 'hospitalized.png']]
-    tweets.append(first_tweet(prev_day, curr_day, data))
+    tweets.append(first_tweet(prev_day, curr_day, data, int(cases24h)))
     tweets.append(second_tweet(prev_day, curr_day, data)) 
     tweets.append(repo_tweet(opt_date))
-
+    
     success_tweets_export = export_tweets_to_file(tweets)
     if(success_tweets_export == 1):
         print('Could not reach tweets.dat')
         return 1
 
-    
     success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0], images)
     if(success_send_tweet == 1):
         print('Could not authenticate session and send tweets.')
         return 1
-
+ 
     update_git_repo(opt_date)
     
-
 #####################################################################################################################
 
 run()
