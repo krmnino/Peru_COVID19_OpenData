@@ -1616,14 +1616,6 @@
 		"Hospitalized": 9156
 	},
 	{
-		"Date": "2020-09-20",
-		"Cases": 772896,
-		"Deaths": 31474,
-		"Tests": 3710694,
-		"Recovered": 622418,
-		"Hospitalized": 9087
-	},
-	{
 		"Date": "2020-09-21",
 		"Cases": 772896,
 		"Deaths": 31474,
