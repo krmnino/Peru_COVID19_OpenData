@@ -1622,5 +1622,13 @@
 		"Tests": 3710694,
 		"Recovered": 622418,
 		"Hospitalized": 9087
+	},
+	{
+		"Date": "2020-09-22",
+		"Cases": 776546,
+		"Deaths": 31586,
+		"Tests": 3724872,
+		"Recovered": 629094,
+		"Hospitalized": 8520
 	}
 ]
