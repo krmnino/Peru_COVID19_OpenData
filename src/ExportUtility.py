@@ -84,10 +84,10 @@ def first_tweet(prev_diff, curr_diff, data, cases24h):
     out = 'ANALISIS DIARIO del #COVID19 en #PERU (1/2)\n'
     if(prev_diff[1] <= curr_diff[1]):
         #out += u'\U0001F534' + ' Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'
-        out += 'Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'
+        out += '- Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'
     else:
         #out += u'\U0001F7E2' + ' Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'
-        out +=  'Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'
+        out +=  '- Casos: ' + str(int(data[1][len(data[1])-1])) + ' (+' + str(int(curr_diff[1])) + ')\n'
 
     out += '  -> (+' + str(cases24h) + ') ultimas 24 hrs\n'
     out += '  -> (+' + str(int(curr_diff[1]) - cases24h) + ') 7 dias anteriores\n'
