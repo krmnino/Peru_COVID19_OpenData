@@ -1610,7 +1610,7 @@
 	{
 		"Date": "2020-09-20",
 		"Cases": 768895,
-		"Deaths": 31369,
+		"Deaths": 31555,
 		"Tests": 3693813,
 		"Recovered": 615255,
 		"Hospitalized": 9156
@@ -1618,7 +1618,7 @@
 	{
 		"Date": "2020-09-21",
 		"Cases": 772896,
-		"Deaths": 31474,
+		"Deaths": 31660,
 		"Tests": 3710694,
 		"Recovered": 622418,
 		"Hospitalized": 9087
@@ -1626,7 +1626,7 @@
 	{
 		"Date": "2020-09-22",
 		"Cases": 776546,
-		"Deaths": 31586,
+		"Deaths": 31772,
 		"Tests": 3724872,
 		"Recovered": 629094,
 		"Hospitalized": 8520
@@ -1822,5 +1822,13 @@
 		"Tests": 4181976,
 		"Recovered": 769077,
 		"Hospitalized": 6172
+	},
+	{
+		"Date": "2020-10-17",
+		"Cases": 865549,
+		"Deaths": 33702,
+		"Tests": 4206371,
+		"Recovered": 774356,
+		"Hospitalized": 5940
 	}
 ]
