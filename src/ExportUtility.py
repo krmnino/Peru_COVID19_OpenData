@@ -65,7 +65,7 @@ def list_to_csv(parsed_data):
         return 1
     out_file = open('../data/PER_full_data.csv', 'w')
     header = 'Fecha,Dia,Casos,NuevosCasos,%DifCases,CasosActivos,NuevosCasesActivos,Fallecidos,NuevasFallecidos,'
-    header += '%DifDeaths,TasaMortalidad,Pruebas,NuevasPruebas,%DifTests,%PruebasPositivasDiarias,Recuperados,'
+    header += '%DifFallecidos,TasaMortalidad,Pruebas,NuevasPruebas,%DifTests,%PruebasPositivasDiarias,Recuperados,'
     header += 'NuevosRecuperados,%DifRecuperados,Hospitalizados,NuevosHospitalizados,%DiffHospitalized\n'
     out_file.write(header)
     for i in range(0, len(parsed_data[0])):
