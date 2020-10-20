@@ -1846,5 +1846,13 @@
 		"Tests": 4249458,
 		"Recovered": 784056,
 		"Hospitalized": 6010
+	},
+	{
+		"Date": "2020-10-20",
+		"Cases": 874118,
+		"Deaths": 33875,
+		"Tests": 4270800,
+		"Recovered": 788494,
+		"Hospitalized": 5842
 	}
 ]
