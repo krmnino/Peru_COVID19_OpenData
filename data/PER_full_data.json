@@ -5472,5 +5472,28 @@
 		"Hospitalizados": 5615.0,
 		"NuevosHospitalizados": 123.0,
 		"%DiffHospitalized": 1.0223962126729789
+	},
+	{
+		"Fecha": "2020-10-27",
+		"Dia": 238.0,
+		"Casos": 892497.0,
+		"NuevosCasos": 1923.0,
+		"%DifCases": 1.0021592815420166,
+		"CasosActivos": 44036.0,
+		"NuevosCasesActivos": -1346.0,
+		"Fallecidos": 34257.0,
+		"NuevasFallecidos": 60.0,
+		"%DifFallecidos": 1.0017545398719185,
+		"TasaMortalidad": 0.03838332229688167,
+		"Pruebas": 4427751.0,
+		"NuevasPruebas": 20458.0,
+		"%DifTests": 1.0046418515855424,
+		"%PruebasPositivasDiarias": 0.09399745820705836,
+		"Recuperados": 814204.0,
+		"NuevosRecuperados": 3209.0,
+		"%DifRecuperados": 1.0039568677981985,
+		"Hospitalizados": 5595.0,
+		"NuevosHospitalizados": -20.0,
+		"%DiffHospitalized": -1.003574620196604
 	}
 ]
