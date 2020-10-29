@@ -2,16 +2,16 @@ import datetime
 import os
 import time
 
-from ParseData import parse_file
-from ParseData import compute_data
-from ParseData import diff_prev_day
-from ParseData import diff_curr_day
-from ParseData import update_file
-from ParseData import get_raw_image_path
-from ParseData import crop_process_image
-from ParseData import read_image
-from ParseData import check_date
-from ParseData import get_raw_image_dimensions
+from ParsingUtility import parse_file
+from ParsingUtility import compute_data
+from ParsingUtility import diff_prev_day
+from ParsingUtility import diff_curr_day
+from ParsingUtility import update_file
+from ParsingUtility import get_raw_image_path
+from ParsingUtility import crop_process_image
+from ParsingUtility import read_image
+from ParsingUtility import check_date
+from ParsingUtility import get_raw_image_dimensions
 from ExportUtility import plot_graph
 from ExportUtility import plot_triple_graph
 from ExportUtility import list_to_csv
@@ -90,7 +90,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (660, 590, 960, 670), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (650, 900, 900, 990), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (170, 970, 480, 1050), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (175, 560, 520, 700), grescale=True, invert=False, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (170, 560, 520, 700), grescale=True, invert=False, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/cases24h.jpg', (150, 160, 530, 310), grescale=True, invert=True, contrast=2.0)
     
