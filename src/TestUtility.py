@@ -1,7 +1,7 @@
 from ParsingUtility import parse_file
 from ParsingUtility import compute_data
 
-def tweet_summary(data):
+def tweet_summary_data(data):
     lines = []
 
     out = ''
@@ -53,17 +53,20 @@ def tweet_summary(data):
     lines.append(out)
 
     out = ''
+    out += u'\U0001F7E2 Pruebas (PM+PR): ' + str(int(data[3][len(data[0])-1])) \
+        if data[15][len(data[0])-1] >= data[15][len(data[0])-2] \
+        else u'\U0001F534 Pruebas (PM+PR): ' + str(int(data[3][len(data[1])-1]))
+    out += ' (+' + str(int(data[15][len(data[0])-1])) + ')\n'
+    lines.append(out)
+
+    out = ''
     out += u'\U0001F534 Hospitalizados: ' + str(int(data[5][len(data[0])-1])) \
-        if data[13][len(data[0])-2] >= data[13][len(data[0])-3] \
+        if data[13][len(data[0])-1] >= data[13][len(data[0])-2] \
         else u'\U0001F7E2 Hospitalizados: ' + str(int(data[5][len(data[0])-1]))
     out += ' (+' + str(int(data[13][len(data[0])-1])) + ')\n' \
         if data[13][len(data[0])-1] > 0 \
         else ' (' + str(int(data[13][len(data[0])-1])) + ')\n'
-    lines.append(out)
-
-    print(lines)
-    
-
+    return lines
 
 raw_data = parse_file()
 if(raw_data == 1):
@@ -71,4 +74,4 @@ if(raw_data == 1):
 
 data = compute_data(raw_data)
 
-tweet_summary(data)
+tweet_summary_data(data)
