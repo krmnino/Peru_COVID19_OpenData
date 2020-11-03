@@ -1952,14 +1952,6 @@
 		"Hospitalized": 5270
 	},
 	{
-		"Date": "2020-11-03",
-		"Cases": 906545,
-		"Deaths": 34585,
-		"Tests": 4551185,
-		"Recovered": 830612,
-		"Hospitalized": 5255
-	},
-	{
 		"Date": "2020-11-02",
 		"Cases": 906545,
 		"Deaths": 34585,
