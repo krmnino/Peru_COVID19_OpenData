@@ -15,15 +15,13 @@ from ParsingUtility import get_raw_image_dimensions
 from ExportUtility import plot_graph
 from ExportUtility import plot_triple_graph
 from ExportUtility import list_to_csv
-from ExportUtility import first_tweet
-from ExportUtility import second_tweet
-from ExportUtility import repo_tweet
 from ExportUtility import export_tweets_to_file
 from ExportUtility import update_git_repo
 from TwitterUtility import load_auth
 from TwitterUtility import fetch_image
 from TwitterUtility import sleep_until
 from TwitterUtility import send_tweet
+from TwitterUtility import tweets_generator
 
 
 start_quarantine = datetime.datetime(2020, 3, 15)
@@ -114,6 +112,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     print('Cases 24H: ', cases24h)
     verify = input('Verify the numbers above before continuing. Proceed? [Y/N]: ')
     print('======================================================================')
+
     if(verify == 'Y' or verify == 'y'):
         pass
     elif(verify == 'N' or verify == 'n'):
@@ -134,8 +133,6 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         return 1
     
     data = compute_data(raw_data)
-    prev_day = diff_prev_day(data)
-    curr_day = diff_curr_day(data)
 
     success_full_csv_write = list_to_csv(data)
     if(success_full_csv_write == 1):
@@ -167,23 +164,20 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     plot_graph(data[0][-30:], data[5][-30:], 'y', "Dias", "# de Hospitalizados", "Hospitalizados por COVID19 en el Peru (ultimos 30 dias)",
         "hospitalized.png", opt_date)
     
-    tweets = []
     images = [['conf_act_rec_cumulative.png', 'new_active_cases.png', 'recovered.png', 'perc_daily_positive_tests.png'],
             ['deaths.png', 'mortality_rate.png', 'tests.png', 'hospitalized.png']]
-    tweets.append(first_tweet(prev_day, curr_day, data, int(cases24h)))
-    tweets.append(second_tweet(prev_day, curr_day, data)) 
-    tweets.append(repo_tweet(opt_date))
+    tweets = tweets_generator(data, images, cases24h)
     
+    success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0])
+    if(success_send_tweet == 1):
+        print('Could not authenticate session and send tweets.')
+        return 1
+
     success_tweets_export = export_tweets_to_file(tweets)
     if(success_tweets_export == 1):
         print('Could not reach tweets.dat')
         return 1
 
-    success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0], images)
-    if(success_send_tweet == 1):
-        print('Could not authenticate session and send tweets.')
-        return 1
- 
     update_git_repo(opt_date)
     
 #####################################################################################################################
