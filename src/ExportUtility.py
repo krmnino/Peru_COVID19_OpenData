@@ -3,6 +3,7 @@ import matplotlib.ticker
 import numpy as np
 import warnings
 import os 
+from TwitterUtility import Tweet
 
 
 class GraphData:
@@ -106,15 +107,15 @@ def list_to_csv(parsed_data):
     print('Data successfully exported to /PER_full_data.csv')
     return 0
 
-def export_tweets_to_file(tweet_contents):
+def export_tweets_to_file(tweets):
     try:
         file = open('../res/tweets.dat', 'w')
         file.close()
     except:
         return 1
     with open('../res/tweets.dat', 'w') as file:
-        for tweet in tweet_contents:
-            file.write(tweet + '===\n')
+        for t in tweets:
+            file.write(t.message + '===\n')
     file.close()
     print('Tweets contents successfully exported in tweets.dat')
     return 0
