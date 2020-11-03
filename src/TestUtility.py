@@ -66,6 +66,8 @@ def tweet_summary_data(data):
     out += ' (+' + str(int(data[13][len(data[0])-1])) + ')\n' \
         if data[13][len(data[0])-1] > 0 \
         else ' (' + str(int(data[13][len(data[0])-1])) + ')\n'
+    lines.append(out)
+    
     return lines
 
 raw_data = parse_file()
@@ -74,4 +76,4 @@ if(raw_data == 1):
 
 data = compute_data(raw_data)
 
-tweet_summary_data(data)
+print(tweet_summary_data(data))
