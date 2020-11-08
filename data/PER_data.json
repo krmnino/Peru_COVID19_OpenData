@@ -1990,5 +1990,13 @@
 		"Tests": 4635248,
 		"Recovered": 838783,
 		"Hospitalized": 5154
+	},
+	{
+		"Date": "2020-11-07",
+		"Cases": 920010,
+		"Deaths": 34840,
+		"Tests": 4655418,
+		"Recovered": 843600,
+		"Hospitalized": 5109
 	}
 ]
