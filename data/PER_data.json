@@ -1998,5 +1998,13 @@
 		"Tests": 4655418,
 		"Recovered": 843600,
 		"Hospitalized": 5109
+	},
+	{
+		"Date": "2020-11-08",
+		"Cases": 922333,
+		"Deaths": 34879,
+		"Tests": 4674263,
+		"Recovered": 846215,
+		"Hospitalized": 5069
 	}
 ]
