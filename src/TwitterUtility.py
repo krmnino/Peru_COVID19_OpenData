@@ -87,7 +87,7 @@ def tweets_generator(data, image_paths, cases24hrs):
     out = ''
     out += u'\U0001F7E2 Recuperados: ' + str(int(data[4][len(data[0])-1])) \
         if data[11][len(data[0])-1] >= data[11][len(data[0])-2] \
-        else u'\U0001F534 Recuperados: ' + str(int(data[18][len(data[0])-1]))
+        else u'\U0001F534 Recuperados: ' + str(int(data[4][len(data[0])-1]))
     out += ' (+' + str(int(data[11][len(data[0])-1])) + ')\n'
     lines.append(out)
 
