@@ -2026,14 +2026,6 @@
 	{
 		"Date": "2020-11-11",
 		"Cases": 928006,
-		"Deaths": 35301,
-		"Tests": 4721179,
-		"Recovered": 853208,
-		"Hospitalized": 4912
-	},
-	{
-		"Date": "2020-11-11",
-		"Cases": 928006,
 		"Deaths": 35031,
 		"Tests": 4721179,
 		"Recovered": 853208,
