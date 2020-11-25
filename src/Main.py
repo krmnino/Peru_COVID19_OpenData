@@ -78,12 +78,12 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
 
     #left, up, right, down
     if(image_dimensions[0] < 900 or image_dimensions[1] < 1100):
-        crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (400, 370, 580, 420), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (420, 550, 580, 620), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (100, 370, 295, 415), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (100, 570, 290, 630), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (400, 470, 580, 520), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/cases24h.jpg', (180, 180, 500, 310), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (420, 365, 590, 420), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (420, 560, 560, 620), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (100, 600, 300, 660), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (90, 360, 325, 445), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (440, 485, 570, 570), grescale=True, invert=True, contrast=1.0)
+        crop_process_image(raw_image_path, '../res/raw_images/cases24h.jpg', (100, 110, 290, 200), grescale=True, invert=True, contrast=2.0)
     else:
         crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (660, 590, 960, 670), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (650, 900, 900, 990), grescale=True, invert=True, contrast=2.0)
