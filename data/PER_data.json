@@ -2131,8 +2131,8 @@
 		"Date": "2020-11-24",
 		"Cases": 952439,
 		"Deaths": 35685,
-		"Tests": 882600,
-		"Recovered": 4961493,
+		"Tests": 4961493,
+		"Recovered": 882600,
 		"Hospitalized": 4408
 	}
 ]
