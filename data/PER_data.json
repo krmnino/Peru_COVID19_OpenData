@@ -2158,5 +2158,13 @@
 		"Tests": 5019608,
 		"Recovered": 888815,
 		"Hospitalized": 4159
+	},
+	{
+		"Date": "2020-11-28",
+		"Cases": 960368,
+		"Deaths": 35879,
+		"Tests": 5039956,
+		"Recovered": 891004,
+		"Hospitalized": 4412
 	}
 ]
