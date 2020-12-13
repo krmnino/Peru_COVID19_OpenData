@@ -42,7 +42,7 @@ def plot_loader(graph_data):
                 plt.plot(graph.x_data, graph.y_data[i], 'ko')
         plt.xlabel(graph.x_label)
         plt.ylabel(''.join(i + str(' ,') for i in graph.y_data_labels)[:-2])
-        if(len(graph_data[0].x_data) == 30):
+        if(len(graph.x_data) == 30):
             plt.xticks(graph.x_data[::2], rotation=90)
             plt.locator_params(axis='x', nbins=len(graph.x_data)/2)
         else:
@@ -50,7 +50,7 @@ def plot_loader(graph_data):
             plt.locator_params(axis='x', nbins=len(graph.x_data)/5)
         plt.grid()
         plt.savefig('../res/graphs/' + graph.filename)
-        print('Graph generated in /res/graphs/' + graph.file_name)
+        print('Graph generated in /res/graphs/' + graph.filename)
 
 def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, y_min=-1, y_max=-1):
     warnings.filterwarnings('ignore')
