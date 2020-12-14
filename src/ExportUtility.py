@@ -10,6 +10,7 @@ class GraphData:
     x_data = None
     y_data = []
     x_label = ''
+    last_days = 0
     y_data_labels = []
     colors = []
     title = ''
@@ -48,17 +49,17 @@ def plot_loader(graph_data):
         plt.suptitle(graph.suptitle)
         plt.title(graph.title, fontdict={'fontsize' : graph.title_size})
         for i in range(0, len(graph.y_data)):
-            plt.plot(graph.x_data, graph.y_data[i], graph.colors[i], label=graph.y_data_labels[i])
+            plt.plot(graph.x_data[-graph.last_days:], graph.y_data[i][-graph.last_days:], graph.colors[i], label=graph.y_data_labels[i])
             if(graph.tick_markers):
-                plt.plot(graph.x_data, graph.y_data[i], 'ko')
+                plt.plot(graph.x_data[-graph.last_days:], graph.y_data[i][-graph.last_days:], 'ko')
         plt.xlabel(graph.x_label)
         plt.ylabel(''.join(i + str(' ,') for i in graph.y_data_labels)[:-2])
-        if(len(graph.x_data) == 30):
-            plt.xticks(graph.x_data[::2], rotation=90)
-            plt.locator_params(axis='x', nbins=len(graph.x_data)/2)
+        if(graph.last_days == 30):
+            plt.xticks(graph.x_data[-graph.last_days:][::2], rotation=90)
+            plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/2)
         else:
             plt.xticks(graph.x_data[::5], rotation=90)
-            plt.locator_params(axis='x', nbins=len(graph.x_data)/10)
+            plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/10)
         if(graph.y_min != -1):
             plt.ylim(bottom=graph.y_min)
         if(graph.y_max != -1):
