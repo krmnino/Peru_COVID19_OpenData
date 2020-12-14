@@ -119,10 +119,10 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Invalid input. Exiting...')
         return 1
     
-    #success_csv_write = update_file(opt_date, cases, deaths, tests, recovered, hospitalized)
-    #if(success_csv_write == 1):
-    #    print('Could not update CSV file.')
-    #    return 1
+    success_csv_write = update_file(opt_date, cases, deaths, tests, recovered, hospitalized)
+    if(success_csv_write == 1):
+        print('Could not update CSV file.')
+        return 1
 
     raw_data = parse_file()
     if(raw_data == 1):
@@ -138,6 +138,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     graph_data = [\
         GraphData(  data[0], 
                     [data[1],data[18],data[4],data[2]], 
+                    0,
                     'Dias',
                     ['# Casos Confirmados', '# Activos', '# Recuperados', '# Fallecidos'],
                     ['r', 'g', 'b', 'k'],
@@ -150,8 +151,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     True,
                     -1,
                     0),
-        GraphData(  data[0][-30:], 
-                    [data[19][-30:]], 
+        GraphData(  data[0], 
+                    [data[19]], 
+                    30,
                     'Dias',
                     ['# de Nuevos Casos Activos'],
                     ['r'],
@@ -164,8 +166,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     False,
                     -1,
                     -1),
-        GraphData(  data[0][-30:], 
-                    [data[4][-30:]], 
+        GraphData(  data[0], 
+                    [data[4]], 
+                    30,
                     'Dias',
                     ['Recuperados'],
                     ['g'],
@@ -178,8 +181,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     False,
                     -1,
                     -1),
-        GraphData(  data[0][-30:], 
-                    [data[20][-30:]], 
+        GraphData(  data[0], 
+                    [data[20]], 
+                    30,
                     'Dias',
                     ['Positividad Diaria (* 100%)'],
                     ['b'],
@@ -194,6 +198,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     0),
         GraphData(  data[0], 
                     [data[2]], 
+                    0,
                     'Dias',
                     ['# de Fallecidos'],
                     ['k'],
@@ -206,8 +211,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     False,
                     -1,
                     0),
-        GraphData(  data[0][-30:], 
-                    [data[17][-30:]], 
+        GraphData(  data[0], 
+                    [data[17]], 
+                    30,
                     'Dias',
                     ['Tasa de Mortalidad (* 100%)'],
                     ['k'],
@@ -222,6 +228,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     -1),
         GraphData(  data[0], 
                     [data[3]], 
+                    0,
                     'Dias',
                     ['# de Pruebas'],
                     ['b'],
@@ -234,8 +241,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     False,
                     -1,
                     0),
-        GraphData(  data[0][-30:], 
-                    [data[5][-30:]], 
+        GraphData(  data[0], 
+                    [data[5]], 
+                    30,
                     'Dias',
                     ['# de Hospitalizados'],
                     ['y'],
