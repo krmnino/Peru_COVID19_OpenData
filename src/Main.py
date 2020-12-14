@@ -141,7 +141,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     0,
                     'Dias',
                     ['# Casos Confirmados', '# Activos', '# Recuperados', '# Fallecidos'],
-                    ['r', 'g', 'b', 'k'],
+                    ['r', 'b', 'g', 'k'],
                     'Casos Confirmados, Activos, Recuperados y Fallecidos de COVID19 en el Peru (acumulado)',
                     20,
                     opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
