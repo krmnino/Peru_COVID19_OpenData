@@ -12,19 +12,16 @@ from ParsingUtility import crop_process_image
 from ParsingUtility import read_image
 from ParsingUtility import check_date
 from ParsingUtility import get_raw_image_dimensions
-from ExportUtility import plot_graph
-from ExportUtility import plot_triple_graph
 from ExportUtility import list_to_csv
 from ExportUtility import export_tweets_to_file
 from ExportUtility import update_git_repo
+from ExportUtility import GraphData
+from ExportUtility import plot_loader
 from TwitterUtility import load_auth
 from TwitterUtility import fetch_image
 from TwitterUtility import sleep_until
 from TwitterUtility import send_tweet
 from TwitterUtility import tweets_generator
-
-
-start_quarantine = datetime.datetime(2020, 3, 15)
 
 '''
 Structure of parsed_data list after computation
@@ -122,10 +119,10 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Invalid input. Exiting...')
         return 1
     
-    success_csv_write = update_file(opt_date, cases, deaths, tests, recovered, hospitalized)
-    if(success_csv_write == 1):
-        print('Could not update CSV file.')
-        return 1
+    #success_csv_write = update_file(opt_date, cases, deaths, tests, recovered, hospitalized)
+    #if(success_csv_write == 1):
+    #    print('Could not update CSV file.')
+    #    return 1
 
     raw_data = parse_file()
     if(raw_data == 1):
@@ -138,48 +135,138 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     if(success_full_csv_write == 1):
         print('Could not export processed data.')
 
-    plot_triple_graph(data[0], data[1], data[18], data[4], 'r', 'b', 'g', "Dias", "# de Casos Confirmados",
-        "# de Casos Activos", "# de Recuperados", "Casos Confirmados, Activos y Recuperados de COVID19 en el Peru (acumulado)",
-        "conf_act_rec_cumulative.png", opt_date, y_min=0)
+    graph_data = [\
+        GraphData(  data[0], 
+                    [data[1],data[18],data[4],data[2]], 
+                    'Dias',
+                    ['# Casos Confirmados', '# Activos', '# Recuperados', '# Fallecidos'],
+                    ['r', 'g', 'b', 'k'],
+                    'Casos Confirmados, Activos, Recuperados y Fallecidos de COVID19 en el Peru (acumulado)',
+                    20,
+                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    'conf_act_rec_dea_cumulative.png',
+                    opt_date,
+                    False,
+                    True,
+                    -1,
+                    0),
+        GraphData(  data[0][-30:], 
+                    [data[19][-30:]], 
+                    'Dias',
+                    ['# de Nuevos Casos Activos'],
+                    ['r'],
+                    'Nuevos Casos Activos de COVID19 en el Peru (ultimos 30 dias)',
+                    25,
+                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    'new_active_cases.png',
+                    opt_date,
+                    True,
+                    False,
+                    -1,
+                    -1),
+        GraphData(  data[0][-30:], 
+                    [data[4][-30:]], 
+                    'Dias',
+                    ['Recuperados'],
+                    ['g'],
+                    'Recuperados de COVID19 en el Peru (ultimos 30 dias)',
+                    25,
+                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    'recovered.png',
+                    opt_date,
+                    True,
+                    False,
+                    -1,
+                    -1),
+        GraphData(  data[0][-30:], 
+                    [data[20][-30:]], 
+                    'Dias',
+                    ['Positividad Diaria (* 100%)'],
+                    ['b'],
+                    'Positividad Diaria de COVID19 en el Peru (ultimos 30 dias)',
+                    25,
+                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    'perc_daily_positive_tests.png',
+                    opt_date,
+                    True,
+                    True,
+                    1,
+                    0),
+        GraphData(  data[0], 
+                    [data[2]], 
+                    'Dias',
+                    ['# de Fallecidos'],
+                    ['k'],
+                    'Fallecidos por COVID19 en el Peru (acumulado)',
+                    25,
+                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    'deaths.png',
+                    opt_date,
+                    False,
+                    False,
+                    -1,
+                    0),
+        GraphData(  data[0][-30:], 
+                    [data[17][-30:]], 
+                    'Dias',
+                    ['Tasa de Mortalidad (* 100%)'],
+                    ['k'],
+                    'Tasa de Mortalidad por COVID19 en el Peru (ultimos 30 dias)',
+                    25,
+                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    'mortality_rate.png',
+                    opt_date,
+                    True,
+                    False,
+                    -1,
+                    -1),
+        GraphData(  data[0], 
+                    [data[3]], 
+                    'Dias',
+                    ['# de Pruebas'],
+                    ['b'],
+                    'Pruebas de COVID19 en el Peru (acumulado)',
+                    25,
+                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    'tests.png',
+                    opt_date,
+                    False,
+                    False,
+                    -1,
+                    0),
+        GraphData(  data[0][-30:], 
+                    [data[5][-30:]], 
+                    'Dias',
+                    ['# de Hospitalizados'],
+                    ['y'],
+                    'Hospitalizados por COVID19 en el Peru (ultimos 30 dias)',
+                    25,
+                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    'hospitalized.png',
+                    opt_date,
+                    True,
+                    False,
+                    -1,
+                    -1)
+    ]
 
-    plot_graph(data[0][-30:], data[19][-30:], 'r', "Dias", "Nuevos Casos Activos",
-        "Nuevos Casos Activos de COVID19 en el Peru (ultimos 30 dias)", "new_active_cases.png", opt_date)
-
-    plot_graph(data[0][-30:], data[4][-30:], 'g', "Dias", "Recuperados",
-        "Recuperados de COVID19 en el Peru (ultimos 30 dias)", "recovered.png", opt_date)
-
-    plot_graph(data[0][-30:], data[20][-30:], 'b', "Dias", "Positividad Diaria (* 100%)",
-        "Positividad Diaria de COVID19 en el Peru (ultimos 30 dias)", "perc_daily_positive_tests.png",
-        opt_date, y_min=0, y_max=1)
-    
-    plot_graph(data[0], data[2], 'k', "Dias", "# de Fallecidos", "Fallecidos por COVID19 en el Peru (acumulado)",
-        "deaths.png", opt_date, y_min=0)
-
-    plot_graph(data[0][-30:], data[17][-30:], 'k', "Dias", "Tasa de Mortalidad (* 100%)",
-        "Tasa de Mortalidad por COVID19 en el Peru (ultimos 30 dias)", "mortality_rate.png", opt_date)
-
-    plot_graph(data[0], data[3], 'b', "Dias", "# de Pruebas", "Pruebas de COVID19 en el Peru (acumulado)",
-        "tests.png", opt_date, y_min=0)
-
-    plot_graph(data[0][-30:], data[5][-30:], 'y', "Dias", "# de Hospitalizados", "Hospitalizados por COVID19 en el Peru (ultimos 30 dias)",
-        "hospitalized.png", opt_date)
-    
-    images = [['conf_act_rec_cumulative.png', 'new_active_cases.png', 'recovered.png', 'perc_daily_positive_tests.png'],
-            ['deaths.png', 'mortality_rate.png', 'tests.png', 'hospitalized.png']]
+    plot_loader(graph_data)
+        
+    images = [[graph_data[i].filename for i in range(0, 4)], [graph_data[i].filename for i in range(4, 8)]]
     tweets = tweets_generator(data, images, cases24h)
-    
+
     success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0])
     if(success_send_tweet == 1):
         print('Could not authenticate session and send tweets.')
         return 1
-
+    
     success_tweets_export = export_tweets_to_file(tweets)
     if(success_tweets_export == 1):
         print('Could not reach tweets.dat')
         return 1
-
-    update_git_repo(opt_date)
     
+    update_git_repo(opt_date)
+
 #####################################################################################################################
 
 run()
