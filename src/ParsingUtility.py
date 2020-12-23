@@ -163,7 +163,7 @@ def check_date(input_date):
     except:
         return 1
 
-def update_file(date, cases, deaths, tests, recovered, hospitalized):
+def update_file(data):
     try:
         open('../data/PER_data.csv', 'a')
     except:
@@ -171,7 +171,9 @@ def update_file(date, cases, deaths, tests, recovered, hospitalized):
         return 1
     else:
         with open('../data/PER_data.csv', 'a') as file:
-            new_data = date + ',' + cases + ',' + deaths + ',' + tests + ',' + recovered + ',' + hospitalized + '\n'
+            data_values = list(data.values())
+            new_data = data_values[0] + ',' + data_values[1] + ',' + data_values[2] + ',' + \
+                       data_values[3] + ',' + data_values[4] + ',' + data_values[5] + '\n'
             file.writelines(new_data)
         file.close()
         print('CSV was updated successfully.')
