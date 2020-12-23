@@ -22,6 +22,7 @@ from TwitterUtility import fetch_image
 from TwitterUtility import sleep_until
 from TwitterUtility import send_tweet
 from TwitterUtility import tweets_generator
+from CommandLineUtility import check_data_menu
 
 '''
 Structure of parsed_data list after computation
@@ -51,6 +52,7 @@ index   contents
 
 def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
 
+    #Include this to Command Line Utility
     success_input_date = check_date(opt_date)
     if(success_input_date == 1):
         print('Invalid input date. Exiting...')
@@ -75,7 +77,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
 
     #left, up, right, down
     if(image_dimensions[0] < 900 or image_dimensions[1] < 1100):
-        crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (420, 365, 590, 420), grescale=True, invert=True, contrast=2.0)
+        crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (420, 365, 600, 420), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (420, 560, 560, 620), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (100, 600, 300, 660), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (90, 360, 325, 445), grescale=True, invert=True, contrast=2.0)
@@ -89,37 +91,24 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/cases24h.jpg', (150, 160, 530, 310), grescale=True, invert=True, contrast=2.0)
     
-    read_image_data = []
-    cases = ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit())
-    deaths = ''.join(c for c in read_image('../res/raw_images/deaths.jpg') if c.isdigit())
-    tests = ''.join(c for c in read_image('../res/raw_images/tests.jpg') if c.isdigit())
-    recovered = ''.join(c for c in read_image('../res/raw_images/recovered.jpg') if c.isdigit())
-    hospitalized = ''.join(c for c in read_image('../res/raw_images/hospitalized.jpg') if c.isdigit())
-    cases24h = ''.join(c for c in read_image('../res/raw_images/cases24h.jpg') if c.isdigit())
-    os.remove(raw_image_path)
+    # [date, cases, deaths, tests, recovered, hospitalized, cases24h]
+    input_data = {\
+        'Date' : opt_date,
+        'Cases' : ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit()),
+        'Deaths' : ''.join(c for c in read_image('../res/raw_images/deaths.jpg') if c.isdigit()),
+        'Tests' : ''.join(c for c in read_image('../res/raw_images/tests.jpg') if c.isdigit()),
+        'Recovered' : ''.join(c for c in read_image('../res/raw_images/recovered.jpg') if c.isdigit()),
+        'Hospitalized' : ''.join(c for c in read_image('../res/raw_images/hospitalized.jpg') if c.isdigit()),
+        'Cases24H' : ''.join(c for c in read_image('../res/raw_images/cases24h.jpg') if c.isdigit())
+    }
 
-    print('======================================================================')
-    print('Message: ', tweet_info[1])
-    print('Date: ', opt_date)
-    print('Cases: ', cases)
-    print('Deaths: ', deaths)
-    print('Tests: ', tests)
-    print('Recovered: ', recovered)
-    print('Hospitalized: ', hospitalized)
-    print('Cases 24H: ', cases24h)
-    verify = input('Verify the numbers above before continuing. Proceed? [Y/N]: ')
-    print('======================================================================')
-
-    if(verify == 'Y' or verify == 'y'):
-        pass
-    elif(verify == 'N' or verify == 'n'):
+    if(check_data_menu(input_data) == 1):
         print('Discard readings. Exiting...')
         return 1
-    else:
-        print('Invalid input. Exiting...')
-        return 1
     
-    success_csv_write = update_file(opt_date, cases, deaths, tests, recovered, hospitalized)
+    os.remove(raw_image_path)
+    
+    success_csv_write = update_file(input_data)
     if(success_csv_write == 1):
         print('Could not update CSV file.')
         return 1
@@ -144,9 +133,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     ['r', 'b', 'g', 'k'],
                     'Casos Confirmados, Activos, Recuperados y Fallecidos de COVID19 en el Peru (acumulado)',
                     20,
-                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    input_data['Date'] + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
                     'conf_act_rec_dea_cumulative.png',
-                    opt_date,
+                    input_data['Date'],
                     False,
                     True,
                     -1,
@@ -159,9 +148,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     ['r'],
                     'Nuevos Casos Activos de COVID19 en el Peru (ultimos 30 dias)',
                     25,
-                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    input_data['Date'] + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
                     'new_active_cases.png',
-                    opt_date,
+                    input_data['Date'],
                     True,
                     False,
                     -1,
@@ -174,9 +163,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     ['g'],
                     'Recuperados de COVID19 en el Peru (ultimos 30 dias)',
                     25,
-                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    input_data['Date'] + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
                     'recovered.png',
-                    opt_date,
+                    input_data['Date'],
                     True,
                     False,
                     -1,
@@ -189,9 +178,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     ['b'],
                     'Positividad Diaria de COVID19 en el Peru (ultimos 30 dias)',
                     25,
-                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    input_data['Date'] + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
                     'perc_daily_positive_tests.png',
-                    opt_date,
+                    input_data['Date'],
                     True,
                     True,
                     1,
@@ -204,9 +193,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     ['k'],
                     'Fallecidos por COVID19 en el Peru (acumulado)',
                     25,
-                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    input_data['Date'] + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
                     'deaths.png',
-                    opt_date,
+                    input_data['Date'],
                     False,
                     False,
                     -1,
@@ -219,9 +208,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     ['k'],
                     'Tasa de Mortalidad por COVID19 en el Peru (ultimos 30 dias)',
                     25,
-                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    input_data['Date'] + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
                     'mortality_rate.png',
-                    opt_date,
+                    input_data['Date'],
                     True,
                     False,
                     -1,
@@ -234,9 +223,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     ['b'],
                     'Pruebas de COVID19 en el Peru (acumulado)',
                     25,
-                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    input_data['Date'] + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
                     'tests.png',
-                    opt_date,
+                    input_data['Date'],
                     False,
                     False,
                     -1,
@@ -249,9 +238,9 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     ['y'],
                     'Hospitalizados por COVID19 en el Peru (ultimos 30 dias)',
                     25,
-                    opt_date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+                    input_data['Date'] + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
                     'hospitalized.png',
-                    opt_date,
+                    input_data['Date'],
                     True,
                     False,
                     -1,
@@ -261,7 +250,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     plot_loader(graph_data)
         
     images = [[graph_data[i].filename for i in range(0, 4)], [graph_data[i].filename for i in range(4, 8)]]
-    tweets = tweets_generator(data, images, cases24h)
+    tweets = tweets_generator(data, images, input_data['Cases24H'])
 
     success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0])
     if(success_send_tweet == 1):
@@ -273,7 +262,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not reach tweets.dat')
         return 1
     
-    update_git_repo(opt_date)
+    update_git_repo(input_data['Date'])
 
 #####################################################################################################################
 
