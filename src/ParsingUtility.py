@@ -1,4 +1,5 @@
 import os
+import sys
 import cv2
 import datetime
 import numpy as np
@@ -9,6 +10,8 @@ from PIL import Image
 from PIL import ImageOps 
 from PIL import ImageEnhance
 
+if(sys.platform == 'win32'):
+    pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
 #Do not print in scientific notiation
 np.set_printoptions(suppress=True)
@@ -179,14 +182,23 @@ def update_file(data):
         print('CSV was updated successfully.')
         return 0
 
+def clean_dir():
+    path = str(pathlib.Path().absolute()).replace('\\', '/')
+    path = path[:path.rfind('/')] + '/res/raw_images/'
+    files = [path + f for f in os.listdir(path)]
+    for file in files:
+        try:
+            os.remove(file)
+        except:
+            return 1
+    return 0
+
 def get_raw_image_path():
-    path = str(pathlib.Path().absolute())
+    path = str(pathlib.Path().absolute()).replace('\\', '/')
     path = path[:path.rfind('/')] + '/res/raw_images/'
     out = ''
-    for file in os.listdir(path):
-        filename = os.fsdecode(file)
-        out += path + filename
-        break
+    #print(os.listdir(path))
+    out = path + os.fsdecode(os.listdir(path)[0])
     if(out == path):
         return 1
     else:
@@ -218,5 +230,8 @@ def crop_process_image(input_path, output_path, limits, invert=False, grescale=F
     
 def read_image(path):
     img_2_txt = str(pytesseract.image_to_string(Image.open(path)))
-    os.remove(path)
-    return img_2_txt
+    clean_txt = ''
+    for c in img_2_txt:
+        if c.isdigit():
+            clean_txt += c
+    return clean_txt
