@@ -4,6 +4,7 @@ import os
 import time
 import datetime
 import pathlib
+import sys
 
 class Tweet:
     message = ''
@@ -36,31 +37,30 @@ def fetch_image(auth_data):
     auth = tweepy.OAuthHandler(auth_data[0], auth_data[1])
     auth.set_access_token(auth_data[2], auth_data[3])
     api = tweepy.API(auth)
-    path = str(pathlib.Path().absolute())
+    path = str(pathlib.Path().absolute()).replace('\\', '/')
     path = path[:path.rfind('/')] + '/res/raw_images/'
     found_tweet = False
     query_tweets = 0
     tweet_identificator = ''
     tweet_message = ''
-    image_urls = []
+    image_url = ''
     while(found_tweet == False and query_tweets < 15):
+        print('Quering tweets...')
         tweets = api.user_timeline(screen_name='Minsa_Peru', count=query_tweets, include_rts=False, include_replies=False, tweet_mode='extended')
         for tweet in tweets:
             if('media' in tweet.entities and 'Esta es la situación del' in tweet.full_text):
                 tweet_identificator = tweet.id
                 tweet_message = tweet.full_text
                 for media in tweet.extended_entities['media']:
-                    image_urls.append(media['media_url'])
+                    image_url = media['media_url']
                     found_tweet = True
                 break
-        print('Quering tweets...')
         query_tweets += 1
     if(query_tweets == 15):
         return 1
-    for media_file in image_urls:
-        wget.download(media_file, path)
-        print()
-        return (tweet_identificator, tweet_message)
+    print()
+    wget.download(image_url, out=path)
+    return (tweet_identificator, tweet_message)
 
 def tweets_generator(data, image_paths, cases24hrs):
     # Generate tweet message with data summary
