@@ -1,0 +1,7 @@
+Python 3.8
+pip install numpy
+pip install opencv-python
+pip install pytesseract
+pip install matplotlib
+pip install tweepy
+pip install wget
