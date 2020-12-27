@@ -2,6 +2,7 @@ Python 3.8
 pip install numpy
 pip install opencv-python
 pip install pytesseract
+https://github.com/UB-Mannheim/tesseract/wiki
 pip install matplotlib
 pip install tweepy
 pip install wget
