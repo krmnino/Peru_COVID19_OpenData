@@ -159,13 +159,15 @@ def check_date(input_date):
         return 1
 
 def update_file(data):
+    path = str(pathlib.Path().absolute()).replace('\\', '/')
+    path = path[:path.rfind('/')] + '/data/PER_data.csv'
     try:
-        open('../data/PER_data.csv', 'a')
+        open(path, 'a')
     except:
         print('Could not access', '../data/PER_data.csv')
         return 1
     else:
-        with open('../data/PER_data.csv', 'a') as file:
+        with open(path, 'a') as file:
             data_values = list(data.values())
             new_data = data_values[0] + ',' + data_values[1] + ',' + data_values[2] + ',' + \
                        data_values[3] + ',' + data_values[4] + ',' + data_values[5] + '\n'
