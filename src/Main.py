@@ -12,6 +12,7 @@ from ParsingUtility import crop_process_image
 from ParsingUtility import read_image
 from ParsingUtility import check_date
 from ParsingUtility import get_raw_image_dimensions
+from ParsingUtility import clean_dir
 from ExportUtility import list_to_csv
 from ExportUtility import export_tweets_to_file
 from ExportUtility import update_git_repo
@@ -63,6 +64,11 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not load authenticator file. Exiting...')
         return 1
 
+    clean_directory = clean_dir()
+    if(clean_directory == 1):
+        print('Could not clean raw_images directory. Exiting...')
+        return 1
+
     tweet_info = fetch_image(auth_data) #index 0 = tweet_id, index 1 = tweet_body
     if(tweet_info == 1):
         print('No matching image found. Exiting...')
@@ -91,22 +97,22 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
         crop_process_image(raw_image_path, '../res/raw_images/cases24h.jpg', (150, 160, 530, 310), grescale=True, invert=True, contrast=2.0)
     
+    
+
     # [date, cases, deaths, tests, recovered, hospitalized, cases24h]
     input_data = {\
         'Date' : opt_date,
-        'Cases' : ''.join(c for c in read_image('../res/raw_images/cases.jpg') if c.isdigit()),
-        'Deaths' : ''.join(c for c in read_image('../res/raw_images/deaths.jpg') if c.isdigit()),
-        'Tests' : ''.join(c for c in read_image('../res/raw_images/tests.jpg') if c.isdigit()),
-        'Recovered' : ''.join(c for c in read_image('../res/raw_images/recovered.jpg') if c.isdigit()),
-        'Hospitalized' : ''.join(c for c in read_image('../res/raw_images/hospitalized.jpg') if c.isdigit()),
-        'Cases24H' : ''.join(c for c in read_image('../res/raw_images/cases24h.jpg') if c.isdigit())
+        'Cases' : read_image('../res/raw_images/cases.jpg'),
+        'Deaths' : read_image('../res/raw_images/deaths.jpg'),
+        'Tests' : read_image('../res/raw_images/tests.jpg'),
+        'Recovered' : read_image('../res/raw_images/recovered.jpg'),
+        'Hospitalized' : read_image('../res/raw_images/hospitalized.jpg'),
+        'Cases24H' : read_image('../res/raw_images/cases24h.jpg')
     }
 
     if(check_data_menu(input_data) == 1):
         print('Discard readings. Exiting...')
         return 1
-    
-    os.remove(raw_image_path)
     
     success_csv_write = update_file(input_data)
     if(success_csv_write == 1):
