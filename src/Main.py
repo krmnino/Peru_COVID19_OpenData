@@ -4,8 +4,6 @@ import time
 
 from ParsingUtility import parse_file
 from ParsingUtility import compute_data
-from ParsingUtility import diff_prev_day
-from ParsingUtility import diff_curr_day
 from ParsingUtility import update_file
 from ParsingUtility import get_raw_image_path
 from ParsingUtility import crop_process_image
@@ -267,7 +265,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     if(success_tweets_export == 1):
         print('Could not reach tweets.dat')
         return 1
-    
+
     update_git_repo(input_data['Date'])
 
 #####################################################################################################################

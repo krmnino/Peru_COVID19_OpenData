@@ -151,14 +151,6 @@ Index   Contents
 9       % Mortality
 '''
 
-def diff_prev_day(data):
-    return [data[0][len(data[0])-2], data[7][len(data[0])-2], data[9][len(data[0])-2], data[11][len(data[0])-2], data[13][len(data[0])-2],
-            data[15][len(data[0])-2], data[18][len(data[0])-2], data[19][len(data[0])-2], data[20][len(data[0])-2], data[17][len(data[0])-2]]
-
-def diff_curr_day(data):
-    return [data[0][len(data[0])-1], data[7][len(data[0])-1], data[9][len(data[0])-1], data[11][len(data[0])-1], data[13][len(data[0])-1],
-            data[15][len(data[0])-1], data[18][len(data[0])-1], data[19][len(data[0])-1], data[20][len(data[0])-1], data[17][len(data[0])-1]]
-
 def check_date(input_date):
     try:
         datetime.datetime.strptime(input_date, '%Y-%m-%d').date()
