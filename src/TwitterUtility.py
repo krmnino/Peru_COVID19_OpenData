@@ -156,7 +156,6 @@ def tweets_generator(data, image_paths, cases24hrs):
 
     return tweets
 
-#def send_tweet(auth_data, tweet_contents, tweet_identificator, images):
 def send_tweet(auth_data, tweets, tweet_identificator):
     auth = tweepy.OAuthHandler(auth_data[0], auth_data[1])
     auth.set_access_token(auth_data[2], auth_data[3])
@@ -164,7 +163,7 @@ def send_tweet(auth_data, tweets, tweet_identificator):
         api = tweepy.API(auth)
     except:
         return 1
-    image_prefix_path = str(pathlib.Path().absolute())
+    image_prefix_path = str(pathlib.Path().absolute()).replace('\\', '/')
     image_prefix_path = image_prefix_path[:image_prefix_path.rfind('/')] + '/res/graphs/'
     for i in range(0, len(tweets)):
         if len(tweets[i].image_paths) > 0:
