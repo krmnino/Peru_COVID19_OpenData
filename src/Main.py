@@ -268,11 +268,15 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not reach tweets.dat')
         return 1
 
+    clean_directory = clean_dir()
+    if(clean_directory == 1):
+        print('Could not clean raw_images directory. Exiting...')
+        return 1
+
     if(sys.platform == 'win32'):
         update_git_repo_win32(input_data['Date'])
     else:
         update_git_repo_linux(input_data['Date'])
-    
 
 #####################################################################################################################
 
