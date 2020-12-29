@@ -1,5 +1,6 @@
 import datetime
 import os
+import sys
 import time
 
 from ParsingUtility import parse_file
@@ -13,7 +14,8 @@ from ParsingUtility import get_raw_image_dimensions
 from ParsingUtility import clean_dir
 from ExportUtility import list_to_csv
 from ExportUtility import export_tweets_to_file
-from ExportUtility import update_git_repo
+from ExportUtility import update_git_repo_win32
+from ExportUtility import update_git_repo_linux
 from ExportUtility import GraphData
 from ExportUtility import plot_loader
 from TwitterUtility import load_auth
@@ -266,7 +268,11 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not reach tweets.dat')
         return 1
 
-    update_git_repo(input_data['Date'])
+    if(sys.platform == 'win32'):
+        update_git_repo_win32(input_data['Date'])
+    else:
+        update_git_repo_linux(input_data['Date'])
+    
 
 #####################################################################################################################
 

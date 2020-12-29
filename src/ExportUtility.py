@@ -118,16 +118,19 @@ def list_to_csv(parsed_data):
 
 def export_tweets_to_file(tweets):
     try:
-        file = open('../res/tweets.dat', 'w')
+        file = open('../res/tweets.dat', 'w', encoding='utf-8')
         file.close()
     except:
         return 1
-    with open('../res/tweets.dat', 'w') as file:
+    with open('../res/tweets.dat', 'w', encoding='utf-8') as file:
         for t in tweets:
             file.write(t.message + '===\n')
     file.close()
     print('Tweets contents successfully exported in tweets.dat')
     return 0
 
-def update_git_repo(date):
-    os.system('./AutoUpdateRepo.sh "' + date + '"')
+def update_git_repo_win32(date):
+    os.system('sh Windows_AutoUpdateRepo.sh "' + date + '"')
+
+def update_git_repo_linux(date):
+    os.system('./Linux_AutoUpdateRepo.sh "' + date + '"')
