@@ -2390,5 +2390,21 @@
 		"Tests": 5453091,
 		"Recovered": 943637,
 		"Hospitalized": 4177
+	},
+	{
+		"Date": "2020-12-27",
+		"Cases": 1007657,
+		"Deaths": 37474,
+		"Tests": 5463577,
+		"Recovered": 945603,
+		"Hospitalized": 4239
+	},
+	{
+		"Date": "2020-12-28",
+		"Cases": 1008908,
+		"Deaths": 37525,
+		"Tests": 5473555,
+		"Recovered": 947427,
+		"Hospitalized": 4479
 	}
 ]
