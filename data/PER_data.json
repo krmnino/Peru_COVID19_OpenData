@@ -2462,5 +2462,13 @@
 		"Tests": 5567797,
 		"Recovered": 960703,
 		"Hospitalized": 5266
+	},
+	{
+		"Date": "2021-01-05",
+		"Cases": 1022018,
+		"Deaths": 37925,
+		"Tests": 5581668,
+		"Recovered": 960896,
+		"Hospitalized": 5449
 	}
 ]
