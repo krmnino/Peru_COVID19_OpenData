@@ -2502,5 +2502,13 @@
 		"Tests": 5651113,
 		"Recovered": 968355,
 		"Hospitalized": 6269
+	},
+	{
+		"Date": "2021-01-10",
+		"Cases": 1035184,
+		"Deaths": 38280,
+		"Tests": 5667879,
+		"Recovered": 969863,
+		"Hospitalized": 6666
 	}
 ]

@@ -7197,5 +7197,28 @@
 		"Hospitalizados": 6269.0,
 		"NuevosHospitalizados": 391.0,
 		"%DiffHospitalized": 1.0665192242259272
+	},
+	{
+		"Fecha": "2021-01-10",
+		"Dia": 313.0,
+		"Casos": 1035184.0,
+		"NuevosCasos": 2909.0,
+		"%DifCases": 1.002818047516408,
+		"CasosActivos": 27041.0,
+		"NuevosCasesActivos": 1334.0,
+		"Fallecidos": 38280.0,
+		"NuevasFallecidos": 67.0,
+		"%DifFallecidos": 1.0017533300185801,
+		"TasaMortalidad": 0.036978933213805465,
+		"Pruebas": 5667879.0,
+		"NuevasPruebas": 16766.0,
+		"%DifTests": 1.0029668491852843,
+		"%PruebasPositivasDiarias": 0.1735059048073482,
+		"Recuperados": 969863.0,
+		"NuevosRecuperados": 1508.0,
+		"%DifRecuperados": 1.0015572801297046,
+		"Hospitalizados": 6666.0,
+		"NuevosHospitalizados": 397.0,
+		"%DiffHospitalized": 1.0633274844472802
 	}
 ]
