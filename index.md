@@ -100,10 +100,10 @@ Datos disponibles en **.csv** y **.json**.
 
 ¡Sugerencias y reportes de errores son bienvenidos! Mi informacion de contacto es la siguiente:
 
-Kurt Manrique-Nino
-Email: kurt.manrique.n@gmail.com
-[Twitter](https://twitter.com/krm_nino)
-[LinkedIn](https://www.linkedin.com/in/kurt-manrique-nino/)
-[GitHub](https://github.com/krmnino/)
-New York, U.S.A.
+<dd> Kurt Manrique-Nino </dd>
+<dd> Email: kurt.manrique.n@gmail.com </dd>
+<dd> [Twitter](https://twitter.com/krm_nino) </dd>
+<dd> [LinkedIn](https://www.linkedin.com/in/kurt-manrique-nino/) </dd>
+<dd> [GitHub](https://github.com/krmnino/) </dd>
+<dd> New York, U.S.A. </dd>
 
