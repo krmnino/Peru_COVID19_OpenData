@@ -4,7 +4,8 @@ layout: default
 
 ## ¿Que es esto?
 
-Este proyecto empezo como un simple programa para graficar el numero de casos de coronavirus en Peru. Actualmente el principal objetivo es preservar y extrapolar los datos publicados por el Ministerio de Salud del Peru acerca del la pandemia del COVID-19. Los datos estan disponibles de manera **gratuita** y **segura**.
+Este proyecto empezo como un simple programa para graficar el numero de casos de coronavirus en Peru. 
+Actualmente el principal objetivo es preservar y extrapolar los datos publicados por el Ministerio de Salud del Peru acerca del la pandemia del COVID-19. Los datos estan disponibles de manera **gratuita** y **segura**.
 
 * * *
 
@@ -95,5 +96,14 @@ Datos disponibles en **.csv** y **.json**.
 | T            | NuevosHospitalizados      | number  | Diferencia de personas hospitalizadas a la fecha           |
 | U            | %DiffHospitalized         | number  | Tasa de crecimiento de personas hospitalizadas a la fecha  |
 
-## Sugerencias
+## Contacto y Sugerencias
+
+¡Sugerencias y reportes de errores son bienvenidos! Mi informacion de contacto es la siguiente:
+
+Kurt Manrique-Nino
+Email: kurt.manrique.n@gmail.com
+[Twitter](https://twitter.com/krm_nino)
+[LinkedIn](https://www.linkedin.com/in/kurt-manrique-nino/)
+[GitHub](https://github.com/krmnino/)
+New York, U.S.A.
 
