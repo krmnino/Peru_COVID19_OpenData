@@ -151,7 +151,7 @@ def tweets_generator(data, image_paths, cases24hrs):
     tweets[2].message = 'Repositorio de datos sobre el #COVID19 en #Peru actualizado al dia ' + data[0][len(data[0]) - 1] + '\n'
     tweets[2].message += 'Sugerencias son bienvenidas!\n'
     tweets[2].message += u'\U0001F4C8' + ' Disponible en formato .CSV y .JSON\n'
-    tweets[2].message += u'\U0001F30E' + ' WEB https://krmnino.github.io/Peru_COVID19_OpenData/\n'
+    tweets[2].message += u'\U0001F30E' + ' WEB https://peru-covid19.com/\n'
     tweets[2].message += u'\U0001F4C1' + ' REPO https://github.com/krmnino/Peru_COVID19_OpenData\n'
 
     return tweets
