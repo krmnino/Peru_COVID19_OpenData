@@ -4,13 +4,13 @@ layout: default
 
 ## ¿Que es esto?
 
-Este proyecto empezo como un simple programa para graficar el numero de casos de coronavirus en Peru. Actualmente el principal objetivo es preservar y extrapolar los datos publicados por el Ministerio de Salud del Peru acerca del la pandemia del COVID-19. Los datos estan disponibles de manera gratuita y segura.
+Este proyecto empezo como un simple programa para graficar el numero de casos de coronavirus en Peru. Actualmente el principal objetivo es preservar y extrapolar los datos publicados por el Ministerio de Salud del Peru acerca del la pandemia del COVID-19. Los datos estan disponibles de manera **gratuita** y **segura**.
 
 ## Formato de Datos
 
-Datos disponibles en .csv y .json.
+Datos disponibles en **.csv** y **.json**.
 
-* PER_data.csv (Usando Excel u OpenOffice Calc)
+* **PER_data.csv (Usando Excel u OpenOffice Calc)**
 
 | Columna      | Nombre                    | Tipo    | Descripcion                                                |
 |:-------------|:--------------------------|:--------|:-----------------------------------------------------------|
@@ -21,7 +21,7 @@ Datos disponibles en .csv y .json.
 | E            | Recovered                 | int     | Numero de personas recuperadas a la fecha                  |
 | F            | Hospitalized              | int     | Numero de personas hospitalizadas a la fecha               |
 
-* PER_full_data.csv (Usando Excel u OpenOffice Calc)
+* **PER_full_data.csv (Usando Excel u OpenOffice Calc)**
 
 | Columna      | Nombre                    | Tipo    | Descripcion                                                |
 |:-------------|:--------------------------|:--------|:-----------------------------------------------------------|
@@ -47,11 +47,11 @@ Datos disponibles en .csv y .json.
 | T            | NuevosHospitalizados      | int     | Diferencia de personas hospitalizadas a la fecha           |
 | U            | %DiffHospitalized         | float   | Tasa de crecimiento de personas hospitalizadas a la fecha  |
 
-* PER_data.json
+* **PER_data.json**
 
 
 
-* PER_full_data.json
+* **PER_full_data.json**
 
 
 
