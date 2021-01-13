@@ -1,4 +1,5 @@
 title: Peru COVID-19 OpenData
-logo: /res/peru.png
+logo: /res/web/peru.png
 description: Repositorio de datos sobre el COVID-19 en Peru.
+show_downloads: true
 theme: jekyll-theme-minimal

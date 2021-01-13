@@ -12,7 +12,6 @@ Datos disponibles en .csv y .json.
 
 * PER_data.csv (Usando Excel u OpenOffice Calc)
 
-```
 | Columna      | Nombre                    | Tipo    | Descripcion                                                |
 |:-------------|:--------------------------|:--------|:-----------------------------------------------------------|
 | A            | Fecha                     | string  | Año-Mes-Dia de la estadistica                              |
@@ -21,7 +20,6 @@ Datos disponibles en .csv y .json.
 | D            | Tests                     | int     | Numero de pruebas (PM + PR) a la fecha                     |
 | E            | Recovered                 | int     | Numero de personas recuperadas a la fecha                  |
 | F            |                           | int     | Numero de personas hospitalizadas a la fecha               |
-```
 
 * PER_full_data.csv (Usando Excel u OpenOffice Calc)
 
