@@ -102,8 +102,8 @@ Datos disponibles en **.csv** y **.json**.
 
 <dd> Kurt Manrique-Nino </dd>
 <dd> Email: kurt.manrique.n@gmail.com </dd>
-<dd> [Twitter](https://twitter.com/krm_nino) </dd>
-<dd> [LinkedIn](https://www.linkedin.com/in/kurt-manrique-nino/) </dd>
-<dd> [GitHub](https://github.com/krmnino/) </dd>
+<dd> <a href="https://twitter.com/krm_nino">Twitter</a> </dd>
+<dd> <a href="https://www.linkedin.com/in/kurt-manrique-nino/">LinkedIn</a> </dd>
+<dd> <a href="https://github.com/krmnino/">[GitHub]</a></dd>
 <dd> New York, U.S.A. </dd>
 
