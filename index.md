@@ -4,8 +4,7 @@ layout: default
 
 ## ¿Que es esto?
 
-Este proyecto empezo como un simple programa para graficar el numero de casos de coronavirus en Peru. 
-Actualmente el principal objetivo es preservar y extrapolar los datos publicados por el Ministerio de Salud del Peru acerca del la pandemia del COVID-19. Los datos estan disponibles de manera **gratuita** y **segura**.
+Este proyecto empezo como un simple programa para graficar el numero de casos de coronavirus en Peru. Actualmente el principal objetivo es preservar y extrapolar los datos publicados por el Ministerio de Salud del Peru acerca del la pandemia del COVID-19. Los datos estan disponibles de manera **gratuita** y **segura**.
 
 * * *
 
@@ -104,6 +103,6 @@ Datos disponibles en **.csv** y **.json**.
 <dd> Email: kurt.manrique.n@gmail.com </dd>
 <dd> <a href="https://twitter.com/krm_nino">Twitter</a> </dd>
 <dd> <a href="https://www.linkedin.com/in/kurt-manrique-nino/">LinkedIn</a> </dd>
-<dd> <a href="https://github.com/krmnino/">[GitHub]</a></dd>
+<dd> <a href="https://github.com/krmnino/">GitHub</a></dd>
 <dd> New York, U.S.A. </dd>
 
