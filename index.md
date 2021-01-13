@@ -2,8 +2,6 @@
 layout: default
 ---
 
-# Peru COVID-19 OpenData
-
 ## ¿Que es esto?
 
 Este proyecto empezo como un simple programa para graficar el numero de casos de coronavirus en Peru. Actualmente el principal objetivo es preservar y extrapolar los datos publicados por el Ministerio de Salud del Peru acerca del la pandemia del COVID-19. Los datos estan disponibles de manera **gratuita** y **segura**.
