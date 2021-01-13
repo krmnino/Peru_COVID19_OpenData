@@ -19,7 +19,7 @@ Datos disponibles en .csv y .json.
 | C            | Deaths                    | int     | Numero de fallecidos a la fecha                            |
 | D            | Tests                     | int     | Numero de pruebas (PM + PR) a la fecha                     |
 | E            | Recovered                 | int     | Numero de personas recuperadas a la fecha                  |
-| F            |                           | int     | Numero de personas hospitalizadas a la fecha               |
+| F            | Hospitalized              | int     | Numero de personas hospitalizadas a la fecha               |
 
 * PER_full_data.csv (Usando Excel u OpenOffice Calc)
 
@@ -49,14 +49,10 @@ Datos disponibles en .csv y .json.
 
 * PER_data.json
 
-```
 
-```
 
 * PER_full_data.json
 
-```
 
-```
 
 ## Change Log
