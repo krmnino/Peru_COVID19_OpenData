@@ -10,10 +10,10 @@ Este proyecto empezo como un simple programa para graficar el numero de casos de
 
 ## Descargas
 
-[Formato .csv simple]()
-[Formato .csv completo]()
-[Formato .json simple]()
-[Formato .json completo]()
+* [Formato .csv simple](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/site/data/PER_data.csv)
+* [Formato .csv completo](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/site/data/PER_full_data.csv)
+* [Formato .json simple](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/site/data/PER_data.json)
+* [Formato .json completo](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/site/data/PER_full_data.json)
 
 * * *
 
@@ -95,6 +95,5 @@ Datos disponibles en **.csv** y **.json**.
 | T            | NuevosHospitalizados      | number  | Diferencia de personas hospitalizadas a la fecha           |
 | U            | %DiffHospitalized         | number  | Tasa de crecimiento de personas hospitalizadas a la fecha  |
 
-* * *
+## Sugerencias
 
-## Change Log
