@@ -1,2530 +1,2538 @@
 [
 	{
-		"Date": "2020-03-03",
-		"Cases": 0,
-		"Deaths": 0,
-		"Tests": 0,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-04",
-		"Cases": 0,
-		"Deaths": 0,
-		"Tests": 107,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-05",
-		"Cases": 1,
-		"Deaths": 0,
-		"Tests": 155,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-06",
-		"Cases": 1,
-		"Deaths": 0,
-		"Tests": 219,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-07",
-		"Cases": 1,
-		"Deaths": 0,
-		"Tests": 219,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-08",
-		"Cases": 7,
-		"Deaths": 0,
-		"Tests": 250,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-09",
-		"Cases": 9,
-		"Deaths": 0,
-		"Tests": 318,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-10",
-		"Cases": 11,
-		"Deaths": 0,
-		"Tests": 346,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-11",
-		"Cases": 17,
-		"Deaths": 0,
-		"Tests": 656,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-12",
-		"Cases": 22,
-		"Deaths": 0,
-		"Tests": 656,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-13",
-		"Cases": 38,
-		"Deaths": 0,
-		"Tests": 656,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-14",
-		"Cases": 43,
-		"Deaths": 0,
-		"Tests": 1232,
-		"Recovered": 0,
-		"Hospitalized": 0
-	},
-	{
-		"Date": "2020-03-15",
-		"Cases": 71,
-		"Deaths": 0,
-		"Tests": 1822,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-03",
+		"Casos": 0,
+		"Fallecidos": 0,
+		"Pruebas": 0,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-04",
+		"Casos": 0,
+		"Fallecidos": 0,
+		"Pruebas": 107,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-05",
+		"Casos": 1,
+		"Fallecidos": 0,
+		"Pruebas": 155,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-06",
+		"Casos": 1,
+		"Fallecidos": 0,
+		"Pruebas": 219,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-07",
+		"Casos": 1,
+		"Fallecidos": 0,
+		"Pruebas": 219,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-08",
+		"Casos": 7,
+		"Fallecidos": 0,
+		"Pruebas": 250,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-09",
+		"Casos": 9,
+		"Fallecidos": 0,
+		"Pruebas": 318,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-10",
+		"Casos": 11,
+		"Fallecidos": 0,
+		"Pruebas": 346,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-11",
+		"Casos": 17,
+		"Fallecidos": 0,
+		"Pruebas": 656,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-12",
+		"Casos": 22,
+		"Fallecidos": 0,
+		"Pruebas": 656,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-13",
+		"Casos": 38,
+		"Fallecidos": 0,
+		"Pruebas": 656,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-14",
+		"Casos": 43,
+		"Fallecidos": 0,
+		"Pruebas": 1232,
+		"Recuperados": 0,
+		"Hospitalizados": 0
+	},
+	{
+		"Fecha": "2020-03-15",
+		"Casos": 71,
+		"Fallecidos": 0,
+		"Pruebas": 1822,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-16",
-		"Cases": 86,
-		"Deaths": 0,
-		"Tests": 2315,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-16",
+		"Casos": 86,
+		"Fallecidos": 0,
+		"Pruebas": 2315,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-17",
-		"Cases": 117,
-		"Deaths": 0,
-		"Tests": 2797,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-17",
+		"Casos": 117,
+		"Fallecidos": 0,
+		"Pruebas": 2797,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-18",
-		"Cases": 145,
-		"Deaths": 0,
-		"Tests": 3075,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-18",
+		"Casos": 145,
+		"Fallecidos": 0,
+		"Pruebas": 3075,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-19",
-		"Cases": 234,
-		"Deaths": 2,
-		"Tests": 3841,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-19",
+		"Casos": 234,
+		"Fallecidos": 2,
+		"Pruebas": 3841,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-20",
-		"Cases": 263,
-		"Deaths": 3,
-		"Tests": 4298,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-20",
+		"Casos": 263,
+		"Fallecidos": 3,
+		"Pruebas": 4298,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-21",
-		"Cases": 318,
-		"Deaths": 5,
-		"Tests": 5185,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-21",
+		"Casos": 318,
+		"Fallecidos": 5,
+		"Pruebas": 5185,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-22",
-		"Cases": 363,
-		"Deaths": 5,
-		"Tests": 6184,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-22",
+		"Casos": 363,
+		"Fallecidos": 5,
+		"Pruebas": 6184,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-23",
-		"Cases": 395,
-		"Deaths": 5,
-		"Tests": 7013,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-23",
+		"Casos": 395,
+		"Fallecidos": 5,
+		"Pruebas": 7013,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-24",
-		"Cases": 416,
-		"Deaths": 7,
-		"Tests": 7486,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-24",
+		"Casos": 416,
+		"Fallecidos": 7,
+		"Pruebas": 7486,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-25",
-		"Cases": 558,
-		"Deaths": 8,
-		"Tests": 8040,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-25",
+		"Casos": 558,
+		"Fallecidos": 8,
+		"Pruebas": 8040,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-26",
-		"Cases": 580,
-		"Deaths": 9,
-		"Tests": 9219,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-26",
+		"Casos": 580,
+		"Fallecidos": 9,
+		"Pruebas": 9219,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-27",
-		"Cases": 635,
-		"Deaths": 11,
-		"Tests": 10065,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-27",
+		"Casos": 635,
+		"Fallecidos": 11,
+		"Pruebas": 10065,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-28",
-		"Cases": 671,
-		"Deaths": 16,
-		"Tests": 10896,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-28",
+		"Casos": 671,
+		"Fallecidos": 16,
+		"Pruebas": 10896,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-29",
-		"Cases": 852,
-		"Deaths": 18,
-		"Tests": 12669,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-29",
+		"Casos": 852,
+		"Fallecidos": 18,
+		"Pruebas": 12669,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-30",
-		"Cases": 950,
-		"Deaths": 24,
-		"Tests": 13452,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-30",
+		"Casos": 950,
+		"Fallecidos": 24,
+		"Pruebas": 13452,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-03-31",
-		"Cases": 1065,
-		"Deaths": 30,
-		"Tests": 14463,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-03-31",
+		"Casos": 1065,
+		"Fallecidos": 30,
+		"Pruebas": 14463,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-01",
-		"Cases": 1323,
-		"Deaths": 47,
-		"Tests": 15587,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-04-01",
+		"Casos": 1323,
+		"Fallecidos": 47,
+		"Pruebas": 15587,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-02",
-		"Cases": 1414,
-		"Deaths": 55,
-		"Tests": 16518,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-04-02",
+		"Casos": 1414,
+		"Fallecidos": 55,
+		"Pruebas": 16518,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-03",
-		"Cases": 1595,
-		"Deaths": 61,
-		"Tests": 17334,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-04-03",
+		"Casos": 1595,
+		"Fallecidos": 61,
+		"Pruebas": 17334,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-04",
-		"Cases": 1746,
-		"Deaths": 73,
-		"Tests": 17841,
-		"Recovered": 0,
-		"Hospitalized": 0
+		"Fecha": "2020-04-04",
+		"Casos": 1746,
+		"Fallecidos": 73,
+		"Pruebas": 17841,
+		"Recuperados": 0,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-05",
-		"Cases": 2281,
-		"Deaths": 83,
-		"Tests": 19410,
-		"Recovered": 989,
-		"Hospitalized": 0
+		"Fecha": "2020-04-05",
+		"Casos": 2281,
+		"Fallecidos": 83,
+		"Pruebas": 19410,
+		"Recuperados": 989,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-06",
-		"Cases": 2561,
-		"Deaths": 92,
-		"Tests": 20414,
-		"Recovered": 997,
-		"Hospitalized": 0
+		"Fecha": "2020-04-06",
+		"Casos": 2561,
+		"Fallecidos": 92,
+		"Pruebas": 20414,
+		"Recuperados": 997,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-07",
-		"Cases": 2954,
-		"Deaths": 107,
-		"Tests": 21555,
-		"Recovered": 1231,
-		"Hospitalized": 0
+		"Fecha": "2020-04-07",
+		"Casos": 2954,
+		"Fallecidos": 107,
+		"Pruebas": 21555,
+		"Recuperados": 1231,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-08",
-		"Cases": 4342,
-		"Deaths": 121,
-		"Tests": 39599,
-		"Recovered": 1333,
-		"Hospitalized": 0
+		"Fecha": "2020-04-08",
+		"Casos": 4342,
+		"Fallecidos": 121,
+		"Pruebas": 39599,
+		"Recuperados": 1333,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-09",
-		"Cases": 5256,
-		"Deaths": 138,
-		"Tests": 48465,
-		"Recovered": 1438,
-		"Hospitalized": 0
+		"Fecha": "2020-04-09",
+		"Casos": 5256,
+		"Fallecidos": 138,
+		"Pruebas": 48465,
+		"Recuperados": 1438,
+		"Hospitalizados": 0
 	},
 	{
-		"Date": "2020-04-10",
-		"Cases": 5897,
-		"Deaths": 169,
-		"Tests": 56681,
-		"Recovered": 1569,
-		"Hospitalized": 687
+		"Fecha": "2020-04-10",
+		"Casos": 5897,
+		"Fallecidos": 169,
+		"Pruebas": 56681,
+		"Recuperados": 1569,
+		"Hospitalizados": 687
 	},
 	{
-		"Date": "2020-04-11",
-		"Cases": 6848,
-		"Deaths": 181,
-		"Tests": 65712,
-		"Recovered": 1739,
-		"Hospitalized": 788
+		"Fecha": "2020-04-11",
+		"Casos": 6848,
+		"Fallecidos": 181,
+		"Pruebas": 65712,
+		"Recuperados": 1739,
+		"Hospitalizados": 788
 	},
 	{
-		"Date": "2020-04-12",
-		"Cases": 7519,
-		"Deaths": 193,
-		"Tests": 76506,
-		"Recovered": 1798,
-		"Hospitalized": 815
+		"Fecha": "2020-04-12",
+		"Casos": 7519,
+		"Fallecidos": 193,
+		"Pruebas": 76506,
+		"Recuperados": 1798,
+		"Hospitalizados": 815
 	},
 	{
-		"Date": "2020-04-13",
-		"Cases": 9784,
-		"Deaths": 216,
-		"Tests": 87116,
-		"Recovered": 2642,
-		"Hospitalized": 901
+		"Fecha": "2020-04-13",
+		"Casos": 9784,
+		"Fallecidos": 216,
+		"Pruebas": 87116,
+		"Recuperados": 2642,
+		"Hospitalizados": 901
 	},
 	{
-		"Date": "2020-04-14",
-		"Cases": 10303,
-		"Deaths": 230,
-		"Tests": 109385,
-		"Recovered": 2869,
-		"Hospitalized": 914
+		"Fecha": "2020-04-14",
+		"Casos": 10303,
+		"Fallecidos": 230,
+		"Pruebas": 109385,
+		"Recuperados": 2869,
+		"Hospitalizados": 914
 	},
 	{
-		"Date": "2020-04-15",
-		"Cases": 11475,
-		"Deaths": 254,
-		"Tests": 121468,
-		"Recovered": 3108,
-		"Hospitalized": 1113
+		"Fecha": "2020-04-15",
+		"Casos": 11475,
+		"Fallecidos": 254,
+		"Pruebas": 121468,
+		"Recuperados": 3108,
+		"Hospitalizados": 1113
 	},
 	{
-		"Date": "2020-04-16",
-		"Cases": 12491,
-		"Deaths": 274,
-		"Tests": 121468,
-		"Recovered": 6120,
-		"Hospitalized": 1277
+		"Fecha": "2020-04-16",
+		"Casos": 12491,
+		"Fallecidos": 274,
+		"Pruebas": 121468,
+		"Recuperados": 6120,
+		"Hospitalizados": 1277
 	},
 	{
-		"Date": "2020-04-17",
-		"Cases": 13489,
-		"Deaths": 300,
-		"Tests": 135895,
-		"Recovered": 6541,
-		"Hospitalized": 1219
+		"Fecha": "2020-04-17",
+		"Casos": 13489,
+		"Fallecidos": 300,
+		"Pruebas": 135895,
+		"Recuperados": 6541,
+		"Hospitalizados": 1219
 	},
 	{
-		"Date": "2020-04-18",
-		"Cases": 14420,
-		"Deaths": 348,
-		"Tests": 143745,
-		"Recovered": 6684,
-		"Hospitalized": 1268
+		"Fecha": "2020-04-18",
+		"Casos": 14420,
+		"Fallecidos": 348,
+		"Pruebas": 143745,
+		"Recuperados": 6684,
+		"Hospitalizados": 1268
 	},
 	{
-		"Date": "2020-04-19",
-		"Cases": 15628,
-		"Deaths": 400,
-		"Tests": 148011,
-		"Recovered": 6811,
-		"Hospitalized": 1349
+		"Fecha": "2020-04-19",
+		"Casos": 15628,
+		"Fallecidos": 400,
+		"Pruebas": 148011,
+		"Recuperados": 6811,
+		"Hospitalizados": 1349
 	},
 	{
-		"Date": "2020-04-20",
-		"Cases": 16325,
-		"Deaths": 445,
-		"Tests": 155724,
-		"Recovered": 6968,
-		"Hospitalized": 1682
+		"Fecha": "2020-04-20",
+		"Casos": 16325,
+		"Fallecidos": 445,
+		"Pruebas": 155724,
+		"Recuperados": 6968,
+		"Hospitalizados": 1682
 	},
 	{
-		"Date": "2020-04-21",
-		"Cases": 17837,
-		"Deaths": 484,
-		"Tests": 170400,
-		"Recovered": 6982,
-		"Hospitalized": 2419
+		"Fecha": "2020-04-21",
+		"Casos": 17837,
+		"Fallecidos": 484,
+		"Pruebas": 170400,
+		"Recuperados": 6982,
+		"Hospitalizados": 2419
 	},
 	{
-		"Date": "2020-04-22",
-		"Cases": 19250,
-		"Deaths": 530,
-		"Tests": 185238,
-		"Recovered": 7027,
-		"Hospitalized": 2434
+		"Fecha": "2020-04-22",
+		"Casos": 19250,
+		"Fallecidos": 530,
+		"Pruebas": 185238,
+		"Recuperados": 7027,
+		"Hospitalizados": 2434
 	},
 	{
-		"Date": "2020-04-23",
-		"Cases": 20914,
-		"Deaths": 572,
-		"Tests": 198349,
-		"Recovered": 7422,
-		"Hospitalized": 2786
+		"Fecha": "2020-04-23",
+		"Casos": 20914,
+		"Fallecidos": 572,
+		"Pruebas": 198349,
+		"Recuperados": 7422,
+		"Hospitalizados": 2786
 	},
 	{
-		"Date": "2020-04-24",
-		"Cases": 21648,
-		"Deaths": 634,
-		"Tests": 218195,
-		"Recovered": 7496,
-		"Hospitalized": 3194
+		"Fecha": "2020-04-24",
+		"Casos": 21648,
+		"Fallecidos": 634,
+		"Pruebas": 218195,
+		"Recuperados": 7496,
+		"Hospitalizados": 3194
 	},
 	{
-		"Date": "2020-04-25",
-		"Cases": 25331,
-		"Deaths": 700,
-		"Tests": 232747,
-		"Recovered": 7797,
-		"Hospitalized": 3532
+		"Fecha": "2020-04-25",
+		"Casos": 25331,
+		"Fallecidos": 700,
+		"Pruebas": 232747,
+		"Recuperados": 7797,
+		"Hospitalizados": 3532
 	},
 	{
-		"Date": "2020-04-26",
-		"Cases": 27517,
-		"Deaths": 728,
-		"Tests": 232747,
-		"Recovered": 8088,
-		"Hospitalized": 3632
+		"Fecha": "2020-04-26",
+		"Casos": 27517,
+		"Fallecidos": 728,
+		"Pruebas": 232747,
+		"Recuperados": 8088,
+		"Hospitalizados": 3632
 	},
 	{
-		"Date": "2020-04-27",
-		"Cases": 28699,
-		"Deaths": 782,
-		"Tests": 239563,
-		"Recovered": 8425,
-		"Hospitalized": 3968
+		"Fecha": "2020-04-27",
+		"Casos": 28699,
+		"Fallecidos": 782,
+		"Pruebas": 239563,
+		"Recuperados": 8425,
+		"Hospitalizados": 3968
 	},
 	{
-		"Date": "2020-04-28",
-		"Cases": 31190,
-		"Deaths": 854,
-		"Tests": 267612,
-		"Recovered": 9179,
-		"Hospitalized": 4088
+		"Fecha": "2020-04-28",
+		"Casos": 31190,
+		"Fallecidos": 854,
+		"Pruebas": 267612,
+		"Recuperados": 9179,
+		"Hospitalizados": 4088
 	},
 	{
-		"Date": "2020-04-29",
-		"Cases": 33931,
-		"Deaths": 943,
-		"Tests": 318252,
-		"Recovered": 10037,
-		"Hospitalized": 4289
+		"Fecha": "2020-04-29",
+		"Casos": 33931,
+		"Fallecidos": 943,
+		"Pruebas": 318252,
+		"Recuperados": 10037,
+		"Hospitalizados": 4289
 	},
 	{
-		"Date": "2020-04-30",
-		"Cases": 36976,
-		"Deaths": 1051,
-		"Tests": 342498,
-		"Recovered": 10405,
-		"Hospitalized": 4978
+		"Fecha": "2020-04-30",
+		"Casos": 36976,
+		"Fallecidos": 1051,
+		"Pruebas": 342498,
+		"Recuperados": 10405,
+		"Hospitalizados": 4978
 	},
 	{
-		"Date": "2020-05-01",
-		"Cases": 40459,
-		"Deaths": 1124,
-		"Tests": 342498,
-		"Recovered": 11129,
-		"Hospitalized": 5287
+		"Fecha": "2020-05-01",
+		"Casos": 40459,
+		"Fallecidos": 1124,
+		"Pruebas": 342498,
+		"Recuperados": 11129,
+		"Hospitalizados": 5287
 	},
 	{
-		"Date": "2020-05-02",
-		"Cases": 42534,
-		"Deaths": 1200,
-		"Tests": 375096,
-		"Recovered": 12434,
-		"Hospitalized": 5098
+		"Fecha": "2020-05-02",
+		"Casos": 42534,
+		"Fallecidos": 1200,
+		"Pruebas": 375096,
+		"Recuperados": 12434,
+		"Hospitalizados": 5098
 	},
 	{
-		"Date": "2020-05-03",
-		"Cases": 45928,
-		"Deaths": 1286,
-		"Tests": 385492,
-		"Recovered": 13550,
-		"Hospitalized": 5281
+		"Fecha": "2020-05-03",
+		"Casos": 45928,
+		"Fallecidos": 1286,
+		"Pruebas": 385492,
+		"Recuperados": 13550,
+		"Hospitalizados": 5281
 	},
 	{
-		"Date": "2020-05-04",
-		"Cases": 47372,
-		"Deaths": 1344,
-		"Tests": 406579,
-		"Recovered": 14427,
-		"Hospitalized": 5435
+		"Fecha": "2020-05-04",
+		"Casos": 47372,
+		"Fallecidos": 1344,
+		"Pruebas": 406579,
+		"Recuperados": 14427,
+		"Hospitalizados": 5435
 	},
 	{
-		"Date": "2020-05-05",
-		"Cases": 51189,
-		"Deaths": 1444,
-		"Tests": 406579,
-		"Recovered": 15413,
-		"Hospitalized": 5509
+		"Fecha": "2020-05-05",
+		"Casos": 51189,
+		"Fallecidos": 1444,
+		"Pruebas": 406579,
+		"Recuperados": 15413,
+		"Hospitalizados": 5509
 	},
 	{
-		"Date": "2020-05-06",
-		"Cases": 54817,
-		"Deaths": 1533,
-		"Tests": 448020,
-		"Recovered": 17527,
-		"Hospitalized": 5729
+		"Fecha": "2020-05-06",
+		"Casos": 54817,
+		"Fallecidos": 1533,
+		"Pruebas": 448020,
+		"Recuperados": 17527,
+		"Hospitalizados": 5729
 	},
 	{
-		"Date": "2020-05-07",
-		"Cases": 58526,
-		"Deaths": 1627,
-		"Tests": 473190,
-		"Recovered": 18388,
-		"Hospitalized": 5980
+		"Fecha": "2020-05-07",
+		"Casos": 58526,
+		"Fallecidos": 1627,
+		"Pruebas": 473190,
+		"Recuperados": 18388,
+		"Hospitalizados": 5980
 	},
 	{
-		"Date": "2020-05-08",
-		"Cases": 61847,
-		"Deaths": 1714,
-		"Tests": 473190,
-		"Recovered": 19012,
-		"Hospitalized": 6155
+		"Fecha": "2020-05-08",
+		"Casos": 61847,
+		"Fallecidos": 1714,
+		"Pruebas": 473190,
+		"Recuperados": 19012,
+		"Hospitalizados": 6155
 	},
 	{
-		"Date": "2020-05-09",
-		"Cases": 65015,
-		"Deaths": 1814,
-		"Tests": 494250,
-		"Recovered": 20246,
-		"Hospitalized": 6220
+		"Fecha": "2020-05-09",
+		"Casos": 65015,
+		"Fallecidos": 1814,
+		"Pruebas": 494250,
+		"Recuperados": 20246,
+		"Hospitalizados": 6220
 	},
 	{
-		"Date": "2020-05-10",
-		"Cases": 67307,
-		"Deaths": 1889,
-		"Tests": 504930,
-		"Recovered": 21349,
-		"Hospitalized": 6601
+		"Fecha": "2020-05-10",
+		"Casos": 67307,
+		"Fallecidos": 1889,
+		"Pruebas": 504930,
+		"Recuperados": 21349,
+		"Hospitalizados": 6601
 	},
 	{
-		"Date": "2020-05-11",
-		"Cases": 68822,
-		"Deaths": 1961,
-		"Tests": 512869,
-		"Recovered": 22406,
-		"Hospitalized": 6648
+		"Fecha": "2020-05-11",
+		"Casos": 68822,
+		"Fallecidos": 1961,
+		"Pruebas": 512869,
+		"Recuperados": 22406,
+		"Hospitalizados": 6648
 	},
 	{
-		"Date": "2020-05-12",
-		"Cases": 72059,
-		"Deaths": 2057,
-		"Tests": 532169,
-		"Recovered": 23324,
-		"Hospitalized": 6862
+		"Fecha": "2020-05-12",
+		"Casos": 72059,
+		"Fallecidos": 2057,
+		"Pruebas": 532169,
+		"Recuperados": 23324,
+		"Hospitalizados": 6862
 	},
 	{
-		"Date": "2020-05-13",
-		"Cases": 76306,
-		"Deaths": 2169,
-		"Tests": 553302,
-		"Recovered": 24324,
-		"Hospitalized": 6979
+		"Fecha": "2020-05-13",
+		"Casos": 76306,
+		"Fallecidos": 2169,
+		"Pruebas": 553302,
+		"Recuperados": 24324,
+		"Hospitalizados": 6979
 	},
 	{
-		"Date": "2020-05-14",
-		"Cases": 80604,
-		"Deaths": 2267,
-		"Tests": 587292,
-		"Recovered": 25151,
-		"Hospitalized": 6941
+		"Fecha": "2020-05-14",
+		"Casos": 80604,
+		"Fallecidos": 2267,
+		"Pruebas": 587292,
+		"Recuperados": 25151,
+		"Hospitalizados": 6941
 	},
 	{
-		"Date": "2020-05-15",
-		"Cases": 84495,
-		"Deaths": 2392,
-		"Tests": 605383,
-		"Recovered": 27147,
-		"Hospitalized": 7085
+		"Fecha": "2020-05-15",
+		"Casos": 84495,
+		"Fallecidos": 2392,
+		"Pruebas": 605383,
+		"Recuperados": 27147,
+		"Hospitalizados": 7085
 	},
 	{
-		"Date": "2020-05-16",
-		"Cases": 88541,
-		"Deaths": 2523,
-		"Tests": 630482,
-		"Recovered": 28272,
-		"Hospitalized": 7275
+		"Fecha": "2020-05-16",
+		"Casos": 88541,
+		"Fallecidos": 2523,
+		"Pruebas": 630482,
+		"Recuperados": 28272,
+		"Hospitalizados": 7275
 	},
 	{
-		"Date": "2020-05-17",
-		"Cases": 92273,
-		"Deaths": 2648,
-		"Tests": 650613,
-		"Recovered": 28621,
-		"Hospitalized": 7408
+		"Fecha": "2020-05-17",
+		"Casos": 92273,
+		"Fallecidos": 2648,
+		"Pruebas": 650613,
+		"Recuperados": 28621,
+		"Hospitalizados": 7408
 	},
 	{
-		"Date": "2020-05-18",
-		"Cases": 94933,
-		"Deaths": 2789,
-		"Tests": 661132,
-		"Recovered": 30306,
-		"Hospitalized": 7509
+		"Fecha": "2020-05-18",
+		"Casos": 94933,
+		"Fallecidos": 2789,
+		"Pruebas": 661132,
+		"Recuperados": 30306,
+		"Hospitalizados": 7509
 	},
 	{
-		"Date": "2020-05-19",
-		"Cases": 99483,
-		"Deaths": 2914,
-		"Tests": 679582,
-		"Recovered": 36524,
-		"Hospitalized": 7526
+		"Fecha": "2020-05-19",
+		"Casos": 99483,
+		"Fallecidos": 2914,
+		"Pruebas": 679582,
+		"Recuperados": 36524,
+		"Hospitalizados": 7526
 	},
 	{
-		"Date": "2020-05-20",
-		"Cases": 104020,
-		"Deaths": 3024,
-		"Tests": 715423,
-		"Recovered": 41968,
-		"Hospitalized": 7533
+		"Fecha": "2020-05-20",
+		"Casos": 104020,
+		"Fallecidos": 3024,
+		"Pruebas": 715423,
+		"Recuperados": 41968,
+		"Hospitalizados": 7533
 	},
 	{
-		"Date": "2020-05-21",
-		"Cases": 108769,
-		"Deaths": 3148,
-		"Tests": 736500,
-		"Recovered": 43597,
-		"Hospitalized": 7455
+		"Fecha": "2020-05-21",
+		"Casos": 108769,
+		"Fallecidos": 3148,
+		"Pruebas": 736500,
+		"Recuperados": 43597,
+		"Hospitalizados": 7455
 	},
 	{
-		"Date": "2020-05-22",
-		"Cases": 111698,
-		"Deaths": 3244,
-		"Tests": 750526,
-		"Recovered": 44848,
-		"Hospitalized": 7545
+		"Fecha": "2020-05-22",
+		"Casos": 111698,
+		"Fallecidos": 3244,
+		"Pruebas": 750526,
+		"Recuperados": 44848,
+		"Hospitalizados": 7545
 	},
 	{
-		"Date": "2020-05-23",
-		"Cases": 115745,
-		"Deaths": 3373,
-		"Tests": 788341,
-		"Recovered": 47915,
-		"Hospitalized": 7674
+		"Fecha": "2020-05-23",
+		"Casos": 115745,
+		"Fallecidos": 3373,
+		"Pruebas": 788341,
+		"Recuperados": 47915,
+		"Hospitalizados": 7674
 	},
 	{
-		"Date": "2020-05-24",
-		"Cases": 119959,
-		"Deaths": 3456,
-		"Tests": 820967,
-		"Recovered": 49795,
-		"Hospitalized": 7779
+		"Fecha": "2020-05-24",
+		"Casos": 119959,
+		"Fallecidos": 3456,
+		"Pruebas": 820967,
+		"Recuperados": 49795,
+		"Hospitalizados": 7779
 	},
 	{
-		"Date": "2020-05-25",
-		"Cases": 123979,
-		"Deaths": 3629,
-		"Tests": 840922,
-		"Recovered": 50949,
-		"Hospitalized": 8097
+		"Fecha": "2020-05-25",
+		"Casos": 123979,
+		"Fallecidos": 3629,
+		"Pruebas": 840922,
+		"Recuperados": 50949,
+		"Hospitalizados": 8097
 	},
 	{
-		"Date": "2020-05-26",
-		"Cases": 129751,
-		"Deaths": 3788,
-		"Tests": 875721,
-		"Recovered": 52906,
-		"Hospitalized": 8207
+		"Fecha": "2020-05-26",
+		"Casos": 129751,
+		"Fallecidos": 3788,
+		"Pruebas": 875721,
+		"Recuperados": 52906,
+		"Hospitalizados": 8207
 	},
 	{
-		"Date": "2020-05-27",
-		"Cases": 135905,
-		"Deaths": 3983,
-		"Tests": 905278,
-		"Recovered": 56169,
-		"Hospitalized": 8267
+		"Fecha": "2020-05-27",
+		"Casos": 135905,
+		"Fallecidos": 3983,
+		"Pruebas": 905278,
+		"Recuperados": 56169,
+		"Hospitalizados": 8267
 	},
 	{
-		"Date": "2020-05-28",
-		"Cases": 141779,
-		"Deaths": 4099,
-		"Tests": 928797,
-		"Recovered": 59442,
-		"Hospitalized": 8395
+		"Fecha": "2020-05-28",
+		"Casos": 141779,
+		"Fallecidos": 4099,
+		"Pruebas": 928797,
+		"Recuperados": 59442,
+		"Hospitalizados": 8395
 	},
 	{
-		"Date": "2020-05-29",
-		"Cases": 148285,
-		"Deaths": 4230,
-		"Tests": 963617,
-		"Recovered": 62791,
-		"Hospitalized": 8433
+		"Fecha": "2020-05-29",
+		"Casos": 148285,
+		"Fallecidos": 4230,
+		"Pruebas": 963617,
+		"Recuperados": 62791,
+		"Hospitalizados": 8433
 	},
 	{
-		"Date": "2020-05-30",
-		"Cases": 155671,
-		"Deaths": 4371,
-		"Tests": 1012708,
-		"Recovered": 66447,
-		"Hospitalized": 8465
+		"Fecha": "2020-05-30",
+		"Casos": 155671,
+		"Fallecidos": 4371,
+		"Pruebas": 1012708,
+		"Recuperados": 66447,
+		"Hospitalizados": 8465
 	},
 	{
-		"Date": "2020-05-31",
-		"Cases": 164476,
-		"Deaths": 4506,
-		"Tests": 1058874,
-		"Recovered": 67208,
-		"Hospitalized": 8882
+		"Fecha": "2020-05-31",
+		"Casos": 164476,
+		"Fallecidos": 4506,
+		"Pruebas": 1058874,
+		"Recuperados": 67208,
+		"Hospitalizados": 8882
 	},
 	{
-		"Date": "2020-06-01",
-		"Cases": 170039,
-		"Deaths": 4634,
-		"Tests": 1076659,
-		"Recovered": 68507,
-		"Hospitalized": 8868
+		"Fecha": "2020-06-01",
+		"Casos": 170039,
+		"Fallecidos": 4634,
+		"Pruebas": 1076659,
+		"Recuperados": 68507,
+		"Hospitalizados": 8868
 	},
 	{
-		"Date": "2020-06-02",
-		"Cases": 174884,
-		"Deaths": 4767,
-		"Tests": 1092646,
-		"Recovered": 69257,
-		"Hospitalized": 8930
+		"Fecha": "2020-06-02",
+		"Casos": 174884,
+		"Fallecidos": 4767,
+		"Pruebas": 1092646,
+		"Recuperados": 69257,
+		"Hospitalizados": 8930
 	},
 	{
-		"Date": "2020-06-03",
-		"Cases": 178914,
-		"Deaths": 4894,
-		"Tests": 1115615,
-		"Recovered": 72319,
-		"Hospitalized": 10101
+		"Fecha": "2020-06-03",
+		"Casos": 178914,
+		"Fallecidos": 4894,
+		"Pruebas": 1115615,
+		"Recuperados": 72319,
+		"Hospitalizados": 10101
 	},
 	{
-		"Date": "2020-06-04",
-		"Cases": 183198,
-		"Deaths": 5031,
-		"Tests": 1135831,
-		"Recovered": 76228,
-		"Hospitalized": 9063
+		"Fecha": "2020-06-04",
+		"Casos": 183198,
+		"Fallecidos": 5031,
+		"Pruebas": 1135831,
+		"Recuperados": 76228,
+		"Hospitalizados": 9063
 	},
 	{
-		"Date": "2020-06-05",
-		"Cases": 187400,
-		"Deaths": 5162,
-		"Tests": 1154468,
-		"Recovered": 79214,
-		"Hospitalized": 9198
+		"Fecha": "2020-06-05",
+		"Casos": 187400,
+		"Fallecidos": 5162,
+		"Pruebas": 1154468,
+		"Recuperados": 79214,
+		"Hospitalizados": 9198
 	},
 	{
-		"Date": "2020-06-06",
-		"Cases": 191758,
-		"Deaths": 5301,
-		"Tests": 1173003,
-		"Recovered": 82731,
-		"Hospitalized": 9500
+		"Fecha": "2020-06-06",
+		"Casos": 191758,
+		"Fallecidos": 5301,
+		"Pruebas": 1173003,
+		"Recuperados": 82731,
+		"Hospitalizados": 9500
 	},
 	{
-		"Date": "2020-06-07",
-		"Cases": 196515,
-		"Deaths": 5465,
-		"Tests": 1191956,
-		"Recovered": 86219,
-		"Hospitalized": 9583
+		"Fecha": "2020-06-07",
+		"Casos": 196515,
+		"Fallecidos": 5465,
+		"Pruebas": 1191956,
+		"Recuperados": 86219,
+		"Hospitalizados": 9583
 	},
 	{
-		"Date": "2020-06-08",
-		"Cases": 199696,
-		"Deaths": 5571,
-		"Tests": 1203985,
-		"Recovered": 89556,
-		"Hospitalized": 9661
+		"Fecha": "2020-06-08",
+		"Casos": 199696,
+		"Fallecidos": 5571,
+		"Pruebas": 1203985,
+		"Recuperados": 89556,
+		"Hospitalizados": 9661
 	},
 	{
-		"Date": "2020-06-09",
-		"Cases": 203736,
-		"Deaths": 5738,
-		"Tests": 1227691,
-		"Recovered": 92929,
-		"Hospitalized": 9903
+		"Fecha": "2020-06-09",
+		"Casos": 203736,
+		"Fallecidos": 5738,
+		"Pruebas": 1227691,
+		"Recuperados": 92929,
+		"Hospitalizados": 9903
 	},
 	{
-		"Date": "2020-06-10",
-		"Cases": 208823,
-		"Deaths": 5903,
-		"Tests": 1255756,
-		"Recovered": 98031,
-		"Hospitalized": 9916
+		"Fecha": "2020-06-10",
+		"Casos": 208823,
+		"Fallecidos": 5903,
+		"Pruebas": 1255756,
+		"Recuperados": 98031,
+		"Hospitalizados": 9916
 	},
 	{
-		"Date": "2020-06-11",
-		"Cases": 214788,
-		"Deaths": 6109,
-		"Tests": 1282478,
-		"Recovered": 102429,
-		"Hospitalized": 10026
+		"Fecha": "2020-06-11",
+		"Casos": 214788,
+		"Fallecidos": 6109,
+		"Pruebas": 1282478,
+		"Recuperados": 102429,
+		"Hospitalizados": 10026
 	},
 	{
-		"Date": "2020-06-12",
-		"Cases": 220749,
-		"Deaths": 6308,
-		"Tests": 1315417,
-		"Recovered": 107133,
-		"Hospitalized": 10121
+		"Fecha": "2020-06-12",
+		"Casos": 220749,
+		"Fallecidos": 6308,
+		"Pruebas": 1315417,
+		"Recuperados": 107133,
+		"Hospitalizados": 10121
 	},
 	{
-		"Date": "2020-06-13",
-		"Cases": 225132,
-		"Deaths": 6498,
-		"Tests": 1338477,
-		"Recovered": 111724,
-		"Hospitalized": 10342
+		"Fecha": "2020-06-13",
+		"Casos": 225132,
+		"Fallecidos": 6498,
+		"Pruebas": 1338477,
+		"Recuperados": 111724,
+		"Hospitalizados": 10342
 	},
 	{
-		"Date": "2020-06-14",
-		"Cases": 229736,
-		"Deaths": 6688,
-		"Tests": 1360839,
-		"Recovered": 115579,
-		"Hospitalized": 10297
+		"Fecha": "2020-06-14",
+		"Casos": 229736,
+		"Fallecidos": 6688,
+		"Pruebas": 1360839,
+		"Recuperados": 115579,
+		"Hospitalizados": 10297
 	},
 	{
-		"Date": "2020-06-15",
-		"Cases": 232992,
-		"Deaths": 6860,
-		"Tests": 1376478,
-		"Recovered": 119409,
-		"Hospitalized": 10295
+		"Fecha": "2020-06-15",
+		"Casos": 232992,
+		"Fallecidos": 6860,
+		"Pruebas": 1376478,
+		"Recuperados": 119409,
+		"Hospitalizados": 10295
 	},
 	{
-		"Date": "2020-06-16",
-		"Cases": 237156,
-		"Deaths": 7056,
-		"Tests": 1396605,
-		"Recovered": 125205,
-		"Hospitalized": 10177
+		"Fecha": "2020-06-16",
+		"Casos": 237156,
+		"Fallecidos": 7056,
+		"Pruebas": 1396605,
+		"Recuperados": 125205,
+		"Hospitalizados": 10177
 	},
 	{
-		"Date": "2020-06-17",
-		"Cases": 240908,
-		"Deaths": 7257,
-		"Tests": 1417911,
-		"Recovered": 128622,
-		"Hospitalized": 10204
+		"Fecha": "2020-06-17",
+		"Casos": 240908,
+		"Fallecidos": 7257,
+		"Pruebas": 1417911,
+		"Recuperados": 128622,
+		"Hospitalizados": 10204
 	},
 	{
-		"Date": "2020-06-18",
-		"Cases": 244388,
-		"Deaths": 7461,
-		"Tests": 1439767,
-		"Recovered": 131190,
-		"Hospitalized": 10240
+		"Fecha": "2020-06-18",
+		"Casos": 244388,
+		"Fallecidos": 7461,
+		"Pruebas": 1439767,
+		"Recuperados": 131190,
+		"Hospitalizados": 10240
 	},
 	{
-		"Date": "2020-06-19",
-		"Cases": 247925,
-		"Deaths": 7660,
-		"Tests": 1461266,
-		"Recovered": 135520,
-		"Hospitalized": 10445
+		"Fecha": "2020-06-19",
+		"Casos": 247925,
+		"Fallecidos": 7660,
+		"Pruebas": 1461266,
+		"Recuperados": 135520,
+		"Hospitalizados": 10445
 	},
 	{
-		"Date": "2020-06-20",
-		"Cases": 251338,
-		"Deaths": 7861,
-		"Tests": 1482563,
-		"Recovered": 138763,
-		"Hospitalized": 10577
+		"Fecha": "2020-06-20",
+		"Casos": 251338,
+		"Fallecidos": 7861,
+		"Pruebas": 1482563,
+		"Recuperados": 138763,
+		"Hospitalizados": 10577
 	},
 	{
-		"Date": "2020-06-21",
-		"Cases": 254936,
-		"Deaths": 8045,
-		"Tests": 1504209,
-		"Recovered": 141967,
-		"Hospitalized": 10566
+		"Fecha": "2020-06-21",
+		"Casos": 254936,
+		"Fallecidos": 8045,
+		"Pruebas": 1504209,
+		"Recuperados": 141967,
+		"Hospitalizados": 10566
 	},
 	{
-		"Date": "2020-06-22",
-		"Cases": 257447,
-		"Deaths": 8223,
-		"Tests": 1517930,
-		"Recovered": 145320,
-		"Hospitalized": 10714
+		"Fecha": "2020-06-22",
+		"Casos": 257447,
+		"Fallecidos": 8223,
+		"Pruebas": 1517930,
+		"Recuperados": 145320,
+		"Hospitalizados": 10714
 	},
 	{
-		"Date": "2020-06-23",
-		"Cases": 260810,
-		"Deaths": 8404,
-		"Tests": 1539746,
-		"Recovered": 148437,
-		"Hospitalized": 10588
+		"Fecha": "2020-06-23",
+		"Casos": 260810,
+		"Fallecidos": 8404,
+		"Pruebas": 1539746,
+		"Recuperados": 148437,
+		"Hospitalizados": 10588
 	},
 	{
-		"Date": "2020-06-24",
-		"Cases": 264689,
-		"Deaths": 8586,
-		"Tests": 1561653,
-		"Recovered": 151589,
-		"Hospitalized": 10599
+		"Fecha": "2020-06-24",
+		"Casos": 264689,
+		"Fallecidos": 8586,
+		"Pruebas": 1561653,
+		"Recuperados": 151589,
+		"Hospitalizados": 10599
 	},
 	{
-		"Date": "2020-06-25",
-		"Cases": 268602,
-		"Deaths": 8761,
-		"Tests": 1583605,
-		"Recovered": 156074,
-		"Hospitalized": 10587
+		"Fecha": "2020-06-25",
+		"Casos": 268602,
+		"Fallecidos": 8761,
+		"Pruebas": 1583605,
+		"Recuperados": 156074,
+		"Hospitalizados": 10587
 	},
 	{
-		"Date": "2020-06-26",
-		"Cases": 272364,
-		"Deaths": 8939,
-		"Tests": 1604521,
-		"Recovered": 159806,
-		"Hospitalized": 10964
+		"Fecha": "2020-06-26",
+		"Casos": 272364,
+		"Fallecidos": 8939,
+		"Pruebas": 1604521,
+		"Recuperados": 159806,
+		"Hospitalizados": 10964
 	},
 	{
-		"Date": "2020-06-27",
-		"Cases": 275989,
-		"Deaths": 9135,
-		"Tests": 1625135,
-		"Recovered": 164024,
-		"Hospitalized": 10762
+		"Fecha": "2020-06-27",
+		"Casos": 275989,
+		"Fallecidos": 9135,
+		"Pruebas": 1625135,
+		"Recuperados": 164024,
+		"Hospitalizados": 10762
 	},
 	{
-		"Date": "2020-06-28",
-		"Cases": 279419,
-		"Deaths": 9317,
-		"Tests": 1645112,
-		"Recovered": 167998,
-		"Hospitalized": 10861
+		"Fecha": "2020-06-28",
+		"Casos": 279419,
+		"Fallecidos": 9317,
+		"Pruebas": 1645112,
+		"Recuperados": 167998,
+		"Hospitalizados": 10861
 	},
 	{
-		"Date": "2020-06-29",
-		"Cases": 282365,
-		"Deaths": 9504,
-		"Tests": 1661324,
-		"Recovered": 171159,
-		"Hospitalized": 11000
+		"Fecha": "2020-06-29",
+		"Casos": 282365,
+		"Fallecidos": 9504,
+		"Pruebas": 1661324,
+		"Recuperados": 171159,
+		"Hospitalizados": 11000
 	},
 	{
-		"Date": "2020-06-30",
-		"Cases": 285213,
-		"Deaths": 9677,
-		"Tests": 1679386,
-		"Recovered": 174535,
-		"Hospitalized": 11049
+		"Fecha": "2020-06-30",
+		"Casos": 285213,
+		"Fallecidos": 9677,
+		"Pruebas": 1679386,
+		"Recuperados": 174535,
+		"Hospitalizados": 11049
 	},
 	{
-		"Date": "2020-07-01",
-		"Cases": 288477,
-		"Deaths": 9860,
-		"Tests": 1699369,
-		"Recovered": 178245,
-		"Hospitalized": 11108
+		"Fecha": "2020-07-01",
+		"Casos": 288477,
+		"Fallecidos": 9860,
+		"Pruebas": 1699369,
+		"Recuperados": 178245,
+		"Hospitalizados": 11108
 	},
 	{
-		"Date": "2020-07-02",
-		"Cases": 292004,
-		"Deaths": 10045,
-		"Tests": 1720261,
-		"Recovered": 182097,
-		"Hospitalized": 11179
+		"Fecha": "2020-07-02",
+		"Casos": 292004,
+		"Fallecidos": 10045,
+		"Pruebas": 1720261,
+		"Recuperados": 182097,
+		"Hospitalizados": 11179
 	},
 	{
-		"Date": "2020-07-03",
-		"Cases": 295599,
-		"Deaths": 10226,
-		"Tests": 1740969,
-		"Recovered": 185852,
-		"Hospitalized": 11131
+		"Fecha": "2020-07-03",
+		"Casos": 295599,
+		"Fallecidos": 10226,
+		"Pruebas": 1740969,
+		"Recuperados": 185852,
+		"Hospitalizados": 11131
 	},
 	{
-		"Date": "2020-07-04",
-		"Cases": 299080,
-		"Deaths": 10412,
-		"Tests": 1761910,
-		"Recovered": 189621,
-		"Hospitalized": 11273
+		"Fecha": "2020-07-04",
+		"Casos": 299080,
+		"Fallecidos": 10412,
+		"Pruebas": 1761910,
+		"Recuperados": 189621,
+		"Hospitalizados": 11273
 	},
 	{
-		"Date": "2020-07-05",
-		"Cases": 302718,
-		"Deaths": 10589,
-		"Tests": 1782846,
-		"Recovered": 193957,
-		"Hospitalized": 11302
+		"Fecha": "2020-07-05",
+		"Casos": 302718,
+		"Fallecidos": 10589,
+		"Pruebas": 1782846,
+		"Recuperados": 193957,
+		"Hospitalizados": 11302
 	},
 	{
-		"Date": "2020-07-06",
-		"Cases": 305703,
-		"Deaths": 10772,
-		"Tests": 1800690,
-		"Recovered": 197619,
-		"Hospitalized": 11399
+		"Fecha": "2020-07-06",
+		"Casos": 305703,
+		"Fallecidos": 10772,
+		"Pruebas": 1800690,
+		"Recuperados": 197619,
+		"Hospitalizados": 11399
 	},
 	{
-		"Date": "2020-07-07",
-		"Cases": 309278,
-		"Deaths": 10952,
-		"Tests": 1821328,
-		"Recovered": 200938,
-		"Hospitalized": 11646
+		"Fecha": "2020-07-07",
+		"Casos": 309278,
+		"Fallecidos": 10952,
+		"Pruebas": 1821328,
+		"Recuperados": 200938,
+		"Hospitalizados": 11646
 	},
 	{
-		"Date": "2020-07-08",
-		"Cases": 312911,
-		"Deaths": 11133,
-		"Tests": 1842316,
-		"Recovered": 204748,
-		"Hospitalized": 11626
+		"Fecha": "2020-07-08",
+		"Casos": 312911,
+		"Fallecidos": 11133,
+		"Pruebas": 1842316,
+		"Recuperados": 204748,
+		"Hospitalizados": 11626
 	},
 	{
-		"Date": "2020-07-09",
-		"Cases": 316448,
-		"Deaths": 11314,
-		"Tests": 1863278,
-		"Recovered": 207802,
-		"Hospitalized": 11770
+		"Fecha": "2020-07-09",
+		"Casos": 316448,
+		"Fallecidos": 11314,
+		"Pruebas": 1863278,
+		"Recuperados": 207802,
+		"Hospitalizados": 11770
 	},
 	{
-		"Date": "2020-07-10",
-		"Cases": 319646,
-		"Deaths": 11500,
-		"Tests": 1883326,
-		"Recovered": 210638,
-		"Hospitalized": 11894
+		"Fecha": "2020-07-10",
+		"Casos": 319646,
+		"Fallecidos": 11500,
+		"Pruebas": 1883326,
+		"Recuperados": 210638,
+		"Hospitalizados": 11894
 	},
 	{
-		"Date": "2020-07-11",
-		"Cases": 322710,
-		"Deaths": 11682,
-		"Tests": 1904242,
-		"Recovered": 214152,
-		"Hospitalized": 11932
+		"Fecha": "2020-07-11",
+		"Casos": 322710,
+		"Fallecidos": 11682,
+		"Pruebas": 1904242,
+		"Recuperados": 214152,
+		"Hospitalizados": 11932
 	},
 	{
-		"Date": "2020-07-12",
-		"Cases": 326326,
-		"Deaths": 11870,
-		"Tests": 1925231,
-		"Recovered": 217111,
-		"Hospitalized": 11723
+		"Fecha": "2020-07-12",
+		"Casos": 326326,
+		"Fallecidos": 11870,
+		"Pruebas": 1925231,
+		"Recuperados": 217111,
+		"Hospitalizados": 11723
 	},
 	{
-		"Date": "2020-07-13",
-		"Cases": 330123,
-		"Deaths": 12054,
-		"Tests": 1943679,
-		"Recovered": 221008,
-		"Hospitalized": 11897
+		"Fecha": "2020-07-13",
+		"Casos": 330123,
+		"Fallecidos": 12054,
+		"Pruebas": 1943679,
+		"Recuperados": 221008,
+		"Hospitalizados": 11897
 	},
 	{
-		"Date": "2020-07-14",
-		"Cases": 333867,
-		"Deaths": 12229,
-		"Tests": 1963921,
-		"Recovered": 223261,
-		"Hospitalized": 11962
+		"Fecha": "2020-07-14",
+		"Casos": 333867,
+		"Fallecidos": 12229,
+		"Pruebas": 1963921,
+		"Recuperados": 223261,
+		"Hospitalizados": 11962
 	},
 	{
-		"Date": "2020-07-15",
-		"Cases": 337724,
-		"Deaths": 12417,
-		"Tests": 1983932,
-		"Recovered": 226400,
-		"Hospitalized": 12048
+		"Fecha": "2020-07-15",
+		"Casos": 337724,
+		"Fallecidos": 12417,
+		"Pruebas": 1983932,
+		"Recuperados": 226400,
+		"Hospitalizados": 12048
 	},
 	{
-		"Date": "2020-07-16",
-		"Cases": 341586,
-		"Deaths": 12615,
-		"Tests": 2003963,
-		"Recovered": 230994,
-		"Hospitalized": 12396
+		"Fecha": "2020-07-16",
+		"Casos": 341586,
+		"Fallecidos": 12615,
+		"Pruebas": 2003963,
+		"Recuperados": 230994,
+		"Hospitalizados": 12396
 	},
 	{
-		"Date": "2020-07-17",
-		"Cases": 345537,
-		"Deaths": 12799,
-		"Tests": 2023996,
-		"Recovered": 233982,
-		"Hospitalized": 12539
+		"Fecha": "2020-07-17",
+		"Casos": 345537,
+		"Fallecidos": 12799,
+		"Pruebas": 2023996,
+		"Recuperados": 233982,
+		"Hospitalizados": 12539
 	},
 	{
-		"Date": "2020-07-18",
-		"Cases": 349500,
-		"Deaths": 12998,
-		"Tests": 2042218,
-		"Recovered": 238086,
-		"Hospitalized": 12210
+		"Fecha": "2020-07-18",
+		"Casos": 349500,
+		"Fallecidos": 12998,
+		"Pruebas": 2042218,
+		"Recuperados": 238086,
+		"Hospitalizados": 12210
 	},
 	{
-		"Date": "2020-07-19",
-		"Cases": 353590,
-		"Deaths": 13187,
-		"Tests": 2063240,
-		"Recovered": 241955,
-		"Hospitalized": 12309
+		"Fecha": "2020-07-19",
+		"Casos": 353590,
+		"Fallecidos": 13187,
+		"Pruebas": 2063240,
+		"Recuperados": 241955,
+		"Hospitalizados": 12309
 	},
 	{
-		"Date": "2020-07-20",
-		"Cases": 357681,
-		"Deaths": 13384,
-		"Tests": 2084311,
-		"Recovered": 245081,
-		"Hospitalized": 12772
+		"Fecha": "2020-07-20",
+		"Casos": 357681,
+		"Fallecidos": 13384,
+		"Pruebas": 2084311,
+		"Recuperados": 245081,
+		"Hospitalizados": 12772
 	},
 	{
-		"Date": "2020-07-21",
-		"Cases": 362087,
-		"Deaths": 13579,
-		"Tests": 2109202,
-		"Recovered": 248746,
-		"Hospitalized": 12747
+		"Fecha": "2020-07-21",
+		"Casos": 362087,
+		"Fallecidos": 13579,
+		"Pruebas": 2109202,
+		"Recuperados": 248746,
+		"Hospitalizados": 12747
 	},
 	{
-		"Date": "2020-07-22",
-		"Cases": 366550,
-		"Deaths": 17455,
-		"Tests": 2133775,
-		"Recovered": 252246,
-		"Hospitalized": 12821
+		"Fecha": "2020-07-22",
+		"Casos": 366550,
+		"Fallecidos": 17455,
+		"Pruebas": 2133775,
+		"Recuperados": 252246,
+		"Hospitalizados": 12821
 	},
 	{
-		"Date": "2020-07-23",
-		"Cases": 371096,
-		"Deaths": 17654,
-		"Tests": 2158770,
-		"Recovered": 255945,
-		"Hospitalized": 12985
+		"Fecha": "2020-07-23",
+		"Casos": 371096,
+		"Fallecidos": 17654,
+		"Pruebas": 2158770,
+		"Recuperados": 255945,
+		"Hospitalizados": 12985
 	},
 	{
-		"Date": "2020-07-24",
-		"Cases": 375961,
-		"Deaths": 17843,
-		"Tests": 2183763,
-		"Recovered": 259423,
-		"Hospitalized": 12920
+		"Fecha": "2020-07-24",
+		"Casos": 375961,
+		"Fallecidos": 17843,
+		"Pruebas": 2183763,
+		"Recuperados": 259423,
+		"Hospitalizados": 12920
 	},
 	{
-		"Date": "2020-07-25",
-		"Cases": 379884,
-		"Deaths": 18030,
-		"Tests": 2206105,
-		"Recovered": 263130,
-		"Hospitalized": 13043
+		"Fecha": "2020-07-25",
+		"Casos": 379884,
+		"Fallecidos": 18030,
+		"Pruebas": 2206105,
+		"Recuperados": 263130,
+		"Hospitalizados": 13043
 	},
 	{
-		"Date": "2020-07-26",
-		"Cases": 384797,
-		"Deaths": 18229,
-		"Tests": 2230247,
-		"Recovered": 267850,
-		"Hospitalized": 13304
+		"Fecha": "2020-07-26",
+		"Casos": 384797,
+		"Fallecidos": 18229,
+		"Pruebas": 2230247,
+		"Recuperados": 267850,
+		"Hospitalizados": 13304
 	},
 	{
-		"Date": "2020-07-27",
-		"Cases": 389717,
-		"Deaths": 18418,
-		"Tests": 2250256,
-		"Recovered": 272547,
-		"Hospitalized": 13450
+		"Fecha": "2020-07-27",
+		"Casos": 389717,
+		"Fallecidos": 18418,
+		"Pruebas": 2250256,
+		"Recuperados": 272547,
+		"Hospitalizados": 13450
 	},
 	{
-		"Date": "2020-07-28",
-		"Cases": 395005,
-		"Deaths": 18612,
-		"Tests": 2270717,
-		"Recovered": 276452,
-		"Hospitalized": 13408
+		"Fecha": "2020-07-28",
+		"Casos": 395005,
+		"Fallecidos": 18612,
+		"Pruebas": 2270717,
+		"Recuperados": 276452,
+		"Hospitalizados": 13408
 	},
 	{
-		"Date": "2020-07-29",
-		"Cases": 400683,
-		"Deaths": 18816,
-		"Tests": 2293612,
-		"Recovered": 280044,
-		"Hospitalized": 13491
+		"Fecha": "2020-07-29",
+		"Casos": 400683,
+		"Fallecidos": 18816,
+		"Pruebas": 2293612,
+		"Recuperados": 280044,
+		"Hospitalizados": 13491
 	},
 	{
-		"Date": "2020-07-30",
-		"Cases": 407492,
-		"Deaths": 19021,
-		"Tests": 2318254,
-		"Recovered": 283915,
-		"Hospitalized": 13438
+		"Fecha": "2020-07-30",
+		"Casos": 407492,
+		"Fallecidos": 19021,
+		"Pruebas": 2318254,
+		"Recuperados": 283915,
+		"Hospitalizados": 13438
 	},
 	{
-		"Date": "2020-07-31",
-		"Cases": 414735,
-		"Deaths": 19217,
-		"Tests": 2348396,
-		"Recovered": 287127,
-		"Hospitalized": 13577
+		"Fecha": "2020-07-31",
+		"Casos": 414735,
+		"Fallecidos": 19217,
+		"Pruebas": 2348396,
+		"Recuperados": 287127,
+		"Hospitalizados": 13577
 	},
 	{
-		"Date": "2020-08-01",
-		"Cases": 422183,
-		"Deaths": 19408,
-		"Tests": 2377948,
-		"Recovered": 290835,
-		"Hospitalized": 13700
+		"Fecha": "2020-08-01",
+		"Casos": 422183,
+		"Fallecidos": 19408,
+		"Pruebas": 2377948,
+		"Recuperados": 290835,
+		"Hospitalizados": 13700
 	},
 	{
-		"Date": "2020-08-02",
-		"Cases": 428850,
-		"Deaths": 19614,
-		"Tests": 2404046,
-		"Recovered": 294187,
-		"Hospitalized": 13743
+		"Fecha": "2020-08-02",
+		"Casos": 428850,
+		"Fallecidos": 19614,
+		"Pruebas": 2404046,
+		"Recuperados": 294187,
+		"Hospitalizados": 13743
 	},
 	{
-		"Date": "2020-08-03",
-		"Cases": 433100,
-		"Deaths": 19811,
-		"Tests": 2417857,
-		"Recovered": 298091,
-		"Hospitalized": 13772
+		"Fecha": "2020-08-03",
+		"Casos": 433100,
+		"Fallecidos": 19811,
+		"Pruebas": 2417857,
+		"Recuperados": 298091,
+		"Hospitalizados": 13772
 	},
 	{
-		"Date": "2020-08-04",
-		"Cases": 439890,
-		"Deaths": 20007,
-		"Tests": 2440184,
-		"Recovered": 302457,
-		"Hospitalized": 13798
+		"Fecha": "2020-08-04",
+		"Casos": 439890,
+		"Fallecidos": 20007,
+		"Pruebas": 2440184,
+		"Recuperados": 302457,
+		"Hospitalizados": 13798
 	},
 	{
-		"Date": "2020-08-05",
-		"Cases": 447624,
-		"Deaths": 20228,
-		"Tests": 2466745,
-		"Recovered": 306430,
-		"Hospitalized": 13751
+		"Fecha": "2020-08-05",
+		"Casos": 447624,
+		"Fallecidos": 20228,
+		"Pruebas": 2466745,
+		"Recuperados": 306430,
+		"Hospitalizados": 13751
 	},
 	{
-		"Date": "2020-08-06",
-		"Cases": 455409,
-		"Deaths": 20424,
-		"Tests": 2493429,
-		"Recovered": 310337,
-		"Hospitalized": 13659
+		"Fecha": "2020-08-06",
+		"Casos": 455409,
+		"Fallecidos": 20424,
+		"Pruebas": 2493429,
+		"Recuperados": 310337,
+		"Hospitalizados": 13659
 	},
 	{
-		"Date": "2020-08-07",
-		"Cases": 463875,
-		"Deaths": 20649,
-		"Tests": 2522993,
-		"Recovered": 314332,
-		"Hospitalized": 13820
+		"Fecha": "2020-08-07",
+		"Casos": 463875,
+		"Fallecidos": 20649,
+		"Pruebas": 2522993,
+		"Recuperados": 314332,
+		"Hospitalizados": 13820
 	},
 	{
-		"Date": "2020-08-08",
-		"Cases": 471012,
-		"Deaths": 20844,
-		"Tests": 2548439,
-		"Recovered": 319171,
-		"Hospitalized": 13680
+		"Fecha": "2020-08-08",
+		"Casos": 471012,
+		"Fallecidos": 20844,
+		"Pruebas": 2548439,
+		"Recuperados": 319171,
+		"Hospitalizados": 13680
 	},
 	{
-		"Date": "2020-08-09",
-		"Cases": 478024,
-		"Deaths": 21072,
-		"Tests": 2573691,
-		"Recovered": 324040,
-		"Hospitalized": 13768
+		"Fecha": "2020-08-09",
+		"Casos": 478024,
+		"Fallecidos": 21072,
+		"Pruebas": 2573691,
+		"Recuperados": 324040,
+		"Hospitalizados": 13768
 	},
 	{
-		"Date": "2020-08-10",
-		"Cases": 483133,
-		"Deaths": 21276,
-		"Tests": 2590078,
-		"Recovered": 329404,
-		"Hospitalized": 13808
+		"Fecha": "2020-08-10",
+		"Casos": 483133,
+		"Fallecidos": 21276,
+		"Pruebas": 2590078,
+		"Recuperados": 329404,
+		"Hospitalizados": 13808
 	},
 	{
-		"Date": "2020-08-11",
-		"Cases": 489680,
-		"Deaths": 21501,
-		"Tests": 2612599,
-		"Recovered": 335756,
-		"Hospitalized": 13775
+		"Fecha": "2020-08-11",
+		"Casos": 489680,
+		"Fallecidos": 21501,
+		"Pruebas": 2612599,
+		"Recuperados": 335756,
+		"Hospitalizados": 13775
 	},
 	{
-		"Date": "2020-08-12",
-		"Cases": 498555,
-		"Deaths": 21713,
-		"Tests": 2643464,
-		"Recovered": 341938,
-		"Hospitalized": 13823
+		"Fecha": "2020-08-12",
+		"Casos": 498555,
+		"Fallecidos": 21713,
+		"Pruebas": 2643464,
+		"Recuperados": 341938,
+		"Hospitalizados": 13823
 	},
 	{
-		"Date": "2020-08-13",
-		"Cases": 507996,
-		"Deaths": 25648,
-		"Tests": 2677014,
-		"Recovered": 348006,
-		"Hospitalized": 13987
+		"Fecha": "2020-08-13",
+		"Casos": 507996,
+		"Fallecidos": 25648,
+		"Pruebas": 2677014,
+		"Recuperados": 348006,
+		"Hospitalizados": 13987
 	},
 	{
-		"Date": "2020-08-14",
-		"Cases": 516296,
-		"Deaths": 25856,
-		"Tests": 2705122,
-		"Recovered": 354232,
-		"Hospitalized": 14175
+		"Fecha": "2020-08-14",
+		"Casos": 516296,
+		"Fallecidos": 25856,
+		"Pruebas": 2705122,
+		"Recuperados": 354232,
+		"Hospitalizados": 14175
 	},
 	{
-		"Date": "2020-08-15",
-		"Cases": 525803,
-		"Deaths": 26075,
-		"Tests": 2738229,
-		"Recovered": 359781,
-		"Hospitalized": 13947
+		"Fecha": "2020-08-15",
+		"Casos": 525803,
+		"Fallecidos": 26075,
+		"Pruebas": 2738229,
+		"Recuperados": 359781,
+		"Hospitalizados": 13947
 	},
 	{
-		"Date": "2020-08-16",
-		"Cases": 535946,
-		"Deaths": 26281,
-		"Tests": 2773412,
-		"Recovered": 365367,
-		"Hospitalized": 14074
+		"Fecha": "2020-08-16",
+		"Casos": 535946,
+		"Fallecidos": 26281,
+		"Pruebas": 2773412,
+		"Recuperados": 365367,
+		"Hospitalizados": 14074
 	},
 	{
-		"Date": "2020-08-17",
-		"Cases": 541493,
-		"Deaths": 26481,
-		"Tests": 2793614,
-		"Recovered": 370717,
-		"Hospitalized": 14181
+		"Fecha": "2020-08-17",
+		"Casos": 541493,
+		"Fallecidos": 26481,
+		"Pruebas": 2793614,
+		"Recuperados": 370717,
+		"Hospitalizados": 14181
 	},
 	{
-		"Date": "2020-08-18",
-		"Cases": 549321,
-		"Deaths": 26658,
-		"Tests": 2818943,
-		"Recovered": 374019,
-		"Hospitalized": 14092
+		"Fecha": "2020-08-18",
+		"Casos": 549321,
+		"Fallecidos": 26658,
+		"Pruebas": 2818943,
+		"Recuperados": 374019,
+		"Hospitalizados": 14092
 	},
 	{
-		"Date": "2020-08-19",
-		"Cases": 558420,
-		"Deaths": 26834,
-		"Tests": 2852011,
-		"Recovered": 377453,
-		"Hospitalized": 13888
+		"Fecha": "2020-08-19",
+		"Casos": 558420,
+		"Fallecidos": 26834,
+		"Pruebas": 2852011,
+		"Recuperados": 377453,
+		"Hospitalizados": 13888
 	},
 	{
-		"Date": "2020-08-20",
-		"Cases": 567059,
-		"Deaths": 27034,
-		"Tests": 2883862,
-		"Recovered": 380730,
-		"Hospitalized": 13779
+		"Fecha": "2020-08-20",
+		"Casos": 567059,
+		"Fallecidos": 27034,
+		"Pruebas": 2883862,
+		"Recuperados": 380730,
+		"Hospitalizados": 13779
 	},
 	{
-		"Date": "2020-08-21",
-		"Cases": 576067,
-		"Deaths": 27245,
-		"Tests": 2915372,
-		"Recovered": 384908,
-		"Hospitalized": 13773
+		"Fecha": "2020-08-21",
+		"Casos": 576067,
+		"Fallecidos": 27245,
+		"Pruebas": 2915372,
+		"Recuperados": 384908,
+		"Hospitalizados": 13773
 	},
 	{
-		"Date": "2020-08-22",
-		"Cases": 585236,
-		"Deaths": 27453,
-		"Tests": 2950589,
-		"Recovered": 391144,
-		"Hospitalized": 13661
+		"Fecha": "2020-08-22",
+		"Casos": 585236,
+		"Fallecidos": 27453,
+		"Pruebas": 2950589,
+		"Recuperados": 391144,
+		"Hospitalizados": 13661
 	},
 	{
-		"Date": "2020-08-23",
-		"Cases": 594326,
-		"Deaths": 27663,
-		"Tests": 2985782,
-		"Recovered": 399357,
-		"Hospitalized": 13363
+		"Fecha": "2020-08-23",
+		"Casos": 594326,
+		"Fallecidos": 27663,
+		"Pruebas": 2985782,
+		"Recuperados": 399357,
+		"Hospitalizados": 13363
 	},
 	{
-		"Date": "2020-08-24",
-		"Cases": 600438,
-		"Deaths": 27813,
-		"Tests": 3006993,
-		"Recovered": 407301,
-		"Hospitalized": 13367
+		"Fecha": "2020-08-24",
+		"Casos": 600438,
+		"Fallecidos": 27813,
+		"Pruebas": 3006993,
+		"Recuperados": 407301,
+		"Hospitalizados": 13367
 	},
 	{
-		"Date": "2020-08-25",
-		"Cases": 607382,
-		"Deaths": 28001,
-		"Tests": 3032744,
-		"Recovered": 414577,
-		"Hospitalized": 12950
+		"Fecha": "2020-08-25",
+		"Casos": 607382,
+		"Fallecidos": 28001,
+		"Pruebas": 3032744,
+		"Recuperados": 414577,
+		"Hospitalizados": 12950
 	},
 	{
-		"Date": "2020-08-26",
-		"Cases": 613378,
-		"Deaths": 28124,
-		"Tests": 3055850,
-		"Recovered": 421877,
-		"Hospitalized": 13051
+		"Fecha": "2020-08-26",
+		"Casos": 613378,
+		"Fallecidos": 28124,
+		"Pruebas": 3055850,
+		"Recuperados": 421877,
+		"Hospitalizados": 13051
 	},
 	{
-		"Date": "2020-08-27",
-		"Cases": 621997,
-		"Deaths": 28277,
-		"Tests": 3089459,
-		"Recovered": 429662,
-		"Hospitalized": 12871
+		"Fecha": "2020-08-27",
+		"Casos": 621997,
+		"Fallecidos": 28277,
+		"Pruebas": 3089459,
+		"Recuperados": 429662,
+		"Hospitalizados": 12871
 	},
 	{
-		"Date": "2020-08-28",
-		"Cases": 629961,
-		"Deaths": 28471,
-		"Tests": 3124076,
-		"Recovered": 438017,
-		"Hospitalized": 12595
+		"Fecha": "2020-08-28",
+		"Casos": 629961,
+		"Fallecidos": 28471,
+		"Pruebas": 3124076,
+		"Recuperados": 438017,
+		"Hospitalizados": 12595
 	},
 	{
-		"Date": "2020-08-29",
-		"Cases": 639435,
-		"Deaths": 28607,
-		"Tests": 3156679,
-		"Recovered": 446675,
-		"Hospitalized": 12537
+		"Fecha": "2020-08-29",
+		"Casos": 639435,
+		"Fallecidos": 28607,
+		"Pruebas": 3156679,
+		"Recuperados": 446675,
+		"Hospitalizados": 12537
 	},
 	{
-		"Date": "2020-08-30",
-		"Cases": 647166,
-		"Deaths": 28788,
-		"Tests": 3191850,
-		"Recovered": 455457,
-		"Hospitalized": 12364
+		"Fecha": "2020-08-30",
+		"Casos": 647166,
+		"Fallecidos": 28788,
+		"Pruebas": 3191850,
+		"Recuperados": 455457,
+		"Hospitalizados": 12364
 	},
 	{
-		"Date": "2020-08-31",
-		"Cases": 652037,
-		"Deaths": 28944,
-		"Tests": 3215842,
-		"Recovered": 462329,
-		"Hospitalized": 12374
+		"Fecha": "2020-08-31",
+		"Casos": 652037,
+		"Fallecidos": 28944,
+		"Pruebas": 3215842,
+		"Recuperados": 462329,
+		"Hospitalizados": 12374
 	},
 	{
-		"Date": "2020-09-01",
-		"Cases": 657129,
-		"Deaths": 29068,
-		"Tests": 3233034,
-		"Recovered": 471599,
-		"Hospitalized": 12162
+		"Fecha": "2020-09-01",
+		"Casos": 657129,
+		"Fallecidos": 29068,
+		"Pruebas": 3233034,
+		"Recuperados": 471599,
+		"Hospitalizados": 12162
 	},
 	{
-		"Date": "2020-09-02",
-		"Cases": 663437,
-		"Deaths": 29259,
-		"Tests": 3256711,
-		"Recovered": 480177,
-		"Hospitalized": 11830
+		"Fecha": "2020-09-02",
+		"Casos": 663437,
+		"Fallecidos": 29259,
+		"Pruebas": 3256711,
+		"Recuperados": 480177,
+		"Hospitalizados": 11830
 	},
 	{
-		"Date": "2020-09-03",
-		"Cases": 670145,
-		"Deaths": 29405,
-		"Tests": 3286526,
-		"Recovered": 489886,
-		"Hospitalized": 11699
+		"Fecha": "2020-09-03",
+		"Casos": 670145,
+		"Fallecidos": 29405,
+		"Pruebas": 3286526,
+		"Recuperados": 489886,
+		"Hospitalizados": 11699
 	},
 	{
-		"Date": "2020-09-04",
-		"Cases": 676848,
-		"Deaths": 29554,
-		"Tests": 3320012,
-		"Recovered": 498523,
-		"Hospitalized": 11411
+		"Fecha": "2020-09-04",
+		"Casos": 676848,
+		"Fallecidos": 29554,
+		"Pruebas": 3320012,
+		"Recuperados": 498523,
+		"Hospitalizados": 11411
 	},
 	{
-		"Date": "2020-09-05",
-		"Cases": 683702,
-		"Deaths": 29687,
-		"Tests": 3353435,
-		"Recovered": 506422,
-		"Hospitalized": 11362
+		"Fecha": "2020-09-05",
+		"Casos": 683702,
+		"Fallecidos": 29687,
+		"Pruebas": 3353435,
+		"Recuperados": 506422,
+		"Hospitalizados": 11362
 	},
 	{
-		"Date": "2020-09-06",
-		"Cases": 689977,
-		"Deaths": 29838,
-		"Tests": 3379580,
-		"Recovered": 515039,
-		"Hospitalized": 11327
+		"Fecha": "2020-09-06",
+		"Casos": 689977,
+		"Fallecidos": 29838,
+		"Pruebas": 3379580,
+		"Recuperados": 515039,
+		"Hospitalizados": 11327
 	},
 	{
-		"Date": "2020-09-07",
-		"Cases": 691575,
-		"Deaths": 29976,
-		"Tests": 3386625,
-		"Recovered": 522251,
-		"Hospitalized": 11242
+		"Fecha": "2020-09-07",
+		"Casos": 691575,
+		"Fallecidos": 29976,
+		"Pruebas": 3386625,
+		"Recuperados": 522251,
+		"Hospitalizados": 11242
 	},
 	{
-		"Date": "2020-09-08",
-		"Cases": 696190,
-		"Deaths": 30123,
-		"Tests": 3403397,
-		"Recovered": 529751,
-		"Hospitalized": 11087
+		"Fecha": "2020-09-08",
+		"Casos": 696190,
+		"Fallecidos": 30123,
+		"Pruebas": 3403397,
+		"Recuperados": 529751,
+		"Hospitalizados": 11087
 	},
 	{
-		"Date": "2020-09-09",
-		"Cases": 702776,
-		"Deaths": 30236,
-		"Tests": 3428910,
-		"Recovered": 536959,
-		"Hospitalized": 10727
+		"Fecha": "2020-09-09",
+		"Casos": 702776,
+		"Fallecidos": 30236,
+		"Pruebas": 3428910,
+		"Recuperados": 536959,
+		"Hospitalizados": 10727
 	},
 	{
-		"Date": "2020-09-10",
-		"Cases": 710067,
-		"Deaths": 30344,
-		"Tests": 3457205,
-		"Recovered": 544745,
-		"Hospitalized": 10641
+		"Fecha": "2020-09-10",
+		"Casos": 710067,
+		"Fallecidos": 30344,
+		"Pruebas": 3457205,
+		"Recuperados": 544745,
+		"Hospitalizados": 10641
 	},
 	{
-		"Date": "2020-09-11",
-		"Cases": 716670,
-		"Deaths": 30470,
-		"Tests": 3482894,
-		"Recovered": 552412,
-		"Hospitalized": 10490
+		"Fecha": "2020-09-11",
+		"Casos": 716670,
+		"Fallecidos": 30470,
+		"Pruebas": 3482894,
+		"Recuperados": 552412,
+		"Hospitalizados": 10490
 	},
 	{
-		"Date": "2020-09-12",
-		"Cases": 722832,
-		"Deaths": 30593,
-		"Tests": 3509997,
-		"Recovered": 559321,
-		"Hospitalized": 10251
+		"Fecha": "2020-09-12",
+		"Casos": 722832,
+		"Fallecidos": 30593,
+		"Pruebas": 3509997,
+		"Recuperados": 559321,
+		"Hospitalizados": 10251
 	},
 	{
-		"Date": "2020-09-13",
-		"Cases": 729619,
-		"Deaths": 30710,
-		"Tests": 3534937,
-		"Recovered": 566796,
-		"Hospitalized": 10122
+		"Fecha": "2020-09-13",
+		"Casos": 729619,
+		"Fallecidos": 30710,
+		"Pruebas": 3534937,
+		"Recuperados": 566796,
+		"Hospitalizados": 10122
 	},
 	{
-		"Date": "2020-09-14",
-		"Cases": 733860,
-		"Deaths": 30812,
-		"Tests": 3552710,
-		"Recovered": 573364,
-		"Hospitalized": 10002
+		"Fecha": "2020-09-14",
+		"Casos": 733860,
+		"Fallecidos": 30812,
+		"Pruebas": 3552710,
+		"Recuperados": 573364,
+		"Hospitalizados": 10002
 	},
 	{
-		"Date": "2020-09-15",
-		"Cases": 738020,
-		"Deaths": 30927,
-		"Tests": 3567927,
-		"Recovered": 580753,
-		"Hospitalized": 9962
+		"Fecha": "2020-09-15",
+		"Casos": 738020,
+		"Fallecidos": 30927,
+		"Pruebas": 3567927,
+		"Recuperados": 580753,
+		"Hospitalizados": 9962
 	},
 	{
-		"Date": "2020-09-16",
-		"Cases": 744400,
-		"Deaths": 31051,
-		"Tests": 3592221,
-		"Recovered": 587717,
-		"Hospitalized": 9749
+		"Fecha": "2020-09-16",
+		"Casos": 744400,
+		"Fallecidos": 31051,
+		"Pruebas": 3592221,
+		"Recuperados": 587717,
+		"Hospitalizados": 9749
 	},
 	{
-		"Date": "2020-09-17",
-		"Cases": 750098,
-		"Deaths": 31146,
-		"Tests": 3614738,
-		"Recovered": 594513,
-		"Hospitalized": 9524
+		"Fecha": "2020-09-17",
+		"Casos": 750098,
+		"Fallecidos": 31146,
+		"Pruebas": 3614738,
+		"Recuperados": 594513,
+		"Hospitalizados": 9524
 	},
 	{
-		"Date": "2020-09-18",
-		"Cases": 756412,
-		"Deaths": 31283,
-		"Tests": 3640863,
-		"Recovered": 600795,
-		"Hospitalized": 9400
+		"Fecha": "2020-09-18",
+		"Casos": 756412,
+		"Fallecidos": 31283,
+		"Pruebas": 3640863,
+		"Recuperados": 600795,
+		"Hospitalizados": 9400
 	},
 	{
-		"Date": "2020-09-19",
-		"Cases": 762865,
-		"Deaths": 31369,
-		"Tests": 3667968,
-		"Recovered": 607837,
-		"Hospitalized": 9269
+		"Fecha": "2020-09-19",
+		"Casos": 762865,
+		"Fallecidos": 31369,
+		"Pruebas": 3667968,
+		"Recuperados": 607837,
+		"Hospitalizados": 9269
 	},
 	{
-		"Date": "2020-09-20",
-		"Cases": 768895,
-		"Deaths": 31555,
-		"Tests": 3693813,
-		"Recovered": 615255,
-		"Hospitalized": 9156
+		"Fecha": "2020-09-20",
+		"Casos": 768895,
+		"Fallecidos": 31555,
+		"Pruebas": 3693813,
+		"Recuperados": 615255,
+		"Hospitalizados": 9156
 	},
 	{
-		"Date": "2020-09-21",
-		"Cases": 772896,
-		"Deaths": 31660,
-		"Tests": 3710694,
-		"Recovered": 622418,
-		"Hospitalized": 9087
+		"Fecha": "2020-09-21",
+		"Casos": 772896,
+		"Fallecidos": 31660,
+		"Pruebas": 3710694,
+		"Recuperados": 622418,
+		"Hospitalizados": 9087
 	},
 	{
-		"Date": "2020-09-22",
-		"Cases": 776546,
-		"Deaths": 31772,
-		"Tests": 3724872,
-		"Recovered": 629094,
-		"Hospitalized": 8520
+		"Fecha": "2020-09-22",
+		"Casos": 776546,
+		"Fallecidos": 31772,
+		"Pruebas": 3724872,
+		"Recuperados": 629094,
+		"Hospitalizados": 8520
 	},
 	{
-		"Date": "2020-09-23",
-		"Cases": 782695,
-		"Deaths": 31870,
-		"Tests": 3751583,
-		"Recovered": 636489,
-		"Hospitalized": 8691
+		"Fecha": "2020-09-23",
+		"Casos": 782695,
+		"Fallecidos": 31870,
+		"Pruebas": 3751583,
+		"Recuperados": 636489,
+		"Hospitalizados": 8691
 	},
 	{
-		"Date": "2020-09-24",
-		"Cases": 788930,
-		"Deaths": 31938,
-		"Tests": 3778648,
-		"Recovered": 644345,
-		"Hospitalized": 8594
+		"Fecha": "2020-09-24",
+		"Casos": 788930,
+		"Fallecidos": 31938,
+		"Pruebas": 3778648,
+		"Recuperados": 644345,
+		"Hospitalizados": 8594
 	},
 	{
-		"Date": "2020-09-25",
-		"Cases": 794584,
-		"Deaths": 32037,
-		"Tests": 3804340,
-		"Recovered": 650948,
-		"Hospitalized": 8397
+		"Fecha": "2020-09-25",
+		"Casos": 794584,
+		"Fallecidos": 32037,
+		"Pruebas": 3804340,
+		"Recuperados": 650948,
+		"Hospitalizados": 8397
 	},
 	{
-		"Date": "2020-09-26",
-		"Cases": 800142,
-		"Deaths": 32142,
-		"Tests": 3827824,
-		"Recovered": 657836,
-		"Hospitalized": 8282
+		"Fecha": "2020-09-26",
+		"Casos": 800142,
+		"Fallecidos": 32142,
+		"Pruebas": 3827824,
+		"Recuperados": 657836,
+		"Hospitalizados": 8282
 	},
 	{
-		"Date": "2020-09-27",
-		"Cases": 805302,
-		"Deaths": 32262,
-		"Tests": 3850122,
-		"Recovered": 664490,
-		"Hospitalized": 8054
+		"Fecha": "2020-09-27",
+		"Casos": 805302,
+		"Fallecidos": 32262,
+		"Pruebas": 3850122,
+		"Recuperados": 664490,
+		"Hospitalizados": 8054
 	},
 	{
-		"Date": "2020-09-28",
-		"Cases": 808714,
-		"Deaths": 32324,
-		"Tests": 3865360,
-		"Recovered": 670989,
-		"Hospitalized": 8054
+		"Fecha": "2020-09-28",
+		"Casos": 808714,
+		"Fallecidos": 32324,
+		"Pruebas": 3865360,
+		"Recuperados": 670989,
+		"Hospitalizados": 8054
 	},
 	{
-		"Date": "2020-09-29",
-		"Cases": 811768,
-		"Deaths": 32396,
-		"Tests": 3878323,
-		"Recovered": 676925,
-		"Hospitalized": 7911
+		"Fecha": "2020-09-29",
+		"Casos": 811768,
+		"Fallecidos": 32396,
+		"Pruebas": 3878323,
+		"Recuperados": 676925,
+		"Hospitalizados": 7911
 	},
 	{
-		"Date": "2020-09-30",
-		"Cases": 814829,
-		"Deaths": 32463,
-		"Tests": 3892353,
-		"Recovered": 683815,
-		"Hospitalized": 7609
+		"Fecha": "2020-09-30",
+		"Casos": 814829,
+		"Fallecidos": 32463,
+		"Pruebas": 3892353,
+		"Recuperados": 683815,
+		"Hospitalizados": 7609
 	},
 	{
-		"Date": "2020-10-01",
-		"Cases": 818297,
-		"Deaths": 32535,
-		"Tests": 3908125,
-		"Recovered": 690528,
-		"Hospitalized": 7511
+		"Fecha": "2020-10-01",
+		"Casos": 818297,
+		"Fallecidos": 32535,
+		"Pruebas": 3908125,
+		"Recuperados": 690528,
+		"Hospitalizados": 7511
 	},
 	{
-		"Date": "2020-10-02",
-		"Cases": 821564,
-		"Deaths": 32609,
-		"Tests": 3922567,
-		"Recovered": 695645,
-		"Hospitalized": 7383
+		"Fecha": "2020-10-02",
+		"Casos": 821564,
+		"Fallecidos": 32609,
+		"Pruebas": 3922567,
+		"Recuperados": 695645,
+		"Hospitalizados": 7383
 	},
 	{
-		"Date": "2020-10-03",
-		"Cases": 824985,
-		"Deaths": 32665,
-		"Tests": 3939873,
-		"Recovered": 700868,
-		"Hospitalized": 7222
+		"Fecha": "2020-10-03",
+		"Casos": 824985,
+		"Fallecidos": 32665,
+		"Pruebas": 3939873,
+		"Recuperados": 700868,
+		"Hospitalizados": 7222
 	},
 	{
-		"Date": "2020-10-04",
-		"Cases": 828169,
-		"Deaths": 32742,
-		"Tests": 3952298,
-		"Recovered": 706223,
-		"Hospitalized": 7074
+		"Fecha": "2020-10-04",
+		"Casos": 828169,
+		"Fallecidos": 32742,
+		"Pruebas": 3952298,
+		"Recuperados": 706223,
+		"Hospitalizados": 7074
 	},
 	{
-		"Date": "2020-10-05",
-		"Cases": 829999,
-		"Deaths": 32834,
-		"Tests": 3961345,
-		"Recovered": 712888,
-		"Hospitalized": 6983
+		"Fecha": "2020-10-05",
+		"Casos": 829999,
+		"Fallecidos": 32834,
+		"Pruebas": 3961345,
+		"Recuperados": 712888,
+		"Hospitalizados": 6983
 	},
 	{
-		"Date": "2020-10-06",
-		"Cases": 832929,
-		"Deaths": 32914,
-		"Tests": 3975007,
-		"Recovered": 718065,
-		"Hospitalized": 6831
+		"Fecha": "2020-10-06",
+		"Casos": 832929,
+		"Fallecidos": 32914,
+		"Pruebas": 3975007,
+		"Recuperados": 718065,
+		"Hospitalizados": 6831
 	},
 	{
-		"Date": "2020-10-07",
-		"Cases": 835662,
-		"Deaths": 33009,
-		"Tests": 3988070,
-		"Recovered": 723606,
-		"Hospitalized": 6735
+		"Fecha": "2020-10-07",
+		"Casos": 835662,
+		"Fallecidos": 33009,
+		"Pruebas": 3988070,
+		"Recuperados": 723606,
+		"Hospitalizados": 6735
 	},
 	{
-		"Date": "2020-10-08",
-		"Cases": 838614,
-		"Deaths": 33098,
-		"Tests": 4003363,
-		"Recovered": 728216,
-		"Hospitalized": 6647
+		"Fecha": "2020-10-08",
+		"Casos": 838614,
+		"Fallecidos": 33098,
+		"Pruebas": 4003363,
+		"Recuperados": 728216,
+		"Hospitalizados": 6647
 	},
 	{
-		"Date": "2020-10-09",
-		"Cases": 843355,
-		"Deaths": 33158,
-		"Tests": 4027591,
-		"Recovered": 733000,
-		"Hospitalized": 6544
+		"Fecha": "2020-10-09",
+		"Casos": 843355,
+		"Fallecidos": 33158,
+		"Pruebas": 4027591,
+		"Recuperados": 733000,
+		"Hospitalizados": 6544
 	},
 	{
-		"Date": "2020-10-10",
-		"Cases": 846088,
-		"Deaths": 33223,
-		"Tests": 4050681,
-		"Recovered": 738189,
-		"Hospitalized": 6334
+		"Fecha": "2020-10-10",
+		"Casos": 846088,
+		"Fallecidos": 33223,
+		"Pruebas": 4050681,
+		"Recuperados": 738189,
+		"Hospitalizados": 6334
 	},
 	{
-		"Date": "2020-10-11",
-		"Cases": 849371,
-		"Deaths": 33305,
-		"Tests": 4077357,
-		"Recovered": 743969,
-		"Hospitalized": 6291
+		"Fecha": "2020-10-11",
+		"Casos": 849371,
+		"Fallecidos": 33305,
+		"Pruebas": 4077357,
+		"Recuperados": 743969,
+		"Hospitalizados": 6291
 	},
 	{
-		"Date": "2020-10-12",
-		"Cases": 851171,
-		"Deaths": 33357,
-		"Tests": 4092566,
-		"Recovered": 748097,
-		"Hospitalized": 6272
+		"Fecha": "2020-10-12",
+		"Casos": 851171,
+		"Fallecidos": 33357,
+		"Pruebas": 4092566,
+		"Recuperados": 748097,
+		"Hospitalizados": 6272
 	},
 	{
-		"Date": "2020-10-13",
-		"Cases": 853974,
-		"Deaths": 33419,
-		"Tests": 4111951,
-		"Recovered": 753959,
-		"Hospitalized": 6274
+		"Fecha": "2020-10-13",
+		"Casos": 853974,
+		"Fallecidos": 33419,
+		"Pruebas": 4111951,
+		"Recuperados": 753959,
+		"Hospitalizados": 6274
 	},
 	{
-		"Date": "2020-10-14",
-		"Cases": 856951,
-		"Deaths": 33512,
-		"Tests": 4135223,
-		"Recovered": 759597,
-		"Hospitalized": 6237
+		"Fecha": "2020-10-14",
+		"Casos": 856951,
+		"Fallecidos": 33512,
+		"Pruebas": 4135223,
+		"Recuperados": 759597,
+		"Hospitalizados": 6237
 	},
 	{
-		"Date": "2020-10-15",
-		"Cases": 859740,
-		"Deaths": 33577,
-		"Tests": 4158359,
-		"Recovered": 764750,
-		"Hospitalized": 6222
+		"Fecha": "2020-10-15",
+		"Casos": 859740,
+		"Fallecidos": 33577,
+		"Pruebas": 4158359,
+		"Recuperados": 764750,
+		"Hospitalizados": 6222
 	},
 	{
-		"Date": "2020-10-16",
-		"Cases": 862417,
-		"Deaths": 33648,
-		"Tests": 4181976,
-		"Recovered": 769077,
-		"Hospitalized": 6172
+		"Fecha": "2020-10-16",
+		"Casos": 862417,
+		"Fallecidos": 33648,
+		"Pruebas": 4181976,
+		"Recuperados": 769077,
+		"Hospitalizados": 6172
 	},
 	{
-		"Date": "2020-10-17",
-		"Cases": 865549,
-		"Deaths": 33702,
-		"Tests": 4206371,
-		"Recovered": 774356,
-		"Hospitalized": 5940
+		"Fecha": "2020-10-17",
+		"Casos": 865549,
+		"Fallecidos": 33702,
+		"Pruebas": 4206371,
+		"Recuperados": 774356,
+		"Hospitalizados": 5940
 	},
 	{
-		"Date": "2020-10-18",
-		"Cases": 868675,
-		"Deaths": 33759,
-		"Tests": 4230353,
-		"Recovered": 779779,
-		"Hospitalized": 5938
+		"Fecha": "2020-10-18",
+		"Casos": 868675,
+		"Fallecidos": 33759,
+		"Pruebas": 4230353,
+		"Recuperados": 779779,
+		"Hospitalizados": 5938
 	},
 	{
-		"Date": "2020-10-19",
-		"Cases": 870876,
-		"Deaths": 33820,
-		"Tests": 4249458,
-		"Recovered": 784056,
-		"Hospitalized": 6010
+		"Fecha": "2020-10-19",
+		"Casos": 870876,
+		"Fallecidos": 33820,
+		"Pruebas": 4249458,
+		"Recuperados": 784056,
+		"Hospitalizados": 6010
 	},
 	{
-		"Date": "2020-10-20",
-		"Cases": 874118,
-		"Deaths": 33875,
-		"Tests": 4270800,
-		"Recovered": 788494,
-		"Hospitalized": 5842
+		"Fecha": "2020-10-20",
+		"Casos": 874118,
+		"Fallecidos": 33875,
+		"Pruebas": 4270800,
+		"Recuperados": 788494,
+		"Hospitalizados": 5842
 	},
 	{
-		"Date": "2020-10-21",
-		"Cases": 876885,
-		"Deaths": 33937,
-		"Tests": 4293748,
-		"Recovered": 792892,
-		"Hospitalized": 5743
+		"Fecha": "2020-10-21",
+		"Casos": 876885,
+		"Fallecidos": 33937,
+		"Pruebas": 4293748,
+		"Recuperados": 792892,
+		"Hospitalizados": 5743
 	},
 	{
-		"Date": "2020-10-22",
-		"Cases": 879876,
-		"Deaths": 33984,
-		"Tests": 4316879,
-		"Recovered": 796719,
-		"Hospitalized": 5656
+		"Fecha": "2020-10-22",
+		"Casos": 879876,
+		"Fallecidos": 33984,
+		"Pruebas": 4316879,
+		"Recuperados": 796719,
+		"Hospitalizados": 5656
 	},
 	{
-		"Date": "2020-10-23",
-		"Cases": 883116,
-		"Deaths": 34033,
-		"Tests": 4343547,
-		"Recovered": 800480,
-		"Hospitalized": 5697
+		"Fecha": "2020-10-23",
+		"Casos": 883116,
+		"Fallecidos": 34033,
+		"Pruebas": 4343547,
+		"Recuperados": 800480,
+		"Hospitalizados": 5697
 	},
 	{
-		"Date": "2020-10-24",
-		"Cases": 886214,
-		"Deaths": 34095,
-		"Tests": 4367969,
-		"Recovered": 803846,
-		"Hospitalized": 5520
+		"Fecha": "2020-10-24",
+		"Casos": 886214,
+		"Fallecidos": 34095,
+		"Pruebas": 4367969,
+		"Recuperados": 803846,
+		"Hospitalizados": 5520
 	},
 	{
-		"Date": "2020-10-25",
-		"Cases": 888715,
-		"Deaths": 34149,
-		"Tests": 4390402,
-		"Recovered": 807636,
-		"Hospitalized": 5492
+		"Fecha": "2020-10-25",
+		"Casos": 888715,
+		"Fallecidos": 34149,
+		"Pruebas": 4390402,
+		"Recuperados": 807636,
+		"Hospitalizados": 5492
 	},
 	{
-		"Date": "2020-10-26",
-		"Cases": 890574,
-		"Deaths": 34197,
-		"Tests": 4407293,
-		"Recovered": 810995,
-		"Hospitalized": 5615
+		"Fecha": "2020-10-26",
+		"Casos": 890574,
+		"Fallecidos": 34197,
+		"Pruebas": 4407293,
+		"Recuperados": 810995,
+		"Hospitalizados": 5615
 	},
 	{
-		"Date": "2020-10-27",
-		"Cases": 892497,
-		"Deaths": 34257,
-		"Tests": 4427751,
-		"Recovered": 814204,
-		"Hospitalized": 5595
+		"Fecha": "2020-10-27",
+		"Casos": 892497,
+		"Fallecidos": 34257,
+		"Pruebas": 4427751,
+		"Recuperados": 814204,
+		"Hospitalizados": 5595
 	},
 	{
-		"Date": "2020-10-28",
-		"Cases": 894928,
-		"Deaths": 34315,
-		"Tests": 4449985,
-		"Recovered": 816688,
-		"Hospitalized": 5593
+		"Fecha": "2020-10-28",
+		"Casos": 894928,
+		"Fallecidos": 34315,
+		"Pruebas": 4449985,
+		"Recuperados": 816688,
+		"Hospitalizados": 5593
 	},
 	{
-		"Date": "2020-10-29",
-		"Cases": 897594,
-		"Deaths": 34362,
-		"Tests": 4473483,
-		"Recovered": 819717,
-		"Hospitalized": 5419
+		"Fecha": "2020-10-29",
+		"Casos": 897594,
+		"Fallecidos": 34362,
+		"Pruebas": 4473483,
+		"Recuperados": 819717,
+		"Hospitalizados": 5419
 	},
 	{
-		"Date": "2020-10-30",
-		"Cases": 900180,
-		"Deaths": 34411,
-		"Tests": 4489872,
-		"Recovered": 822316,
-		"Hospitalized": 5411
+		"Fecha": "2020-10-30",
+		"Casos": 900180,
+		"Fallecidos": 34411,
+		"Pruebas": 4489872,
+		"Recuperados": 822316,
+		"Hospitalizados": 5411
 	},
 	{
-		"Date": "2020-10-31",
-		"Cases": 902503,
-		"Deaths": 34476,
-		"Tests": 4517584,
-		"Recovered": 825197,
-		"Hospitalized": 5411
+		"Fecha": "2020-10-31",
+		"Casos": 902503,
+		"Fallecidos": 34476,
+		"Pruebas": 4517584,
+		"Recuperados": 825197,
+		"Hospitalizados": 5411
 	},
 	{
-		"Date": "2020-11-01",
-		"Cases": 904911,
-		"Deaths": 34529,
-		"Tests": 4537540,
-		"Recovered": 827613,
-		"Hospitalized": 5270
+		"Fecha": "2020-11-01",
+		"Casos": 904911,
+		"Fallecidos": 34529,
+		"Pruebas": 4537540,
+		"Recuperados": 827613,
+		"Hospitalizados": 5270
 	},
 	{
-		"Date": "2020-11-02",
-		"Cases": 906545,
-		"Deaths": 34585,
-		"Tests": 4551185,
-		"Recovered": 830612,
-		"Hospitalized": 5255
+		"Fecha": "2020-11-02",
+		"Casos": 906545,
+		"Fallecidos": 34585,
+		"Pruebas": 4551185,
+		"Recuperados": 830612,
+		"Hospitalizados": 5255
 	},
 	{
-		"Date": "2020-11-03",
-		"Cases": 908902,
-		"Deaths": 34623,
-		"Tests": 4568349,
-		"Recovered": 832929,
-		"Hospitalized": 5204
+		"Fecha": "2020-11-03",
+		"Casos": 908902,
+		"Fallecidos": 34623,
+		"Pruebas": 4568349,
+		"Recuperados": 832929,
+		"Hospitalizados": 5204
 	},
 	{
-		"Date": "2020-11-04",
-		"Cases": 911787,
-		"Deaths": 34671,
-		"Tests": 4591407,
-		"Recovered": 835694,
-		"Hospitalized": 5287
+		"Fecha": "2020-11-04",
+		"Casos": 911787,
+		"Fallecidos": 34671,
+		"Pruebas": 4591407,
+		"Recuperados": 835694,
+		"Hospitalizados": 5287
 	},
 	{
-		"Date": "2020-11-05",
-		"Cases": 914722,
-		"Deaths": 34730,
-		"Tests": 4611380,
-		"Recovered": 838265,
-		"Hospitalized": 5212
+		"Fecha": "2020-11-05",
+		"Casos": 914722,
+		"Fallecidos": 34730,
+		"Pruebas": 4611380,
+		"Recuperados": 838265,
+		"Hospitalizados": 5212
 	},
 	{
-		"Date": "2020-11-06",
-		"Cases": 917503,
-		"Deaths": 34783,
-		"Tests": 4635248,
-		"Recovered": 838783,
-		"Hospitalized": 5154
+		"Fecha": "2020-11-06",
+		"Casos": 917503,
+		"Fallecidos": 34783,
+		"Pruebas": 4635248,
+		"Recuperados": 838783,
+		"Hospitalizados": 5154
 	},
 	{
-		"Date": "2020-11-07",
-		"Cases": 920010,
-		"Deaths": 34840,
-		"Tests": 4655418,
-		"Recovered": 843600,
-		"Hospitalized": 5109
+		"Fecha": "2020-11-07",
+		"Casos": 920010,
+		"Fallecidos": 34840,
+		"Pruebas": 4655418,
+		"Recuperados": 843600,
+		"Hospitalizados": 5109
 	},
 	{
-		"Date": "2020-11-08",
-		"Cases": 922333,
-		"Deaths": 34879,
-		"Tests": 4674263,
-		"Recovered": 846215,
-		"Hospitalized": 5069
+		"Fecha": "2020-11-08",
+		"Casos": 922333,
+		"Fallecidos": 34879,
+		"Pruebas": 4674263,
+		"Recuperados": 846215,
+		"Hospitalizados": 5069
 	},
 	{
-		"Date": "2020-11-09",
-		"Cases": 923527,
-		"Deaths": 34943,
-		"Tests": 4684817,
-		"Recovered": 848346,
-		"Hospitalized": 5016
+		"Fecha": "2020-11-09",
+		"Casos": 923527,
+		"Fallecidos": 34943,
+		"Pruebas": 4684817,
+		"Recuperados": 848346,
+		"Hospitalizados": 5016
 	},
 	{
-		"Date": "2020-11-10",
-		"Cases": 925431,
-		"Deaths": 34992,
-		"Tests": 4700489,
-		"Recovered": 850670,
-		"Hospitalized": 4965
+		"Fecha": "2020-11-10",
+		"Casos": 925431,
+		"Fallecidos": 34992,
+		"Pruebas": 4700489,
+		"Recuperados": 850670,
+		"Hospitalizados": 4965
 	},
 	{
-		"Date": "2020-11-11",
-		"Cases": 928006,
-		"Deaths": 35031,
-		"Tests": 4721179,
-		"Recovered": 853208,
-		"Hospitalized": 4912
+		"Fecha": "2020-11-11",
+		"Casos": 928006,
+		"Fallecidos": 35031,
+		"Pruebas": 4721179,
+		"Recuperados": 853208,
+		"Hospitalizados": 4912
 	},
 	{
-		"Date": "2020-11-12",
-		"Cases": 930237,
-		"Deaths": 35067,
-		"Tests": 4740666,
-		"Recovered": 856023,
-		"Hospitalized": 4929
+		"Fecha": "2020-11-12",
+		"Casos": 930237,
+		"Fallecidos": 35067,
+		"Pruebas": 4740666,
+		"Recuperados": 856023,
+		"Hospitalizados": 4929
 	},
 	{
-		"Date": "2020-11-13",
-		"Cases": 932650,
-		"Deaths": 35106,
-		"Tests": 4761540,
-		"Recovered": 858388,
-		"Hospitalized": 4929
+		"Fecha": "2020-11-13",
+		"Casos": 932650,
+		"Fallecidos": 35106,
+		"Pruebas": 4761540,
+		"Recuperados": 858388,
+		"Hospitalizados": 4929
 	},
 	{
-		"Date": "2020-11-14",
-		"Cases": 934899,
-		"Deaths": 35177,
-		"Tests": 4784978,
-		"Recovered": 861017,
-		"Hospitalized": 5034
+		"Fecha": "2020-11-14",
+		"Casos": 934899,
+		"Fallecidos": 35177,
+		"Pruebas": 4784978,
+		"Recuperados": 861017,
+		"Hospitalizados": 5034
 	},
 	{
-		"Date": "2020-11-15",
-		"Cases": 937011,
-		"Deaths": 35231,
-		"Tests": 4802591,
-		"Recovered": 863120,
-		"Hospitalized": 4818
+		"Fecha": "2020-11-15",
+		"Casos": 937011,
+		"Fallecidos": 35231,
+		"Pruebas": 4802591,
+		"Recuperados": 863120,
+		"Hospitalizados": 4818
 	},
 	{
-		"Date": "2020-11-16",
-		"Cases": 938268,
-		"Deaths": 35271,
-		"Tests": 4815828,
-		"Recovered": 865348,
-		"Hospitalized": 4835
+		"Fecha": "2020-11-16",
+		"Casos": 938268,
+		"Fallecidos": 35271,
+		"Pruebas": 4815828,
+		"Recuperados": 865348,
+		"Hospitalizados": 4835
 	},
 	{
-		"Date": "2020-11-17",
-		"Cases": 939931,
-		"Deaths": 35317,
-		"Tests": 4831147,
-		"Recovered": 867306,
-		"Hospitalized": 4842
+		"Fecha": "2020-11-17",
+		"Casos": 939931,
+		"Fallecidos": 35317,
+		"Pruebas": 4831147,
+		"Recuperados": 867306,
+		"Hospitalizados": 4842
 	},
 	{
-		"Date": "2020-11-18",
-		"Cases": 941951,
-		"Deaths": 35402,
-		"Tests": 4852474,
-		"Recovered": 869165,
-		"Hospitalized": 4788
+		"Fecha": "2020-11-18",
+		"Casos": 941951,
+		"Fallecidos": 35402,
+		"Pruebas": 4852474,
+		"Recuperados": 869165,
+		"Hospitalizados": 4788
 	},
 	{
-		"Date": "2020-11-19",
-		"Cases": 943917,
-		"Deaths": 35446,
-		"Tests": 4874713,
-		"Recovered": 871534,
-		"Hospitalized": 4705
+		"Fecha": "2020-11-19",
+		"Casos": 943917,
+		"Fallecidos": 35446,
+		"Pruebas": 4874713,
+		"Recuperados": 871534,
+		"Hospitalizados": 4705
 	},
 	{
-		"Date": "2020-11-20",
-		"Cases": 946087,
-		"Deaths": 35484,
-		"Tests": 4896839,
-		"Recovered": 873970,
-		"Hospitalized": 4576
+		"Fecha": "2020-11-20",
+		"Casos": 946087,
+		"Fallecidos": 35484,
+		"Pruebas": 4896839,
+		"Recuperados": 873970,
+		"Hospitalizados": 4576
 	},
 	{
-		"Date": "2020-11-21",
-		"Cases": 948081,
-		"Deaths": 35549,
-		"Tests": 4916164,
-		"Recovered": 876399,
-		"Hospitalized": 4414
+		"Fecha": "2020-11-21",
+		"Casos": 948081,
+		"Fallecidos": 35549,
+		"Pruebas": 4916164,
+		"Recuperados": 876399,
+		"Hospitalizados": 4414
 	},
 	{
-		"Date": "2020-11-22",
-		"Cases": 949670,
-		"Deaths": 35595,
-		"Tests": 4935037,
-		"Recovered": 879439,
-		"Hospitalized": 4500
+		"Fecha": "2020-11-22",
+		"Casos": 949670,
+		"Fallecidos": 35595,
+		"Pruebas": 4935037,
+		"Recuperados": 879439,
+		"Hospitalizados": 4500
 	},
 	{
-		"Date": "2020-11-23",
-		"Cases": 950557,
-		"Deaths": 35641,
-		"Tests": 4945165,
-		"Recovered": 880645,
-		"Hospitalized": 4467
+		"Fecha": "2020-11-23",
+		"Casos": 950557,
+		"Fallecidos": 35641,
+		"Pruebas": 4945165,
+		"Recuperados": 880645,
+		"Hospitalizados": 4467
 	},
 	{
-		"Date": "2020-11-24",
-		"Cases": 952439,
-		"Deaths": 35685,
-		"Tests": 4961493,
-		"Recovered": 882600,
-		"Hospitalized": 4408
+		"Fecha": "2020-11-24",
+		"Casos": 952439,
+		"Fallecidos": 35685,
+		"Pruebas": 4961493,
+		"Recuperados": 882600,
+		"Hospitalizados": 4408
 	},
 	{
-		"Date": "2020-11-25",
-		"Cases": 954459,
-		"Deaths": 35727,
-		"Tests": 4982778,
-		"Recovered": 884747,
-		"Hospitalized": 4278
+		"Fecha": "2020-11-25",
+		"Casos": 954459,
+		"Fallecidos": 35727,
+		"Pruebas": 4982778,
+		"Recuperados": 884747,
+		"Hospitalizados": 4278
 	},
 	{
-		"Date": "2020-11-26",
-		"Cases": 956347,
-		"Deaths": 35785,
-		"Tests": 4999956,
-		"Recovered": 887019,
-		"Hospitalized": 4212
+		"Fecha": "2020-11-26",
+		"Casos": 956347,
+		"Fallecidos": 35785,
+		"Pruebas": 4999956,
+		"Recuperados": 887019,
+		"Hospitalizados": 4212
 	},
 	{
-		"Date": "2020-11-27",
-		"Cases": 958324,
-		"Deaths": 35839,
-		"Tests": 5019608,
-		"Recovered": 888815,
-		"Hospitalized": 4159
+		"Fecha": "2020-11-27",
+		"Casos": 958324,
+		"Fallecidos": 35839,
+		"Pruebas": 5019608,
+		"Recuperados": 888815,
+		"Hospitalizados": 4159
 	},
 	{
-		"Date": "2020-11-28",
-		"Cases": 960368,
-		"Deaths": 35879,
-		"Tests": 5039956,
-		"Recovered": 891004,
-		"Hospitalized": 4412
+		"Fecha": "2020-11-28",
+		"Casos": 960368,
+		"Fallecidos": 35879,
+		"Pruebas": 5039956,
+		"Recuperados": 891004,
+		"Hospitalizados": 4412
 	},
 	{
-		"Date": "2020-11-29",
-		"Cases": 962530,
-		"Deaths": 35923,
-		"Tests": 5059179,
-		"Recovered": 893061,
-		"Hospitalized": 4080
+		"Fecha": "2020-11-29",
+		"Casos": 962530,
+		"Fallecidos": 35923,
+		"Pruebas": 5059179,
+		"Recuperados": 893061,
+		"Hospitalizados": 4080
 	},
 	{
-		"Date": "2020-11-30",
-		"Cases": 963605,
-		"Deaths": 35966,
-		"Tests": 5069698,
-		"Recovered": 894741,
-		"Hospitalized": 4056
+		"Fecha": "2020-11-30",
+		"Casos": 963605,
+		"Fallecidos": 35966,
+		"Pruebas": 5069698,
+		"Recuperados": 894741,
+		"Hospitalizados": 4056
 	},
 	{
-		"Date": "2020-12-01",
-		"Cases": 965228,
-		"Deaths": 36031,
-		"Tests": 5085775,
-		"Recovered": 896978,
-		"Hospitalized": 4022
+		"Fecha": "2020-12-01",
+		"Casos": 965228,
+		"Fallecidos": 36031,
+		"Pruebas": 5085775,
+		"Recuperados": 896978,
+		"Hospitalizados": 4022
 	},
 	{
-		"Date": "2020-12-02",
-		"Cases": 967075,
-		"Deaths": 36076,
-		"Tests": 5103401,
-		"Recovered": 899213,
-		"Hospitalized": 4008
+		"Fecha": "2020-12-02",
+		"Casos": 967075,
+		"Fallecidos": 36076,
+		"Pruebas": 5103401,
+		"Recuperados": 899213,
+		"Hospitalizados": 4008
 	},
 	{
-		"Date": "2020-12-03",
-		"Cases": 968846,
-		"Deaths": 36104,
-		"Tests": 5119245,
-		"Recovered": 901544,
-		"Hospitalized": 3945
+		"Fecha": "2020-12-03",
+		"Casos": 968846,
+		"Fallecidos": 36104,
+		"Pruebas": 5119245,
+		"Recuperados": 901544,
+		"Hospitalizados": 3945
 	},
 	{
-		"Date": "2020-12-04",
-		"Cases": 970860,
-		"Deaths": 36195,
-		"Tests": 5136390,
-		"Recovered": 903958,
-		"Hospitalized": 3768
+		"Fecha": "2020-12-04",
+		"Casos": 970860,
+		"Fallecidos": 36195,
+		"Pruebas": 5136390,
+		"Recuperados": 903958,
+		"Hospitalizados": 3768
 	},
 	{
-		"Date": "2020-12-05",
-		"Cases": 972688,
-		"Deaths": 36231,
-		"Tests": 5154919,
-		"Recovered": 905696,
-		"Hospitalized": 3772
+		"Fecha": "2020-12-05",
+		"Casos": 972688,
+		"Fallecidos": 36231,
+		"Pruebas": 5154919,
+		"Recuperados": 905696,
+		"Hospitalizados": 3772
 	},
 	{
-		"Date": "2020-12-06",
-		"Cases": 973912,
-		"Deaths": 36274,
-		"Tests": 5167466,
-		"Recovered": 907654,
-		"Hospitalized": 3841
+		"Fecha": "2020-12-06",
+		"Casos": 973912,
+		"Fallecidos": 36274,
+		"Pruebas": 5167466,
+		"Recuperados": 907654,
+		"Hospitalizados": 3841
 	},
 	{
-		"Date": "2020-12-07",
-		"Cases": 975116,
-		"Deaths": 36324,
-		"Tests": 5179331,
-		"Recovered": 909389,
-		"Hospitalized": 3814
+		"Fecha": "2020-12-07",
+		"Casos": 975116,
+		"Fallecidos": 36324,
+		"Pruebas": 5179331,
+		"Recuperados": 909389,
+		"Hospitalizados": 3814
 	},
 	{
-		"Date": "2020-12-08",
-		"Cases": 976621,
-		"Deaths": 36401,
-		"Tests": 5195499,
-		"Recovered": 911113,
-		"Hospitalized": 3705
+		"Fecha": "2020-12-08",
+		"Casos": 976621,
+		"Fallecidos": 36401,
+		"Pruebas": 5195499,
+		"Recuperados": 911113,
+		"Hospitalizados": 3705
 	},
 	{
-		"Date": "2020-12-09",
-		"Cases": 977312,
-		"Deaths": 36455,
-		"Tests": 5204299,
-		"Recovered": 912501,
-		"Hospitalized": 3789
+		"Fecha": "2020-12-09",
+		"Casos": 977312,
+		"Fallecidos": 36455,
+		"Pruebas": 5204299,
+		"Recuperados": 912501,
+		"Hospitalizados": 3789
 	},
 	{
-		"Date": "2020-12-10",
-		"Cases": 979111,
-		"Deaths": 36499,
-		"Tests": 5217086,
-		"Recovered": 914600,
-		"Hospitalized": 3817
+		"Fecha": "2020-12-10",
+		"Casos": 979111,
+		"Fallecidos": 36499,
+		"Pruebas": 5217086,
+		"Recuperados": 914600,
+		"Hospitalizados": 3817
 	},
 	{
-		"Date": "2020-12-11",
-		"Cases": 980943,
-		"Deaths": 36544,
-		"Tests": 5232485,
-		"Recovered": 916249,
-		"Hospitalized": 3737
+		"Fecha": "2020-12-11",
+		"Casos": 980943,
+		"Fallecidos": 36544,
+		"Pruebas": 5232485,
+		"Recuperados": 916249,
+		"Hospitalizados": 3737
 	},
 	{
-		"Date": "2020-12-12",
-		"Cases": 983045,
-		"Deaths": 36609,
-		"Tests": 5248832,
-		"Recovered": 916335,
-		"Hospitalized": 3836
+		"Fecha": "2020-12-12",
+		"Casos": 983045,
+		"Fallecidos": 36609,
+		"Pruebas": 5248832,
+		"Recuperados": 916335,
+		"Hospitalizados": 3836
 	},
 	{
-		"Date": "2020-12-13",
-		"Cases": 984973,
-		"Deaths": 36677,
-		"Tests": 5264455,
-		"Recovered": 918352,
-		"Hospitalized": 3891
+		"Fecha": "2020-12-13",
+		"Casos": 984973,
+		"Fallecidos": 36677,
+		"Pruebas": 5264455,
+		"Recuperados": 918352,
+		"Hospitalizados": 3891
 	},
 	{
-		"Date": "2020-12-14",
-		"Cases": 986130,
-		"Deaths": 36754,
-		"Tests": 5273241,
-		"Recovered": 920306,
-		"Hospitalized": 3871
+		"Fecha": "2020-12-14",
+		"Casos": 986130,
+		"Fallecidos": 36754,
+		"Pruebas": 5273241,
+		"Recuperados": 920306,
+		"Hospitalizados": 3871
 	},
 	{
-		"Date": "2020-12-15",
-		"Cases": 987675,
-		"Deaths": 36817,
-		"Tests": 5284292,
-		"Recovered": 922314,
-		"Hospitalized": 3906
+		"Fecha": "2020-12-15",
+		"Casos": 987675,
+		"Fallecidos": 36817,
+		"Pruebas": 5284292,
+		"Recuperados": 922314,
+		"Hospitalizados": 3906
 	},
 	{
-		"Date": "2020-12-16",
-		"Cases": 989457,
-		"Deaths": 36858,
-		"Tests": 5301184,
-		"Recovered": 924120,
-		"Hospitalized": 3909
+		"Fecha": "2020-12-16",
+		"Casos": 989457,
+		"Fallecidos": 36858,
+		"Pruebas": 5301184,
+		"Recuperados": 924120,
+		"Hospitalizados": 3909
 	},
 	{
-		"Date": "2020-12-17",
-		"Cases": 991518,
-		"Deaths": 36901,
-		"Tests": 5318292,
-		"Recovered": 925893,
-		"Hospitalized": 4030
+		"Fecha": "2020-12-17",
+		"Casos": 991518,
+		"Fallecidos": 36901,
+		"Pruebas": 5318292,
+		"Recuperados": 925893,
+		"Hospitalizados": 4030
 	},
 	{
-		"Date": "2020-12-18",
-		"Cases": 993760,
-		"Deaths": 36969,
-		"Tests": 5345801,
-		"Recovered": 928219,
-		"Hospitalized": 4021
+		"Fecha": "2020-12-18",
+		"Casos": 993760,
+		"Fallecidos": 36969,
+		"Pruebas": 5345801,
+		"Recuperados": 928219,
+		"Hospitalizados": 4021
 	},
 	{
-		"Date": "2020-12-19",
-		"Cases": 995899,
-		"Deaths": 37034,
-		"Tests": 5361432,
-		"Recovered": 930410,
-		"Hospitalized": 3961
+		"Fecha": "2020-12-19",
+		"Casos": 995899,
+		"Fallecidos": 37034,
+		"Pruebas": 5361432,
+		"Recuperados": 930410,
+		"Hospitalizados": 3961
 	},
 	{
-		"Date": "2020-12-20",
-		"Cases": 997517,
-		"Deaths": 37103,
-		"Tests": 5374886,
-		"Recovered": 932295,
-		"Hospitalized": 4100
+		"Fecha": "2020-12-20",
+		"Casos": 997517,
+		"Fallecidos": 37103,
+		"Pruebas": 5374886,
+		"Recuperados": 932295,
+		"Hospitalizados": 4100
 	},
 	{
-		"Date": "2020-12-21",
-		"Cases": 998475,
-		"Deaths": 37173,
-		"Tests": 5383267,
-		"Recovered": 934329,
-		"Hospitalized": 4091
+		"Fecha": "2020-12-21",
+		"Casos": 998475,
+		"Fallecidos": 37173,
+		"Pruebas": 5383267,
+		"Recuperados": 934329,
+		"Hospitalizados": 4091
 	},
 	{
-		"Date": "2020-12-22",
-		"Cases": 1000153,
-		"Deaths": 37218,
-		"Tests": 5397861,
-		"Recovered": 936182,
-		"Hospitalized": 4209
+		"Fecha": "2020-12-22",
+		"Casos": 1000153,
+		"Fallecidos": 37218,
+		"Pruebas": 5397861,
+		"Recuperados": 936182,
+		"Hospitalizados": 4209
 	},
 	{
-		"Date": "2020-12-23",
-		"Cases": 1002263,
-		"Deaths": 37273,
-		"Tests": 5416226,
-		"Recovered": 938341,
-		"Hospitalized": 4171
+		"Fecha": "2020-12-23",
+		"Casos": 1002263,
+		"Fallecidos": 37273,
+		"Pruebas": 5416226,
+		"Recuperados": 938341,
+		"Hospitalizados": 4171
 	},
 	{
-		"Date": "2020-12-24",
-		"Cases": 1003982,
-		"Deaths": 37317,
-		"Tests": 5433168,
-		"Recovered": 940040,
-		"Hospitalized": 4260
+		"Fecha": "2020-12-24",
+		"Casos": 1003982,
+		"Fallecidos": 37317,
+		"Pruebas": 5433168,
+		"Recuperados": 940040,
+		"Hospitalizados": 4260
 	},
 	{
-		"Date": "2020-12-25",
-		"Cases": 1005546,
-		"Deaths": 37368,
-		"Tests": 5446927,
-		"Recovered": 941668,
-		"Hospitalized": 4171
+		"Fecha": "2020-12-25",
+		"Casos": 1005546,
+		"Fallecidos": 37368,
+		"Pruebas": 5446927,
+		"Recuperados": 941668,
+		"Hospitalizados": 4171
 	},
 	{
-		"Date": "2020-12-26",
-		"Cases": 1006318,
-		"Deaths": 37414,
-		"Tests": 5453091,
-		"Recovered": 943637,
-		"Hospitalized": 4177
+		"Fecha": "2020-12-26",
+		"Casos": 1006318,
+		"Fallecidos": 37414,
+		"Pruebas": 5453091,
+		"Recuperados": 943637,
+		"Hospitalizados": 4177
 	},
 	{
-		"Date": "2020-12-27",
-		"Cases": 1007657,
-		"Deaths": 37474,
-		"Tests": 5463577,
-		"Recovered": 945603,
-		"Hospitalized": 4239
+		"Fecha": "2020-12-27",
+		"Casos": 1007657,
+		"Fallecidos": 37474,
+		"Pruebas": 5463577,
+		"Recuperados": 945603,
+		"Hospitalizados": 4239
 	},
 	{
-		"Date": "2020-12-28",
-		"Cases": 1008908,
-		"Deaths": 37525,
-		"Tests": 5473555,
-		"Recovered": 947427,
-		"Hospitalized": 4479
+		"Fecha": "2020-12-28",
+		"Casos": 1008908,
+		"Fallecidos": 37525,
+		"Pruebas": 5473555,
+		"Recuperados": 947427,
+		"Hospitalizados": 4479
 	},
 	{
-		"Date": "2020-12-29",
-		"Cases": 1010496,
-		"Deaths": 37574,
-		"Tests": 5486007,
-		"Recovered": 949391,
-		"Hospitalized": 4636
+		"Fecha": "2020-12-29",
+		"Casos": 1010496,
+		"Fallecidos": 37574,
+		"Pruebas": 5486007,
+		"Recuperados": 949391,
+		"Hospitalizados": 4636
 	},
 	{
-		"Date": "2020-12-30",
-		"Cases": 1012614,
-		"Deaths": 37621,
-		"Tests": 5502884,
-		"Recovered": 951318,
-		"Hospitalized": 4838
+		"Fecha": "2020-12-30",
+		"Casos": 1012614,
+		"Fallecidos": 37621,
+		"Pruebas": 5502884,
+		"Recuperados": 951318,
+		"Hospitalizados": 4838
 	},
 	{
-		"Date": "2020-12-31",
-		"Cases": 1015137,
-		"Deaths": 37680,
-		"Tests": 5522513,
-		"Recovered": 953175,
-		"Hospitalized": 4948
-	},
-	{
-		"Date": "2021-01-01",
-		"Cases": 1017199,
-		"Deaths": 37724,
-		"Tests": 5537730,
-		"Recovered": 954982,
-		"Hospitalized": 5223
-	},
-	{
-		"Date": "2021-01-02",
-		"Cases": 1018099,
-		"Deaths": 37773,
-		"Tests": 5543366,
-		"Recovered": 956800,
-		"Hospitalized": 5389
-	},
-	{
-		"Date": "2021-01-03",
-		"Cases": 1019475,
-		"Deaths": 37830,
-		"Tests": 5555591,
-		"Recovered": 958682,
-		"Hospitalized": 5452
-	},
-	{
-		"Date": "2021-01-04",
-		"Cases": 1021058,
-		"Deaths": 37873,
-		"Tests": 5567797,
-		"Recovered": 960703,
-		"Hospitalized": 5266
-	},
-	{
-		"Date": "2021-01-05",
-		"Cases": 1022018,
-		"Deaths": 37925,
-		"Tests": 5581668,
-		"Recovered": 960896,
-		"Hospitalized": 5449
-	},
-	{
-		"Date": "2021-01-06",
-		"Cases": 1024432,
-		"Deaths": 37991,
-		"Tests": 5601619,
-		"Recovered": 962566,
-		"Hospitalized": 5454
-	},
-	{
-		"Date": "2021-01-07",
-		"Cases": 1026690,
-		"Deaths": 38049,
-		"Tests": 5616880,
-		"Recovered": 964354,
-		"Hospitalized": 5628
-	},
-	{
-		"Date": "2021-01-08",
-		"Cases": 1029471,
-		"Deaths": 38145,
-		"Tests": 5631415,
-		"Recovered": 966447,
-		"Hospitalized": 5878
-	},
-	{
-		"Date": "2021-01-09",
-		"Cases": 1032275,
-		"Deaths": 38213,
-		"Tests": 5651113,
-		"Recovered": 968355,
-		"Hospitalized": 6269
-	},
-	{
-		"Date": "2021-01-10",
-		"Cases": 1035184,
-		"Deaths": 38280,
-		"Tests": 5667879,
-		"Recovered": 969863,
-		"Hospitalized": 6666
-	},
-	{
-		"Date": "2021-01-11",
-		"Cases": 1037350,
-		"Deaths": 38335,
-		"Tests": 5681038,
-		"Recovered": 970916,
-		"Hospitalized": 6869
-	},
-	{
-		"Date": "2021-01-12",
-		"Cases": 1040231,
-		"Deaths": 38399,
-		"Tests": 5697183,
-		"Recovered": 971000,
-		"Hospitalized": 6936
+		"Fecha": "2020-12-31",
+		"Casos": 1015137,
+		"Fallecidos": 37680,
+		"Pruebas": 5522513,
+		"Recuperados": 953175,
+		"Hospitalizados": 4948
+	},
+	{
+		"Fecha": "2021-01-01",
+		"Casos": 1017199,
+		"Fallecidos": 37724,
+		"Pruebas": 5537730,
+		"Recuperados": 954982,
+		"Hospitalizados": 5223
+	},
+	{
+		"Fecha": "2021-01-02",
+		"Casos": 1018099,
+		"Fallecidos": 37773,
+		"Pruebas": 5543366,
+		"Recuperados": 956800,
+		"Hospitalizados": 5389
+	},
+	{
+		"Fecha": "2021-01-03",
+		"Casos": 1019475,
+		"Fallecidos": 37830,
+		"Pruebas": 5555591,
+		"Recuperados": 958682,
+		"Hospitalizados": 5452
+	},
+	{
+		"Fecha": "2021-01-04",
+		"Casos": 1021058,
+		"Fallecidos": 37873,
+		"Pruebas": 5567797,
+		"Recuperados": 960703,
+		"Hospitalizados": 5266
+	},
+	{
+		"Fecha": "2021-01-05",
+		"Casos": 1022018,
+		"Fallecidos": 37925,
+		"Pruebas": 5581668,
+		"Recuperados": 960896,
+		"Hospitalizados": 5449
+	},
+	{
+		"Fecha": "2021-01-06",
+		"Casos": 1024432,
+		"Fallecidos": 37991,
+		"Pruebas": 5601619,
+		"Recuperados": 962566,
+		"Hospitalizados": 5454
+	},
+	{
+		"Fecha": "2021-01-07",
+		"Casos": 1026690,
+		"Fallecidos": 38049,
+		"Pruebas": 5616880,
+		"Recuperados": 964354,
+		"Hospitalizados": 5628
+	},
+	{
+		"Fecha": "2021-01-08",
+		"Casos": 1029471,
+		"Fallecidos": 38145,
+		"Pruebas": 5631415,
+		"Recuperados": 966447,
+		"Hospitalizados": 5878
+	},
+	{
+		"Fecha": "2021-01-09",
+		"Casos": 1032275,
+		"Fallecidos": 38213,
+		"Pruebas": 5651113,
+		"Recuperados": 968355,
+		"Hospitalizados": 6269
+	},
+	{
+		"Fecha": "2021-01-10",
+		"Casos": 1035184,
+		"Fallecidos": 38280,
+		"Pruebas": 5667879,
+		"Recuperados": 969863,
+		"Hospitalizados": 6666
+	},
+	{
+		"Fecha": "2021-01-11",
+		"Casos": 1037350,
+		"Fallecidos": 38335,
+		"Pruebas": 5681038,
+		"Recuperados": 970916,
+		"Hospitalizados": 6869
+	},
+	{
+		"Fecha": "2021-01-12",
+		"Casos": 1040231,
+		"Fallecidos": 38399,
+		"Pruebas": 5697183,
+		"Recuperados": 971000,
+		"Hospitalizados": 6936
+	},
+	{
+		"Fecha": "2021-01-13",
+		"Casos": 1043640,
+		"Fallecidos": 38473,
+		"Pruebas": 5732537,
+		"Recuperados": 973374,
+		"Hospitalizados": 7500
 	}
 ]
