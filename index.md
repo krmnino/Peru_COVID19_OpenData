@@ -10,10 +10,10 @@ Este proyecto empezo como un simple programa para graficar el numero de casos de
 
 ## Descargas
 
-* [Formato .csv simple](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/site/data/PER_data.csv)
-* [Formato .csv completo](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/site/data/PER_full_data.csv)
-* [Formato .json simple](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/site/data/PER_data.json)
-* [Formato .json completo](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/site/data/PER_full_data.json)
+* [Formato .csv simple](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/master/data/PER_data.csv)
+* [Formato .csv completo](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/master/data/PER_full_data.csv)
+* [Formato .json simple](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/master/data/PER_data.json)
+* [Formato .json completo](https://raw.githubusercontent.com/krmnino/Peru_COVID19_OpenData/master/data/PER_full_data.json)
 
 * * *
 
