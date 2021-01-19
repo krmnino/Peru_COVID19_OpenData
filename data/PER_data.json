@@ -2566,5 +2566,13 @@
 		"Pruebas": 5876017,
 		"Recuperados": 982111,
 		"Hospitalizados": 8614
+	},
+	{
+		"Fecha": "2021-01-18",
+		"Casos": 1068802,
+		"Fallecidos": 38931,
+		"Pruebas": 5901809,
+		"Recuperados": 984726,
+		"Hospitalizados": 8673
 	}
 ]
