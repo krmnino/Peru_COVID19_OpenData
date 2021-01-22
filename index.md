@@ -46,7 +46,7 @@ Datos disponibles en **.csv** y **.json**.
 | H            | Fallecidos                | int     | Numero de fallecidos a la fecha                            |
 | I            | NuevosFallecidos          | int     | Incremento de fallecidos a la fecha                        |
 | J            | %DifFallecidos            | float   | Tasa de crecimiento de fallecidos a la fecha               |
-| K            | TasaMortalidad            | float   | Tasa de moratlidad acumulada                               |
+| K            | TasaLetalidad             | float   | Tasa de letalidad acumulada                                |
 | L            | Pruebas                   | int     | Numero de pruebas (PM + PR) a la fecha                     |
 | M            | NuevasPruebas             | int     | Incremento de pruebas (PM + PR) añadidas a la fecha        |
 | N            | %DifTests                 | float   | Tasa de crecimiento de pruebas (PM + PR) a la fecha        |
