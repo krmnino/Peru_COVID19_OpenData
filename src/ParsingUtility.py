@@ -82,7 +82,7 @@ def compute_data(parsed_data):
     recovered_growth_factor = np.array([])
     new_hospitalized = np.array([])
     hospitalized_growth_factor = np.array([])
-    mortality_rate = np.array([])
+    case_fatality_rate = np.array([])
     active_cases = np.array([])
     new_active_cases = np.array([])
     daily_positives = np.array([])
@@ -98,7 +98,7 @@ def compute_data(parsed_data):
             recovered_growth_factor = np.append(recovered_growth_factor, 0)
             new_hospitalized = np.append(new_hospitalized, parsed_data[5][i] - 0)
             hospitalized_growth_factor = np.append(hospitalized_growth_factor, 0)
-            mortality_rate = np.append(mortality_rate, calc_rate(parsed_data[2][i], parsed_data[1][i]))
+            case_fatality = np.append(case_fatality, calc_rate(parsed_data[2][i], parsed_data[1][i]))
             active_cases = np.append(active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i]))
             new_active_cases = np.append(new_active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i] - 0))
             daily_positives = np.append(daily_positives, calc_rate(parsed_data[1][i], parsed_data[3][i]))
@@ -114,7 +114,7 @@ def compute_data(parsed_data):
         recovered_growth_factor = np.append(recovered_growth_factor, calc_gf(parsed_data[4][i], parsed_data[4][i-1]))
         new_hospitalized = np.append(new_hospitalized, parsed_data[5][i] - parsed_data[5][i-1])
         hospitalized_growth_factor = np.append(hospitalized_growth_factor, calc_gf(parsed_data[5][i], parsed_data[5][i-1]))
-        mortality_rate = np.append(mortality_rate, calc_rate(parsed_data[2][i], parsed_data[1][i]))
+        case_fatality = np.append(case_fatality, calc_rate(parsed_data[2][i], parsed_data[1][i]))
         active_cases = np.append(active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i]))
         new_active_cases = np.append(new_active_cases, (parsed_data[1][i] - parsed_data[4][i] - parsed_data[2][i]) - (parsed_data[1][i-1] - parsed_data[4][i-1] - parsed_data[2][i-1]))
         daily_positives = np.append(daily_positives, calc_rate(parsed_data[1][i] - parsed_data[1][i-1], parsed_data[3][i] - parsed_data[3][i-1]))
@@ -130,7 +130,7 @@ def compute_data(parsed_data):
     parsed_data.append(hospitalized_growth_factor)
     parsed_data.append(new_tests)
     parsed_data.append(tests_growth_factor)
-    parsed_data.append(mortality_rate)
+    parsed_data.append(case_fatality)
     parsed_data.append(active_cases)
     parsed_data.append(new_active_cases)
     parsed_data.append(daily_positives)
@@ -148,7 +148,7 @@ Index   Contents
 6       Active Cases
 7       New Active Cases
 8       % Daily Positives
-9       % Mortality
+9       % Case Fatality
 '''
 
 def check_date(input_date):

@@ -215,7 +215,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     'Tasa de Letalidad por COVID19 en el Peru (ultimos 30 dias)',
                     25,
                     input_data['Date'] + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
-                    'mortality_rate.png',
+                    'case_fatality_rate.png',
                     input_data['Date'],
                     True,
                     False,
