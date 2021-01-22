@@ -1,4 +1,4 @@
-Fecha,Dia,Casos,NuevosCasos,%DifCasos,CasosActivos,NuevosCasesActivos,Fallecidos,NuevosFallecidos,%DifFallecidos,TasaMortalidad,Pruebas,NuevasPruebas,%DifPruebas,%PruebasPositivasDiarias,Recuperados,NuevosRecuperados,%DifRecuperados,Hospitalizados,NuevosHospitalizados,%DifHospitalizados
+Fecha,Dia,Casos,NuevosCasos,%DifCasos,CasosActivos,NuevosCasesActivos,Fallecidos,NuevosFallecidos,%DifFallecidos,TasaLetalidad,Pruebas,NuevasPruebas,%DifPruebas,%PruebasPositivasDiarias,Recuperados,NuevosRecuperados,%DifRecuperados,Hospitalizados,NuevosHospitalizados,%DifHospitalizados
 2020-03-03,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 2020-03-04,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,107.0,107.0,107.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 2020-03-05,2.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,155.0,48.0,1.4485981308411215,0.020833333333333332,0.0,0.0,0.0,0.0,0.0,0.0
