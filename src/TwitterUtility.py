@@ -108,9 +108,9 @@ def tweets_generator(data, image_paths, cases24hrs):
     lines.append(out)
 
     out = ''
-    out += u'\U0001F534 Tasa Mortalidad: ' + str(round(data[17][len(data[0])-1] * 100, 4)) + '%' \
+    out += u'\U0001F534 Tasa Letalidad: ' + str(round(data[17][len(data[0])-1] * 100, 4)) + '%' \
         if data[17][len(data[0])-1] >= data[17][len(data[0])-2] \
-        else u'\U0001F7E2 Tasa Mortalidad: ' + str(round(data[17][len(data[0])-1] * 100, 4)) + '%'
+        else u'\U0001F7E2 Tasa Letalidad: ' + str(round(data[17][len(data[0])-1] * 100, 4)) + '%'
     out += ' (+' + str(round((data[17][len(data[0])-1] - data[17][len(data[0])-2]) * 100, 4)) + '%)\n' \
         if data[17][len(data[0])-1] - data[17][len(data[0])-2] > 0 \
         else ' (' + str(round((data[17][len(data[0])-1] - data[17][len(data[0])-2]) * 100, 4)) + '%)\n'
