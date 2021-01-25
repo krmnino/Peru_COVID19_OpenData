@@ -70,30 +70,6 @@ def plot_loader(graph_data):
         plt.savefig('../res/graphs/' + graph.filename)
         print('Graph generated in /res/graphs/' + graph.filename)
 
-def plot_graph(x, y, color, x_label, y_label, chart_title, file_name, date, y_min=-1, y_max=-1):
-    warnings.filterwarnings('ignore')
-    plt.figure(figsize=(14,10))
-    plt.ticklabel_format(style='plain')
-    plt.plot(x, y, 'ko', x, y, color)
-    plt.title(chart_title, fontdict={'fontsize' : 25})
-    plt.suptitle(date + ' | Elaborado por Kurt Manrique-Nino (@krm_nino) | Datos del Ministerio de Salud del Peru (@Minsa_Peru)')
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    if(len(x) == 30):
-        plt.xticks(x[::2], rotation=90)
-        plt.locator_params(axis='x', nbins=len(x)/2)
-    else:
-        plt.xticks(x[::5], rotation=90)
-        plt.locator_params(axis='x', nbins=len(x)/5)
-    if(y_min != -1):
-        plt.ylim(bottom=y_min)
-    if(y_max != -1):
-        plt.ylim(top=y_max)
-    plt.grid()
-    plt.savefig('../res/graphs/' + file_name)
-    plt.clf()
-    print('Graph generated in /res/graphs/' + file_name)
-
 def list_to_csv(parsed_data):
     try:
         open('../data/PER_full_data.csv', 'w')
