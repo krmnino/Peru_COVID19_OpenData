@@ -2654,5 +2654,13 @@
 		"Pruebas": 6213099,
 		"Recuperados": 1033357,
 		"Hospitalizados": 11475
+	},
+	{
+		"Fecha": "2021-01-29",
+		"Casos": 1125875,
+		"Fallecidos": 40686,
+		"Pruebas": 6250392,
+		"Recuperados": 1039619,
+		"Hospitalizados": 11512
 	}
 ]
