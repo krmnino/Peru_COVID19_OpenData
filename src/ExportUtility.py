@@ -7,6 +7,7 @@ from TwitterUtility import Tweet
 
 
 class GraphData:
+    graph_type = '' #scatter / bar
     x_data = None
     y_data = []
     x_label = ''
@@ -23,8 +24,9 @@ class GraphData:
     y_max = -1
     y_min = -1
 
-    def __init__(self, x_data_, y_data_, last_days_, x_label_, y_data_labels_, colors_, title_,
+    def __init__(self, graph_type_, x_data_, y_data_, last_days_, x_label_, y_data_labels_, colors_, title_,
                 title_size_, suptitle_, filename_, date_, tick_markers_, legend_, y_max_, y_min_):
+        self.graph_type = graph_type_
         self.x_data = x_data_
         self.y_data = y_data_
         self.last_days = last_days_
@@ -48,25 +50,37 @@ def plot_loader(graph_data):
         plt.ticklabel_format(style='plain')
         plt.suptitle(graph.suptitle)
         plt.title(graph.title, fontdict={'fontsize' : graph.title_size})
-        for i in range(0, len(graph.y_data)):
-            plt.plot(graph.x_data[-graph.last_days:], graph.y_data[i][-graph.last_days:], graph.colors[i], label=graph.y_data_labels[i])
-            if(graph.tick_markers):
-                plt.plot(graph.x_data[-graph.last_days:], graph.y_data[i][-graph.last_days:], 'ko')
-        plt.xlabel(graph.x_label)
-        plt.ylabel(''.join(i + str(' ,') for i in graph.y_data_labels)[:-2])
-        if(graph.last_days == 30):
-            plt.xticks(graph.x_data[-graph.last_days:][::2], rotation=90)
-            plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/2)
-        else:
-            plt.xticks(graph.x_data[::5], rotation=90)
-            plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/10)
-        if(graph.y_min != -1):
-            plt.ylim(bottom=graph.y_min)
-        if(graph.y_max != -1):
-            plt.ylim(top=graph.y_max)
-        if(graph.legend):
-            plt.legend(loc='upper left')
-        plt.grid()
+        if(graph.graph_type == 'scatter'):
+            for i in range(0, len(graph.y_data)):
+                plt.plot(graph.x_data[-graph.last_days:], graph.y_data[i][-graph.last_days:], graph.colors[i], label=graph.y_data_labels[i])
+                if(graph.tick_markers):
+                    plt.plot(graph.x_data[-graph.last_days:], graph.y_data[i][-graph.last_days:], 'ko')
+            plt.xlabel(graph.x_label)
+            plt.ylabel(''.join(i + str(' ,') for i in graph.y_data_labels)[:-2])
+            if(graph.last_days == 30):
+                plt.xticks(graph.x_data[-graph.last_days:][::2], rotation=90)
+                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/2)
+            else:
+                plt.xticks(graph.x_data[::5], rotation=90)
+                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/10)
+            if(graph.y_min != -1):
+                plt.ylim(bottom=graph.y_min)
+            if(graph.y_max != -1):
+                plt.ylim(top=graph.y_max)
+            if(graph.legend):
+                plt.legend(loc='upper left')
+            plt.grid()
+        elif(graph.graph_type == 'bar'):
+            plt.grid(zorder=0)
+            plt.bar(graph.x_data[-graph.last_days:], graph.y_data[0][-graph.last_days:], color=graph.colors[0], zorder=2)
+            plt.plot(graph.x_data[-graph.last_days:], graph.y_data[0][-graph.last_days:], linestyle='dashed', color='b')
+            if(graph.last_days == 30):
+                plt.xticks(graph.x_data[-graph.last_days:], rotation=90)
+                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:]))
+            else:
+                plt.xticks(graph.x_data[::5], rotation=90)
+                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/10)
+            
         plt.savefig('../res/graphs/' + graph.filename)
         print('Graph generated in /res/graphs/' + graph.filename)
 

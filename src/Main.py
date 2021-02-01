@@ -131,7 +131,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Could not export processed data.')
 
     graph_data = [\
-        GraphData(  data[0], 
+        GraphData(  'scatter',
+                    data[0], 
                     [data[1],data[18],data[4],data[2]], 
                     0,
                     'Dias',
@@ -146,7 +147,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     True,
                     -1,
                     0),
-        GraphData(  data[0], 
+        GraphData(  'scatter',
+                    data[0], 
                     [data[19]], 
                     30,
                     'Dias',
@@ -161,7 +163,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     False,
                     -1,
                     -1),
-        GraphData(  data[0], 
+        GraphData(  'scatter',
+                    data[0], 
                     [data[4]], 
                     30,
                     'Dias',
@@ -176,7 +179,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     False,
                     -1,
                     -1),
-        GraphData(  data[0], 
+        GraphData(  'scatter',
+                    data[0], 
                     [data[20]], 
                     30,
                     'Dias',
@@ -191,7 +195,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     True,
                     1,
                     0),
-        GraphData(  data[0], 
+        GraphData(  'scatter',
+                    data[0], 
                     [data[2]], 
                     0,
                     'Dias',
@@ -206,7 +211,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     False,
                     -1,
                     0),
-        GraphData(  data[0], 
+        GraphData(  'scatter',
+                    data[0], 
                     [data[17]], 
                     30,
                     'Dias',
@@ -221,7 +227,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     False,
                     -1,
                     -1),
-        GraphData(  data[0], 
+        GraphData(  'scatter',
+                    data[0], 
                     [data[3]], 
                     0,
                     'Dias',
@@ -236,7 +243,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
                     False,
                     -1,
                     0),
-        GraphData(  data[0], 
+        GraphData(  'bar',
+                    data[0], 
                     [data[5]], 
                     30,
                     'Dias',
@@ -258,26 +266,28 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     images = [[graph_data[i].filename for i in range(0, 4)], [graph_data[i].filename for i in range(4, 8)]]
     tweets = tweets_generator(data, images, input_data['Cases24H'])
 
-    success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0])
-    if(success_send_tweet == 1):
-        print('Could not authenticate session and send tweets.')
-        return 1
-    
-    success_tweets_export = export_tweets_to_file(tweets)
-    if(success_tweets_export == 1):
-        print('Could not reach tweets.dat')
-        return 1
 
-    clean_directory = clean_dir()
-    if(clean_directory == 1):
-        print('Could not clean raw_images directory. Exiting...')
-        return 1
 
-    if(sys.platform == 'win32'):
-        update_git_repo_win32(input_data['Date'])
-    else:
-        update_git_repo_linux(input_data['Date'])
-
+#    success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0])
+#    if(success_send_tweet == 1):
+#        print('Could not authenticate session and send tweets.')
+#        return 1
+#    
+#    success_tweets_export = export_tweets_to_file(tweets)
+#    if(success_tweets_export == 1):
+#        print('Could not reach tweets.dat')
+#        return 1
+#
+#    clean_directory = clean_dir()
+#    if(clean_directory == 1):
+#        print('Could not clean raw_images directory. Exiting...')
+#        return 1
+#
+#    if(sys.platform == 'win32'):
+#        update_git_repo_win32(input_data['Date'])
+#    else:
+#        update_git_repo_linux(input_data['Date'])
+#
 #####################################################################################################################
 
 run()
