@@ -2670,5 +2670,13 @@
 		"Pruebas": 6300181,
 		"Recuperados": 1045854,
 		"Hospitalizados": 11715
+	},
+	{
+		"Fecha": "2021-01-31",
+		"Casos": 1138239,
+		"Fallecidos": 41026,
+		"Pruebas": 6333674,
+		"Recuperados": 1052050,
+		"Hospitalizados": 11962
 	}
 ]
