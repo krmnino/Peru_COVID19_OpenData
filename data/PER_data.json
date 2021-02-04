@@ -2670,5 +2670,37 @@
 		"Pruebas": 6300181,
 		"Recuperados": 1045854,
 		"Hospitalizados": 11715
+	},
+	{
+		"Fecha": "2021-01-31",
+		"Casos": 1138239,
+		"Fallecidos": 41026,
+		"Pruebas": 6333674,
+		"Recuperados": 1052050,
+		"Hospitalizados": 11962
+	},
+	{
+		"Fecha": "2021-02-01",
+		"Casos": 1142716,
+		"Fallecidos": 41181,
+		"Pruebas": 6354240,
+		"Recuperados": 1057145,
+		"Hospitalizados": 12376
+	},
+	{
+		"Fecha": "2021-02-02",
+		"Casos": 1149764,
+		"Fallecidos": 41354,
+		"Pruebas": 6395019,
+		"Recuperados": 1062850,
+		"Hospitalizados": 13472
+	},
+	{
+		"Fecha": "2021-02-03",
+		"Casos": 1158337,
+		"Fallecidos": 41538,
+		"Pruebas": 6440564,
+		"Recuperados": 1069129,
+		"Hospitalizados": 13194
 	}
 ]
