@@ -1,17 +1,17 @@
 ANALISIS DIARIO del #COVID19 en #PERU (1/2)
-🟢 Casos: 1165052 (+6715)
- -> (ultimos 7-dias: 2705) + (ultimas 24-horas: 4010)
-🟢 Activos: 46853 (-817)
-🟢 Recuperados: 1076446 (+7317)
-🟢 Positividad Diaria: 13.28% (-5.54%)
+🔴 Casos: 1173045 (+7993)
+ -> (ultimos 7-dias: 3223) + (ultimas 24-horas: 4770)
+🟢 Activos: 44469 (-2384)
+🟢 Recuperados: 1086643 (+10197)
+🟢 Positividad Diaria: 0.01% (-13.27%)
 ===
 ANALISIS DIARIO del #COVID19 en #PERU (2/2)
-🔴 Fallecidos: 41753 (+215)
-🟢 Tasa Letalidad: 3.5838% (-0.0022%)
-🟢 Pruebas (PM+PR): 6491121 (+50557)
-🔴 Hospitalizados: 13501 (+307)
+🟢 Fallecidos: 41933 (+180)
+🟢 Tasa Letalidad: 3.5747% (-0.0091%)
+🟢 Pruebas (PM+PR): 65533783 (+59042662)
+🟢 Hospitalizados: 13493 (-8)
 ===
-Repositorio de datos sobre el #COVID19 en #Peru actualizado al dia 2021-02-04
+Repositorio de datos sobre el #COVID19 en #Peru actualizado al dia 2021-02-05
 Sugerencias son bienvenidas!
 📈 Disponible en formato .CSV y .JSON
 🌎 WEB https://peru-covid19.com/
