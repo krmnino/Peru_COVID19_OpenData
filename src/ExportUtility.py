@@ -21,11 +21,12 @@ class GraphData:
     date = ''
     tick_markers = False
     legend = False
+    days_avg = False
     y_max = -1
     y_min = -1
 
     def __init__(self, graph_type_, x_data_, y_data_, last_days_, x_label_, y_data_labels_, colors_, title_,
-                title_size_, suptitle_, filename_, date_, tick_markers_, legend_, y_max_, y_min_):
+                title_size_, suptitle_, filename_, date_, tick_markers_, legend_, days_avg_, y_max_, y_min_):
         self.graph_type = graph_type_
         self.x_data = x_data_
         self.y_data = y_data_
@@ -40,6 +41,7 @@ class GraphData:
         self.date = date_
         self.tick_markers = tick_markers_
         self.legend = legend_
+        self.days_avg = days_avg_
         self.y_max = y_max_
         self.y_min = y_min_
 
@@ -53,6 +55,13 @@ def days_average_plot(y_data, days):
         days_avg = np.append(days_avg, sum_data)
     return days_avg
 
+def rgb_threshold(color, min=0, max=255):
+    if (color < min):
+        return min
+    if (color > max):
+        return max
+    return color
+
 def plot_loader(graph_data):
     warnings.filterwarnings('ignore')
     for graph in graph_data:
@@ -62,17 +71,17 @@ def plot_loader(graph_data):
         plt.title(graph.title, fontdict={'fontsize' : graph.title_size})
         if(graph.graph_type == 'scatter'):
             for i in range(0, len(graph.y_data)):
-                plt.plot(graph.x_data[-graph.last_days:], graph.y_data[i][-graph.last_days:], graph.colors[i], label=graph.y_data_labels[i])
+                plt.plot(graph.x_data[-graph.last_days:], graph.y_data[i][-graph.last_days:], color=graph.colors[i], label=graph.y_data_labels[i])
                 if(graph.tick_markers):
                     plt.plot(graph.x_data[-graph.last_days:], graph.y_data[i][-graph.last_days:], 'ko')
             plt.xlabel(graph.x_label)
             plt.ylabel(''.join(i + str(' ,') for i in graph.y_data_labels)[:-2])
-            if(graph.last_days == 30):
-                plt.xticks(graph.x_data[-graph.last_days:][::2], rotation=90)
-                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/2)
+            if(graph.last_days > 0 and graph.last_days <= 30):
+                plt.xticks(graph.x_data[-graph.last_days:], rotation=90)
+                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:]))
             else:
                 plt.xticks(graph.x_data[::5], rotation=90)
-                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/10)
+                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/7)
             if(graph.y_min != -1):
                 plt.ylim(bottom=graph.y_min)
             if(graph.y_max != -1):
@@ -83,16 +92,27 @@ def plot_loader(graph_data):
         elif(graph.graph_type == 'bar'):
             plt.grid(zorder=0)
             plt.bar(graph.x_data[-graph.last_days:], graph.y_data[0][-graph.last_days:], color=graph.colors[0], zorder=2)
-            #add 7-day avg
-            days_avg = days_average_plot(graph.y_data[0][-graph.last_days - 7:], 7)
-            plt.plot(graph.x_data[-graph.last_days:], days_avg, linestyle='dashed', color='b')
-            if(graph.last_days == 30):
+            plt.xlabel(graph.x_label)
+            plt.ylabel(graph.y_data_labels[0])
+            plt.axhline(y=0, color='k')
+            if(graph.days_avg):
+                days = 7
+                days_avg = days_average_plot(graph.y_data[0][-graph.last_days - days:], days)
+                my_color = graph.colors[0][1:]
+                r, g, b = int(my_color[0:2], 16), int(my_color[2:4], 16), int(my_color[4:], 16)
+                r = int(rgb_threshold(r * 0.6))
+                g = int(rgb_threshold(g * 0.6))
+                b = int(rgb_threshold(b * 0.6))
+                avg_color = "#%02x%02x%02x" % (r, g, b)
+                plt.plot(graph.x_data[-graph.last_days:], days_avg, linestyle='dashed', color=avg_color, label='Promedio ultimos ' + str(days) + ' dias')
+            if(graph.last_days <= 30):
                 plt.xticks(graph.x_data[-graph.last_days:], rotation=90)
                 plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:]))
             else:
-                plt.xticks(graph.x_data[::5], rotation=90)
-                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/10)
-            
+                plt.xticks(graph.x_data[::2], rotation=90)
+                plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:])/2)
+            if(graph.legend):
+                plt.legend(loc='upper left')
         plt.savefig('../res/graphs/' + graph.filename)
         print('Graph generated in /res/graphs/' + graph.filename)
 
