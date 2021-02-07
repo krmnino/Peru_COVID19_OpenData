@@ -2702,5 +2702,29 @@
 		"Pruebas": 6440564,
 		"Recuperados": 1069129,
 		"Hospitalizados": 13194
+	},
+	{
+		"Fecha": "2021-02-04",
+		"Casos": 1165052,
+		"Fallecidos": 41753,
+		"Pruebas": 6491121,
+		"Recuperados": 1076446,
+		"Hospitalizados": 13501
+	},
+	{
+		"Fecha": "2021-02-05",
+		"Casos": 1173045,
+		"Fallecidos": 41933,
+		"Pruebas": 6533783,
+		"Recuperados": 1086643,
+		"Hospitalizados": 13493
+	},
+	{
+		"Fecha": "2021-02-06",
+		"Casos": 1180478,
+		"Fallecidos": 42121,
+		"Pruebas": 6581216,
+		"Recuperados": 1089040,
+		"Hospitalizados": 13086
 	}
 ]
