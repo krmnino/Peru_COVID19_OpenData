@@ -114,10 +114,10 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Discard readings. Exiting...')
         return 1
     
-    success_csv_write = update_file(input_data)
-    if(success_csv_write == 1):
-        print('Could not update CSV file.')
-        return 1
+    #success_csv_write = update_file(input_data)
+    #if(success_csv_write == 1):
+    #    print('Could not update CSV file.')
+    #    return 1
 
     raw_data = parse_file()
     if(raw_data == 1):

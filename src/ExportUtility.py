@@ -43,6 +43,16 @@ class GraphData:
         self.y_max = y_max_
         self.y_min = y_min_
 
+def days_average_plot(y_data, days):
+    days_avg = np.array([])
+    for i in range(days, len(y_data)):
+        sum_data = 0
+        for j in range(i - days, i):
+            sum_data += y_data[j]
+        sum_data /= days
+        days_avg = np.append(days_avg, sum_data)
+    return days_avg
+
 def plot_loader(graph_data):
     warnings.filterwarnings('ignore')
     for graph in graph_data:
@@ -73,7 +83,9 @@ def plot_loader(graph_data):
         elif(graph.graph_type == 'bar'):
             plt.grid(zorder=0)
             plt.bar(graph.x_data[-graph.last_days:], graph.y_data[0][-graph.last_days:], color=graph.colors[0], zorder=2)
-            plt.plot(graph.x_data[-graph.last_days:], graph.y_data[0][-graph.last_days:], linestyle='dashed', color='b')
+            #add 7-day avg
+            days_avg = days_average_plot(graph.y_data[0][-graph.last_days - 7:], 7)
+            plt.plot(graph.x_data[-graph.last_days:], days_avg, linestyle='dashed', color='b')
             if(graph.last_days == 30):
                 plt.xticks(graph.x_data[-graph.last_days:], rotation=90)
                 plt.locator_params(axis='x', nbins=len(graph.x_data[-graph.last_days:]))
