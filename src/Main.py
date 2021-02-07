@@ -114,10 +114,10 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         print('Discard readings. Exiting...')
         return 1
     
-    #success_csv_write = update_file(input_data)
-    #if(success_csv_write == 1):
-    #    print('Could not update CSV file.')
-    #    return 1
+    success_csv_write = update_file(input_data)
+    if(success_csv_write == 1):
+        print('Could not update CSV file.')
+        return 1
 
     raw_data = parse_file()
     if(raw_data == 1):
@@ -270,32 +270,30 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     ]
 
     plot_loader(graph_data)
-        
+
     images = [[graph_data[i].filename for i in range(0, 4)], [graph_data[i].filename for i in range(4, 8)]]
     tweets = tweets_generator(data, images, input_data['Cases24H'])
 
+    success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0])
+    if(success_send_tweet == 1):
+        print('Could not authenticate session and send tweets.')
+        return 1
+    
+    success_tweets_export = export_tweets_to_file(tweets)
+    if(success_tweets_export == 1):
+        print('Could not reach tweets.dat')
+        return 1
 
+    clean_directory = clean_dir()
+    if(clean_directory == 1):
+        print('Could not clean raw_images directory. Exiting...')
+        return 1
 
-#    success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0])
-#    if(success_send_tweet == 1):
-#        print('Could not authenticate session and send tweets.')
-#        return 1
-#    
-#    success_tweets_export = export_tweets_to_file(tweets)
-#    if(success_tweets_export == 1):
-#        print('Could not reach tweets.dat')
-#        return 1
-#
-#    clean_directory = clean_dir()
-#    if(clean_directory == 1):
-#        print('Could not clean raw_images directory. Exiting...')
-#        return 1
-#
-#    if(sys.platform == 'win32'):
-#        update_git_repo_win32(input_data['Date'])
-#    else:
-#        update_git_repo_linux(input_data['Date'])
-#
+    if(sys.platform == 'win32'):
+        update_git_repo_win32(input_data['Date'])
+    else:
+        update_git_repo_linux(input_data['Date'])
+
 #####################################################################################################################
 
 run()
