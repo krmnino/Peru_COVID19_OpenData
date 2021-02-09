@@ -6,3 +6,4 @@ https://github.com/UB-Mannheim/tesseract/wiki
 pip install matplotlib
 pip install tweepy
 pip install wget
+pip install tabula
