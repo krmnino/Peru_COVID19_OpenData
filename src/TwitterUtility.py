@@ -155,7 +155,8 @@ def tweets_generator(data, image_paths, cases24hrs):
 
     return tweets
 
-def send_thread(auth_data, tweets, tweet_identificator):
+def send_thread(auth_data, tweets):
+    tweet_identificator = ''
     auth = tweepy.OAuthHandler(auth_data[0], auth_data[1])
     auth.set_access_token(auth_data[2], auth_data[3])
     try:
@@ -185,12 +186,17 @@ def reply_thread(auth_data, tweets, tweet_identificator):
         return 1
     image_prefix_path = str(pathlib.Path().absolute()).replace('\\', '/')
     image_prefix_path = image_prefix_path[:image_prefix_path.rfind('/')] + '/res/graphs/'
+    sent_first_tweet = False
     for i in range(0, len(tweets)):
         if len(tweets[i].image_paths) > 0:
             media_ids = [api.media_upload(image_prefix_path + j).media_id_string for j in tweets[i].image_paths]
             api.update_status(media_ids=media_ids, status=tweets[i].message, in_reply_to_status_id = tweet_identificator, auto_populate_reply_metadata=True)
         else:
-            api.update_status(status=tweets[i].message, in_reply_to_status_id = tweet_identificator, auto_populate_reply_metadata=True)
+            if(not sent_first_tweet):
+                api.update_status(status=tweets[i].message, auto_populate_reply_metadata=True)
+                sent_first_tweet = True
+            else:
+                api.update_status(status=tweets[i].message, in_reply_to_status_id = tweet_identificator, auto_populate_reply_metadata=True)
         rply_tweets = api.user_timeline(screen_name='krm_nino', count=1, tweet_mode='extended')
         tweet_identificator = rply_tweets[0].id
         print('Sent tweet: ' + str(i + 1) + ' out of 3')

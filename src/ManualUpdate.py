@@ -22,7 +22,6 @@ from TwitterUtility import load_auth
 from TwitterUtility import fetch_image
 from TwitterUtility import sleep_until
 from TwitterUtility import send_thread
-from TwitterUtility import reply_thread
 from TwitterUtility import tweets_generator
 from CommandLineUtility import check_data_menu
 
@@ -68,47 +67,17 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     clean_directory = clean_dir()
     if(clean_directory == 1):
         print('Could not clean raw_images directory. Exiting...')
-        return 1
-
-    tweet_info = fetch_image(auth_data) #index 0 = tweet_id, index 1 = tweet_body
-    if(tweet_info == 1):
-        print('No matching image found. Exiting...')
-        return 1
-
-    raw_image_path = get_raw_image_path()
-    if(raw_image_path == 1):
-        print('Could not retrieve image path. Exiting...')
-        return 1
-
-    image_dimensions = get_raw_image_dimensions(raw_image_path)
-
-    #left, up, right, down
-    if(image_dimensions[0] < 900 or image_dimensions[1] < 1100):
-        crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (420, 365, 600, 420), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (420, 560, 560, 620), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (100, 600, 300, 660), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (90, 360, 325, 445), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (440, 485, 570, 570), grescale=True, invert=True, contrast=1.0)
-        crop_process_image(raw_image_path, '../res/raw_images/cases24h.jpg', (100, 110, 290, 200), grescale=True, invert=True, contrast=2.0)
-    else:
-        crop_process_image(raw_image_path, '../res/raw_images/cases.jpg', (660, 590, 960, 670), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/deaths.jpg', (650, 900, 900, 990), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/tests.jpg', (170, 970, 480, 1050), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/recovered.jpg', (170, 560, 520, 700), grescale=True, invert=False, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/hospitalized.jpg', (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
-        crop_process_image(raw_image_path, '../res/raw_images/cases24h.jpg', (150, 160, 530, 310), grescale=True, invert=True, contrast=2.0)
-    
-    
+        return 1   
 
     # [date, cases, deaths, tests, recovered, hospitalized, cases24h]
     input_data = {\
-        'Date' : opt_date,
-        'Cases' : read_image('../res/raw_images/cases.jpg'),
-        'Deaths' : read_image('../res/raw_images/deaths.jpg'),
-        'Tests' : read_image('../res/raw_images/tests.jpg'),
-        'Recovered' : read_image('../res/raw_images/recovered.jpg'),
-        'Hospitalized' : read_image('../res/raw_images/hospitalized.jpg'),
-        'Cases24H' : read_image('../res/raw_images/cases24h.jpg')
+        'Date' : datetime.datetime.today().strftime('%Y-%m-%d'),
+        'Cases' : 0,
+        'Deaths' : 0,
+        'Tests' : 0,
+        'Recovered' : 0,
+        'Hospitalized' : 0,
+        'Cases24H' : 0
     }
 
     if(check_data_menu(input_data) == 1):
@@ -275,8 +244,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     images = [[graph_data[i].filename for i in range(0, 4)], [graph_data[i].filename for i in range(4, 8)]]
     tweets = tweets_generator(data, images, input_data['Cases24H'])
 
-    success_reply_tweet = reply_tweet(auth_data, tweets, tweet_info[0])
-    if(success_reply_tweet == 1):
+    success_send_thread = send_thread(auth_data, tweets)
+    if(success_send_thread == 1):
         print('Could not authenticate session and send tweets.')
         return 1
     
