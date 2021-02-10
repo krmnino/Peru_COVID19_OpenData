@@ -21,7 +21,8 @@ from ExportUtility import plot_loader
 from TwitterUtility import load_auth
 from TwitterUtility import fetch_image
 from TwitterUtility import sleep_until
-from TwitterUtility import reply_tweet
+from TwitterUtility import send_thread
+from TwitterUtility import reply_thread
 from TwitterUtility import tweets_generator
 from CommandLineUtility import check_data_menu
 
