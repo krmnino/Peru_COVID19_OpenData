@@ -155,7 +155,7 @@ def tweets_generator(data, image_paths, cases24hrs):
 
     return tweets
 
-def send_tweet(auth_data, tweets, tweet_identificator):
+def reply_tweet(auth_data, tweets, tweet_identificator):
     auth = tweepy.OAuthHandler(auth_data[0], auth_data[1])
     auth.set_access_token(auth_data[2], auth_data[3])
     try:

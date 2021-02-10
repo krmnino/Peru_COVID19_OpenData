@@ -21,7 +21,7 @@ from ExportUtility import plot_loader
 from TwitterUtility import load_auth
 from TwitterUtility import fetch_image
 from TwitterUtility import sleep_until
-from TwitterUtility import send_tweet
+from TwitterUtility import reply_tweet
 from TwitterUtility import tweets_generator
 from CommandLineUtility import check_data_menu
 
@@ -274,8 +274,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     images = [[graph_data[i].filename for i in range(0, 4)], [graph_data[i].filename for i in range(4, 8)]]
     tweets = tweets_generator(data, images, input_data['Cases24H'])
 
-    success_send_tweet = send_tweet(auth_data, tweets, tweet_info[0])
-    if(success_send_tweet == 1):
+    success_reply_tweet = reply_tweet(auth_data, tweets, tweet_info[0])
+    if(success_reply_tweet == 1):
         print('Could not authenticate session and send tweets.')
         return 1
     
