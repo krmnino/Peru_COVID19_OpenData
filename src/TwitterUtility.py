@@ -117,9 +117,9 @@ def tweets_generator(data, image_paths, cases24hrs):
     lines.append(out)
 
     out = ''
-    out += u'\U0001F7E2 Pruebas (PM+PR): ' + str(int(data[3][len(data[0])-1])) \
+    out += u'\U0001F7E2 Pruebas (PM+PR+AG): ' + str(int(data[3][len(data[0])-1])) \
         if data[15][len(data[0])-1] >= data[15][len(data[0])-2] \
-        else u'\U0001F534 Pruebas (PM+PR): ' + str(int(data[3][len(data[1])-1]))
+        else u'\U0001F534 Pruebas (PM+PR+AG): ' + str(int(data[3][len(data[1])-1]))
     out += ' (+' + str(int(data[15][len(data[0])-1])) + ')\n'
     lines.append(out)
 
