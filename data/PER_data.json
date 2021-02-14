@@ -2774,5 +2774,13 @@
 		"Pruebas": 6825553,
 		"Recuperados": 1130923,
 		"Hospitalizados": 14333
+	},
+	{
+		"Fecha": "2021-02-13",
+		"Casos": 1227205,
+		"Fallecidos": 43491,
+		"Pruebas": 6879425,
+		"Recuperados": 1137412,
+		"Hospitalizados": 14222
 	}
 ]
