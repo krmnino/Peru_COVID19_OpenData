@@ -2838,5 +2838,13 @@
 		"Pruebas": 7214178,
 		"Recuperados": 1176128,
 		"Hospitalizados": 14693
+	},
+	{
+		"Fecha": "2021-02-21",
+		"Casos": 1283309,
+		"Fallecidos": 45097,
+		"Pruebas": 7259287,
+		"Recuperados": 1183238,
+		"Hospitalizados": 14762
 	}
 ]
