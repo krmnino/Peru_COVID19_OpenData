@@ -191,7 +191,6 @@ def get_raw_image_path():
     path = str(pathlib.Path().absolute()).replace('\\', '/')
     path = path[:path.rfind('/')] + '/res/raw_images/'
     out = ''
-    #print(os.listdir(path))
     out = path + os.fsdecode(os.listdir(path)[0])
     if(out == path):
         return 1
