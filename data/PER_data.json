@@ -2886,5 +2886,13 @@
 		"Pruebas": 7489096,
 		"Recuperados": 1218409,
 		"Hospitalizados": 14492
+	},
+	{
+		"Fecha": "2021-02-27",
+		"Casos": 1323863,
+		"Fallecidos": 46299,
+		"Pruebas": 7541959,
+		"Recuperados": 1225994,
+		"Hospitalizados": 14735
 	}
 ]
