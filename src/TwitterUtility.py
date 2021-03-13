@@ -93,7 +93,7 @@ def tweets_generator(data, image_paths, cases24hrs):
 
     out = ''
     out += u'\U0001F534 Hospitalizados: ' + str(int(data[5][len(data[0])-1])) \
-        if data[13][len(data[0])-1] >= data[13][len(data[0])-2] \
+        if data[13][len(data[0])-1] > 0 \
         else u'\U0001F7E2 Hospitalizados: ' + str(int(data[5][len(data[0])-1]))
     out += ' (+' + str(int(data[13][len(data[0])-1])) + ')\n' \
         if data[13][len(data[0])-1] > 0 \
