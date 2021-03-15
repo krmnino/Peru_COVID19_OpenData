@@ -3006,5 +3006,13 @@
 		"Pruebas": 8234401,
 		"Recuperados": 1313763,
 		"Hospitalizados": 14016
+	},
+	{
+		"Fecha": "2021-03-14",
+		"Casos": 1412406,
+		"Fallecidos": 49003,
+		"Pruebas": 8284625,
+		"Recuperados": 1322685,
+		"Hospitalizados": 14713
 	}
 ]
