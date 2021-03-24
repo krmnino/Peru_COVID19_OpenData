@@ -3078,5 +3078,13 @@
 		"Pruebas": 8748899,
 		"Recuperados": 1388554,
 		"Hospitalizados": 14965
+	},
+	{
+		"Fecha": "2021-03-23",
+		"Casos": 1481259,
+		"Fallecidos": 50474,
+		"Pruebas": 8810146,
+		"Recuperados": 1397341,
+		"Hospitalizados": 15248
 	}
 ]
