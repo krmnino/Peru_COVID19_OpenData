@@ -3198,5 +3198,13 @@
 		"Pruebas": 9641031,
 		"Recuperados": 1518776,
 		"Hospitalizados": 14066
+	},
+	{
+		"Fecha": "2021-04-07",
+		"Casos": 1607898,
+		"Fallecidos": 53725,
+		"Pruebas": 9709043,
+		"Recuperados": 1527112,
+		"Hospitalizados": 13823
 	}
 ]
