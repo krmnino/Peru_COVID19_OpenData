@@ -3350,5 +3350,13 @@
 		"Pruebas": 10862019,
 		"Recuperados": 1688091,
 		"Hospitalizados": 14912
+	},
+	{
+		"Fecha": "2021-04-26",
+		"Casos": 1768186,
+		"Fallecidos": 60013,
+		"Pruebas": 10899191,
+		"Recuperados": 1714995,
+		"Hospitalizados": 15104
 	}
 ]
