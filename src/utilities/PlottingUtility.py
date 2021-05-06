@@ -51,27 +51,25 @@ class QuadPlot:
         self.digit_font = {'fontname':'Consolas'}
 
         self.fig = Figure(figsize=(14, 10), dpi=200)
-
         self.axes = [self.fig.add_subplot(2,2,1),
                      self.fig.add_subplot(2,2,2),
                      self.fig.add_subplot(2,2,3),
                      self.fig.add_subplot(2,2,4)]
-
         self.fig.subplots_adjust(left=0.05, bottom=0.10, right=0.98, top=0.94, wspace=0.15, hspace=0.38)
+
         for i in range(0, 4):
             if(self.type_subplots[i] == 'bar'):
                 self.bar_plot(i)
             elif(self.type_subplots[i] == 'scatter'):
                 self.scatter_plot(i)
         
-        self.fig.suptitle(self.suptitle, fontsize=10)
+        self.fig.suptitle(self.suptitle, fontsize=10, **self.text_font)
         self.fig.savefig('test.png')
 
     def bar_plot(self, index):
-        
         self.axes[index].grid(zorder=0)
         self.axes[index].bar(self.x_data[index], self.y_data[index], color=self.colors_subplots[index], zorder=2)
-        self.axes[index].set_title(self.titles_subplots[index], **self.text_font)
+        self.axes[index].set_title(self.titles_subplots[index], fontsize=14, **self.text_font)
         self.axes[index].tick_params(axis='x',labelrotation=90)
         self.axes[index].set_xticklabels(labels=self.x_data[index], fontsize=8, **self.digit_font)
         for tick in self.axes[index].get_yticklabels():
@@ -82,7 +80,7 @@ class QuadPlot:
     def scatter_plot(self, index):
         self.axes[index].plot(self.x_data[index], self.y_data[index], color=self.colors_subplots[index])
         self.axes[index].plot(self.x_data[index], self.y_data[index], 'ko')
-        self.axes[index].set_title(self.titles_subplots[index])
+        self.axes[index].set_title(self.titles_subplots[index], fontsize=14, **self.text_font)
         self.axes[index].tick_params(axis='x',labelrotation=90)
         self.axes[index].set_xticklabels(labels=self.x_data[index], fontsize=8, **self.digit_font)
         for tick in self.axes[index].get_yticklabels():
