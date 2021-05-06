@@ -158,7 +158,7 @@ class ScatterPlot:
         b = int(self.rgb_threshold(b * 0.6))
         avg_color = "#%02x%02x%02x" % (r, g, b)
 
-        self.axis.plot(self.x_data, avgd_data[self.ravg_days:], linestyle='dashed', color=avg_color, label=self.ravg_label)
+        self.axis.plot(self.x_data, avgd_data[self.ravg_days:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.ravg_label)
         self.axis.legend(loc='upper left')
 
     def get_path(self):
@@ -229,7 +229,7 @@ class BarPlot:
         b = int(self.rgb_threshold(b * 0.6))
         avg_color = "#%02x%02x%02x" % (r, g, b)
 
-        self.axis.plot(self.x_data, avgd_data[self.ravg_days:], linestyle='dashed', color=avg_color, label=self.ravg_label)
+        self.axis.plot(self.x_data, avgd_data[self.ravg_days:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.ravg_label)
         self.axis.legend(loc='upper left')
 
     def get_path(self):

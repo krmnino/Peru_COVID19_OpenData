@@ -198,7 +198,7 @@ quadplot = pu.QuadPlot(
     'graph1.png')
 #quadplot.export()
 
-scatterplot = pu.ScatterPlot(
+scatterplot = pu.BarPlot(
     '#E04646',
     'hospitalizados',
     True,
