@@ -141,7 +141,10 @@ def compute_hospitalized_growth_factor(index, columns):
         else:
             return columns[0][index] / columns[0][index-1]
 
-plot = pu.Plot(4,
+def compute_days(index, columns):
+    return index
+
+plot = pu.MultiPlot(4,
             ['#E04646', '#9CD347', '#D8D13B', '#8C8C8C'],
             ['casos', 'recuperados', 'hospitalizados', 'fallecidos'],
             [False, False, False, False],
@@ -151,7 +154,7 @@ plot = pu.Plot(4,
             [data.get_column('Fecha'), data.get_column('Fecha'), data.get_column('Fecha'), data.get_column('Fecha')],
             [data.get_column('Casos'), data.get_column('Recuperados'), data.get_column('Hospitalizados'), data.get_column('Fallecidos')])
 
-print(compute_data.get_fields())
+compute_data.compute_add_column([], compute_days, 'Dia')
 compute_data.compute_add_column(['Casos'], compute_new_cases, 'NuevosCasos')
 compute_data.compute_add_column(['Casos'], compute_cases_growth_factor, '%DifCasos')
 compute_data.compute_add_column(['Casos', 'Recuperados', 'Fallecidos'], compute_active_cases, 'CasosActivos')
@@ -167,4 +170,29 @@ compute_data.compute_add_column(['Recuperados'], compute_tests_growth_factor, '%
 compute_data.compute_add_column(['Hospitalizados'], compute_new_hospitalized, 'NuevosHospitalizados')
 compute_data.compute_add_column(['Hospitalizados'], compute_hospitalized_growth_factor, '%DifHospitalizados')
 
-print(compute_data.get_column('%DifHospitalizados'))
+new_header = {
+        0: 'Fecha',
+        1: 'Dia',
+        2: 'Casos',
+        3: 'NuevosCasos',
+        4: '%DifCasos',
+        5: 'CasosActivos',
+        6: 'NuevosCasosActivos',
+        7: 'Fallecidos',
+        8: 'NuevosFallecidos',
+        9: '%DifFallecidos',
+        10: 'TasaLetalidad',
+        11: 'Pruebas',
+        12: 'NuevasPruebas',
+        13: '%DifPruebas',
+        14: '%PruebasPositivasDiarias',
+        15: 'Recuperados',
+        16: 'NuevosRecuperados',
+        17: '%DifRecuperados',
+        18: 'Hospitalizados',
+        19: 'NuevosHospitalizados',
+        20: '%DifHospitalizados'
+}
+compute_data.rearrange_header_index(new_header)
+
+compute_data.save_as_csv('test.csv')

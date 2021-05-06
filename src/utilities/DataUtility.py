@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 
 class Table:
     def __init__(self, path):
@@ -50,22 +51,19 @@ class Table:
     def save_as_csv(self, path):
         with open(path, 'w') as file:
             out = ''
-            for i, val in enumerate(self.contents):
-                out += val
-                if(i != len(self.contents) - 1):
-                    out += ','
+            for i in range(0, self.columns):
+                file.write(self.header_index[i])
+                if(i != self.columns - 1):
+                    file.write(',')
                 else:
-                    out += '\n'
-            file.write(out)
-            out = ''
+                    file.write('\n')
             for i in range(0, self.rows):
-                for j, val in enumerate(self.contents):
-                    out += str(self.contents[val][i])
-                    if(j != len(self.contents) - 1):
-                        out += ','
+                for j in range(0, self.columns):
+                    file.write(str(self.contents[self.header_index[j]][i]))
+                    if(j != self.columns - 1):
+                        file.write(',')
                     else:
-                        out += '\n'
-            file.write(out)
+                        file.write('\n')
 
     def compute_add_column(self, col_idx, function, key):
         new_column = np.array([])
@@ -76,6 +74,21 @@ class Table:
             new_column = np.append(new_column, function(i, pack_columns))
         self.contents[key] = new_column
         self.header_index[self.columns] = key
+        self.columns += 1
+
+    def rearrange_header_index(self, new_header_index):
+        if(len(new_header_index) != len(self.header_index)):
+            sys.exit('The length new header index is not equal to the length of the current header index.')
+            return -1
+        for i in new_header_index:
+            if(i >= self.columns):
+                sys.exit('The index ' + str(i) + 'is greater than the number of colums (' + str(self.columns) + ' cols).')
+                return -1
+        for i in new_header_index.values():
+            if(i not in self.header_index.values()):
+                sys.exit('The field ' + str(i) + 'does not exist.')
+                return -1
+        self.header_index = new_header_index
 
 
         

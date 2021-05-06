@@ -1,6 +1,6 @@
 import sys
 
-class Plot:
+class MultiPlot:
     def __init__(self, num_sp, colors_sp, titles_sp, enable_rolling_avg_sp, type_sp, x_label_sp, y_label_sp, x_data, y_data):
         self.num_subplots = num_sp
         
@@ -44,13 +44,13 @@ class Plot:
         else:
             self.y_data = y_data
 
-        print(self.num_subplots)
-        print(self.colors_subplots)
-        print(self.titles_subplots)
-        print(self.enable_rolling_avg_subplots)
-        print(self.type_subplots)
-        print(self.x_label_subplots)
-        print(self.y_label_subplots)
+        #print(self.num_subplots)
+        #print(self.colors_subplots)
+        #print(self.titles_subplots)
+        #print(self.enable_rolling_avg_subplots)
+        #print(self.type_subplots)
+        #print(self.x_label_subplots)
+        #print(self.y_label_subplots)
         #print(self.x_data)
         #print(self.y_data)
 
