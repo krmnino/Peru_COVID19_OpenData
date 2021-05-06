@@ -272,10 +272,10 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     images = [[graph_data[i].filename for i in range(0, 4)], [graph_data[i].filename for i in range(4, 8)]]
     tweets = tweets_generator(data, images, input_data['Cases24H'])
 
-    success_reply_thread = reply_thread(auth_data, tweets, tweet_info[0])
-    if(success_reply_thread == 1):
-        print('Could not authenticate session and send tweets.')
-        return 1
+    #success_reply_thread = reply_thread(auth_data, tweets, tweet_info[0])
+    #if(success_reply_thread == 1):
+    #    print('Could not authenticate session and send tweets.')
+    #    return 1
     
     success_tweets_export = export_tweets_to_file(tweets)
     if(success_tweets_export == 1):
