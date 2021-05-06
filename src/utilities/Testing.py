@@ -171,27 +171,27 @@ compute_data.compute_add_column(['Hospitalizados'], compute_new_hospitalized, 'N
 compute_data.compute_add_column(['Hospitalizados'], compute_hospitalized_growth_factor, '%DifHospitalizados')
 
 new_header = {
-        0: 'Fecha',
-        1: 'Dia',
-        2: 'Casos',
-        3: 'NuevosCasos',
-        4: '%DifCasos',
-        5: 'CasosActivos',
-        6: 'NuevosCasosActivos',
-        7: 'Fallecidos',
-        8: 'NuevosFallecidos',
-        9: '%DifFallecidos',
-        10: 'TasaLetalidad',
-        11: 'Pruebas',
-        12: 'NuevasPruebas',
-        13: '%DifPruebas',
-        14: '%PruebasPositivasDiarias',
-        15: 'Recuperados',
-        16: 'NuevosRecuperados',
-        17: '%DifRecuperados',
-        18: 'Hospitalizados',
-        19: 'NuevosHospitalizados',
-        20: '%DifHospitalizados'
+    0: 'Fecha',
+    1: 'Dia',
+    2: 'Casos',
+    3: 'NuevosCasos',
+    4: '%DifCasos',
+    5: 'CasosActivos',
+    6: 'NuevosCasosActivos',
+    7: 'Fallecidos',
+    8: 'NuevosFallecidos',
+    9: '%DifFallecidos',
+    10: 'TasaLetalidad',
+    11: 'Pruebas',
+    12: 'NuevasPruebas',
+    13: '%DifPruebas',
+    14: '%PruebasPositivasDiarias',
+    15: 'Recuperados',
+    16: 'NuevosRecuperados',
+    17: '%DifRecuperados',
+    18: 'Hospitalizados',
+    19: 'NuevosHospitalizados',
+    20: '%DifHospitalizados'
 }
 compute_data.rearrange_header_index(new_header)
 
