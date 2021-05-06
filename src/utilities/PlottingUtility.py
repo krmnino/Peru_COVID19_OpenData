@@ -1,5 +1,6 @@
 from matplotlib.figure import Figure
 import warnings
+import numpy as np
 import sys
 
 warnings.filterwarnings('ignore')
@@ -92,10 +93,13 @@ class QuadPlot:
         self.axes[index].grid()
         
 class ScatterPlot:
-    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile):
+    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=7, ravg_label='', ravg_ydata=[]):
         self.color_plot = color
         self.title_plot = title
         self.enable_rolling_avg_plot = enable_rolling_avg
+        self.ravg_days = ravg
+        self.ravg_label = ravg_label
+        self.ravg_ydata = ravg_ydata
         self.x_label_plot = x_label
         self.y_label_plot = y_label
         self.x_data = x_data
@@ -117,21 +121,57 @@ class ScatterPlot:
         self.axis.set_xticklabels(labels=self.x_data, fontsize=12, **self.digit_font)
         for tick in self.axis.get_yticklabels():
             tick.set_fontname(**self.digit_font)
+            tick.set_fontsize(12)
         self.axis.set_xlabel(self.x_label_plot, **self.text_font, fontsize=12)
         self.axis.set_ylabel(self.y_label_plot, **self.text_font, fontsize=12)
+        if(self.enable_rolling_avg_plot):
+            if(len(self.ravg_label) == 0):
+                sys.exit('Rolling average label or ydata is empty')
+            if(len(self.ravg_ydata) == 0):
+                sys.exit('Rolling average ydata is empty')
+            self.generate_rolling_average()
         self.axis.grid()
 
         self.fig.suptitle(self.suptitle, fontsize=12, **self.text_font)
         self.fig.savefig(self.out_file)
 
+    def rgb_threshold(self, color, min=0, max=255):
+        if (color < min):
+            return min
+        if (color > max):
+            return max
+        return color
+
+    def generate_rolling_average(self):
+        avgd_data = np.array([])
+        for i in range(len(self.ravg_ydata) - (len(self.x_data) + self.ravg_days), len(self.ravg_ydata)):
+            sum_data = 0
+            for j in range(i - self.ravg_days, i):
+                sum_data += self.ravg_ydata[j]
+            sum_data /= self.ravg_days
+            avgd_data = np.append(avgd_data, sum_data)
+
+        color_to_string = self.color_plot[1:] 
+        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+        r = int(self.rgb_threshold(r * 0.6))
+        g = int(self.rgb_threshold(g * 0.6))
+        b = int(self.rgb_threshold(b * 0.6))
+        avg_color = "#%02x%02x%02x" % (r, g, b)
+
+        self.axis.plot(self.x_data, avgd_data[self.ravg_days:], linestyle='dashed', color=avg_color, label=self.ravg_label)
+        self.axis.legend(loc='upper left')
+
     def get_path(self):
         return self.out_file
 
 class BarPlot:
-    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile):
+    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=7, ravg_label='', ravg_ydata=[]):
         self.color_plot = color
         self.title_plot = title
         self.enable_rolling_avg_plot = enable_rolling_avg
+        self.ravg_days = ravg
+        self.ravg_label = ravg_label
+        self.ravg_ydata = ravg_ydata
         self.x_label_plot = x_label
         self.y_label_plot = y_label
         self.x_data = x_data
@@ -139,7 +179,7 @@ class BarPlot:
         self.suptitle = stitle
         self.out_file = ofile
         self.text_font = {'fontname':'Bahnschrift'}
-        self.digit_font = {'fontname':'Consolas'}
+        self.digit_font = {'fontname':'Consolas'}            
     
     def export(self):
         self.fig = Figure(figsize=(14, 10), dpi=200)
@@ -156,9 +196,41 @@ class BarPlot:
             tick.set_fontsize(12)
         self.axis.set_xlabel(self.x_label_plot, **self.text_font, fontsize=12)
         self.axis.set_ylabel(self.y_label_plot, **self.text_font, fontsize=12)
+        if(self.enable_rolling_avg_plot):
+            if(len(self.ravg_label) == 0):
+                sys.exit('Rolling average label or ydata is empty')
+            if(len(self.ravg_ydata == None) == 0):
+                sys.exit('Rolling average ydata is empty')
+            self.generate_rolling_average()
 
         self.fig.suptitle(self.suptitle, fontsize=12, **self.text_font)
         self.fig.savefig(self.out_file)
+
+    def rgb_threshold(self, color, min=0, max=255):
+        if (color < min):
+            return min
+        if (color > max):
+            return max
+        return color
+
+    def generate_rolling_average(self):
+        avgd_data = np.array([])
+        for i in range(len(self.ravg_ydata) - (len(self.x_data) + self.ravg_days), len(self.ravg_ydata)):
+            sum_data = 0
+            for j in range(i - self.ravg_days, i):
+                sum_data += self.ravg_ydata[j]
+            sum_data /= self.ravg_days
+            avgd_data = np.append(avgd_data, sum_data)
+
+        color_to_string = self.color_plot[1:] 
+        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+        r = int(self.rgb_threshold(r * 0.6))
+        g = int(self.rgb_threshold(g * 0.6))
+        b = int(self.rgb_threshold(b * 0.6))
+        avg_color = "#%02x%02x%02x" % (r, g, b)
+
+        self.axis.plot(self.x_data, avgd_data[self.ravg_days:], linestyle='dashed', color=avg_color, label=self.ravg_label)
+        self.axis.legend(loc='upper left')
 
     def get_path(self):
         return self.out_file

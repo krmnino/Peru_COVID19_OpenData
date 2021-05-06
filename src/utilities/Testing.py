@@ -201,14 +201,17 @@ quadplot = pu.QuadPlot(
 scatterplot = pu.ScatterPlot(
     '#E04646',
     'hospitalizados',
-    False,
+    True,
     'fecha',
     'nuevos hospitalizados',
     data.get_column('Fecha')[-30:],
     data.get_column('Hospitalizados')[-30:],
     'Elaborado por Kurt Manrique-Nino',
-    'graph2.png'
+    'graph2.png',
+    ravg=30,
+    ravg_label='Promedio ultimos 10 dias',
+    ravg_ydata=data.get_column('Hospitalizados')
 ) 
-#scatterplot.export()
+scatterplot.export()
 
-compute_data.save_as_csv('test.csv')
+#compute_data.save_as_csv('test.csv')
