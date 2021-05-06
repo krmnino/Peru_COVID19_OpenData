@@ -5,7 +5,7 @@ import sys
 warnings.filterwarnings('ignore')
 
 class QuadPlot:
-    def __init__(self, colors_sp, titles_sp, enable_rolling_avg_sp, type_sp, x_label_sp, y_label_sp, x_data, y_data, spt):        
+    def __init__(self, colors_sp, titles_sp, enable_rolling_avg_sp, type_sp, x_label_sp, y_label_sp, x_data, y_data, stitle, ofile):        
         if(len(colors_sp) != 4):
             sys.exit('num_sublots does not equal colors_sp')
         else:
@@ -46,10 +46,12 @@ class QuadPlot:
         else:
             self.y_data = y_data
 
-        self.suptitle = spt
+        self.suptitle = stitle
+        self.out_file = ofile
         self.text_font = {'fontname':'Bahnschrift'}
         self.digit_font = {'fontname':'Consolas'}
 
+    def export(self):
         self.fig = Figure(figsize=(14, 10), dpi=200)
         self.axes = [self.fig.add_subplot(2,2,1),
                      self.fig.add_subplot(2,2,2),
@@ -64,7 +66,7 @@ class QuadPlot:
                 self.scatter_plot(i)
         
         self.fig.suptitle(self.suptitle, fontsize=10, **self.text_font)
-        self.fig.savefig('test.png')
+        self.fig.savefig(self.out_file)
 
     def bar_plot(self, index):
         self.axes[index].grid(zorder=0)
@@ -89,3 +91,74 @@ class QuadPlot:
         self.axes[index].set_ylabel(self.y_label_subplots[index], **self.text_font)
         self.axes[index].grid()
         
+class ScatterPlot:
+    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile):
+        self.color_plot = color
+        self.title_plot = title
+        self.enable_rolling_avg_plot = enable_rolling_avg
+        self.x_label_plot = x_label
+        self.y_label_plot = y_label
+        self.x_data = x_data
+        self.y_data = y_data
+        self.suptitle = stitle
+        self.out_file = ofile
+        self.text_font = {'fontname':'Bahnschrift'}
+        self.digit_font = {'fontname':'Consolas'}
+    
+    def export(self):
+        self.fig = Figure(figsize=(14, 10), dpi=200)
+        self.axis = self.fig.add_subplot(1,1,1)
+        self.fig.subplots_adjust(left=0.07, bottom=0.14, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
+
+        self.axis.plot(self.x_data, self.y_data, color=self.color_plot)
+        self.axis.plot(self.x_data, self.y_data, 'ko')
+        self.axis.set_title(self.title_plot, fontsize=22, **self.text_font)
+        self.axis.tick_params(axis='x',labelrotation=90)
+        self.axis.set_xticklabels(labels=self.x_data, fontsize=12, **self.digit_font)
+        for tick in self.axis.get_yticklabels():
+            tick.set_fontname(**self.digit_font)
+        self.axis.set_xlabel(self.x_label_plot, **self.text_font, fontsize=12)
+        self.axis.set_ylabel(self.y_label_plot, **self.text_font, fontsize=12)
+        self.axis.grid()
+
+        self.fig.suptitle(self.suptitle, fontsize=12, **self.text_font)
+        self.fig.savefig(self.out_file)
+
+    def get_path(self):
+        return self.out_file
+
+class BarPlot:
+    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile):
+        self.color_plot = color
+        self.title_plot = title
+        self.enable_rolling_avg_plot = enable_rolling_avg
+        self.x_label_plot = x_label
+        self.y_label_plot = y_label
+        self.x_data = x_data
+        self.y_data = y_data
+        self.suptitle = stitle
+        self.out_file = ofile
+        self.text_font = {'fontname':'Bahnschrift'}
+        self.digit_font = {'fontname':'Consolas'}
+    
+    def export(self):
+        self.fig = Figure(figsize=(14, 10), dpi=200)
+        self.axis = self.fig.add_subplot(1,1,1)
+        self.fig.subplots_adjust(left=0.07, bottom=0.14, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
+
+        self.axis.grid(zorder=0)
+        self.axis.bar(self.x_data, self.y_data, color=self.color_plot, zorder=2)
+        self.axis.set_title(self.title_plot, fontsize=22, **self.text_font)
+        self.axis.tick_params(axis='x',labelrotation=90)
+        self.axis.set_xticklabels(labels=self.x_data, fontsize=12, **self.digit_font)
+        for tick in self.axis.get_yticklabels():
+            tick.set_fontname(**self.digit_font)
+            tick.set_fontsize(12)
+        self.axis.set_xlabel(self.x_label_plot, **self.text_font, fontsize=12)
+        self.axis.set_ylabel(self.y_label_plot, **self.text_font, fontsize=12)
+
+        self.fig.suptitle(self.suptitle, fontsize=12, **self.text_font)
+        self.fig.savefig(self.out_file)
+
+    def get_path(self):
+        return self.out_file

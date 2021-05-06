@@ -144,7 +144,6 @@ def compute_hospitalized_growth_factor(index, columns):
 def compute_days(index, columns):
     return index
 
-compute_data.compute_add_column([], compute_days, 'Dia')
 compute_data.compute_add_column(['Casos'], compute_new_cases, 'NuevosCasos')
 compute_data.compute_add_column(['Casos'], compute_cases_growth_factor, '%DifCasos')
 compute_data.compute_add_column(['Casos', 'Recuperados', 'Fallecidos'], compute_active_cases, 'CasosActivos')
@@ -159,6 +158,7 @@ compute_data.compute_add_column(['Recuperados'], compute_new_recovered, 'NuevosR
 compute_data.compute_add_column(['Recuperados'], compute_tests_growth_factor, '%DifRecuperados')
 compute_data.compute_add_column(['Hospitalizados'], compute_new_hospitalized, 'NuevosHospitalizados')
 compute_data.compute_add_column(['Hospitalizados'], compute_hospitalized_growth_factor, '%DifHospitalizados')
+compute_data.compute_add_column([], compute_days, 'Dia')
 
 new_header = {
     0: 'Fecha',
@@ -185,14 +185,30 @@ new_header = {
 }
 compute_data.rearrange_header_index(new_header)
 
-plot = pu.QuadPlot(['#E04646', '#9CD347', '#D8D13B', '#8C8C8C'],
-                    ['casos', 'recuperados', 'hospitalizados', 'fallecidos'],
-                    [False, False, False, False],
-                    ['bar', 'bar', 'scatter', 'bar'],
-                    ['fecha','fecha','fecha','fecha'],
-                    ['nuevos casos', 'nuevos recuperados', 'nuevos hospitalizados', 'nuevos fallecidos'],
-                    [data.get_column('Fecha')[-30:], data.get_column('Fecha')[-30:], data.get_column('Fecha')[-30:], data.get_column('Fecha')[-30:]],
-                    [data.get_column('Casos')[-30:], data.get_column('Recuperados')[-30:], data.get_column('Hospitalizados')[-30:], data.get_column('Fallecidos')[-30:]],
-                    'Elaborado por Kurt Manrique-Nino')
+quadplot = pu.QuadPlot(
+    ['#E04646', '#9CD347', '#D8D13B', '#8C8C8C'],
+    ['casos', 'recuperados', 'hospitalizados', 'fallecidos'],
+    [False, False, False, False],
+    ['bar', 'bar', 'scatter', 'bar'],
+    ['fecha','fecha','fecha','fecha'],
+    ['nuevos casos', 'nuevos recuperados', 'nuevos hospitalizados', 'nuevos fallecidos'],
+    [data.get_column('Fecha')[-30:], data.get_column('Fecha')[-30:], data.get_column('Fecha')[-30:], data.get_column('Fecha')[-30:]],
+    [data.get_column('Casos')[-30:], data.get_column('Recuperados')[-30:], data.get_column('Hospitalizados')[-30:], data.get_column('Fallecidos')[-30:]],
+    'Elaborado por Kurt Manrique-Nino',
+    'graph1.png')
+#quadplot.export()
 
-#compute_data.save_as_csv('test.csv')
+scatterplot = pu.ScatterPlot(
+    '#E04646',
+    'hospitalizados',
+    False,
+    'fecha',
+    'nuevos hospitalizados',
+    data.get_column('Fecha')[-30:],
+    data.get_column('Hospitalizados')[-30:],
+    'Elaborado por Kurt Manrique-Nino',
+    'graph2.png'
+) 
+#scatterplot.export()
+
+compute_data.save_as_csv('test.csv')
