@@ -1,4 +1,5 @@
 import sys
+
 class Text:
     def __init__(self, path):
         self.text = ''

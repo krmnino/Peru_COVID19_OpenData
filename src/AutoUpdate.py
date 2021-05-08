@@ -32,47 +32,12 @@ from ParsingUtility import compute_recovered_growth_factor
 from ParsingUtility import compute_new_hospitalized
 from ParsingUtility import compute_hospitalized_growth_factor
 from ParsingUtility import compute_days
-#from ExportUtility import list_to_csv
-#from ExportUtility import export_tweets_to_file
-#from ExportUtility import update_git_repo_win32
-#from ExportUtility import update_git_repo_linux
-#from ExportUtility import GraphData
-#from ExportUtility import plot_loader
-#from TwitterUtility import load_auth
-#from TwitterUtility import fetch_image
-#from TwitterUtility import sleep_until
-#from TwitterUtility import reply_thread
-#from TwitterUtility import tweets_generator
+from ParsingUtility import generate_first_tweet_text
+from ParsingUtility import generate_second_tweet_text
+from ParsingUtility import export_tweets_to_file
 from CommandLineUtility import check_data_menu
-
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
-
-'''
-Structure of parsed_data list after computation
-index   contents
-0	    Dates
-1	    Cases
-2	    Deaths
-3	    Tests
-4       Recovered
-5       Hospitalized
-6   	Days
-7   	New Cases
-8	    % Cases
-9   	New Deaths
-10	    % Deaths
-11      New Recovered
-12      % Recovered
-13      New Hospitalized  
-14      % Hospitalized
-15	    New Tests
-16	    % Tests
-17      Mortality Rate
-18      Active Cases
-19      New Active Cases
-20      % Daily Positives
-'''
 
 def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
 
@@ -128,7 +93,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         process_image(bulletin_path, top_level_directory + main_config.get_value('RawHospit'), (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
         process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases24'), (150, 160, 530, 310), grescale=True, invert=True, contrast=2.0)
     
-    # Store values read by OCR algorithm in a dictionary
+     Store values read by OCR algorithm in a dictionary
     input_data = {\
         'Date' : opt_date,
         'Cases' : decode_image(top_level_directory + main_config.get_value('RawCases')),
@@ -137,6 +102,15 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         'Recovered' : decode_image(top_level_directory + main_config.get_value('RawRecov')),
         'Hospitalized' : decode_image(top_level_directory + main_config.get_value('RawHospit')),
         'Cases24H' : decode_image(top_level_directory + main_config.get_value('RawCases24'))
+    }
+    input_data = {\
+        'Date' : '2021-05-08',
+        'Cases' : '5000',
+        'Deaths' : '2000',
+        'Tests' : '7000',
+        'Recovered' : '6000',
+        'Hospitalized' : '500',
+        'Cases24H' : '250'
     }
 
     # Remove any old files from /res/raw_images
@@ -147,7 +121,6 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     
     # Load simple Peru data set
     PER_data = du.Table(top_level_directory + main_config.get_value('PeruSimpleData'))
-    print('aaaaa')
 
     # Agregate new data entry
     PER_data.append_entry(
@@ -255,34 +228,36 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     # Generate and store quadplot
     quadplot_2.export()
 
+    # Obtain the last entry of Peru full data
+    latest_entry = PER_full_data.get_latest_entry()
+    
+    # Create instances of tweets to store text and image paths
     tweet1 = Tweet()
+    tweet2 = Tweet()
+    
+    # Create and add tweet body for first tweet
+    tweet1.set_message(generate_first_tweet_text(top_level_directory + main_config.get_value('TwTemplate1'), latest_entry, int(input_data['Cases24H'])))
+    
+    # Create and add tweet body for second tweet
+    tweet2.set_message(generate_second_tweet_text(top_level_directory + main_config.get_value('TwTemplate2'), latest_entry,
+         PER_full_data.col_row_query('TasaLetalidad', PER_full_data.rows-2), PER_full_data.col_row_query('%PruebasPositivasDiarias', PER_full_data.rows-2)))
 
-    #images = [[graph_data[i].filename for i in range(0, 4)], [graph_data[i].filename for i in range(4, 8)]]
-    #tweets = tweets_generator(data, images, input_data['Cases24H'])
-#
-    #success_reply_thread = reply_thread(auth_data, tweets, tweet_info[0])
-    #if(success_reply_thread == 1):
-    #    print('Could not authenticate session and send tweets.')
-    #    return 1
-    #
-    #success_tweets_export = export_tweets_to_file(tweets)
-    #if(success_tweets_export == 1):
-    #    print('Could not reach tweets.dat')
-    #    return 1
-#
-    #clean_directory = clean_dir()
-    #if(clean_directory == 1):
-    #    print('Could not clean raw_images directory. Exiting...')
-    #    return 1
-#
-    #if(sys.platform == 'win32'):
-    #    update_git_repo_win32(input_data['Date'])
-    #else:
-    #    update_git_repo_linux(input_data['Date'])
-#
+    # Add paths to graph images
+    tweet1.add_image(top_level_directory + main_config.get_value('TwitterGraph1'))
+    tweet2.add_image(top_level_directory + main_config.get_value('TwitterGraph2'))
 
-    # Remove any old files from /res/raw_images
-    clean_directory = clean_dir(main_config.get_value('RawImages'))
+    # Export tweet messages into a file
+    export_tweets_to_file(top_level_directory + main_config.get_value('TweetExport'), [tweet1, tweet2])
+    
+    # Reply to @Minsa_Peru with tweet thread
+    twitter_session.reply_thread(reply_tweet_id, [tweet1, tweet2])
+
+    # Update GitHub repository with new data    
+    if(sys.platform == 'win32'):
+        update_git_repo_win32(input_data['Date'])
+    else:
+        update_git_repo_linux(input_data['Date'])
+
 #####################################################################################################################
 
 run()
