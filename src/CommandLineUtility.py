@@ -1,3 +1,5 @@
+import sys
+
 def print_table(data):
     print('\n=====================================================')
     idx = 0
@@ -11,7 +13,7 @@ def check_data_menu(data):
         print_table(data)
         user = input('Edit numbers by entering index [0-6]. Proceed? [Y/N]: ')
         if(user == 'N' or user == 'n'):
-            return 1
+            sys.exit('Discard readings. Exiting...')
         elif (user == 'Y' or user == 'y'):
             return 0
         elif(user == '0'):

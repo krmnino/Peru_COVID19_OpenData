@@ -6,61 +6,72 @@ import datetime
 import pathlib
 import sys
 
-class Tweet:
-    message = ''
-    image_paths = []
-    
+sys.path.insert(0, './utilities')
+import ConfigUtility as cu
+
+class Tweet:    
     def __init__(self):
-        pass
+        self.message = ''
+        self.image_paths = []
+    
+    def set_message(self, msg):
+        self.message = msg
 
-def load_auth():
-    '''
-    idx  contents
-    0    consumer_key
-    1    consumer_secret
-    2    access_token
-    3    access_secret
-    '''
-    auth_data = []
-    try:
-        open('auth.dat', 'r')
-    except:
-        return 1
-    else:
-        with open('auth.dat', 'r') as file:
-            for line in file:
-                auth_data.append(line[:len(line)-1])
-        file.close()
-    return auth_data
+    def add_image(self, msg):
+        if(len(self.image_paths) >= 4):
+            print("Tweet already carries 4 images with it.")
+        else:
+            self.image_paths = msg
 
-def fetch_image(auth_data):
-    auth = tweepy.OAuthHandler(auth_data[0], auth_data[1])
-    auth.set_access_token(auth_data[2], auth_data[3])
-    api = tweepy.API(auth)
-    path = str(pathlib.Path().absolute()).replace('\\', '/')
-    path = path[:path.rfind('/')] + '/res/raw_images/'
-    found_tweet = False
-    query_tweets = 0
-    tweet_identificator = ''
-    tweet_message = ''
-    image_url = ''
-    while(found_tweet == False and query_tweets < 15):
-        print('Quering tweets...')
-        tweets = api.user_timeline(screen_name='Minsa_Peru', count=query_tweets, include_rts=False, include_replies=False, tweet_mode='extended')
-        for tweet in tweets:
-            if('media' in tweet.entities and 'Esta es la' in tweet.full_text):
-                tweet_identificator = tweet.id
-                tweet_message = tweet.full_text
-                for media in tweet.extended_entities['media']:
-                    image_url = media['media_url']
+class TwitterAPISession:
+    def __init__(self, auth_config):
+        self.auth_config = tweepy.OAuthHandler(auth_config.get_value('ConsumerKey'), auth_config.get_value('ConsumerSecret'))
+        self.auth_config.set_access_token(auth_config.get_value('AccessToken'), auth_config.get_value('AccessSecret'))
+        try:
+            self.api = tweepy.API(self.auth_config)
+            self.inited = True
+        except:
+            sys.exit('Could not authenticate Twitter API session')
+
+    def query_tweet(self, twitter_user, search_pattern, query_limit):
+        found_tweet = False
+        query_counter = 1
+        tweet_identificator = ''
+        tweet_message = ''
+        image_url = ''
+        while(found_tweet == False and query_counter < query_limit):
+            print('Quering tweets...')
+            tweets = self.api.user_timeline(screen_name=twitter_user, count=query_counter, include_rts=False, include_replies=False, tweet_mode='extended')
+            for tweet in tweets:
+                if(search_pattern in tweet.full_text):
+                    tweet_identificator = tweet.id
                     found_tweet = True
-                break
-        query_tweets += 1
-    if(query_tweets == 15):
-        return 1
-    print()
-    wget.download(image_url, out=path)
-    return (tweet_identificator, tweet_message)
+                    break
+            query_counter += 1
+        if(query_counter == 15):
+            return -1
+        return tweet_identificator
+
+    def fetch_image(self, path, twitter_user, search_pattern, query_limit):
+        found_tweet = False
+        query_counter = 1
+        tweet_identificator = ''
+        tweet_message = ''
+        image_url = ''
+        while(found_tweet == False and query_counter < query_limit):
+            print('Quering tweets...')
+            tweets = self.api.user_timeline(screen_name=twitter_user, count=query_counter, include_rts=False, include_replies=False, tweet_mode='extended')
+            for tweet in tweets:
+                if('media' in tweet.entities and 'Esta es la' in tweet.full_text):
+                    for media in tweet.extended_entities['media']:
+                        image_url = media['media_url']
+                        found_tweet = True
+                    break
+            query_counter += 1
+        if(query_counter == 15):
+            return -1
+        wget.download(image_url, out=path)
+        print()
 
 def tweets_generator(data, image_paths, cases24hrs):
     # Generate tweet message with data summary
