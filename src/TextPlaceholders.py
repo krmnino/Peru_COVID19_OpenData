@@ -11,6 +11,7 @@ class Text:
             for i in range(0, len(self.text)):
                 if(self.text[i] == '$'):
                     self.placeholder_indexes[i] = ''
+                self.entries += 1
         self.inited = True
     
     def get_placeholder_indexes(self):
@@ -28,6 +29,10 @@ class Text:
         while(lower_bound > len(self.text)):
             lower_bound -= 1
         print(self.text[lower_bound:upper_bound])
+
+    def remove_placeholder(self, index):
+        del self.placeholder_indexes[index]
+        self.entries -= 1
 
     def set_placeholder_value(self, index, value):
         if(index < 0):
