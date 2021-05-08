@@ -21,9 +21,12 @@ class Table:
                 line_split = line.split(',')
                 for i, elem in enumerate(line_split):
                     try:
-                        convert_elem = float(elem)
+                        if(elem.find('.') == -1):
+                            convert_elem = int(elem)
+                        else:
+                            convert_elem = float(elem)
                     except:
-                        convert_elem = str(elem)
+                        convert_elem = str(elem).replace('\n', '')
                         pass
                     if self.header_index[i] not in self.contents.keys():
                         self.contents[self.header_index[i]] = np.array([convert_elem])

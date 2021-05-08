@@ -6,46 +6,68 @@ import sys
 warnings.filterwarnings('ignore')
 
 class QuadPlot:
-    def __init__(self, colors_sp, titles_sp, enable_rolling_avg_sp, type_sp, x_label_sp, y_label_sp, x_data, y_data, stitle, ofile):        
+    def __init__(self, colors_sp, titles_sp, enable_rolling_avg_sp, type_sp, x_label_sp, y_label_sp, x_data, y_data, stitle, ofile,
+                 ravg_days=[1, 1, 1, 1], ravg_labels=[None, None, None, None], ravg_ydata=[None, None, None, None]):        
         if(len(colors_sp) != 4):
-            sys.exit('num_sublots does not equal colors_sp')
+            sys.exit('colors_sp does not equal 4')
         else:
             self.colors_subplots = colors_sp
         
         if(len(titles_sp) != 4):
-            sys.exit('num_sublots does not equal titles_sp')
+            sys.exit('titles_sp does not equal 4')
         else:
             self.titles_subplots = titles_sp
 
         if(len(enable_rolling_avg_sp) != 4):
-            sys.exit('num_sublots does not equal enable_rolling_avg_sp')
+            sys.exit('enable_rolling_avg_sp does not equal 4')
         else:
             self.enable_rolling_avg_subplots = enable_rolling_avg_sp
 
         if(len(type_sp) != 4):
-            sys.exit('num_sublots does not equal type_sp')
+            sys.exit('type_sp does not equal 4')
         else:
             self.type_subplots = type_sp
 
         if(len(x_label_sp) != 4):
-            sys.exit('num_sublots does not equal x_label_sp')
+            sys.exit('x_label_sp does not equal 4')
         else:
             self.x_label_subplots = x_label_sp
 
         if(len(y_label_sp) != 4):
-            sys.exit('num_sublots does not equal y_label_sp')
+            sys.exit('y_label_sp does not equal 4')
         else:
             self.y_label_subplots = y_label_sp
 
         if(len(x_data) != 4):
-            sys.exit('num_sublots does not equal x_data')
+            sys.exit('x_data does not equal 4')
         else:
             self.x_data = x_data
 
         if(len(y_data) != 4):
-            sys.exit('num_sublots does not equal y_data')
+            sys.exit('y_data does not equal 4')
         else:
             self.y_data = y_data
+
+        if(len(ravg_days) != 4):
+            sys.exit('ravg_days does not equal 4')
+        else:
+            self.ravg_days = ravg_days
+
+        if(len(ravg_labels) != 4):
+            sys.exit('ravg_labels does not equal 4')
+        else:
+            self.ravg_labels = ravg_labels
+
+        if(len(ravg_ydata) != 4):
+            sys.exit('ravg_ydata does not equal 4')
+        else:
+            self.ravg_ydata = ravg_ydata
+
+        for i in range(0, 4):
+            if(self.enable_rolling_avg_subplots[i] and self.ravg_days[i] < 0):
+                sys.exit('ravg_days[' + str(i) + '] must be 1 or greater if rolling average is enabled')
+            if(self.enable_rolling_avg_subplots[i] and self.ravg_labels[i] == None):
+                sys.exit('ravg_labels[' + str(i) + '] cannot be None if rolling average is enabled')
 
         self.suptitle = stitle
         self.out_file = ofile
@@ -65,6 +87,9 @@ class QuadPlot:
                 self.bar_plot(i)
             elif(self.type_subplots[i] == 'scatter'):
                 self.scatter_plot(i)
+
+            if(self.enable_rolling_avg_subplots[i]):
+                self.generate_rolling_average(i)
         
         self.fig.suptitle(self.suptitle, fontsize=10, **self.text_font)
         self.fig.savefig(self.out_file)
@@ -91,9 +116,38 @@ class QuadPlot:
         self.axes[index].set_xlabel(self.x_label_subplots[index], **self.text_font)
         self.axes[index].set_ylabel(self.y_label_subplots[index], **self.text_font)
         self.axes[index].grid()
+
+    def rgb_threshold(self, color, min=0, max=255):
+        if (color < min):
+            return min
+        if (color > max):
+            return max
+        return color
+    
+    def generate_rolling_average(self, index):
+        avgd_data = np.array([])
+        for i in range(len(self.ravg_ydata[index]) - (len(self.x_data[index]) + self.ravg_days[index]), len(self.ravg_ydata[index])):
+            sum_data = 0
+            for j in range(i - self.ravg_days[index], i):
+                sum_data += self.ravg_ydata[index][j]
+            sum_data /= self.ravg_days[index]
+            avgd_data = np.append(avgd_data, sum_data)
+
+        color_to_string = self.colors_subplots[index][1:] 
+        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+        r = int(self.rgb_threshold(r * 0.6))
+        g = int(self.rgb_threshold(g * 0.6))
+        b = int(self.rgb_threshold(b * 0.6))
+        avg_color = "#%02x%02x%02x" % (r, g, b)
+
+        self.axes[index].plot(self.x_data[index], avgd_data[self.ravg_days[index]:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.ravg_labels[index])
+        self.axes[index].legend(loc='upper left')
+    
+    def get_path(self):
+        return self.out_file
         
 class ScatterPlot:
-    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=7, ravg_label='', ravg_ydata=[]):
+    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=1, ravg_label='', ravg_ydata=[]):
         self.color_plot = color
         self.title_plot = title
         self.enable_rolling_avg_plot = enable_rolling_avg
@@ -165,7 +219,7 @@ class ScatterPlot:
         return self.out_file
 
 class BarPlot:
-    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=7, ravg_label='', ravg_ydata=[]):
+    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=1, ravg_label='', ravg_ydata=[]):
         self.color_plot = color
         self.title_plot = title
         self.enable_rolling_avg_plot = enable_rolling_avg

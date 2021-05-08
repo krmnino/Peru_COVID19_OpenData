@@ -142,6 +142,8 @@ def compute_hospitalized_growth_factor(index, columns):
             return columns[0][index] / columns[0][index-1]
 
 def compute_days(index, columns):
+    if(len(columns) != 0):
+        sys.exit('Number of values passed in compute_days() is not 1')
     return index
 
 compute_data.compute_add_column(['Casos'], compute_new_cases, 'NuevosCasos')
@@ -188,15 +190,19 @@ compute_data.rearrange_header_index(new_header)
 quadplot = pu.QuadPlot(
     ['#E04646', '#9CD347', '#D8D13B', '#8C8C8C'],
     ['casos', 'recuperados', 'hospitalizados', 'fallecidos'],
-    [False, False, False, False],
-    ['bar', 'bar', 'scatter', 'bar'],
+    [True, False, True, True],
+    ['bar', 'bar', 'bar', 'bar'],
     ['fecha','fecha','fecha','fecha'],
     ['nuevos casos', 'nuevos recuperados', 'nuevos hospitalizados', 'nuevos fallecidos'],
     [data.get_column('Fecha')[-30:], data.get_column('Fecha')[-30:], data.get_column('Fecha')[-30:], data.get_column('Fecha')[-30:]],
     [data.get_column('Casos')[-30:], data.get_column('Recuperados')[-30:], data.get_column('Hospitalizados')[-30:], data.get_column('Fallecidos')[-30:]],
     'Elaborado por Kurt Manrique-Nino',
-    'graph1.png')
-#quadplot.export()
+    'graph1.png',
+    ravg_days=[7, 7, 7, 7],
+    ravg_labels=['promedio', 'promedio', 'promedio', 'promedio'],
+    ravg_ydata=[data.get_column('Casos'), data.get_column('Recuperados'), data.get_column('Hospitalizados'), data.get_column('Fallecidos')]
+)
+quadplot.export()
 
 scatterplot = pu.BarPlot(
     '#E04646',
@@ -212,6 +218,6 @@ scatterplot = pu.BarPlot(
     ravg_label='Promedio ultimos 10 dias',
     ravg_ydata=data.get_column('Hospitalizados')
 ) 
-scatterplot.export()
+#scatterplot.export()
 
 #compute_data.save_as_csv('test.csv')
