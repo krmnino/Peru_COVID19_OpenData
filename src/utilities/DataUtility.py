@@ -93,5 +93,8 @@ class Table:
                 return -1
         self.header_index = new_header_index
 
+    def col_row_query(self, col, row):
+        return self.contents[col][row]
+
 
         
