@@ -10,7 +10,7 @@ from PIL import Image
 from PIL import ImageOps 
 from PIL import ImageEnhance
 
-sys.path.insert(0, './utilities')
+sys.path.insert(0, '../utilities')
 
 import TextPlaceholders as tpl
 from TwitterUtility import Tweet
@@ -29,6 +29,7 @@ def check_date(input_date):
 
 def get_top_level_directory_path():
     path = str(pathlib.Path().absolute()).replace('\\', '/')
+    path = path[:path.rfind('/')]
     path = path[:path.rfind('/')]
     return path
 
@@ -321,3 +322,8 @@ def export_tweets_to_file(path, tweets):
             file.write(t.message)        
             file.write('\n')
 
+def update_git_repo_win32(date):
+    os.system('sh Windows_AutoUpdateRepo.sh "' + date + '"')
+
+def update_git_repo_linux(date):
+    os.system('./Linux_AutoUpdateRepo.sh "' + date + '"')

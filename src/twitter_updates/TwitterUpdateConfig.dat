@@ -1,3 +1,4 @@
+TwitterAuth=/src/twitter_updates/auth.dat
 RawImages=/res/raw_images
 GraphPath=/res/graphs
 TwitterMINSA=Minsa_Peru
@@ -18,6 +19,6 @@ RecoveredColor=#9CD347
 HospitalizedColor=#D8D13B
 DeathsColor=#8C8C8C
 TestsColor=#5B90F3
-TwTemplate1=/src/FirstTweetTemplate.dat
-TwTemplate2=/src/SecondTweetTemplate.dat
+TwTemplate1=/src/twitter_updates/FirstTweetTemplate.dat
+TwTemplate2=/src/twitter_updates/SecondTweetTemplate.dat
 TweetExport=/res/tweets.dat
