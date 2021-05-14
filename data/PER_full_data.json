@@ -10026,5 +10026,28 @@
 		"Hospitalizados": 13468,
 		"NuevosHospitalizados": -192.0,
 		"%DifHospitalizados": -1.0142560142560142
+	},
+	{
+		"Fecha": "2021-05-13",
+		"Dia": 436.0,
+		"Casos": 1873316,
+		"NuevosCasos": 7677.0,
+		"%DifCasos": 1.00411494399506,
+		"CasosActivos": -10686.0,
+		"NuevosCasosActivos": 1473.0,
+		"Fallecidos": 65316,
+		"NuevosFallecidos": 418.0,
+		"%DifFallecidos": 1.006440876452279,
+		"TasaLetalidad": 0.0348665147791403,
+		"Pruebas": 11901521,
+		"NuevasPruebas": 68939.0,
+		"%DifPruebas": 1.0058262009086436,
+		"%PruebasPositivasDiarias": 0.11135931765763936,
+		"Recuperados": 1818686,
+		"NuevosRecuperados": 5786.0,
+		"%DifRecuperados": 1.0031915715152517,
+		"Hospitalizados": 13316,
+		"NuevosHospitalizados": -152.0,
+		"%DifHospitalizados": -1.0114148392910784
 	}
 ]
