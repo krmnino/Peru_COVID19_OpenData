@@ -3574,5 +3574,13 @@
 		"Pruebas": 12482876,
 		"Recuperados": 1869538,
 		"Hospitalizados": 12515
+	},
+	{
+		"Fecha": "2021-05-24",
+		"Casos": 1926923,
+		"Fallecidos": 68358,
+		"Pruebas": 12506500,
+		"Recuperados": 1875256,
+		"Hospitalizados": 12204
 	}
 ]
