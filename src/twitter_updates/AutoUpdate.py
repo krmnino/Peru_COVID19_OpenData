@@ -113,7 +113,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     check_data_menu(input_data) 
     
     # Load simple Peru data set
-    PER_data = du.Table(top_level_directory + main_config.get_value('PeruSimpleData'))
+    PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'))
 
     # Agregate new data entry
     PER_data.append_entry(
@@ -131,7 +131,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     PER_data.save_as_csv(top_level_directory + main_config.get_value('PeruSimpleData'))
 
     # Create copy of simple Peru data set to perform extrapolation 
-    PER_full_data = copy.deepcopy(PER_data)
+    PER_full_data = du.Table('c', table=PER_data)
 
     # Compute new derived statistics
     PER_full_data.compute_add_column(['Casos'], compute_new_cases, 'NuevosCasos')
