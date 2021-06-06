@@ -3670,5 +3670,13 @@
 		"Pruebas": 13076134,
 		"Recuperados": 1929264,
 		"Hospitalizados": 11213
+	},
+	{
+		"Fecha": "2021-06-05",
+		"Casos": 1980391,
+		"Fallecidos": 186073,
+		"Pruebas": 13132238,
+		"Recuperados": 1931773,
+		"Hospitalizados": 11338
 	}
 ]
