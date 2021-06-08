@@ -3694,5 +3694,13 @@
 		"Pruebas": 13188675,
 		"Recuperados": 1940723,
 		"Hospitalizados": 10905
+	},
+	{
+		"Fecha": "2021-06-08",
+		"Casos": 1987933,
+		"Fallecidos": 187157,
+		"Pruebas": 13230098,
+		"Recuperados": 1944122,
+		"Hospitalizados": 11007
 	}
 ]
