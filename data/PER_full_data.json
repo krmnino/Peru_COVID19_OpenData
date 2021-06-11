@@ -10690,8 +10690,8 @@
 		"Recuperados": 1952027,
 		"NuevosRecuperados": 4595.0,
 		"%DifRecuperados": 1.0023595175595348,
-		"Hospitalizados": 627522,
-		"NuevosHospitalizados": 616533.0,
-		"%DifHospitalizados": 57.10455910455911
+		"Hospitalizados": 10591,
+		"NuevosHospitalizados": -398.0,
+		"%DifHospitalizados": -1.03757907657445
 	}
 ]
