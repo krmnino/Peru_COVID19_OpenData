@@ -3614,5 +3614,109 @@
 		"Pruebas": 12733231,
 		"Recuperados": 1897522,
 		"Hospitalizados": 12147
+	},
+	{
+		"Fecha": "2021-05-29",
+		"Casos": 1951651,
+		"Fallecidos": 69202,
+		"Pruebas": 12790076,
+		"Recuperados": 1901998,
+		"Hospitalizados": 11973
+	},
+	{
+		"Fecha": "2021-05-30",
+		"Casos": 1955469,
+		"Fallecidos": 69342,
+		"Pruebas": 12839497,
+		"Recuperados": 1905433,
+		"Hospitalizados": 11988
+	},
+	{
+		"Fecha": "2021-05-31",
+		"Casos": 1955746,
+		"Fallecidos": 184269,
+		"Pruebas": 12862534,
+		"Recuperados": 1905433,
+		"Hospitalizados": 11572
+	},
+	{
+		"Fecha": "2021-06-01",
+		"Casos": 1961087,
+		"Fallecidos": 184507,
+		"Pruebas": 12911851,
+		"Recuperados": 1914169,
+		"Hospitalizados": 11375
+	},
+	{
+		"Fecha": "2021-06-02",
+		"Casos": 1965432,
+		"Fallecidos": 184942,
+		"Pruebas": 12969305,
+		"Recuperados": 1918756,
+		"Hospitalizados": 11190
+	},
+	{
+		"Fecha": "2021-06-03",
+		"Casos": 1968693,
+		"Fallecidos": 185380,
+		"Pruebas": 13025140,
+		"Recuperados": 1923309,
+		"Hospitalizados": 11073
+	},
+	{
+		"Fecha": "2021-06-04",
+		"Casos": 1976166,
+		"Fallecidos": 185813,
+		"Pruebas": 13076134,
+		"Recuperados": 1929264,
+		"Hospitalizados": 11213
+	},
+	{
+		"Fecha": "2021-06-05",
+		"Casos": 1980391,
+		"Fallecidos": 186073,
+		"Pruebas": 13132238,
+		"Recuperados": 1931773,
+		"Hospitalizados": 11338
+	},
+	{
+		"Fecha": "2021-06-06",
+		"Casos": 1983570,
+		"Fallecidos": 186511,
+		"Pruebas": 13173460,
+		"Recuperados": 1936147,
+		"Hospitalizados": 11307
+	},
+	{
+		"Fecha": "2021-06-07",
+		"Casos": 1984999,
+		"Fallecidos": 186757,
+		"Pruebas": 13188675,
+		"Recuperados": 1940723,
+		"Hospitalizados": 10905
+	},
+	{
+		"Fecha": "2021-06-08",
+		"Casos": 1987933,
+		"Fallecidos": 187157,
+		"Pruebas": 13230098,
+		"Recuperados": 1944122,
+		"Hospitalizados": 11007
+	},
+	{
+		"Fecha": "2021-06-09",
+		"Casos": 1991203,
+		"Fallecidos": 187479,
+		"Pruebas": 13274284,
+		"Recuperados": 1947432,
+		"Hospitalizados": 10989
+	},
+	{
+		"Fecha": "2021-06-10",
+		"Casos": 1995257,
+		"Fallecidos": 187847,
+		"Pruebas": 13325242,
+		"Recuperados": 1952027,
+		"Hospitalizados": 10591
 	}
 ]
