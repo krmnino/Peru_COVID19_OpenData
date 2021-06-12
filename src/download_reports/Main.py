@@ -1,12 +1,13 @@
 import PDFDownload as gf
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
-end = datetime.now() - timedelta(days=10)
-start = end - timedelta(days=15)
+# from date to date exclusive
+start = datetime(2021, 5, 1)
+end = datetime(2021, 5, 10)
 
 handler = gf.PDF_Downloader(start, end)
 
-while(handler.current_date <= handler.finish_date):
+while(handler.current_date.timestamp() < handler.finish_date.timestamp()):
     handler.generate_filename()
     handler.generate_url()
     handler.download_pdf()

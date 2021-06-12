@@ -33,7 +33,7 @@ class PDF_Downloader:
         self.current_url = base_url + self.current_filename
 
     def download_pdf(self):
-        print(os.path.abspath(self.config.get_value('PDF_Path')))
+        print('\nDownloading:', self.current_filename)
         try:
             wget.download(self.current_url, out=os.path.abspath(self.config.get_value('PDF_Path')) + '/' + self.current_filename)
         except:
