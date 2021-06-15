@@ -37,13 +37,11 @@ class TwitterAPISession:
         found_tweet = False
         query_counter = 1
         tweet_identificator = ''
-        tweet_message = ''
-        image_url = ''
         while(found_tweet == False and query_counter < query_limit):
-            print('Quering tweets...')
+            print('[SEARCH] -> Quering tweets...')
             tweets = self.api.user_timeline(screen_name=twitter_user, count=query_counter, include_rts=False, include_replies=False, tweet_mode='extended')
             for tweet in tweets:
-                if(search_pattern in tweet.full_text):
+                if('media' in tweet.entities and search_pattern in tweet.full_text):
                     tweet_identificator = tweet.id
                     found_tweet = True
                     break
@@ -55,14 +53,12 @@ class TwitterAPISession:
     def fetch_image(self, path, twitter_user, search_pattern, query_limit):
         found_tweet = False
         query_counter = 1
-        tweet_identificator = ''
-        tweet_message = ''
         image_url = ''
         while(found_tweet == False and query_counter < query_limit):
-            print('Quering tweets...')
+            print('[DOWNLOAD] -> Quering tweets...')
             tweets = self.api.user_timeline(screen_name=twitter_user, count=query_counter, include_rts=False, include_replies=False, tweet_mode='extended')
             for tweet in tweets:
-                if('media' in tweet.entities and 'Esta es la' in tweet.full_text):
+                if('media' in tweet.entities and search_pattern in tweet.full_text):
                     for media in tweet.extended_entities['media']:
                         image_url = media['media_url']
                         found_tweet = True
