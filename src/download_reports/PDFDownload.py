@@ -16,6 +16,7 @@ class PDF_Downloader:
         self.current_url = ''
         self.current_filename = ''
         self.config = cu.Config('./PDFDownload.dat')
+        self.out_filenames = []
 
     def generate_filename(self):
         base_file = self.config.get_value('PDF_NameBase')
@@ -39,5 +40,12 @@ class PDF_Downloader:
         except:
             print('Could not download PDF from url')
             pass
-            
+
+    def append_name(self):
+        self.out_filenames.append(self.current_filename)
+
+    def save_out_filenames(self, list_filename):
+        with open(list_filename, 'w') as file:
+            for i in range(0, len(self.out_filenames)):
+                file.write(self.out_filenames[i] + '\n')
 
