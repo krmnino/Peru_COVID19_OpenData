@@ -47,11 +47,8 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     main_config = cu.Config(top_level_directory + '/src/twitter_updates/TwitterUpdateConfig.dat')
     auth_config = cu.Config(top_level_directory + main_config.get_value('TwitterAuth'))
     
-    # Check if input date is valid
-    check_date(opt_date)
-    
     # Remove any old files from /res/raw_images
-    clean_directory = clean_dir(main_config.get_value('RawImages'))
+    clean_dir(main_config.get_value('RawImages'))
     
     # Authenticate Twitter API session
     twitter_session = TwitterAPISession(auth_config)
