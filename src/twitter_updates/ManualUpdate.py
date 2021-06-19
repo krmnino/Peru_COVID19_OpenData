@@ -41,79 +41,39 @@ from CommandLineUtility import check_data_menu
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
 
-def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
+def run():
+    # Obtain current date
+    current_date = datetime.date.today().strftime('%Y-%m-%d')
 
     top_level_directory = get_top_level_directory_path()
     main_config = cu.Config(top_level_directory + '/src/twitter_updates/TwitterUpdateConfig.dat')
     auth_config = cu.Config(top_level_directory + main_config.get_value('TwitterAuth'))
     
-    # Check if input date is valid
-    check_date(opt_date)
-    
     # Remove any old files from /res/raw_images
-    clean_directory = clean_dir(main_config.get_value('RawImages'))
-    
+    clean_dir(main_config.get_value('RawImages'))
+
     # Authenticate Twitter API session
     twitter_session = TwitterAPISession(auth_config)
-
-    # Query ID of the tweet to reply to
-    reply_tweet_id = twitter_session.query_tweet(
-        main_config.get_value('TwitterMINSA'),
-        main_config.get_value('TweetPattern'),
-        int(main_config.get_value('QueryTweets'))
-    )
-
-    # Query images from previously queried tweet
-    twitter_session.fetch_image(
-        top_level_directory + main_config.get_value('RawImages'),
-        main_config.get_value('TwitterMINSA'),
-        main_config.get_value('TweetPattern'),
-        int(main_config.get_value('QueryTweets'))
-    )
-
-    # Retrieve bulletin image path
-    bulletin_path = get_bulletin_image_path(top_level_directory + main_config.get_value('RawImages'))
-
-    #Get bulletin image dimensions
-    image_dimensions = get_bulletin_dimensions(bulletin_path)
-
-    # Crop bulletin into sectors and apply post-processing techniques to improve readability with OCR
-    if(image_dimensions[0] < 900 or image_dimensions[1] < 1100):
-        #left, up, right, down
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases'), (420, 365, 600, 420), grescale=True, invert=True, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawDeaths'), (420, 560, 560, 620), grescale=True, invert=True, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawTests'), (100, 600, 300, 660), grescale=True, invert=True, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawRecov'), (90, 360, 325, 445), grescale=True, invert=True, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawHospit'), (440, 485, 570, 570), grescale=True, invert=True, contrast=1.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases24'), (100, 110, 290, 200), grescale=True, invert=True, contrast=2.0)
-    else:
-        #left, up, right, down
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases'), (660, 590, 960, 670), grescale=True, invert=True, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawDeaths'), (650, 900, 900, 990), grescale=True, invert=True, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawTests'), (170, 930, 480, 1020), grescale=True, invert=True, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawRecov'), (170, 560, 520, 700), grescale=True, invert=False, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawHospit'), (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases24'), (150, 160, 530, 310), grescale=True, invert=True, contrast=2.0)
     
     # Store values read by OCR algorithm in a dictionary
     input_data = {\
-        'Date' : opt_date,
-        'Cases' : decode_image(top_level_directory + main_config.get_value('RawCases')),
-        'Deaths' : decode_image(top_level_directory + main_config.get_value('RawDeaths')),
-        'Tests' : decode_image(top_level_directory + main_config.get_value('RawTests')),
-        'Recovered' : decode_image(top_level_directory + main_config.get_value('RawRecov')),
-        'Hospitalized' : decode_image(top_level_directory + main_config.get_value('RawHospit')),
-        'Cases24H' : decode_image(top_level_directory + main_config.get_value('RawCases24'))
+        'Date' : current_date,
+        'Cases' : 0,
+        'Deaths' : 0,
+        'Tests' : 0,
+        'Recovered' : 0,
+        'Hospitalized' : 0,
+        'Cases24H' : 0
     }
 
     # Remove any old files from /res/raw_images
-    clean_directory = clean_dir(main_config.get_value('RawImages'))
+    clean_dir(main_config.get_value('RawImages'))
 
     # Open temporary command line to check if data is correct
     check_data_menu(input_data) 
     
     # Load simple Peru data set
-    PER_data = du.Table(top_level_directory + main_config.get_value('PeruSimpleData'))
+    PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'))
 
     # Agregate new data entry
     PER_data.append_entry(
@@ -131,7 +91,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     PER_data.save_as_csv(top_level_directory + main_config.get_value('PeruSimpleData'))
 
     # Create copy of simple Peru data set to perform extrapolation 
-    PER_full_data = copy.deepcopy(PER_data)
+    PER_full_data = du.Table('c', table=PER_data)
 
     # Compute new derived statistics
     PER_full_data.compute_add_column(['Casos'], compute_new_cases, 'NuevosCasos')
@@ -191,7 +151,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         ['Casos Confirmados (acumulado por dia)', 'Nuevos Casos Confirmados (por dia)', 'Nuevos Recuperados (por dia)', 'Hospitalizados (por dia)'],
         [PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:]],
         [PER_full_data.get_column('Casos')[-30:], PER_full_data.get_column('NuevosCasos')[-30:], PER_full_data.get_column('NuevosRecuperados')[-30:], PER_full_data.get_column('Hospitalizados')[-30:]],
-        opt_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
         top_level_directory + main_config.get_value('TwitterGraph1'),
         ravg_days=[7, 7, 7, 7],
         ravg_labels=['Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias'],
@@ -208,7 +168,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         ['Nuevos Fallecidos (por dia)', 'Tasa de Letalidad (acumulado por dia)', 'Nuevas Pruebas (por dia)', 'Positividad Diaria * 100% (PM+PR+AG)'],
         [PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:]],
         [PER_full_data.get_column('NuevosFallecidos')[-30:], PER_full_data.get_column('TasaLetalidad')[-30:], PER_full_data.get_column('NuevasPruebas')[-30:], PER_full_data.get_column('%PruebasPositivasDiarias')[-30:]],
-        opt_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
         top_level_directory + main_config.get_value('TwitterGraph2'),
         ravg_days=[7, 7, 7, 7],
         ravg_labels=['Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias'],
@@ -243,7 +203,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     export_tweets_to_file(top_level_directory + main_config.get_value('TweetExport'), [tweet1, tweet2])
     
     # Reply to @Minsa_Peru with tweet thread
-    twitter_session.reply_thread(reply_tweet_id, [tweet1, tweet2])
+    twitter_session.send_thread([tweet1, tweet2])
 
     # Update GitHub repository with new data    
     if(sys.platform == 'win32'):
