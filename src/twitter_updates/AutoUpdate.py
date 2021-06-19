@@ -41,7 +41,9 @@ from CommandLineUtility import check_data_menu
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
 
-def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
+def run():
+    # Obtain current date
+    current_date = datetime.date.today().strftime('%Y-%m-%d')
 
     top_level_directory = get_top_level_directory_path()
     main_config = cu.Config(top_level_directory + '/src/twitter_updates/TwitterUpdateConfig.dat')
@@ -94,7 +96,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     
     # Store values read by OCR algorithm in a dictionary
     input_data = {\
-        'Date' : opt_date,
+        'Date' : current_date,
         'Cases' : decode_image(top_level_directory + main_config.get_value('RawCases')),
         'Deaths' : decode_image(top_level_directory + main_config.get_value('RawDeaths')),
         'Tests' : decode_image(top_level_directory + main_config.get_value('RawTests')),
@@ -104,7 +106,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     }
 
     # Remove any old files from /res/raw_images
-    clean_directory = clean_dir(main_config.get_value('RawImages'))
+    clean_dir(main_config.get_value('RawImages'))
 
     # Open temporary command line to check if data is correct
     check_data_menu(input_data) 
@@ -188,7 +190,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         ['Casos Confirmados (acumulado por dia)', 'Nuevos Casos Confirmados (por dia)', 'Nuevos Recuperados (por dia)', 'Hospitalizados (por dia)'],
         [PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:]],
         [PER_full_data.get_column('Casos')[-30:], PER_full_data.get_column('NuevosCasos')[-30:], PER_full_data.get_column('NuevosRecuperados')[-30:], PER_full_data.get_column('Hospitalizados')[-30:]],
-        opt_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
         top_level_directory + main_config.get_value('TwitterGraph1'),
         ravg_days=[7, 7, 7, 7],
         ravg_labels=['Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias'],
@@ -205,7 +207,7 @@ def run(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
         ['Nuevos Fallecidos (por dia)', 'Tasa de Letalidad (acumulado por dia)', 'Nuevas Pruebas (por dia)', 'Positividad Diaria * 100% (PM+PR+AG)'],
         [PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:]],
         [PER_full_data.get_column('NuevosFallecidos')[-30:], PER_full_data.get_column('TasaLetalidad')[-30:], PER_full_data.get_column('NuevasPruebas')[-30:], PER_full_data.get_column('%PruebasPositivasDiarias')[-30:]],
-        opt_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
         top_level_directory + main_config.get_value('TwitterGraph2'),
         ravg_days=[7, 7, 7, 7],
         ravg_labels=['Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias'],
