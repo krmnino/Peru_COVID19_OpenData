@@ -56,14 +56,14 @@ def run():
     twitter_session = TwitterAPISession(auth_config)
 
     # Query ID of the tweet to reply to
-    reply_tweet_id = twitter_session.query_tweet(
+    reply_to_tweet = twitter_session.pattern_search_tweet(
         main_config.get_value('TwitterMINSA'),
         main_config.get_value('TweetPattern'),
         int(main_config.get_value('QueryTweets'))
     )
 
     # Query images from previously queried tweet
-    twitter_session.fetch_image(
+    twitter_session.pattern_search_image(
         top_level_directory + main_config.get_value('RawImages'),
         main_config.get_value('TwitterMINSA'),
         main_config.get_value('TweetPattern'),
@@ -242,7 +242,7 @@ def run():
     export_tweets_to_file(top_level_directory + main_config.get_value('TweetExport'), [tweet1, tweet2])
     
     # Reply to @Minsa_Peru with tweet thread
-    twitter_session.reply_thread(reply_tweet_id, [tweet1, tweet2])
+    twitter_session.reply_thread(reply_to_tweet.tweet_id, [tweet1, tweet2])
 
     # Update GitHub repository with new data    
     if(sys.platform == 'win32'):
