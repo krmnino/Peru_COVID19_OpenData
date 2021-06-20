@@ -12,10 +12,14 @@ import ConfigUtility as cu
 class Tweet:    
     def __init__(self):
         self.message = ''
+        self.tweet_id = ''
         self.image_paths = []
     
     def set_message(self, msg):
         self.message = msg
+
+    def set_id(self, id):
+        self.tweet_id = id
 
     def add_image(self, path):
         if(len(self.image_paths) >= 4):
@@ -33,40 +37,50 @@ class TwitterAPISession:
         except:
             sys.exit('Could not authenticate Twitter API session')
 
-    def query_tweet(self, twitter_user, search_pattern, query_limit):
+    def pattern_search_tweet(self, twitter_user, search_pattern, query_limit):
         found_tweet = False
-        query_counter = 1
-        tweet_identificator = ''
-        while(found_tweet == False and query_counter < query_limit):
-            print('[SEARCH] -> Quering tweets...')
-            tweets = self.api.user_timeline(screen_name=twitter_user, count=query_counter, include_rts=False, include_replies=False, tweet_mode='extended')
-            for tweet in tweets:
-                if('media' in tweet.entities and search_pattern in tweet.full_text):
-                    tweet_identificator = tweet.id
-                    found_tweet = True
-                    break
-            query_counter += 1
-        if(query_counter == 15):
-            sys.exit('Could not retrieve tweet')
-        return tweet_identificator
+        ret_tweet = Tweet()
+        print('[SEARCH] -> Quering ' + str(query_limit) + ' tweets..')
+        tweets = self.api.user_timeline(screen_name=twitter_user, count=query_limit, include_rts=False, include_replies=False, tweet_mode='extended')
+        for tweet in tweets:
+            if(search_pattern in tweet.full_text):
+                ret_tweet.message = tweet.full_text
+                ret_tweet.tweet_id = tweet.id
+                found_tweet = True
+                break
+        if(not found_tweet):
+            sys.exit('[SEARCH] -> Could not retrieve tweet')
+        print()
+        return ret_tweet
 
-    def fetch_image(self, path, twitter_user, search_pattern, query_limit):
+    def pattern_search_image(self, path, twitter_user, search_pattern, query_limit):
         found_tweet = False
-        query_counter = 1
-        image_url = ''
-        while(found_tweet == False and query_counter < query_limit):
-            print('[DOWNLOAD] -> Quering tweets...')
-            tweets = self.api.user_timeline(screen_name=twitter_user, count=query_counter, include_rts=False, include_replies=False, tweet_mode='extended')
-            for tweet in tweets:
-                if('media' in tweet.entities and search_pattern in tweet.full_text):
-                    for media in tweet.extended_entities['media']:
-                        image_url = media['media_url']
-                        found_tweet = True
-                    break
-            query_counter += 1
-        if(query_counter == 15):
-            sys.exit('Could not retrieve tweet')
-        wget.download(image_url, out=path)
+        image_urls = []
+        print('[FETCH] -> Quering ' + str(query_limit) + ' tweets..')
+        tweets = self.api.user_timeline(screen_name=twitter_user, count=query_limit, include_rts=False, include_replies=False, tweet_mode='extended')
+        for tweet in tweets:
+            if('media' in tweet.entities and search_pattern in tweet.full_text):
+                for media in tweet.extended_entities['media']:
+                    image_urls.append(media['media_url'])
+                found_tweet = True
+                break
+        if(not found_tweet):
+            sys.exit('[FETCH] -> Could not retrieve tweet')
+        for url in image_urls:
+            wget.download(url, out=path)
+        print()
+
+    def fetch_image_by_id(self, path, tweet):
+        print('[FETCH] -> Fetching tweet: ' + str(tweet.tweet_id))
+        tweet = self.api.get_status(tweet.tweet_id, tweet_mode='extended')
+        image_urls = []
+        try:
+            for media in tweet.extended_entities['media']:
+                image_urls.append(media['media_url'])
+        except:
+             sys.exit('Could not retrieve tweet')
+        for url in image_urls:
+            wget.download(url, out=path)
         print()
 
     def reply_thread(self, tweet_identificator, tweets):
