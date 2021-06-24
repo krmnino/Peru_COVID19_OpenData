@@ -63,12 +63,12 @@ def run():
     )
 
     # Retrieve a batch of n tweets from MINSA
-    ret_tweet_id = check_tweets_menu(query_tweets)
+    ret_tweet = check_tweets_menu(query_tweets)
 
     # Query images from previously queried tweet
     twitter_session.fetch_image_by_id(
         top_level_directory + main_config.get_value('RawImages'),
-        ret_tweet_id
+        ret_tweet
     )
 
     # Retrieve bulletin image path
