@@ -117,3 +117,14 @@ class TwitterAPISession:
             tweet_identificator = rply_tweets[0].id
             print('Sent tweet: ' + str(i + 1) + ' out of ' + str(len(tweets)))
             time.sleep(2)
+
+    def query_n_tweets(self, twitter_user, query_limit):
+        print('[SEARCH] -> Quering ' + str(query_limit) + ' tweets..')
+        tweets = self.api.user_timeline(screen_name=twitter_user, count=query_limit, include_rts=False, include_replies=False, tweet_mode='extended')
+        out = []
+        for tweet in tweets:
+            tmp = Tweet()
+            tmp.message = tweet.full_text
+            tmp.tweet_id = tweet.id
+            out.append(tmp)
+        return out
