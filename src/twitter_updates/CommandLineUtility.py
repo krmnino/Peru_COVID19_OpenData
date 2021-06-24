@@ -1,6 +1,6 @@
 import sys
 
-def print_table(data):
+def print_data_table(data):
     print('\n=====================================================')
     idx = 0
     for i in data:
@@ -10,7 +10,7 @@ def print_table(data):
 
 def check_data_menu(data):
     while(True):
-        print_table(data)
+        print_data_table(data)
         user = input('Edit numbers by entering index [0-6]. Proceed? [Y/N]: ')
         if(user == 'N' or user == 'n'):
             sys.exit('Discard readings. Exiting...')
@@ -37,3 +37,22 @@ def check_data_menu(data):
         else:
             print('Wrong input. Try Again.')
             continue
+
+def print_tweets_table(data):
+    print('\n=====================================================')
+    for i, val in enumerate(data):
+        print('%4s'%(i), '%20s'%(val.tweet_id), '%60s'%(val.message[0:57]) + '...')
+    print('=====================================================')
+
+def check_tweets_menu(data):
+    while(True):
+        print_tweets_table(data)
+        user = input('Select a tweet by entering index number. Enter [N] to cancel: ')
+        if(user == 'N' or user == 'n'):
+            sys.exit('Discard tweets. Exiting...')
+        try:
+            int(user)
+            break
+        except:
+            print('Error: input must be an integer or [N/n] to cancel.')
+    return data[int(user)]

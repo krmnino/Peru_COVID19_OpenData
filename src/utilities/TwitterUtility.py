@@ -127,6 +127,4 @@ class TwitterAPISession:
             tmp.message = tweet.full_text
             tmp.tweet_id = tweet.id
             out.append(tmp)
-        for i, tweet in enumerate(out):
-            print('%4s'%(i), '%20s'%(tweet.tweet_id), '%64s'%(tweet.message[:58] + '...'))
         return out
