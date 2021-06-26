@@ -38,6 +38,7 @@ from TwitterUpdate import export_tweets_to_file
 from TwitterUpdate import update_git_repo_win32
 from TwitterUpdate import update_git_repo_linux
 from CommandLineUtility import check_data_menu
+from CommandLineUtility import check_tweets_menu
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
 
@@ -51,19 +52,58 @@ def run():
     
     # Remove any old files from /res/raw_images
     clean_dir(main_config.get_value('RawImages'))
-
+    
     # Authenticate Twitter API session
     twitter_session = TwitterAPISession(auth_config)
+
+    # Query ID of the tweet to reply to
+    query_tweets = twitter_session.query_n_tweets(
+        main_config.get_value('TwitterMINSA'),
+        int(main_config.get_value('QueryTweets'))
+    )
+
+    # Retrieve a batch of n tweets from MINSA
+    ret_tweet = check_tweets_menu(query_tweets)
+
+    # Query images from previously queried tweet
+    twitter_session.fetch_image_by_id(
+        top_level_directory + main_config.get_value('RawImages'),
+        ret_tweet
+    )
+
+    # Retrieve bulletin image path
+    bulletin_path = get_bulletin_image_path(top_level_directory + main_config.get_value('RawImages'))
+
+    #Get bulletin image dimensions
+    image_dimensions = get_bulletin_dimensions(bulletin_path)
+
+    # Crop bulletin into sectors and apply post-processing techniques to improve readability with OCR
+    if(image_dimensions[0] < 900 or image_dimensions[1] < 1100):
+        #left, up, right, down
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases'), (420, 365, 600, 420), grescale=True, invert=True, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawDeaths'), (420, 560, 560, 620), grescale=True, invert=True, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawTests'), (100, 600, 300, 660), grescale=True, invert=True, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawRecov'), (90, 360, 325, 445), grescale=True, invert=True, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawHospit'), (440, 485, 570, 570), grescale=True, invert=True, contrast=1.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases24'), (100, 110, 290, 200), grescale=True, invert=True, contrast=2.0)
+    else:
+        #left, up, right, down
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases'), (660, 590, 960, 670), grescale=True, invert=True, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawDeaths'), (650, 900, 900, 990), grescale=True, invert=True, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawTests'), (170, 930, 480, 1020), grescale=True, invert=True, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawRecov'), (170, 560, 520, 700), grescale=True, invert=False, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawHospit'), (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases24'), (150, 160, 530, 310), grescale=True, invert=True, contrast=2.0)
     
     # Store values read by OCR algorithm in a dictionary
     input_data = {\
         'Date' : current_date,
-        'Cases' : 0,
-        'Deaths' : 0,
-        'Tests' : 0,
-        'Recovered' : 0,
-        'Hospitalized' : 0,
-        'Cases24H' : 0
+        'Cases' : decode_image(top_level_directory + main_config.get_value('RawCases')),
+        'Deaths' : decode_image(top_level_directory + main_config.get_value('RawDeaths')),
+        'Tests' : decode_image(top_level_directory + main_config.get_value('RawTests')),
+        'Recovered' : decode_image(top_level_directory + main_config.get_value('RawRecov')),
+        'Hospitalized' : decode_image(top_level_directory + main_config.get_value('RawHospit')),
+        'Cases24H' : decode_image(top_level_directory + main_config.get_value('RawCases24'))
     }
 
     # Remove any old files from /res/raw_images
@@ -203,7 +243,7 @@ def run():
     export_tweets_to_file(top_level_directory + main_config.get_value('TweetExport'), [tweet1, tweet2])
     
     # Reply to @Minsa_Peru with tweet thread
-    twitter_session.send_thread([tweet1, tweet2])
+    twitter_session.reply_thread(reply_to_tweet.tweet_id, [tweet1, tweet2])
 
     # Update GitHub repository with new data    
     if(sys.platform == 'win32'):
