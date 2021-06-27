@@ -46,7 +46,10 @@ def run():
     # Obtain current date
     current_date = datetime.date.today().strftime('%Y-%m-%d')
 
+    # Get top level directory
     top_level_directory = get_top_level_directory_path()
+    
+    # Load configuration files for program and Twitter authentication
     main_config = cu.Config(top_level_directory + '/src/twitter_updates/TwitterUpdateConfig.dat')
     auth_config = cu.Config(top_level_directory + main_config.get_value('TwitterAuth'))
     
