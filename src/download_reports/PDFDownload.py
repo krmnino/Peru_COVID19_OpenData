@@ -37,8 +37,9 @@ class PDF_Downloader:
         print('\nDownloading:', self.current_filename)
         try:
             wget.download(self.current_url, out=os.path.abspath(self.config.get_value('PDF_Path')) + '/' + self.current_filename)
-        except:
+        except Exception as e:
             print('Could not download PDF from url')
+            print(str(e))
             pass
 
     def append_name(self):
