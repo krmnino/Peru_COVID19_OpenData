@@ -38,6 +38,7 @@ from TwitterUpdate import export_tweets_to_file
 from TwitterUpdate import update_git_repo_win32
 from TwitterUpdate import update_git_repo_linux
 from CommandLineUtility import check_data_menu
+from CommandLineUtility import check_tweets_menu
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
 
@@ -47,7 +48,7 @@ def run():
 
     # Get top level directory
     top_level_directory = get_top_level_directory_path()
-
+    
     # Load configuration files for program and Twitter authentication
     main_config = cu.Config(top_level_directory + '/src/twitter_updates/TwitterUpdateConfig.dat')
     auth_config = cu.Config(top_level_directory + main_config.get_value('TwitterAuth'))
@@ -59,18 +60,18 @@ def run():
     twitter_session = TwitterAPISession(auth_config)
 
     # Query ID of the tweet to reply to
-    reply_to_tweet = twitter_session.pattern_search_tweet(
+    query_tweets = twitter_session.query_n_tweets(
         main_config.get_value('TwitterMINSA'),
-        main_config.get_value('TweetPattern'),
         int(main_config.get_value('QueryTweets'))
     )
 
+    # Retrieve a batch of n tweets from MINSA
+    ret_tweet = check_tweets_menu(query_tweets)
+
     # Query images from previously queried tweet
-    twitter_session.pattern_search_image(
+    twitter_session.fetch_image_by_id(
         top_level_directory + main_config.get_value('RawImages'),
-        main_config.get_value('TwitterMINSA'),
-        main_config.get_value('TweetPattern'),
-        int(main_config.get_value('QueryTweets'))
+        ret_tweet
     )
 
     # Retrieve bulletin image path
