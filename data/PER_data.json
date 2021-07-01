@@ -3870,5 +3870,21 @@
 		"Pruebas": 14146986,
 		"Recuperados": 2012397,
 		"Hospitalizados": 9202
+	},
+	{
+		"Fecha": "2021-06-30",
+		"Casos": 2052065,
+		"Fallecidos": 192331,
+		"Pruebas": 14146986,
+		"Recuperados": 2012397,
+		"Hospitalizados": 9202
+	},
+	{
+		"Fecha": "2021-07-01",
+		"Casos": 2057554,
+		"Fallecidos": 192687,
+		"Pruebas": 14224136,
+		"Recuperados": 2017664,
+		"Hospitalizados": 8889
 	}
 ]
