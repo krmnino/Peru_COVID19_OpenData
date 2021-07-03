@@ -3873,11 +3873,11 @@
 	},
 	{
 		"Fecha": "2021-06-30",
-		"Casos": 2052065,
-		"Fallecidos": 192331,
-		"Pruebas": 14146986,
-		"Recuperados": 2012397,
-		"Hospitalizados": 9202
+		"Casos": 2054475,
+		"Fallecidos": 192367,
+		"Pruebas": 14176553,
+		"Recuperados": 2014693,
+		"Hospitalizados": 8998
 	},
 	{
 		"Fecha": "2021-07-01",
@@ -3886,5 +3886,13 @@
 		"Pruebas": 14224136,
 		"Recuperados": 2017664,
 		"Hospitalizados": 8889
+	},
+	{
+		"Fecha": "2021-07-02",
+		"Casos": 2060344,
+		"Fallecidos": 192902,
+		"Pruebas": 14276475,
+		"Recuperados": 2021017,
+		"Hospitalizados": 8805
 	}
 ]
