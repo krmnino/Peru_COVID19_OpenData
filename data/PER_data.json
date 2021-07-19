@@ -4008,14 +4008,6 @@
 		"Hospitalizados": 7966
 	},
 	{
-<<<<<<< HEAD
-		"Fecha": "2021-07-19",
-		"Casos": 2094445,
-		"Fallecidos": 195243,
-		"Pruebas": 15032458,
-		"Recuperados": 2060255,
-		"Hospitalizados": 7982
-=======
 		"Fecha": "2021-07-17",
 		"Casos": 2092125,
 		"Fallecidos": 195047,
@@ -4030,6 +4022,13 @@
 		"Pruebas": 15011901,
 		"Recuperados": 2059102,
 		"Hospitalizados": 8000
->>>>>>> 653612b012838234e994bfe8bfb36bce81118749
+	},
+	{
+		"Fecha": "2021-07-19",
+		"Casos": 2094445,
+		"Fallecidos": 195243,
+		"Pruebas": 15032458,
+		"Recuperados": 2060255,
+		"Hospitalizados": 7982
 	}
 ]

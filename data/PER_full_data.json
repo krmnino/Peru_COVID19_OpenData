@@ -11523,29 +11523,6 @@
 		"%DifHospitalizados": -1.0175746924428823
 	},
 	{
-<<<<<<< HEAD
-		"Fecha": "2021-07-19",
-		"Dia": 501.0,
-		"Casos": 2094445,
-		"NuevosCasos": 4270.0,
-		"%DifCasos": 1.0020428911454782,
-		"CasosActivos": -161053.0,
-		"NuevosCasosActivos": -1536.0,
-		"Fallecidos": 195243,
-		"NuevosFallecidos": 308.0,
-		"%DifFallecidos": 1.0015800138507707,
-		"TasaLetalidad": 0.09321944476937805,
-		"Pruebas": 15032458,
-		"NuevasPruebas": 114668.0,
-		"%DifPruebas": 1.007686661362038,
-		"%PruebasPositivasDiarias": 0.03723793909373147,
-		"Recuperados": 2060255,
-		"NuevosRecuperados": 5498.0,
-		"%DifRecuperados": 1.0026757421923858,
-		"Hospitalizados": 7982,
-		"NuevosHospitalizados": 16.0,
-		"%DifHospitalizados": 1.0020085362791866
-=======
 		"Fecha": "2021-07-17",
 		"Dia": 501.0,
 		"Casos": 2092125,
@@ -11590,6 +11567,28 @@
 		"Hospitalizados": 8000,
 		"NuevosHospitalizados": 19.0,
 		"%DifHospitalizados": 1.0023806540533768
->>>>>>> 653612b012838234e994bfe8bfb36bce81118749
+	},
+	{
+		"Fecha": "2021-07-19",
+		"Dia": 503.0,
+		"Casos": 2094445,
+		"NuevosCasos": 691.0,
+		"%DifCasos": 1.0003300292202426,
+		"CasosActivos": -161053.0,
+		"NuevosCasosActivos": -559.0,
+		"Fallecidos": 195243,
+		"NuevosFallecidos": 97.0,
+		"%DifFallecidos": 1.0004970637368944,
+		"TasaLetalidad": 0.09321944476937805,
+		"Pruebas": 15032458,
+		"NuevasPruebas": 20557.0,
+		"%DifPruebas": 1.0013693802004155,
+		"%PruebasPositivasDiarias": 0.033613854161599455,
+		"Recuperados": 2060255,
+		"NuevosRecuperados": 1153.0,
+		"%DifRecuperados": 1.000559952833808,
+		"Hospitalizados": 7982,
+		"NuevosHospitalizados": -18.0,
+		"%DifHospitalizados": -1.0022550739163116
 	}
 ]
