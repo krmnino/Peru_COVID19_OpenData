@@ -11544,8 +11544,6 @@
 		"Hospitalizados": 7981,
 		"NuevosHospitalizados": 15.0,
 		"%DifHospitalizados": 1.0018830027617374
-<<<<<<< HEAD
-=======
 	},
 	{
 		"Fecha": "2021-07-18",
@@ -11569,6 +11567,5 @@
 		"Hospitalizados": 8000,
 		"NuevosHospitalizados": 19.0,
 		"%DifHospitalizados": 1.0023806540533768
->>>>>>> master
 	}
 ]

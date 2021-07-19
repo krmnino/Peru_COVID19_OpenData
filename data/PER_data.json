@@ -4014,8 +4014,6 @@
 		"Pruebas": 14967701,
 		"Recuperados": 2056952,
 		"Hospitalizados": 7981
-<<<<<<< HEAD
-=======
 	},
 	{
 		"Fecha": "2021-07-18",
@@ -4024,6 +4022,5 @@
 		"Pruebas": 15011901,
 		"Recuperados": 2059102,
 		"Hospitalizados": 8000
->>>>>>> master
 	}
 ]
