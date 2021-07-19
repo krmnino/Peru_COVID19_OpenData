@@ -1,4 +1,5 @@
 ANALISIS del reporte del @Minsa_Peru (1/2)
+<<<<<<< HEAD
 🟡 Casos: 2094445 (+4270)
 -> (ultimos 7 dias: +4037) + (utlimas 24-horas: +233)
 🟠 Recuperados: 2060255 (+5498)
@@ -8,4 +9,15 @@ ANALISIS del reporte del @Minsa_Peru (2/2)
 🔴 Tasa Letalidad: 9.3219% (-0.0043%)
 🟢 Pruebas (PM+PR+AG): 15032458 (+114668)
 🟢 Positividad Diaria: 3.724% (-0.451%)
+=======
+🟢 Casos: 2093754 (+1629)
+-> (ultimos 7 dias: +798) + (utlimas 24-horas: +831)
+🔴 Recuperados: 2059102 (+2150)
+🟡 Hospitalizados: 8000 (+19)
+ANALISIS del reporte del @Minsa_Peru (2/2)
+🟢 Fallecimientos: 195146 (+99)
+🔴 Tasa Letalidad: 9.3204% (-0.0025%)
+🟠 Pruebas (PM+PR+AG): 15011901 (+44200)
+🟢 Positividad Diaria: 3.686% (-0.221%)
+>>>>>>> 653612b012838234e994bfe8bfb36bce81118749
 🌎 Descarga de datos historicos: peru-covid19.com
