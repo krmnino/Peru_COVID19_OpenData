@@ -3,7 +3,7 @@ library("tabulizer")
 setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf")
 report_path <- "D:/temporary/DGE-MINSA_Reports/June_2021/coronavirus010621.pdf"
 PDF_pages_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.dat"
-PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/res/PDFAreas.csv"
+PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv"
 
 tables = 10
 areas <- data.frame(name=rep("",tables),
