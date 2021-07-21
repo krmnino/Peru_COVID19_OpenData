@@ -2,10 +2,29 @@ library("tabulizer")
 
 setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf")
 report_path <- "D:/temporary/DGE-MINSA_Reports/June_2021/coronavirus010621.pdf"
+PDF_pages_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.dat"
 
 tables = 10
-areas <- data.frame(top=rep(-1,10), left=rep(-1,10), bottom=rep(-1,10), right=rep(-1,10))
+areas <- data.frame(top=rep(-1,10),
+                    left=rep(-1,10),
+                    bottom=rep(-1,10),
+                    right=rep(-1,10),
+                    pages=rep(1,10))
 area_col_names = c("top", "left", "bottom", "right") 
+
+pdf_file <- file(PDF_pages_dict, "r")
+
+while(TRUE){
+  line = readLines(pdf_file, n=1)
+  if(length(line) == 0){
+    break
+  }
+  line_split = strsplit(line, '=')
+  print(line_split)
+}
+
+close(pdf_file)
+
 i <- 1
 
 # Pruebas acumuladas por departamento
