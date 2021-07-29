@@ -171,7 +171,7 @@ areas[i,4] <- vec_area_muertes_distr_2[3]
 areas[i,5] <- vec_area_muertes_distr_2[4]
 i <- i + 1
 
-write.table(areas, PDF_areas_out, sep = ",", row.names=FALSE)
+write.table(areas, PDF_areas_out, sep = ",", row.names=FALSE, quote=FALSE)
 
 
 
