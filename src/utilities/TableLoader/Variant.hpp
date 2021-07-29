@@ -27,6 +27,7 @@ public:
 	~Variant();
 
 	int get_type();
+	void* get_data();
 
 	Variant& operator= (int);
 	Variant& operator= (double);

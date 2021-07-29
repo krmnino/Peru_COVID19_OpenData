@@ -1199,3 +1199,23 @@ int Variant::get_type() {
 	return this->type;
 }
 
+void* Variant::get_data() {
+	switch (this->type) {
+	case INTEGER:
+		return (void*)&this->int_data;
+	case DOUBLE:
+		return (void*)&this->double_data;
+		break;
+	case STRING:
+		return (void*)this->string_data;
+		break;
+	case BOOLEAN:
+		return (void*)&this->bool_data;
+	case CHARACTER:
+		return (void*)&this->char_data;
+	default:
+		break;
+	}
+	return nullptr;
+}
+

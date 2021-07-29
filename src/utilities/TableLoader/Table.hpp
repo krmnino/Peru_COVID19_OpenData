@@ -13,14 +13,15 @@ class Table {
 private:
 	int rows;
 	int columns;
+	char delimiter;
 	std::string filename;
 	std::vector<std::string> header_index;
-	std::map<std::string, std::vector<Variant>> contents2;
+	std::map<std::string, std::vector<Variant>> contents;
 
-	void process_raw_row(std::vector<std::string>&, std::string&);
+	void process_raw_row(std::vector<std::string>&, std::string&, char);
 	int check_data_type(std::string&);
 public:
-	Table(std::string);
+	Table(std::string, char delim = ',');
 	Table();
 	~Table();
 	int get_rows();
@@ -31,6 +32,7 @@ public:
 	std::vector<Variant> get_end_row();
 	Variant get_cell_data(std::string, int);
 	void set_filename(std::string);
+	void set_delimiter(char);
 	void append_begin_row(std::vector<Variant>);
 	void append_end_row(std::vector<Variant>);
 	void update_cell_data(std::string, int, Variant);
