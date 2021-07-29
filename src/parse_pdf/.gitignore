@@ -1,5 +1,7 @@
 .Rhistory
 *.exe
 /RawTableProcessing/.vs
+/RawTableProcessing/x64
 /RawTableProcessing/Debug
+/RawTableProcessing/RawTableProcessing/x64
 /RawTableProcessing/RawTableProcessing/Debug
