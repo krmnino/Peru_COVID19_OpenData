@@ -1,4 +1,5 @@
 .Rhistory
+.RData
 *.exe
 /RawTableProcessing/.vs
 /RawTableProcessing/x64
