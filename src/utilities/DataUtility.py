@@ -52,6 +52,15 @@ class Table:
     def get_column(self, field):
         return self.contents[field]
 
+    def get_entry(self, entry_n):
+        out = {}
+        if(entry_n >= self.rows):
+            return out
+        for i in self.contents:
+            out[i] = self.contents[i][entry_n]
+        return out
+
+
     def get_latest_entry(self):
         out = {}
         for i in self.contents:
