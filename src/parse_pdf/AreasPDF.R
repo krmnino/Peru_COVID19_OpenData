@@ -1,9 +1,10 @@
 library("tabulizer")
 
-setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf")
 report_path <- "D:/temporary/DGE-MINSA_Reports/June_2021/coronavirus010621.pdf"
+
 PDF_pages_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.dat"
 table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableFileNames.dat"
+
 PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv"
 
 tables = 10
@@ -189,6 +190,3 @@ areas[i,5] <- vec_area_muertes_distr_2[4]
 i <- i + 1
 
 write.table(areas, PDF_areas_out, sep = ",", row.names=FALSE, quote=FALSE)
-
-
-
