@@ -67,6 +67,10 @@ void Table::process_raw_row(std::vector<std::string>& processed, std::string& ro
 			processed.push_back(row.substr(base, i + 1 - base));
 			base = i + 1;
 		}
+		if (row.at(i) == delimiter && i == row.length() - 1) {
+			processed.push_back("0");
+			break;
+		}
 	}
 }
 
