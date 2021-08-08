@@ -3,6 +3,7 @@ library("tabulizer")
 setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf")
 report_path <- "D:/temporary/DGE-MINSA_Reports/June_2021/coronavirus010621.pdf"
 PDF_pages_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.dat"
+table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableFileNames.dat"
 PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv"
 
 tables = 10
@@ -11,13 +12,14 @@ areas <- data.frame(name=rep("",tables),
                     left=rep(-1,tables),
                     bottom=rep(-1,tables),
                     right=rep(-1,tables),
-                    pages=rep(1,tables))
+                    pages=rep(1,tables),
+                    fnames=rep(1,tables))
 
-pdf_file <- file(PDF_pages_dict, "r")
+pdf_table_pages <- file(PDF_pages_dict, "r")
 pg_c <- 1
 
 while(TRUE){
-  line = readLines(pdf_file, n=1)
+  line = readLines(pdf_table_pages, n=1)
   if(length(line) == 0){
     break
   }
@@ -27,7 +29,22 @@ while(TRUE){
   pg_c <- pg_c + 1
 }
 
-close(pdf_file)
+close(pdf_table_pages)
+
+table_fnames <- file(table_fnames_dict, "r")
+tb_c <- 1
+
+while(TRUE){
+  line = readLines(table_fnames, n=1)
+  if(length(line) == 0){
+    break
+  }
+  line_split = strsplit(line, '=')
+  areas[tb_c,7] = line_split[[1]][2]
+  tb_c <- tb_c + 1
+}
+
+close(table_fnames)
 
 i <- 1
 
