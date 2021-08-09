@@ -123,13 +123,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\utilities\ConfigLoader\ConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\utilities\ConfigLoader\Value.cpp" />
+    <ClCompile Include="..\..\..\utilities\DataVariant\Variant.cpp" />
     <ClCompile Include="..\..\..\utilities\TableLoader\Table.cpp" />
-    <ClCompile Include="..\..\..\utilities\TableLoader\Variant.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\utilities\ConfigLoader\ConfigLoader.hpp" />
+    <ClInclude Include="..\..\..\utilities\ConfigLoader\Value.hpp" />
+    <ClInclude Include="..\..\..\utilities\DataVariant\Variant.hpp" />
     <ClInclude Include="..\..\..\utilities\TableLoader\Table.hpp" />
-    <ClInclude Include="..\..\..\utilities\TableLoader\Variant.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

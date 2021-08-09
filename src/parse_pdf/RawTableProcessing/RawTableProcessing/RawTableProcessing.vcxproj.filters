@@ -18,10 +18,16 @@
     <ClCompile Include="..\..\..\utilities\TableLoader\Table.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\utilities\TableLoader\Variant.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="..\..\..\utilities\DataVariant\Variant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\utilities\ConfigLoader\ConfigLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\utilities\ConfigLoader\Value.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +35,13 @@
     <ClInclude Include="..\..\..\utilities\TableLoader\Table.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\utilities\TableLoader\Variant.hpp">
+    <ClInclude Include="..\..\..\utilities\DataVariant\Variant.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\utilities\ConfigLoader\ConfigLoader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\utilities\ConfigLoader\Value.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -86,15 +86,17 @@ int Table::check_data_type(std::string& data) {
 	bool decimal_point = false;
 	bool string_type = true;
 	while (it != data.end()) {
-		if (*it == '.' && decimal_point) {
-			// If decimal point appears more than once, then it is string type
-			return 0;
-		}
-		if (*it == '.') {
+		if (*it == '.' && !decimal_point) {
 			// If decimal point appears for the first time, then it may be a double
 			decimal_point = true;
+			it++;
+			continue;
 		}
-		if (0 > *it || *it > 255) {
+		else if (*it == '.' && decimal_point) {
+			// Otherwise cannot be a double, it is a string
+			return 0;
+		}
+		if (0 > * it || *it > 255) {
 			// If char val is outside the ASCII range, then it is a string
 			return 0;
 		}
