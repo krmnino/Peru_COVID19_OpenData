@@ -15,7 +15,7 @@ class PDF_Downloader:
         self.current_date = self.start_date
         self.current_url = ''
         self.current_filename = ''
-        self.config = cu.Config('./PDFDownload.dat')
+        self.config = cu.Config('./PDFDownload.cl')
         self.out_filenames = []
 
     def generate_filename(self):
