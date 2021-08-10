@@ -127,16 +127,73 @@ int main() {
 	// Process CasosAcumuDistrito2020P1.csv
 	// Process CasosAcumuDistrito2020P2.csv
 
+	{
+		std::vector<Variant> table_config_p1 = areas_config->get_value("CasosAcumuDistrito2020P1")->get_list_data();
+		std::vector<Variant> table_config_p2 = areas_config->get_value("CasosAcumuDistrito2020P2")->get_list_data();
+		Table* raw_table_p1 = new Table(raw_tables_dir + *(std::string*)table_config_p1[5].get_data(), ';');
+		Table* raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
+		std::vector<Variant> table_col_config_p1 = config->get_value("CasosAcumuDistrito2020P1_Hdr")->get_list_data();
+		std::vector<Variant> table_col_config_p2 = config->get_value("CasosAcumuDistrito2020P2_Hdr")->get_list_data();
+		// Clean up incoming data and convert strings to numbers
+		for (int i = 1; i < table_col_config_p1.size(); i++) {
+			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
+			raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
+		}
+		for (int i = 1; i < table_col_config_p2.size(); i++) {
+			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p2[i].get_data() };
+			raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
+		}
 
+		delete raw_table_p1;
+		delete raw_table_p2;
+	}
 
 	// Process CasosAcumuDistrito2021P1.csv
 	// Process CasosAcumuDistrito2021P2.csv
+	{
+		std::vector<Variant> table_config_p1 = areas_config->get_value("CasosAcumuDistrito2021P1")->get_list_data();
+		std::vector<Variant> table_config_p2 = areas_config->get_value("CasosAcumuDistrito2021P2")->get_list_data();
+		Table* raw_table_p1 = new Table(raw_tables_dir + *(std::string*)table_config_p1[5].get_data(), ';');
+		Table* raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
+		std::vector<Variant> table_col_config_p1 = config->get_value("CasosAcumuDistrito2021P1_Hdr")->get_list_data();
+		std::vector<Variant> table_col_config_p2 = config->get_value("CasosAcumuDistrito2021P2_Hdr")->get_list_data();
+		// Clean up incoming data and convert strings to numbers
+		for (int i = 1; i < table_col_config_p1.size(); i++) {
+			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
+			raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
+		}
+		for (int i = 1; i < table_col_config_p2.size(); i++) {
+			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p2[i].get_data() };
+			raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
+		}
 
-
+		delete raw_table_p1;
+		delete raw_table_p2;
+	}
 
 	// Process MuertesAcumulaDistritoP1.csv
 	// Process MuertesAcumulaDistritoP2.csv
 
+	{
+		std::vector<Variant> table_config_p1 = areas_config->get_value("MuertesAcumulaDistritoP1")->get_list_data();
+		std::vector<Variant> table_config_p2 = areas_config->get_value("MuertesAcumulaDistritoP1")->get_list_data();
+		Table* raw_table_p1 = new Table(raw_tables_dir + *(std::string*)table_config_p1[5].get_data(), ';');
+		Table* raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
+		std::vector<Variant> table_col_config_p1 = config->get_value("MuertesAcumulaDistritoP1_Hdr")->get_list_data();
+		std::vector<Variant> table_col_config_p2 = config->get_value("MuertesAcumulaDistritoP1_Hdr")->get_list_data();
+		// Clean up incoming data and convert strings to numbers
+		for (int i = 1; i < table_col_config_p1.size(); i++) {
+			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
+			raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
+		}
+		for (int i = 1; i < table_col_config_p2.size(); i++) {
+			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p2[i].get_data() };
+			raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
+		}
+
+		delete raw_table_p1;
+		delete raw_table_p2;
+	}
 
 	return 0;
 }
