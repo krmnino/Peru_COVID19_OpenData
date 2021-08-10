@@ -1,0 +1,14 @@
+ParsePDFDir = C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf;
+RawTablesDir = C:/Users/kurt_/github/Peru_COVID19_Stats/res/raw_tables;
+PDFAreasCSV = PDFAreas.csv;
+PDFAreasCL = PDFAreas.cl;
+PruebasAcumuladasDepto_Hdr = [Depto, PCR, PR, AG, Total];
+CasosAcumuladosDepto_Hdr = [Depto, PCR, PR, AG, Total];
+CasosPositivosEdades_Hdr = [Grupo, Total, Tasa_Ataque, Razon_Tasas];
+MuertesAcumuladasDepto_Hdr = [Depto, Muertes_Total, Muertes_Dia];
+CasosAcumuDistrito2020P1_Hdr = [Distrito, Casos_Totales, Porcentaje, Tasa_Ataque];
+CasosAcumuDistrito2020P2_Hdr = [Distrito, Casos_Totales, Porcentaje, Tasa_Ataque];
+CasosAcumuDistrito2021P1_Hdr = [Distrito, Casos_Totales, Porcentaje, Tasa_Ataque];
+CasosAcumuDistrito2021P2_Hdr = [Distrito, Casos_Totales, Porcentaje, Tasa_Ataque];
+MuertesAcumulaDistritoP1_Hdr = [Distrito, Defunciones, Tasa_Mortalidad];
+MuertesAcumulaDistritoP2_Hdr = [Distrito, Defunciones, Tasa_Mortalidad];
