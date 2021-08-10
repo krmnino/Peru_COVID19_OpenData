@@ -26,7 +26,7 @@ while(TRUE){
   }
   line_split = strsplit(line, '=')
   areas[pg_c,1] = line_split[[1]][1]
-  areas[pg_c,6] = line_split[[1]][2]
+  areas[pg_c,6] = substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1)
   pg_c <- pg_c + 1
 }
 
@@ -41,7 +41,7 @@ while(TRUE){
     break
   }
   line_split = strsplit(line, '=')
-  areas[tb_c,7] = line_split[[1]][2]
+  areas[tb_c,7] = substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1)
   tb_c <- tb_c + 1
 }
 
