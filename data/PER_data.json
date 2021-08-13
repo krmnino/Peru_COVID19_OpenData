@@ -4214,5 +4214,13 @@
 		"Pruebas": 15948211,
 		"Recuperados": 2096259,
 		"Hospitalizados": 4624
+	},
+	{
+		"Fecha": "2021-08-12",
+		"Casos": 2130018,
+		"Fallecidos": 197209,
+		"Pruebas": 15996274,
+		"Recuperados": 2097895,
+		"Hospitalizados": 4525
 	}
 ]
