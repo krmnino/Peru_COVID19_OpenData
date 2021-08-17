@@ -49,7 +49,7 @@ def run():
     top_level_directory = get_top_level_directory_path()
 
     # Load configuration files for program and Twitter authentication
-    main_config = cu.Config(top_level_directory + '/src/twitter_updates/TwitterUpdateConfig.dat')
+    main_config = cu.Config(top_level_directory + '/src/twitter_updates/TwitterUpdateConfig.cl')
     auth_config = cu.Config(top_level_directory + main_config.get_value('TwitterAuth'))
     
     # Remove any old files from /res/raw_images
