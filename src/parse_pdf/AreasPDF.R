@@ -1,6 +1,7 @@
 library("tabulizer")
 
 report_path <- "D:/temporary/DGE-MINSA_Reports/June_2021/coronavirus010621.pdf"
+PDF_table_pages <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.dat"
 
 PDF_pages_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.dat"
 table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableFileNames.dat"
@@ -8,6 +9,7 @@ table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/Raw
 PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv"
 
 tables = 10
+<<<<<<< Updated upstream
 areas <- data.frame(name=rep("",tables),
                     top=rep(-1,tables),
                     left=rep(-1,tables),
@@ -47,7 +49,40 @@ while(TRUE){
 
 close(table_fnames)
 
+=======
+areas <- data.frame(top=rep(-1,10),
+                    left=rep(-1,10),
+                    bottom=rep(-1,10),
+                    right=rep(-1,10),
+                    pages=rep(1,10))
+pages <- list()
+
+area_col_names = c("top", "left", "bottom", "right") 
+>>>>>>> Stashed changes
 i <- 1
+
+strtest = "CasosPositivosEdades=14=test=string"
+ret = strsplit(strtest, split='=')
+print(ret[1,1])
+print(typeof(ret))
+
+
+table_pages = file(PDF_table_pages, "r")
+line = ""
+idx <- 1
+while(TRUE){
+  line = readLines(table_pages, n=1)
+  if(length(line) == 0){
+    break
+  }
+  #line = strsplit(line, "=")
+  #areas[idx,5] <- line[1]
+  line = strsplit(line, split='=')
+  print(line[1])
+  #pages.append(line[1]=line[2])
+  idx <- idx + 1
+}
+close(table_pages)
 
 # Pruebas acumuladas por departamento
 sprintf("%d -> Pruebas acumuladas por departamento", i)
@@ -189,4 +224,12 @@ areas[i,4] <- vec_area_muertes_distr_2[3]
 areas[i,5] <- vec_area_muertes_distr_2[4]
 i <- i + 1
 
+<<<<<<< Updated upstream
 write.table(areas, PDF_areas_out, sep = ",", row.names=FALSE, quote=FALSE)
+=======
+setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/res")
+write.table(areas, "PDFAreas.csv", sep = ",", row.names=FALSE, col.names=area_col_names)
+setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf")
+
+
+>>>>>>> Stashed changes
