@@ -1,14 +1,8 @@
 library("tabulizer")
 
-<<<<<<< Updated upstream
 pdf_areas_path <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv" 
 report_path <- "D:/temporary/DGE-MINSA_Reports/June_2021/coronavirus010621.pdf"
 output_abs_path <- "C:/Users/kurt_/github/Peru_COVID19_Stats/res/raw_tables/"
-=======
-setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf")
-report_path <- "D:/temporary/reports/May_2021/coronavirus010521.pdf"
-output_path <- "D:/temporary/output.csv"
->>>>>>> Stashed changes
 
 # Load csv file with PDF areas to be scanned
 pdf_areas <- read.csv(pdf_areas_path)

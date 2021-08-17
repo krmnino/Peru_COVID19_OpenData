@@ -9,7 +9,6 @@ table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/Raw
 PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv"
 
 tables = 10
-<<<<<<< Updated upstream
 areas <- data.frame(name=rep("",tables),
                     top=rep(-1,tables),
                     left=rep(-1,tables),
@@ -49,16 +48,6 @@ while(TRUE){
 
 close(table_fnames)
 
-=======
-areas <- data.frame(top=rep(-1,10),
-                    left=rep(-1,10),
-                    bottom=rep(-1,10),
-                    right=rep(-1,10),
-                    pages=rep(1,10))
-pages <- list()
-
-area_col_names = c("top", "left", "bottom", "right") 
->>>>>>> Stashed changes
 i <- 1
 
 strtest = "CasosPositivosEdades=14=test=string"
