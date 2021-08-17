@@ -3,8 +3,10 @@ library("tabulizer")
 report_path <- "D:/temporary/DGE-MINSA_Reports/June_2021/coronavirus010621.pdf"
 PDF_table_pages <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.dat"
 
-PDF_pages_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.dat"
-table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableFileNames.dat"
+PDF_pages_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.cl"
+table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableFileNames.cl"
+table_rows_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableNumRows.cl"
+PDF_pages_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.cl"
 
 PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv"
 
@@ -17,11 +19,13 @@ areas <- data.frame(name=rep("",tables),
                     pages=rep(1,tables),
                     fnames=rep(1,tables))
 
-pdf_table_pages <- file(PDF_pages_dict, "r")
+################################################################################
+
+PDF_table_num_pages <- file(PDF_pages_num_dict, "r")
 pg_c <- 1
 
 while(TRUE){
-  line = readLines(pdf_table_pages, n=1)
+  line = readLines(PDF_table_num_pages, n=1)
   if(length(line) == 0){
     break
   }
@@ -31,7 +35,9 @@ while(TRUE){
   pg_c <- pg_c + 1
 }
 
-close(pdf_table_pages)
+close(PDF_table_num_pages)
+
+################################################################################
 
 table_fnames <- file(table_fnames_dict, "r")
 tb_c <- 1
@@ -47,6 +53,25 @@ while(TRUE){
 }
 
 close(table_fnames)
+
+################################################################################
+
+table_rows_num <- file(table_rows_num_dict, "r")
+tr_c <- 1
+
+while(TRUE){
+  line = readLines(table_rows_num, n=1)
+  if(length(line) == 0){
+    break
+  }
+  line_split = strsplit(line, '=')
+  areas[tr_c,8] = substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1)
+  tr_c <- tr_c + 1
+}
+
+close(table_rows_num)
+
+################################################################################
 
 i <- 1
 
@@ -213,12 +238,4 @@ areas[i,4] <- vec_area_muertes_distr_2[3]
 areas[i,5] <- vec_area_muertes_distr_2[4]
 i <- i + 1
 
-<<<<<<< Updated upstream
 write.table(areas, PDF_areas_out, sep = ",", row.names=FALSE, quote=FALSE)
-=======
-setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/res")
-write.table(areas, "PDFAreas.csv", sep = ",", row.names=FALSE, col.names=area_col_names)
-setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf")
-
-
->>>>>>> Stashed changes
