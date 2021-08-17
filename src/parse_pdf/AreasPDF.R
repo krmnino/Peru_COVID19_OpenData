@@ -6,7 +6,6 @@ PDF_table_pages <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTa
 PDF_pages_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.cl"
 table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableFileNames.cl"
 table_rows_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableNumRows.cl"
-PDF_pages_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.cl"
 
 PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv"
 
@@ -74,6 +73,29 @@ close(table_rows_num)
 ################################################################################
 
 i <- 1
+
+strtest = "CasosPositivosEdades=14=test=string"
+ret = strsplit(strtest, split='=')
+print(ret[1,1])
+print(typeof(ret))
+
+
+table_pages = file(PDF_table_pages, "r")
+line = ""
+idx <- 1
+while(TRUE){
+  line = readLines(table_pages, n=1)
+  if(length(line) == 0){
+    break
+  }
+  #line = strsplit(line, "=")
+  #areas[idx,5] <- line[1]
+  line = strsplit(line, split='=')
+  print(line[1])
+  #pages.append(line[1]=line[2])
+  idx <- idx + 1
+}
+close(table_pages)
 
 # Pruebas acumuladas por departamento
 sprintf("%d -> Pruebas acumuladas por departamento", i)
@@ -215,4 +237,12 @@ areas[i,4] <- vec_area_muertes_distr_2[3]
 areas[i,5] <- vec_area_muertes_distr_2[4]
 i <- i + 1
 
+<<<<<<< Updated upstream
 write.table(areas, PDF_areas_out, sep = ",", row.names=FALSE, quote=FALSE)
+=======
+setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/res")
+write.table(areas, "PDFAreas.csv", sep = ",", row.names=FALSE, col.names=area_col_names)
+setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf")
+
+
+>>>>>>> Stashed changes
