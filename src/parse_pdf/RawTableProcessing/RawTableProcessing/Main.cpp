@@ -74,6 +74,14 @@ int main() {
 		std::vector<Variant> table_config = areas_config->get_value("PruebasAcumuladasDepto")->get_list_data();
 		Table* raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
 		std::vector<Variant> table_col_config = config->get_value("PruebasAcumuladasDepto_Hdr")->get_list_data();
+		if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
+			std::cout << "PruebasAcumuladasDepto.csv -> Table rows "
+				      << raw_table->get_rows() 
+				      << " do not match the expected number of rows " 
+				      << *(int*)table_config[6].get_data() 
+				      << std::endl;
+			return -1;
+		}
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
@@ -89,6 +97,14 @@ int main() {
 		std::vector<Variant> table_config = areas_config->get_value("CasosAcumuladosDepto")->get_list_data();
 		Table* raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
 		std::vector<Variant> table_col_config = config->get_value("CasosAcumuladosDepto_Hdr")->get_list_data();
+		if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
+			std::cout << "CasosAcumuladosDepto.csv -> Table rows "
+				<< raw_table->get_rows()
+				<< " do not match the expected number of rows "
+				<< *(int*)table_config[6].get_data()
+				<< std::endl;
+			return -1;
+		}
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
@@ -103,6 +119,14 @@ int main() {
 		std::vector<Variant> table_config = areas_config->get_value("CasosPositivosEdades")->get_list_data();
 		Table* raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
 		std::vector<Variant> table_col_config = config->get_value("CasosPositivosEdades_Hdr")->get_list_data();
+		if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
+			std::cout << "CasosPositivosEdades.csv -> Table rows "
+				<< raw_table->get_rows()
+				<< " do not match the expected number of rows "
+				<< *(int*)table_config[6].get_data()
+				<< std::endl;
+			return -1;
+		}
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
@@ -116,6 +140,14 @@ int main() {
 		std::vector<Variant> table_config = areas_config->get_value("MuertesAcumuladasDepto")->get_list_data();
 		Table* raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
 		std::vector<Variant> table_col_config = config->get_value("MuertesAcumuladasDepto_Hdr")->get_list_data();
+		if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
+			std::cout << "MuertesAcumuladasDepto.csv -> Table rows "
+				<< raw_table->get_rows()
+				<< " do not match the expected number of rows "
+				<< *(int*)table_config[6].get_data()
+				<< std::endl;
+			return -1;
+		}
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
@@ -134,6 +166,22 @@ int main() {
 		Table* raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
 		std::vector<Variant> table_col_config_p1 = config->get_value("CasosAcumuDistrito2020P1_Hdr")->get_list_data();
 		std::vector<Variant> table_col_config_p2 = config->get_value("CasosAcumuDistrito2020P2_Hdr")->get_list_data();
+		if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
+			std::cout << "CasosAcumuDistrito2020P1.csv -> Table rows "
+				<< raw_table_p1->get_rows()
+				<< " do not match the expected number of rows "
+				<< *(int*)table_config_p1[6].get_data()
+				<< std::endl;
+			return -1;
+		}
+		if (raw_table_p2->get_rows() != *(int*)table_config_p2[6].get_data()) {
+			std::cout << "CasosAcumuDistrito2020P2.csv -> Table rows "
+				<< raw_table_p2->get_rows()
+				<< " do not match the expected number of rows "
+				<< *(int*)table_config_p2[6].get_data()
+				<< std::endl;
+			return -1;
+		}
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config_p1.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
@@ -157,6 +205,22 @@ int main() {
 		Table* raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
 		std::vector<Variant> table_col_config_p1 = config->get_value("CasosAcumuDistrito2021P1_Hdr")->get_list_data();
 		std::vector<Variant> table_col_config_p2 = config->get_value("CasosAcumuDistrito2021P2_Hdr")->get_list_data();
+		if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
+			std::cout << "CasosAcumuDistrito2021P1.csv -> Table rows "
+				<< raw_table_p1->get_rows()
+				<< " do not match the expected number of rows "
+				<< *(int*)table_config_p1[6].get_data()
+				<< std::endl;
+			return -1;
+		}
+		if (raw_table_p2->get_rows() != *(int*)table_config_p2[6].get_data()) {
+			std::cout << "CasosAcumuDistrito2021P2.csv -> Table rows "
+				<< raw_table_p2->get_rows()
+				<< " do not match the expected number of rows "
+				<< *(int*)table_config_p2[6].get_data()
+				<< std::endl;
+			return -1;
+		}
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config_p1.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
@@ -181,6 +245,22 @@ int main() {
 		Table* raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
 		std::vector<Variant> table_col_config_p1 = config->get_value("MuertesAcumulaDistritoP1_Hdr")->get_list_data();
 		std::vector<Variant> table_col_config_p2 = config->get_value("MuertesAcumulaDistritoP1_Hdr")->get_list_data();
+		if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
+			std::cout << "MuertesAcumulaDistritoP1.csv -> Table rows "
+				<< raw_table_p1->get_rows()
+				<< " do not match the expected number of rows "
+				<< *(int*)table_config_p1[6].get_data()
+				<< std::endl;
+			return -1;
+		}
+		if (raw_table_p2->get_rows() != *(int*)table_config_p2[6].get_data()) {
+			std::cout << "MuertesAcumulaDistritoP2.csv -> Table rows "
+				<< raw_table_p2->get_rows()
+				<< " do not match the expected number of rows "
+				<< *(int*)table_config_p2[6].get_data()
+				<< std::endl;
+			return -1;
+		}
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config_p1.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
