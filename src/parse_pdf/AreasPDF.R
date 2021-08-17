@@ -75,29 +75,6 @@ close(table_rows_num)
 
 i <- 1
 
-strtest = "CasosPositivosEdades=14=test=string"
-ret = strsplit(strtest, split='=')
-print(ret[1,1])
-print(typeof(ret))
-
-
-table_pages = file(PDF_table_pages, "r")
-line = ""
-idx <- 1
-while(TRUE){
-  line = readLines(table_pages, n=1)
-  if(length(line) == 0){
-    break
-  }
-  #line = strsplit(line, "=")
-  #areas[idx,5] <- line[1]
-  line = strsplit(line, split='=')
-  print(line[1])
-  #pages.append(line[1]=line[2])
-  idx <- idx + 1
-}
-close(table_pages)
-
 # Pruebas acumuladas por departamento
 sprintf("%d -> Pruebas acumuladas por departamento", i)
 area_pruebas_depto   <- locate_areas(report_path, areas[i,6])
