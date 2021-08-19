@@ -1,7 +1,14 @@
 ParsePDFDir = C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf;
 RawTablesDir = C:/Users/kurt_/github/Peru_COVID19_Stats/res/raw_tables;
+ConfigFilesDir = C:/Users/kurt_/github/Peru_COVID19_Stats/res/config_files;
 PDFAreasCSV = PDFAreas.csv;
 PDFAreasCL = PDFAreas.cl;
+DepartmentsAreas = DepartmentsAreas.cl;
+DepartmentsIndex = DepartmentsIndex.cl;
+DepartmentsMacroregions = DepartmentsMacroregions.cl;
+DepartmentsPopulation = DepartmentsPopulation.cl;
+DistrictsIndex = DistrictsIndex.cl;
+DistrictsZones = DistrictsZones.cl;
 PruebasAcumuladasDepto_Hdr = [Depto, PCR, PR, AG, Total];
 CasosAcumuladosDepto_Hdr = [Depto, PCR, PR, AG, Total];
 CasosPositivosEdades_Hdr = [Grupo, Total, Tasa_Ataque, Razon_Tasas];
