@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-enum DataType { INTEGER, DOUBLE, STRING, BOOLEAN, CHARACTER, UNDEFINED };
+enum class DataType { INTEGER, DOUBLE, STRING, BOOLEAN, CHARACTER, UNDEFINED };
 
 class Variant {
 private:
@@ -82,19 +82,19 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const Variant& var) {
 		switch (var.type) {
-		case INTEGER:
+		case DataType::INTEGER:
 			os << var.int_data;
 			break;
-		case DOUBLE:
+		case DataType::DOUBLE:
 			os << var.double_data;
 			break;
-		case STRING:
+		case DataType::STRING:
 			os << *var.string_data;
 			break;
-		case BOOLEAN:
+		case DataType::BOOLEAN:
 			os << var.bool_data;
 			break;
-		case CHARACTER:
+		case DataType::CHARACTER:
 			os << var.char_data;
 			break;
 		default:
