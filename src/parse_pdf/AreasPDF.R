@@ -16,7 +16,8 @@ areas <- data.frame(name=rep("",tables),
                     bottom=rep(-1,tables),
                     right=rep(-1,tables),
                     pages=rep(1,tables),
-                    fnames=rep(1,tables))
+                    fnames=rep("",tables),
+                    row_num=rep(1,tables))
 
 ################################################################################
 
@@ -237,12 +238,4 @@ areas[i,4] <- vec_area_muertes_distr_2[3]
 areas[i,5] <- vec_area_muertes_distr_2[4]
 i <- i + 1
 
-<<<<<<< Updated upstream
 write.table(areas, PDF_areas_out, sep = ",", row.names=FALSE, quote=FALSE)
-=======
-setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/res")
-write.table(areas, "PDFAreas.csv", sep = ",", row.names=FALSE, col.names=area_col_names)
-setwd("C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf")
-
-
->>>>>>> Stashed changes
