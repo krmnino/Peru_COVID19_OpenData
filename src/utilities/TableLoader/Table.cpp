@@ -13,6 +13,7 @@ Table::Table(std::string filename, char delim) {
 	while (std::getline(file, line)) {
 		buffer.push_back(line);
 	}
+	file.close();
 
 	std::vector<std::vector<std::string>> raw_table;
 	for (unsigned int i = 0; i < buffer.size(); i++) {
@@ -303,5 +304,25 @@ void Table::compute_update_column(int col_idx, std::vector<int>& table_col_idxs,
 	}
 	for (unsigned int i = 0; i < this->rows; i++) {
 		this->contents[this->header_index[col_idx]][i] = fn(i, table_columns);
+	}
+}
+
+void Table::join_tables(Table& src) {
+	if (this->columns != src.get_columns()) {
+		std::cout << "Number of columns do not match" << std::endl;
+		return;
+	}
+	// Resize vectors (this + src)
+	for (int i = 0; i < this->columns; i++) {
+		this->contents[this->header_index[i]].resize(this->rows + src.get_rows());
+	}
+	int curr_row = this->rows;
+	this->rows += src.get_rows();
+	for (int i = 0; i < src.get_rows(); i++) {
+		std::vector<Variant> row_data = src.get_row_data(i);
+		for (int j = 0; j < row_data.size(); j++) {
+			this->contents[this->header_index[j]][curr_row] = row_data[j];
+		}
+		curr_row++;
 	}
 }

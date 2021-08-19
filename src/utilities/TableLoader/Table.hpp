@@ -7,7 +7,7 @@
 #include <vector>
 #include <map>
 
-#include "../../utilities/DataVariant/Variant.hpp"
+#include "../DataVariant/Variant.hpp"
 
 class Table {
 private:
@@ -44,6 +44,7 @@ public:
 	void compute_update_column(int, std::vector<std::string>&, Variant(*)(int, std::vector<std::vector<Variant>>&));
 	void compute_update_column(std::string, std::vector<int>&, Variant(*)(int, std::vector<std::vector<Variant>>&));
 	void compute_update_column(int, std::vector<int>&, Variant(*)(int, std::vector<std::vector<Variant>>&));
+	void join_tables(Table&);
 };
 
 #endif // TABLE
