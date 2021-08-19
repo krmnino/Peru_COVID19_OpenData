@@ -40,7 +40,7 @@ int check_data_type(std::string& data) {
 
 Variant convert_to_number(int idx, std::vector<std::vector<Variant>>& col) {
 	Variant out;
-	if (col[0][idx].get_type() == STRING) {
+	if (col[0][idx].get_type() == (int)DataType::STRING) {
 		std::string raw_str = *(std::string*)col[0][idx].get_data();
 		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), ','), raw_str.end());
 		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), '"'), raw_str.end());
@@ -58,14 +58,29 @@ Variant convert_to_number(int idx, std::vector<std::vector<Variant>>& col) {
 			break;
 		}
 	}
+	else {
+		out = col[0][idx];
+	}
 	return out;
+}
+
+void set_proper_dept_names(Config& dept_index, Table& raw_table) {
+	for (int i = 0; i < raw_table.get_rows(); i++) {
+		std::string itr_str = std::to_string(i);
+		Variant value = dept_index.get_value(itr_str)->get_num_str_data();
+		std::string name_str = *(std::string*)value.get_data();
+		Variant name_var(name_str);
+		raw_table.update_cell_data(0, i, name_var);
+	}
 }
 
 int main() {
 	Config* config = new Config("../../ParsePDFConfig.cl");
 	std::string parse_pdf_dir = *(std::string*)config->get_value("ParsePDFDir")->get_num_str_data().get_data() + "/";
 	std::string raw_tables_dir = *(std::string*)config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
+	std::string config_files_dir = *(std::string*)config->get_value("ConfigFilesDir")->get_num_str_data().get_data() + "/";
 	Config* areas_config = new Config(parse_pdf_dir + *(std::string*)config->get_value("PDFAreasCL")->get_num_str_data().get_data());
+	Config* dept_index = new Config(config_files_dir + *(std::string*)config->get_value("DepartmentsIndex")->get_num_str_data().get_data());
 	int n_tables = areas_config->get_n_pairs();
 
 	
@@ -82,12 +97,14 @@ int main() {
 				      << std::endl;
 			return -1;
 		}
+
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
 			raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 		}
 
+		set_proper_dept_names(*dept_index, *raw_table);
 
 		delete raw_table;
 	}
@@ -105,6 +122,7 @@ int main() {
 				<< std::endl;
 			return -1;
 		}
+
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
@@ -127,6 +145,7 @@ int main() {
 				<< std::endl;
 			return -1;
 		}
+
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
@@ -148,6 +167,7 @@ int main() {
 				<< std::endl;
 			return -1;
 		}
+
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
@@ -182,6 +202,7 @@ int main() {
 				<< std::endl;
 			return -1;
 		}
+
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config_p1.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
@@ -192,6 +213,11 @@ int main() {
 			raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 		}
 
+		// Join part 1 and part 2
+		raw_table_p1->join_tables(*raw_table_p2);
+
+		
+		
 		delete raw_table_p1;
 		delete raw_table_p2;
 	}
@@ -221,6 +247,7 @@ int main() {
 				<< std::endl;
 			return -1;
 		}
+
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config_p1.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
@@ -230,6 +257,9 @@ int main() {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p2[i].get_data() };
 			raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 		}
+
+		// Join part 1 and part 2
+		raw_table_p1->join_tables(*raw_table_p2);
 
 		delete raw_table_p1;
 		delete raw_table_p2;
@@ -261,6 +291,7 @@ int main() {
 				<< std::endl;
 			return -1;
 		}
+
 		// Clean up incoming data and convert strings to numbers
 		for (int i = 1; i < table_col_config_p1.size(); i++) {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
@@ -270,6 +301,9 @@ int main() {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p2[i].get_data() };
 			raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 		}
+
+		// Join part 1 and part 2
+		raw_table_p1->join_tables(*raw_table_p2);
 
 		delete raw_table_p1;
 		delete raw_table_p2;
