@@ -9,6 +9,7 @@ DepartmentsMacroregions = DepartmentsMacroregions.cl;
 DepartmentsPopulation = DepartmentsPopulation.cl;
 DistrictsIndex = DistrictsIndex.cl;
 DistrictsZones = DistrictsZones.cl;
+AgeGroupsIndex = AgeGroupsIndex.cl;
 PruebasAcumuladasDepto_Hdr = [Depto, PCR, PR, AG, Total];
 CasosAcumuladosDepto_Hdr = [Depto, PCR, PR, AG, Total];
 CasosPositivosEdades_Hdr = [Grupo, Total, Tasa_Ataque, Razon_Tasas];

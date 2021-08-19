@@ -64,10 +64,10 @@ Variant convert_to_number(int idx, std::vector<std::vector<Variant>>& col) {
 	return out;
 }
 
-void set_proper_dept_names(Config& dept_index, Table& raw_table) {
+void set_proper_col_names(Config& names_index, Table& raw_table) {
 	for (int i = 0; i < raw_table.get_rows(); i++) {
 		std::string itr_str = std::to_string(i);
-		Variant value = dept_index.get_value(itr_str)->get_num_str_data();
+		Variant value = names_index.get_value(itr_str)->get_num_str_data();
 		std::string name_str = *(std::string*)value.get_data();
 		Variant name_var(name_str);
 		raw_table.update_cell_data(0, i, name_var);
@@ -81,6 +81,7 @@ int main() {
 	std::string config_files_dir = *(std::string*)config->get_value("ConfigFilesDir")->get_num_str_data().get_data() + "/";
 	Config* areas_config = new Config(parse_pdf_dir + *(std::string*)config->get_value("PDFAreasCL")->get_num_str_data().get_data());
 	Config* dept_index = new Config(config_files_dir + *(std::string*)config->get_value("DepartmentsIndex")->get_num_str_data().get_data());
+	Config* age_index = new Config(config_files_dir + *(std::string*)config->get_value("AgeGroupsIndex")->get_num_str_data().get_data());
 	int n_tables = areas_config->get_n_pairs();
 
 	
@@ -104,7 +105,7 @@ int main() {
 			raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 		}
 
-		set_proper_dept_names(*dept_index, *raw_table);
+		set_proper_col_names(*dept_index, *raw_table);
 
 		delete raw_table;
 	}
@@ -129,6 +130,8 @@ int main() {
 			raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 		}
 
+		set_proper_col_names(*dept_index, *raw_table);
+
 		delete raw_table;
 	}
 
@@ -151,6 +154,9 @@ int main() {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
 			raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 		}
+
+		set_proper_col_names(*age_index, *raw_table);
+
 		delete raw_table;
 	}
 
@@ -173,6 +179,9 @@ int main() {
 			std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
 			raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 		}
+
+		set_proper_col_names(*dept_index, *raw_table);
+
 		delete raw_table;
 	}
 
