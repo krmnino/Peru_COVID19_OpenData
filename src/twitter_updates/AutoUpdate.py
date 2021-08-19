@@ -91,7 +91,7 @@ def run():
     else:
         #left, up, right, down
         process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases'), (660, 590, 960, 670), grescale=True, invert=True, contrast=2.0)
-        process_image(bulletin_path, top_level_directory + main_config.get_value('RawDeaths'), (650, 900, 900, 990), grescale=True, invert=True, contrast=2.0)
+        process_image(bulletin_path, top_level_directory + main_config.get_value('RawDeaths'), (650, 900, 950, 990), grescale=True, invert=True, contrast=2.0)
         process_image(bulletin_path, top_level_directory + main_config.get_value('RawTests'), (170, 930, 480, 1020), grescale=True, invert=True, contrast=2.0)
         process_image(bulletin_path, top_level_directory + main_config.get_value('RawRecov'), (170, 560, 520, 700), grescale=True, invert=False, contrast=2.0)
         process_image(bulletin_path, top_level_directory + main_config.get_value('RawHospit'), (670, 780, 950, 870), grescale=True, invert=True, contrast=2.0)
