@@ -12280,5 +12280,28 @@
 		"Hospitalizados": 4697,
 		"NuevosHospitalizados": -28.0,
 		"%DifHospitalizados": -1.0059612518628913
+	},
+	{
+		"Fecha": "2021-08-19",
+		"Dia": 534.0,
+		"Casos": 2138666,
+		"NuevosCasos": 1371.0,
+		"%DifCasos": 1.0006414650293947,
+		"CasosActivos": -167130.0,
+		"NuevosCasosActivos": -382.0,
+		"Fallecidos": 197716,
+		"NuevosFallecidos": 57.0,
+		"%DifFallecidos": 1.0002883754344603,
+		"TasaLetalidad": 0.09244828318213316,
+		"Pruebas": 16284168,
+		"NuevasPruebas": 48370.0,
+		"%DifPruebas": 1.0029792191304672,
+		"%PruebasPositivasDiarias": 0.028344014885259457,
+		"Recuperados": 2108080,
+		"NuevosRecuperados": 1696.0,
+		"%DifRecuperados": 1.0008051713267856,
+		"Hospitalizados": 4712,
+		"NuevosHospitalizados": 15.0,
+		"%DifHospitalizados": 1.0031935277836916
 	}
 ]
