@@ -128,12 +128,14 @@
     <ClCompile Include="..\..\..\utilities\DataVariant\Variant.cpp" />
     <ClCompile Include="..\..\..\utilities\TableLoader\Table.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ProcessRawTables.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\utilities\ConfigLoader\ConfigLoader.hpp" />
     <ClInclude Include="..\..\..\utilities\ConfigLoader\Value.hpp" />
     <ClInclude Include="..\..\..\utilities\DataVariant\Variant.hpp" />
     <ClInclude Include="..\..\..\utilities\TableLoader\Table.hpp" />
+    <ClInclude Include="RawTableProcessing.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

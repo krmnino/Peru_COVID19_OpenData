@@ -30,6 +30,9 @@
     <ClCompile Include="..\..\..\utilities\ConfigLoader\Value.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProcessRawTables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\utilities\TableLoader\Table.hpp">
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\utilities\ConfigLoader\Value.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RawTableProcessing.hpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
