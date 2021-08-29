@@ -7,7 +7,7 @@
 #include <vector>
 #include <map>
 
-#include "../DataVariant/Variant.hpp"
+#include "../../utilities/DataVariant/Variant.hpp"
 
 class Table {
 private:
@@ -23,6 +23,8 @@ private:
 public:
 	Table(std::string, char delim = ',');
 	Table();
+	Table(int, int, char delim = ',');
+	Table(std::vector<std::string>&, char delim = ',');
 	~Table();
 	int get_rows();
 	int get_columns();

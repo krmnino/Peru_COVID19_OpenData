@@ -55,6 +55,49 @@ Table::Table(std::string filename, char delim) {
 	}
 }
 
+Table::Table() {
+	this->rows = 0;
+	this->columns = 0;
+	this->delimiter = ',';
+}
+
+Table::Table(int cols_, int rows_, char delim) {
+	this->rows = rows_;
+	this->columns = cols_;
+	this->delimiter = delim;
+
+	this->header_index.resize(cols_);
+
+	for (int i = 0; i < this->columns; i++) {
+		std::string col_name = "X" + std::to_string(i);
+		// Allocate empty vector of Variant types
+		std::vector<Variant> vect;
+		vect.resize(this->rows);
+		// Populate header index with pair index number and field name
+		this->header_index[i] = "X" + std::to_string(i);
+		// Populate contents map with pair field name and empty vector
+		this->contents.insert(std::make_pair("X" + std::to_string(i), vect));
+	}
+}
+
+Table::Table(std::vector<std::string>& input_header, char delim) {
+	this->rows = 0;
+	this->columns = 0;
+	this->delimiter = delim;
+	this->header_index.resize(input_header.size());
+	for (int i = 0; i < input_header.size(); i++) {
+		this->header_index[i] = input_header[i];
+		this->columns++;
+	}
+	for (int i = 0; i < this->columns; i++) {
+		// Allocate empty vector of Variant types
+		std::vector<Variant> vect;
+		// Populate contents map with pair field name and empty vector
+		this->contents.insert(std::make_pair(this->header_index[i], vect));
+	}
+
+}
+
 Table::~Table() {}
 
 void Table::process_raw_row(std::vector<std::string>& processed, std::string& row, char delimiter) {
