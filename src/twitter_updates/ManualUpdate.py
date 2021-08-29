@@ -79,16 +79,14 @@ def run():
     PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'))
 
     # Agregate new data entry
-    PER_data.append_entry(
-        {
-            'Fecha': input_data['Date'],
-            'Casos': int(input_data['Cases']),
-            'Fallecidos': int(input_data['Deaths']),
-            'Pruebas': int(input_data['Tests']),
-            'Recuperados': int(input_data['Recovered']),
-            'Hospitalizados': int(input_data['Hospitalized'])
-        }
-    )
+    PER_data.append_end_row([   
+        input_data['Date'],
+        int(input_data['Cases']),
+        int(input_data['Deaths']),
+        int(input_data['Tests']),
+        int(input_data['Recovered']),
+        int(input_data['Hospitalized'])
+    ])
     
     # Save simple Peru data set
     PER_data.save_as_csv(top_level_directory + main_config.get_value('PeruSimpleData'))
@@ -97,46 +95,46 @@ def run():
     PER_full_data = du.Table('c', table=PER_data)
 
     # Compute new derived statistics
-    PER_full_data.compute_add_column(['Casos'], compute_new_cases, 'NuevosCasos')
-    PER_full_data.compute_add_column(['Casos'], compute_cases_growth_factor, '%DifCasos')
-    PER_full_data.compute_add_column(['Casos', 'Recuperados', 'Fallecidos'], compute_active_cases, 'CasosActivos')
-    PER_full_data.compute_add_column(['CasosActivos'], compute_new_active_cases, 'NuevosCasosActivos')
-    PER_full_data.compute_add_column(['Fallecidos'], compute_new_deaths, 'NuevosFallecidos')
-    PER_full_data.compute_add_column(['Fallecidos'], compute_deaths_growth_factor, '%DifFallecidos')
-    PER_full_data.compute_add_column(['Casos', 'Fallecidos'], compute_case_fatality_rate, 'TasaLetalidad')
-    PER_full_data.compute_add_column(['Pruebas'], compute_new_tests, 'NuevasPruebas')
-    PER_full_data.compute_add_column(['Pruebas'], compute_tests_growth_factor, '%DifPruebas')
-    PER_full_data.compute_add_column(['NuevasPruebas', 'NuevosCasos'], compute_daily_positivity_rate, '%PruebasPositivasDiarias')
-    PER_full_data.compute_add_column(['Recuperados'], compute_new_recovered, 'NuevosRecuperados')
-    PER_full_data.compute_add_column(['Recuperados'], compute_tests_growth_factor, '%DifRecuperados')
-    PER_full_data.compute_add_column(['Hospitalizados'], compute_new_hospitalized, 'NuevosHospitalizados')
-    PER_full_data.compute_add_column(['Hospitalizados'], compute_hospitalized_growth_factor, '%DifHospitalizados')
-    PER_full_data.compute_add_column([], compute_days, 'Dia')
+    PER_full_data.compute_new_column('NuevosCasos', ['Casos'], compute_new_cases)
+    PER_full_data.compute_new_column('%DifCasos', ['Casos'], compute_cases_growth_factor)
+    PER_full_data.compute_new_column('CasosActivos', ['Casos', 'Recuperados', 'Fallecidos'], compute_active_cases)
+    PER_full_data.compute_new_column('NuevosCasosActivos', ['CasosActivos'], compute_new_active_cases)
+    PER_full_data.compute_new_column('NuevosFallecidos', ['Fallecidos'], compute_new_deaths)
+    PER_full_data.compute_new_column('%DifFallecidos', ['Fallecidos'], compute_deaths_growth_factor)
+    PER_full_data.compute_new_column('TasaLetalidad', ['Casos', 'Fallecidos'], compute_case_fatality_rate)
+    PER_full_data.compute_new_column('NuevasPruebas', ['Pruebas'], compute_new_tests)
+    PER_full_data.compute_new_column('%DifPruebas', ['Pruebas'], compute_tests_growth_factor)
+    PER_full_data.compute_new_column('%PruebasPositivasDiarias', ['NuevasPruebas', 'NuevosCasos'], compute_daily_positivity_rate)
+    PER_full_data.compute_new_column('NuevosRecuperados', ['Recuperados'], compute_new_recovered)
+    PER_full_data.compute_new_column('%DifRecuperados', ['Recuperados'], compute_tests_growth_factor)
+    PER_full_data.compute_new_column('NuevosHospitalizados', ['Hospitalizados'], compute_new_hospitalized)
+    PER_full_data.compute_new_column('%DifHospitalizados', ['Hospitalizados'], compute_hospitalized_growth_factor)
+    PER_full_data.compute_new_column('Dia', [], compute_days)
 
     # Reorganize header index before saving
-    new_header = {
-        0: 'Fecha',
-        1: 'Dia',
-        2: 'Casos',
-        3: 'NuevosCasos',
-        4: '%DifCasos',
-        5: 'CasosActivos',
-        6: 'NuevosCasosActivos',
-        7: 'Fallecidos',
-        8: 'NuevosFallecidos',
-        9: '%DifFallecidos',
-        10: 'TasaLetalidad',
-        11: 'Pruebas',
-        12: 'NuevasPruebas',
-        13: '%DifPruebas',
-        14: '%PruebasPositivasDiarias',
-        15: 'Recuperados',
-        16: 'NuevosRecuperados',
-        17: '%DifRecuperados',
-        18: 'Hospitalizados',
-        19: 'NuevosHospitalizados',
-        20: '%DifHospitalizados'
-    }
+    new_header = [
+        'Fecha',
+        'Dia',
+        'Casos',
+        'NuevosCasos',
+        '%DifCasos',
+        'CasosActivos',
+        'NuevosCasosActivos',
+        'Fallecidos',
+        'NuevosFallecidos',
+        '%DifFallecidos',
+        'TasaLetalidad',
+        'Pruebas',
+        'NuevasPruebas',
+        '%DifPruebas',
+        '%PruebasPositivasDiarias',
+        'Recuperados',
+        'NuevosRecuperados',
+        '%DifRecuperados',
+        'Hospitalizados',
+        'NuevosHospitalizados',
+        '%DifHospitalizados'
+    ]
 
     # Rearrange header index in Peru full data
     PER_full_data.rearrange_header_index(new_header)
