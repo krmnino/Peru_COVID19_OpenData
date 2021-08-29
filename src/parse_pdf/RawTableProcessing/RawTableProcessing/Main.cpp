@@ -17,51 +17,51 @@ int main() {
 
 	// Process PruebasAcumuladasDepto.csv
 	{
+		Table* table;
+		process_pa_depto(table, main_config, areas_config, dept_index);
 		
-		Table* raw_table;
-		process_pa_depto(raw_table, main_config, areas_config, dept_index);
-		delete raw_table;
+		delete table;
 	}
 
 	// Process CasosAcumuladosDepto.csv
 	{
-		Table* raw_table;
-		process_ca_depto(raw_table, main_config, areas_config, dept_index);
-		delete raw_table;
+		Table* table;
+		process_ca_depto(table, main_config, areas_config, dept_index);
+		delete table;
 	}
 
 	// Process CasosPositivosEdades.csv
 	{
-		Table* raw_table;
-		process_cp_edades(raw_table, main_config, areas_config, dept_index);
-		delete raw_table;
+		Table* table;
+		process_cp_edades(table, main_config, areas_config, dept_index);
+		delete table;
 	}
 
 	// Process MuertesAcumuladasDepto.csv
 	{
-		Table* raw_table;
-		process_ma_depto(raw_table, main_config, areas_config, dept_index);
-		delete raw_table;
+		Table* table;
+		process_ma_depto(table, main_config, areas_config, dept_index);
+		delete table;
 	}
 
 	// Process CasosAcumuDistrito2020P1.csv
 	// Process CasosAcumuDistrito2020P2.csv
 	{
-		Table* raw_table_p1;
-		Table* raw_table_p2;
-		process_ca_distr_20(raw_table_p1, raw_table_p2, main_config, areas_config, dept_index);
-		delete raw_table_p1;
-		delete raw_table_p2;
+		Table* table_p1;
+		Table* table_p2;
+		process_ca_distr_20(table_p1, table_p2, main_config, areas_config, dept_index);
+		delete table_p1;
+		delete table_p2;
 	}
 	
 	// Process CasosAcumuDistrito2021P1.csv
 	// Process CasosAcumuDistrito2021P2.csv
 	{
-		Table* raw_table_p1;
-		Table* raw_table_p2;
-		process_ca_distr_20(raw_table_p1, raw_table_p2, main_config, areas_config, dept_index);
-		delete raw_table_p1;
-		delete raw_table_p2;
+		Table* table_p1;
+		Table* table_p2;
+		process_ca_distr_20(table_p1, table_p2, main_config, areas_config, dept_index);
+		delete table_p1;
+		delete table_p2;
 	}
 	
 	return 0;
