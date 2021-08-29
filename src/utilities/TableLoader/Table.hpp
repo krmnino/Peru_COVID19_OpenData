@@ -7,7 +7,7 @@
 #include <vector>
 #include <map>
 
-#include "../../utilities/DataVariant/Variant.hpp"
+#include "../DataVariant/Variant.hpp"
 
 class Table {
 private:
