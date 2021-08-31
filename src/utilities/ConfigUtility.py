@@ -29,7 +29,7 @@ class Config:
                 left_idx = i
                 break
         raw_string = raw_string[left_idx:]
-        for i in range(len(raw_string) - 1, 0, -1):
+        for i in range(len(raw_string) - 1, -1, -1):
             if(raw_string[i] != ' '):
                 if(i == len(raw_string) - 1):
                     right_idx = len(raw_string)
