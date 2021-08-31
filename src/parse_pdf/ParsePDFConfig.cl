@@ -34,5 +34,11 @@ DeptoNum = 26;
 DistrNum = 44;
 
 # Headers for final tables
-PADepto_Hdr = [Dia, PCR, PR, AG, Total];
-CADepto_Hdr = [Dia, PCR, PR, AG, Total];
+PADepto_Hdr = [Dia, PCR, PR, AG, Pruebas_Totales];
+CADepto_Hdr = [Dia, PCR, PR, AG, Casos_Totales];
+CAEdades_Hdr = [Nino_Total, Adolescente_Total, Joven_Total, Adulto_Total, AdultoMay_Total,
+                Nino_TAtaq, Adolescente_TAtaq, Joven_TAtaq, Adulto_TAtaq, AdultoMay_TAtaq,
+                Nino_RazonT, Adolescente_RazonT, Joven_RazonT, Adulto_RazonT, AdultoMay_RazonT];
+CADistr20_Hdr = [Dia, Casos_Totales, Tasa_Ataque];
+CADistr21_Hdr = [Dia, Casos_Totales, Tasa_Ataque];
+MADistr_Hdr = [Dia, Muertes_Totales, Tasa_Mortalidad];
