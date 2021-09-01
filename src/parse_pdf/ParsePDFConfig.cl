@@ -3,6 +3,13 @@ ParsePDFDir = C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf;
 RawTablesDir = C:/Users/kurt_/github/Peru_COVID19_Stats/res/raw_tables;
 ConfigFilesDir = C:/Users/kurt_/github/Peru_COVID19_Stats/res/config_files;
 PADepto_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/PruebasAcumuladasDepto;
+CADepto_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuladosDepto;
+CAEdades_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosPositivosEdades;
+MADepto_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumuladasDepto;
+CADistr20_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuDistrito2020;
+CADistr21_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuDistrito2021;
+MADistr_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumulaDistrito;
+
 
 # PDF Area config and csv files
 PDFAreasCSV = PDFAreas.csv;
@@ -31,7 +38,7 @@ MuertesAcumulaDistritoP2_Hdr = [Distrito, Defunciones, Tasa_Mortalidad];
 
 # Number of departments and districts
 DeptoNum = 26;
-DistrNum = 44;
+DistrNum = 43;
 
 # Headers for final tables
 PADepto_Hdr = [Dia, PCR, PR, AG, Pruebas_Totales];
@@ -39,6 +46,10 @@ CADepto_Hdr = [Dia, PCR, PR, AG, Casos_Totales];
 CAEdades_Hdr = [Nino_Total, Adolescente_Total, Joven_Total, Adulto_Total, AdultoMay_Total,
                 Nino_TAtaq, Adolescente_TAtaq, Joven_TAtaq, Adulto_TAtaq, AdultoMay_TAtaq,
                 Nino_RazonT, Adolescente_RazonT, Joven_RazonT, Adulto_RazonT, AdultoMay_RazonT];
+MADepto_Hdr = [Dia, Muertes_Totales, Muertes_Dia];
 CADistr20_Hdr = [Dia, Casos_Totales, Tasa_Ataque];
 CADistr21_Hdr = [Dia, Casos_Totales, Tasa_Ataque];
 MADistr_Hdr = [Dia, Muertes_Totales, Tasa_Mortalidad];
+
+# Additional final table names
+CAEdades_Table = CasosPositivosEdades.csv;
