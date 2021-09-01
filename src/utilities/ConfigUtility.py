@@ -62,3 +62,6 @@ class Config:
     def get_value(self, key):
         return self.contents[key]
 
+    def get_n_entries(self):
+        return self.entries
+
