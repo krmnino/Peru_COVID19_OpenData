@@ -7,6 +7,9 @@ Config::Config(std::string filename) {
 	std::ifstream file;
 	file.open(filename);
 	while (std::getline(file, line)) {
+		if (line.length() == 0) {
+			continue;
+		}
 		if (line.at(0) == '#') {
 			continue;
 		}
