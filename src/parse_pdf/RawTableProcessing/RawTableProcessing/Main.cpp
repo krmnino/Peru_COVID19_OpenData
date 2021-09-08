@@ -17,51 +17,52 @@ int main() {
 
 	// Process PruebasAcumuladasDepto.csv
 	{
-		Table* table;
-		process_pa_depto(table, main_config, areas_config, dept_index);
-		
-		delete table;
+		Table* input_raw_table;
+		process_pa_depto(input_raw_table, main_config, areas_config, dept_index);
+		std::string pa_depto_table_dir = *(std::string*)main_config->get_value("PADepto_Dir")->get_num_str_data().get_data() + "/";
+
+		delete input_raw_table;
 	}
 
 	// Process CasosAcumuladosDepto.csv
 	{
-		Table* table;
-		process_ca_depto(table, main_config, areas_config, dept_index);
-		delete table;
+		Table* input_raw_table;
+		process_ca_depto(input_raw_table, main_config, areas_config, dept_index);
+		delete input_raw_table;
 	}
 
 	// Process CasosPositivosEdades.csv
 	{
-		Table* table;
-		process_cp_edades(table, main_config, areas_config, dept_index);
-		delete table;
+		Table* input_raw_table;
+		process_cp_edades(input_raw_table, main_config, areas_config, dept_index);
+		delete input_raw_table;
 	}
 
 	// Process MuertesAcumuladasDepto.csv
 	{
-		Table* table;
-		process_ma_depto(table, main_config, areas_config, dept_index);
-		delete table;
+		Table* input_raw_table;
+		process_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+		delete input_raw_table;
 	}
 
 	// Process CasosAcumuDistrito2020P1.csv
 	// Process CasosAcumuDistrito2020P2.csv
 	{
-		Table* table_p1;
-		Table* table_p2;
-		process_ca_distr_20(table_p1, table_p2, main_config, areas_config, dept_index);
-		delete table_p1;
-		delete table_p2;
+		Table* input_raw_table_p1;
+		Table* input_raw_table_p2;
+		process_ca_distr_20(input_raw_table_p1, input_raw_table_p2, main_config, areas_config, dept_index);
+		delete input_raw_table_p1;
+		delete input_raw_table_p2;
 	}
 	
 	// Process CasosAcumuDistrito2021P1.csv
 	// Process CasosAcumuDistrito2021P2.csv
 	{
-		Table* table_p1;
-		Table* table_p2;
-		process_ca_distr_20(table_p1, table_p2, main_config, areas_config, dept_index);
-		delete table_p1;
-		delete table_p2;
+		Table* input_raw_table_p1;
+		Table* input_raw_table_p2;
+		process_ca_distr_20(input_raw_table_p1, input_raw_table_p2, main_config, areas_config, dept_index);
+		delete input_raw_table_p1;
+		delete input_raw_table_p2;
 	}
 	
 	return 0;
