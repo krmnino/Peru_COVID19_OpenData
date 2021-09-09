@@ -11,7 +11,7 @@ def get_date(raw_str):
     day = raw_str[0:2]
     month = raw_str[2:4]
     year = '20' + raw_str[4:]
-    return year + '-' + month + '-' + year
+    return year + '-' + month + '-' + day
 
 def main():
     config = cu.Config('ParsePDFConfig.cl')
