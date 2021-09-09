@@ -1,12 +1,11 @@
 library("tabulizer")
 
-report_path <- "D:/temporary/DGE-MINSA_Reports/June_2021/coronavirus010621.pdf"
-PDF_table_pages <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.dat"
+report_path <- ""
+PDF_table_pages <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.cl"
 
 PDF_pages_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.cl"
 table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableFileNames.cl"
 table_rows_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/RawTableNumRows.cl"
-
 PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv"
 
 tables = 10
@@ -32,6 +31,9 @@ while(TRUE){
   line_split = strsplit(line, '=')
   areas[pg_c,1] = line_split[[1]][1]
   areas[pg_c,6] = substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1)
+  if(pg_c > 10){
+    report_path <- paste(report_path, substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1), sep="")
+  }
   pg_c <- pg_c + 1
 }
 

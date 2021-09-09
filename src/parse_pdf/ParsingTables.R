@@ -1,8 +1,31 @@
 library("tabulizer")
 
+report_path <- ""
 pdf_areas_path <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv" 
-report_path <- "D:/temporary/DGE-MINSA_Reports/June_2021/coronavirus010621.pdf"
+PDF_pages_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.cl"
 output_abs_path <- "C:/Users/kurt_/github/Peru_COVID19_Stats/res/raw_tables/"
+
+################################################################################
+
+PDF_table_num_pages <- file(PDF_pages_num_dict, "r")
+pg_c <- 1
+
+while(TRUE){
+  line = readLines(PDF_table_num_pages, n=1)
+  print(line)
+  if(length(line) == 0){
+    break
+  }
+  line_split = strsplit(line, '=')
+  if(pg_c > 10){
+    report_path <- paste(report_path, substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1), sep="")
+  }
+  pg_c <- pg_c + 1
+}
+
+close(PDF_table_num_pages)
+
+################################################################################
 
 # Load csv file with PDF areas to be scanned
 pdf_areas <- read.csv(pdf_areas_path)
