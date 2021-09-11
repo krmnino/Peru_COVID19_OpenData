@@ -9,8 +9,8 @@ def main():
     config = cu.Config('ParsePDFConfig.cl')
     dept_config = cu.Config(config.get_value('ConfigFilesDir') + '/' + config.get_value('DepartmentsIndex'))
     distr_config = cu.Config(config.get_value('ConfigFilesDir') + '/' + config.get_value('DistrictsIndex'))
-    depto_num = int(dept_config.get_n_entries()) - 1
-    distr_num = int(distr_config.get_n_entries()) - 1
+    depto_num = int(dept_config.get_n_entries())
+    distr_num = int(distr_config.get_n_entries())
 
     ########################################################################################################
 
