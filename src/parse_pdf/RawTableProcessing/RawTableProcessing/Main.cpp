@@ -3,7 +3,6 @@
 #include <iostream>
 #include <algorithm>
 
-
 int main() {
 	Config* main_config = new Config("../../ParsePDFConfig.cl");
 	std::string parse_pdf_dir = *(std::string*)main_config->get_value("ParsePDFDir")->get_num_str_data().get_data() + "/";
@@ -19,7 +18,7 @@ int main() {
 	{
 		Table* input_raw_table;
 		process_pa_depto(input_raw_table, main_config, areas_config, dept_index);
-		std::string pa_depto_table_dir = *(std::string*)main_config->get_value("PADepto_Dir")->get_num_str_data().get_data() + "/";
+		append_end_pa_depto(input_raw_table, main_config, areas_config, dept_index);
 
 		delete input_raw_table;
 	}
@@ -28,13 +27,15 @@ int main() {
 	{
 		Table* input_raw_table;
 		process_ca_depto(input_raw_table, main_config, areas_config, dept_index);
+		append_end_ca_depto(input_raw_table, main_config, areas_config, dept_index);
 		delete input_raw_table;
 	}
 
 	// Process CasosPositivosEdades.csv
 	{
 		Table* input_raw_table;
-		process_cp_edades(input_raw_table, main_config, areas_config, dept_index);
+		process_cp_edades(input_raw_table, main_config, areas_config, age_index);
+		append_end_cp_edades(input_raw_table, main_config, areas_config, age_index);
 		delete input_raw_table;
 	}
 
