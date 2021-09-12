@@ -11,7 +11,7 @@ int append_end_pa_depto(Table*& input_raw_table, Config* main_config, Config* ar
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = *(std::string*)areas_config->get_value("Date")->get_num_str_data().get_data();
 		depto_table->append_end_row(input_row);
-		//depto_table->save_as_csv(depto_table->get_file_name());
+		//depto_table->save_as_csv(depto_table->get_filename());
 		delete depto_table;
 	}
 	return 0;
@@ -28,7 +28,7 @@ int append_end_ca_depto(Table*& input_raw_table, Config* main_config, Config* ar
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = *(std::string*)areas_config->get_value("Date")->get_num_str_data().get_data();
 		depto_table->append_end_row(input_row);
-		//depto_table->save_as_csv(depto_table->get_file_name());
+		//depto_table->save_as_csv(depto_table->get_filename());
 		delete depto_table;
 	}
 	return 0;
@@ -50,7 +50,24 @@ int append_end_cp_edades(Table*& input_raw_table, Config* main_config, Config* a
 		}
 	}
 	ages_table->append_end_row(input_row);
-	//ages_table->save_as_csv(ages_table->get_file_name());
+	//ages_table->save_as_csv(ages_table->get_filename());
 	delete ages_table;
+	return 0;
+}
+
+int append_end_ma_depto(Table*& input_raw_table, Config* main_config, Config* areas_config, Config* dept_index) {
+	if (input_raw_table->get_rows() != dept_index->get_n_pairs()) {
+		return -1;
+	}
+	std::string ma_depto_table_dir = *(std::string*)main_config->get_value("MADepto_Dir")->get_num_str_data().get_data() + "/";
+	for (int i = 0; i < dept_index->get_n_pairs(); i++) {
+		std::string table_path = ma_depto_table_dir + *(std::string*)input_raw_table->get_cell_data("Depto", i).get_data() + ".csv";
+		Table* depto_table = new Table(table_path);
+		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
+		input_row[0] = *(std::string*)areas_config->get_value("Date")->get_num_str_data().get_data();
+		depto_table->append_end_row(input_row);
+		//depto_table->save_as_csv(depto_table->get_filename());
+		delete depto_table;
+	}
 	return 0;
 }

@@ -43,6 +43,7 @@ int main() {
 	{
 		Table* input_raw_table;
 		process_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+		append_end_ma_depto(input_raw_table, main_config, areas_config, dept_index);
 		delete input_raw_table;
 	}
 
