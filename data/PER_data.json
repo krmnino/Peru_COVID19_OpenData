@@ -4454,5 +4454,13 @@
 		"Pruebas": 17146903,
 		"Recuperados": 2133238,
 		"Hospitalizados": 3657
+	},
+	{
+		"Fecha": "2021-09-11",
+		"Casos": 2160327,
+		"Fallecidos": 198728,
+		"Pruebas": 17191030,
+		"Recuperados": 2134334,
+		"Hospitalizados": 3623
 	}
 ]
