@@ -40,4 +40,4 @@
 39 = Santiago de Surco;
 40 = Surquillo;
 41 = Villa El Salvador;
-42 = Villa María del Triunfo;
+42 = Villa Maria del Triunfo;
