@@ -24,9 +24,9 @@ int append_end_pa_depto(Table*&, Config*, Config*, Config*);
 int append_end_ca_depto(Table*&, Config*, Config*, Config*);
 int append_end_cp_edades(Table*&, Config*, Config*, Config*);
 int append_end_ma_depto(Table*&, Config*, Config*, Config*);
-//int process_ca_distr_20(Table*&, Table*&, Config*, Config*, Config*);
-//int process_ca_distr_21(Table*&, Table*&, Config*, Config*, Config*);
-//int process_ma_distr(Table*&, Table*&, Config*, Config*, Config*);
+int append_end_ca_distr_20(Table*&, Config*, Config*, Config*);
+int append_end_ca_distr_21(Table*&, Config*, Config*, Config*);
+int append_end_ma_distr(Table*&, Config*, Config*, Config*);
 
 
 

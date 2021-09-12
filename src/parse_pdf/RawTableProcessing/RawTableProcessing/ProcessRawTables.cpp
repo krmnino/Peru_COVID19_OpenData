@@ -170,7 +170,7 @@ int process_ma_depto(Table*& raw_table, Config* main_config, Config* areas_confi
 	return 0;
 }
 
-int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* dept_index) {
+int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* distr_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
 	std::vector<Variant> table_config_p1 = areas_config->get_value("CasosAcumuDistrito2020P1")->get_list_data();
 	std::vector<Variant> table_config_p2 = areas_config->get_value("CasosAcumuDistrito2020P2")->get_list_data();
@@ -208,10 +208,12 @@ int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);	
 
+	set_proper_col_names(*distr_index, *raw_table_p1);
+
 	return 0;
 }
 
-int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* dept_index){
+int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* distr_index){
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
 	std::vector<Variant> table_config_p1 = areas_config->get_value("CasosAcumuDistrito2021P1")->get_list_data();
 	std::vector<Variant> table_config_p2 = areas_config->get_value("CasosAcumuDistrito2021P2")->get_list_data();
@@ -249,17 +251,19 @@ int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);
 
+	set_proper_col_names(*distr_index, *raw_table_p1);
+
 	return 0;
 }
 
 int process_ma_distr(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* dept_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
 	std::vector<Variant> table_config_p1 = areas_config->get_value("MuertesAcumulaDistritoP1")->get_list_data();
-	std::vector<Variant> table_config_p2 = areas_config->get_value("MuertesAcumulaDistritoP1")->get_list_data();
+	std::vector<Variant> table_config_p2 = areas_config->get_value("MuertesAcumulaDistritoP2")->get_list_data();
 	raw_table_p1 = new Table(raw_tables_dir + *(std::string*)table_config_p1[5].get_data(), ';');
 	raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("MuertesAcumulaDistritoP1_Hdr")->get_list_data();
-	std::vector<Variant> table_col_config_p2 = main_config->get_value("MuertesAcumulaDistritoP1_Hdr")->get_list_data();
+	std::vector<Variant> table_col_config_p2 = main_config->get_value("MuertesAcumulaDistritoP2_Hdr")->get_list_data();
 	if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
 		std::cout << "MuertesAcumulaDistritoP1.csv -> Table rows "
 			<< raw_table_p1->get_rows()
