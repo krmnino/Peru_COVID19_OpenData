@@ -13338,5 +13338,28 @@
 		"Hospitalizados": 3862,
 		"NuevosHospitalizados": -44.0,
 		"%DifHospitalizados": -1.0113930605903676
+	},
+	{
+		"Fecha": "2021-10-04",
+		"Dia": 580.0,
+		"Casos": 2179316,
+		"NuevosCasos": 377.0,
+		"%DifCasos": 1.0001730199881687,
+		"CasosActivos": -176209.0,
+		"NuevosCasosActivos": -27.0,
+		"Fallecidos": 199502,
+		"NuevosFallecidos": 17.0,
+		"%DifFallecidos": 1.0000852194400582,
+		"TasaLetalidad": 0.09154340169117282,
+		"Pruebas": 18051310,
+		"NuevasPruebas": 19473.0,
+		"%DifPruebas": 1.0010799232490843,
+		"%PruebasPositivasDiarias": 0.019360139680583373,
+		"Recuperados": 2156023,
+		"NuevosRecuperados": 387.0,
+		"%DifRecuperados": 1.0001795293825118,
+		"Hospitalizados": 3883,
+		"NuevosHospitalizados": 21.0,
+		"%DifHospitalizados": 1.0054375970999483
 	}
 ]
