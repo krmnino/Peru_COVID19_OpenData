@@ -18,9 +18,9 @@ private:
 	void parse_list(std::string&);
 	void split_string(std::vector<std::string>&, std::string&, char);
 	void remove_side_spaces(std::string&);
+	int check_data_type(std::string&);
 
 public:
-	int check_data_type(std::string&);
 	Value(std::string&);
 	Value();
 	Value(const Value&);
