@@ -1,5 +1,6 @@
 .Rhistory
 .RData
+.vscode
 *.exe
 /RawTableProcessing/.vs
 /RawTableProcessing/x64
