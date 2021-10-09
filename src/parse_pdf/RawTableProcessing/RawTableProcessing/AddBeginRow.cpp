@@ -38,7 +38,7 @@ int append_begin_cp_edades(Table*& input_raw_table, Config* main_config, Config*
 	std::string ca_edades_table_fn = *(std::string*)main_config->get_value("CAEdades_Dir")->get_num_str_data().get_data() + "/" +
 		*(std::string*)main_config->get_value("CAEdades_Table")->get_num_str_data().get_data();
 	Table* ages_table = new Table(ca_edades_table_fn);
-	int num_entries = main_config->get_value("CAEdades_Hdr")->get_list_data().size();
+	size_t num_entries = main_config->get_value("CAEdades_Hdr")->get_list_data().size();
 	int curr_entry = 0;
 	std::vector<Variant> input_row;
 	input_row.resize(num_entries + 1);
