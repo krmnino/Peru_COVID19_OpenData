@@ -168,12 +168,20 @@ int Table::get_columns() {
 	return this->columns;
 }
 
+std::string Table::get_filename() {
+	return this->filename;
+}
+
 std::vector<std::string> Table::get_fields() {
 	return this->header_index;
 }
 
 std::vector<Variant> Table::get_column_data(std::string field_name) {
 	return this->contents[field_name];
+}
+
+std::vector<Variant> Table::get_column_data(int field_idx) {
+	return this->contents[this->header_index[field_idx]];
 }
 
 std::vector<Variant> Table::get_row_data(int row_n) {

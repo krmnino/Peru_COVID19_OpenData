@@ -28,8 +28,10 @@ public:
 	~Table();
 	int get_rows();
 	int get_columns();
+	std::string get_filename();
 	std::vector<std::string> get_fields();
 	std::vector<Variant> get_column_data(std::string);
+	std::vector<Variant> get_column_data(int);
 	std::vector<Variant> get_row_data(int);
 	std::vector<Variant> get_end_row();
 	Variant get_cell_data(std::string, int);
