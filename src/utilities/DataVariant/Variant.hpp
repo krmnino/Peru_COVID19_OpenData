@@ -22,6 +22,7 @@ public:
 	Variant(int);
 	Variant(double);
 	Variant(std::string);
+	Variant(const char*);
 	Variant(bool);
 	Variant(char);
 	~Variant();

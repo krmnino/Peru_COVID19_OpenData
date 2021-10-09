@@ -30,6 +30,11 @@ Variant::Variant(std::string data) {
 	this->string_data = new std::string(data);
 }
 
+Variant::Variant(const char* data) {
+	this->type = DataType::STRING;
+	this->string_data = new std::string(data);
+}
+
 Variant::Variant(bool data) {
 	this->type = DataType::BOOLEAN;
 	this->bool_data = data;
