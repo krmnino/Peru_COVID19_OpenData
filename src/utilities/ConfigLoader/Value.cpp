@@ -140,8 +140,8 @@ void Value::split_string(std::vector<std::string>& processed, std::string& buffe
 }
 
 void Value::remove_side_spaces(std::string& raw_str) {
-	unsigned int left_idx = 0;
-	unsigned int right_idx = 0;
+	size_t left_idx = 0;
+	size_t right_idx = 0;
 	for (unsigned int i = 0; i < raw_str.length(); i++) {
 		if (raw_str.at(i) != ' ') {
 			left_idx = i;
@@ -149,7 +149,7 @@ void Value::remove_side_spaces(std::string& raw_str) {
 		}
 	}
 	raw_str = raw_str.substr(left_idx, raw_str.length());
-	for (int i = raw_str.length() - 1; i >= 0; i--) {
+	for (long long i = raw_str.length() - 1; i >= 0; i--) {
 		if (raw_str.at(i) != ' ') {
 			(i == raw_str.length() - 1) ? right_idx = raw_str.length() : right_idx = i + 1;
 			break;
