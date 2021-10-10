@@ -19,7 +19,7 @@ def main():
     PDFAreas = du.Table('l', filename=config.get_value('ParsePDFDir') + '/' + config.get_value('PDFAreasCSV'), delimiter=',')
 
     with open(config.get_value('PDFAreasCL'), 'w') as f:
-        for i in range(0, PDFAreas.rows):
+        for i in range(0, PDFAreas.rows - 3):
             entry = PDFAreas.get_row_data(i)
             entry_cl = ''
             key = ''
@@ -37,6 +37,8 @@ def main():
                     entry_cl += str(values[i]) + '];\n'
             f.write(entry_cl)
         date_str = get_date(config_table_pages.get_value('ReportName'))
-        f.write('Date = ' + date_str + ';')
+        f.write('ReportPath = ' + list(PDFAreas.get_row_data(10).values())[5] + ';\n')
+        f.write('ReportName = ' + list(PDFAreas.get_row_data(11).values())[5] + ';\n')
+        f.write('Date = ' + date_str + ';\n')
     
 main()
