@@ -53,5 +53,8 @@ CADistr20_Hdr = [Dia, Casos_Totales, Tasa_Ataque];
 CADistr21_Hdr = [Dia, Casos_Totales, Tasa_Ataque];
 MADistr_Hdr = [Dia, Muertes_Totales, Tasa_Mortalidad];
 
+EraseCADistr20Fields = [Porcentaje];
+EraseCADistr21Fields = [Porcentaje];
+
 # Additional final table names
 CAEdades_Table = CasosPositivosEdades.csv;
