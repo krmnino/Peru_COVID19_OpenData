@@ -75,8 +75,6 @@ close(table_rows_num)
 
 ################################################################################
 
-i <- 1
-
 strtest = "CasosPositivosEdades=14=test=string"
 ret = strsplit(strtest, split='=')
 print(ret[1,1])
@@ -101,6 +99,7 @@ while(TRUE){
 close(table_pages)
 
 # Pruebas acumuladas por departamento
+i <- 1
 sprintf("%d -> Pruebas acumuladas por departamento", i)
 area_pruebas_depto   <- locate_areas(report_path, areas[i,6])
 vec_area_pruebas_depto <- c()
@@ -112,9 +111,9 @@ areas[i,2] <- vec_area_pruebas_depto[1]
 areas[i,3] <- vec_area_pruebas_depto[2]
 areas[i,4] <- vec_area_pruebas_depto[3]
 areas[i,5] <- vec_area_pruebas_depto[4]
-i <- i + 1
 
 # Casos acumulados por departamento
+i <- 2
 sprintf("%d -> Casos acumulados por departamento", i)
 area_casos_depto     <- locate_areas(report_path, areas[i,6])
 vec_area_casos_depto <- c()
@@ -126,9 +125,9 @@ areas[i,2] <- vec_area_casos_depto[1]
 areas[i,3] <- vec_area_casos_depto[2]
 areas[i,4] <- vec_area_casos_depto[3]
 areas[i,5] <- vec_area_casos_depto[4]
-i <- i + 1
 
 # Casos acumulados por edades
+i <- 3
 sprintf("%d -> Casos acumulados por edades", i)
 area_casos_edades    <- locate_areas(report_path, areas[i,6])
 vec_area_casos_edades <- c()
@@ -140,9 +139,9 @@ areas[i,2] <- vec_area_casos_edades[1]
 areas[i,3] <- vec_area_casos_edades[2]
 areas[i,4] <- vec_area_casos_edades[3]
 areas[i,5] <- vec_area_casos_edades[4]
-i <- i + 1
 
 # Muertes acumuladas por departamento
+i <- 4
 sprintf("%d -> Muertes acumuladas por departamento", i)
 area_muertes_depto   <- locate_areas(report_path, areas[i,6])
 vec_area_muertes_depto <- c()
@@ -154,9 +153,9 @@ areas[i,2] <- vec_area_muertes_depto[1]
 areas[i,3] <- vec_area_muertes_depto[2]
 areas[i,4] <- vec_area_muertes_depto[3]
 areas[i,5] <- vec_area_muertes_depto[4]
-i <- i + 1
 
 # Casos acumulados por distrito 2020 pt.1
+i <- 5
 sprintf("%d -> Casos acumulados por distrito 2020 pt.1", i)
 area_casos_distr20_1 <- locate_areas(report_path, areas[i,6])
 vec_area_casos_distr20_1 <- c()
@@ -168,9 +167,9 @@ areas[i,2] <- vec_area_casos_distr20_1[1]
 areas[i,3] <- vec_area_casos_distr20_1[2]
 areas[i,4] <- vec_area_casos_distr20_1[3]
 areas[i,5] <- vec_area_casos_distr20_1[4]
-i <- i + 1
 
 # Casos acumulados por distrito 2020 pt.2
+i <- 6
 sprintf("%d -> Casos acumulados por distrito 2020 pt.2", i)
 area_casos_distr20_2 <- locate_areas(report_path, areas[i,6])
 vec_area_casos_distr20_2 <- c()
@@ -185,6 +184,7 @@ areas[i,5] <- vec_area_casos_distr20_2[4]
 i <- i + 1
 
 # Casos acumulados por distrito 2021 pt.1
+i <- 7
 sprintf("%d -> Casos acumulados por distrito 2021 pt.1", i)
 area_casos_distr21_1 <- locate_areas(report_path, areas[i,6])
 vec_area_casos_distr21_1 <- c()
@@ -196,9 +196,9 @@ areas[i,2] <- vec_area_casos_distr21_1[1]
 areas[i,3] <- vec_area_casos_distr21_1[2]
 areas[i,4] <- vec_area_casos_distr21_1[3]
 areas[i,5] <- vec_area_casos_distr21_1[4]
-i <- i + 1
 
 # Casos acumulados por distrito 2021 pt.2
+i <- 8
 sprintf("%d -> Casos acumulados por distrito 2021 pt.2", i)
 area_casos_distr21_2 <- locate_areas(report_path, areas[i,6])
 vec_area_casos_distr21_2 <- c()
@@ -210,9 +210,9 @@ areas[i,2] <- vec_area_casos_distr21_2[1]
 areas[i,3] <- vec_area_casos_distr21_2[2]
 areas[i,4] <- vec_area_casos_distr21_2[3]
 areas[i,5] <- vec_area_casos_distr21_2[4]
-i <- i + 1
 
 # Muertes acumuladas por distrito pt.1
+i <- 9
 sprintf("%d -> Muertes acumuladas por distrito pt.1", i)
 area_muertes_distr_1 <- locate_areas(report_path, areas[i,6])
 vec_area_muertes_distr_1 <- c()
@@ -224,9 +224,9 @@ areas[i,2] <- vec_area_muertes_distr_1[1]
 areas[i,3] <- vec_area_muertes_distr_1[2]
 areas[i,4] <- vec_area_muertes_distr_1[3]
 areas[i,5] <- vec_area_muertes_distr_1[4]
-i <- i + 1
 
 # Muertes acumuladas por distrito pt.2
+i <- 10
 sprintf("%d -> Muertes acumuladas por distrito pt.2", i)
 area_muertes_distr_2 <- locate_areas(report_path, areas[i,6])
 vec_area_muertes_distr_2 <- c()
@@ -238,6 +238,5 @@ areas[i,2] <- vec_area_muertes_distr_2[1]
 areas[i,3] <- vec_area_muertes_distr_2[2]
 areas[i,4] <- vec_area_muertes_distr_2[3]
 areas[i,5] <- vec_area_muertes_distr_2[4]
-i <- i + 1
 
 write.table(areas, PDF_areas_out, sep = ",", row.names=FALSE, quote=FALSE)
