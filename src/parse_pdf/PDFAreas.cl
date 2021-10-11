@@ -10,4 +10,4 @@ MuertesAcumulaDistritoP1=[78.68736769707,120.28639618138,412.05249344648,463.961
 MuertesAcumulaDistritoP2=[77.5417830725,497.18377088305,410.90690882192,846.58711217184,80,MuertesAcumulaDistritoP2.csv,22];
 ReportPath = D:/temporary/DGE-MINSA_Reports_2021/09_2021/;
 ReportName = coronavirus040921.pdf;
-Date = 2021-09-04;
+Date = 2021-09-05;
