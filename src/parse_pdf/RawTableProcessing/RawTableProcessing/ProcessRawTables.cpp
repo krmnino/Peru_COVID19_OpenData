@@ -205,6 +205,11 @@ int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 		raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 	}
 	
+	std::vector<Variant> erase_fields = main_config->get_value("EraseCADistr20Fields")->get_list_data();
+	// Remove percentage column
+	raw_table_p1->remove_column(*(std::string*)erase_fields[0].get_data());
+	raw_table_p2->remove_column(*(std::string*)erase_fields[0].get_data());
+
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);	
 
@@ -248,6 +253,11 @@ int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 		raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 	}
 	
+	std::vector<Variant> erase_fields = main_config->get_value("EraseCADistr21Fields")->get_list_data();
+	// Remove percentage column
+	raw_table_p1->remove_column(*(std::string*)erase_fields[0].get_data());
+	raw_table_p2->remove_column(*(std::string*)erase_fields[0].get_data());
+
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);
 
@@ -256,7 +266,7 @@ int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 	return 0;
 }
 
-int process_ma_distr(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* dept_index) {
+int process_ma_distr(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* distr_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
 	std::vector<Variant> table_config_p1 = areas_config->get_value("MuertesAcumulaDistritoP1")->get_list_data();
 	std::vector<Variant> table_config_p2 = areas_config->get_value("MuertesAcumulaDistritoP2")->get_list_data();
@@ -293,6 +303,8 @@ int process_ma_distr(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_co
 	
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);
+
+	set_proper_col_names(*distr_index, *raw_table_p1);
 	
 	return 0;
 }

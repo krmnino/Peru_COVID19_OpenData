@@ -26,6 +26,7 @@ int append_end_ca_depto(Table*& input_raw_table, Config* main_config, Config* ar
 	for (int i = 0; i < dept_index->get_n_pairs(); i++) {
 		std::string table_path = ca_depto_table_dir + *(std::string*)input_raw_table->get_cell_data("Depto", i).get_data() + ".csv";
 		Table* depto_table = new Table(table_path);
+		depto_table->set_filename(table_path);
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = *(std::string*)areas_config->get_value("Date")->get_num_str_data().get_data();
 		depto_table->append_end_row(input_row);
@@ -43,7 +44,7 @@ int append_end_cp_edades(Table*& input_raw_table, Config* main_config, Config* a
 	size_t num_entries = main_config->get_value("CAEdades_Hdr")->get_list_data().size();
 	int curr_entry = 0;
 	std::vector<Variant> input_row;
-	input_row.resize(num_entries + 1);
+	input_row.resize(num_entries);
 	input_row[curr_entry++] = *(std::string*)areas_config->get_value("Date")->get_num_str_data().get_data();
 	for (int i = 0; i < input_raw_table->get_rows(); i++) {
 		std::vector<Variant> row = input_raw_table->get_row_data(i);
