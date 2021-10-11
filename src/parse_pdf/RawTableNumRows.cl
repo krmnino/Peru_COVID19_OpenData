@@ -1,0 +1,10 @@
+PruebasAcumuladasDepto=26;
+CasosAcumuladosDepto=26;
+CasosPositivosEdades=5;
+MuertesAcumuladasDepto=26;
+CasosAcumuDistrito2020P1=22;
+CasosAcumuDistrito2020P2=22;
+CasosAcumuDistrito2021P1=22;
+CasosAcumuDistrito2021P2=22;
+MuertesAcumulaDistritoP1=22;
+MuertesAcumulaDistritoP2=22;
