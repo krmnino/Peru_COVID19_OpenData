@@ -43,7 +43,7 @@ DistrNum = 43;
 # Headers for final tables
 PADepto_Hdr = [Dia, PCR, PR, AG, Pruebas_Totales];
 CADepto_Hdr = [Dia, PCR, PR, AG, Casos_Totales];
-CAEdades_Hdr = [Nino_Total, Nino_TAtaq, Nino_RazonT,
+CAEdades_Hdr = [Dia, Nino_Total, Nino_TAtaq, Nino_RazonT,
                 Adolescente_Total, Adolescente_TAtaq, Adolescente_RazonT,
                 Joven_Total, Joven_TAtaq, Joven_RazonT,
                 Adulto_Total, Adulto_TAtaq, Adulto_RazonT,
