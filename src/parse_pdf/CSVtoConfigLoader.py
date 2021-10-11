@@ -19,7 +19,7 @@ def main():
     PDFAreas = du.Table('l', filename=config.get_value('ParsePDFDir') + '/' + config.get_value('PDFAreasCSV'), delimiter=',')
 
     with open(config.get_value('PDFAreasCL'), 'w') as f:
-        for i in range(0, PDFAreas.rows - 3):
+        for i in range(0, PDFAreas.rows - 2):
             entry = PDFAreas.get_row_data(i)
             entry_cl = ''
             key = ''
