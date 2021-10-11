@@ -377,3 +377,34 @@ void Table::join_tables(Table& src) {
 		curr_row++;
 	}
 }
+
+void Table::remove_column(std::string col_name) {
+	for (int i = 0; i < this->header_index.size(); i++) {
+		if (this->header_index[i] == col_name) {
+			this->header_index.erase(this->header_index.begin() + i);
+			break;
+		}
+	}
+	this->contents.erase(col_name);
+	this->columns--;
+}
+
+void Table::remove_column(int col_idx) {
+	std::string field_name;
+	for (int i = 0; i < this->header_index.size(); i++) {
+		if (i == col_idx) {
+			field_name = this->header_index[i];
+			this->header_index.erase(this->header_index.begin() + i);
+			break;
+		}
+	}
+	this->contents.erase(field_name);
+	this->columns--;
+}
+
+void Table::remove_row(int col_idx) {
+	for (int i = 0; i < this->header_index.size(); i++) {
+		this->contents[this->header_index[i]].erase(this->contents[this->header_index[i]].begin() + col_idx);
+	}
+	this->rows--;
+}
