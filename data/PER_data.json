@@ -4726,5 +4726,13 @@
 		"Pruebas": 18412077,
 		"Recuperados": 2164746,
 		"Hospitalizados": 3327
+	},
+	{
+		"Fecha": "2021-10-15",
+		"Casos": 2188351,
+		"Fallecidos": 199792,
+		"Pruebas": 18458015,
+		"Recuperados": 2165822,
+		"Hospitalizados": 3201
 	}
 ]
