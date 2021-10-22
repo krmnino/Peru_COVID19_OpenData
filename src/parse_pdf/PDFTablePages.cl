@@ -8,5 +8,5 @@ CasosAcumuDistrito2021P1=77;
 CasosAcumuDistrito2021P2=77;
 MuertesAcumulaDistritoP1=80;
 MuertesAcumulaDistritoP2=80;
-ReportPath=D:/temporary/DGE-MINSA_Reports_2021/08_2021/;
-ReportName=coronavirus010821.pdf;
+ReportPath=D:/temporary/DGE-MINSA_Reports_2021/07_2021/;
+ReportName=coronavirus310721.pdf;
