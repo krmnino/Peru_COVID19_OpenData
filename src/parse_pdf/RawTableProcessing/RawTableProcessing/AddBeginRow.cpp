@@ -84,6 +84,7 @@ int append_begin_ca_distr_20(Table*& input_raw_table, Config* main_config, Confi
 	for (int i = 0; i < distr_index->get_n_pairs(); i++) {
 		std::string table_path = ca_distr_20_table_dir + *(std::string*)input_raw_table->get_cell_data("Distrito", i).get_data() + ".csv";
 		Table* distr_table = new Table(table_path);
+		distr_table->set_filename(table_path);
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = *(std::string*)areas_config->get_value("Date")->get_num_str_data().get_data();
 		distr_table->append_begin_row(input_row);
