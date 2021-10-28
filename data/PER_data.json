@@ -4782,5 +4782,53 @@
 		"Pruebas": 18683017,
 		"Recuperados": 2171196,
 		"Hospitalizados": 3285
+	},
+	{
+		"Fecha": "2021-10-22",
+		"Casos": 2194132,
+		"Fallecidos": 200003,
+		"Pruebas": 18728727,
+		"Recuperados": 2172319,
+		"Hospitalizados": 3383
+	},
+	{
+		"Fecha": "2021-10-23",
+		"Casos": 2195101,
+		"Fallecidos": 200019,
+		"Pruebas": 18771607,
+		"Recuperados": 2173324,
+		"Hospitalizados": 3292
+	},
+	{
+		"Fecha": "2021-10-24",
+		"Casos": 2195859,
+		"Fallecidos": 200052,
+		"Pruebas": 18811869,
+		"Recuperados": 2174106,
+		"Hospitalizados": 3266
+	},
+	{
+		"Fecha": "2021-10-25",
+		"Casos": 2196259,
+		"Fallecidos": 200083,
+		"Pruebas": 18833282,
+		"Recuperados": 2174561,
+		"Hospitalizados": 3313
+	},
+	{
+		"Fecha": "2021-10-26",
+		"Casos": 2197052,
+		"Fallecidos": 200118,
+		"Pruebas": 18867422,
+		"Recuperados": 2175510,
+		"Hospitalizados": 3289
+	},
+	{
+		"Fecha": "2021-10-27",
+		"Casos": 2198038,
+		"Fallecidos": 200149,
+		"Pruebas": 18910768,
+		"Recuperados": 2176645,
+		"Hospitalizados": 3229
 	}
 ]
