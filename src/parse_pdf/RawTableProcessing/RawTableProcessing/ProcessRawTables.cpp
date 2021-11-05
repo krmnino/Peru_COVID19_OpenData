@@ -40,6 +40,7 @@ Variant convert_to_number(int idx, std::vector<std::vector<Variant>>& col) {
 		std::string raw_str = *(std::string*)col[0][idx].get_data();
 		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), ','), raw_str.end());
 		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), '"'), raw_str.end());
+		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), ' '), raw_str.end());
 		switch (check_data_type(raw_str)) {
 		case 0:
 			out = raw_str;
@@ -165,6 +166,31 @@ int process_ma_depto(Table*& raw_table, Config* main_config, Config* areas_confi
 		raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
 	}
 	
+	set_proper_col_names(*dept_index, *raw_table);
+
+	return 0;
+}
+
+int process_ma_deptosm(Table*& raw_table, Config* main_config, Config* areas_config, Config* dept_index) {
+	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
+	std::vector<Variant> table_config = areas_config->get_value("MuertesAcumuladasDepto")->get_list_data();
+	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
+	std::vector<Variant> table_col_config = main_config->get_value("MuertesAcumuladasDeptoSM_Hdr")->get_list_data();
+	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
+		std::cout << "MuertesAcumuladasDepto.csv -> Table rows "
+			<< raw_table->get_rows()
+			<< " do not match the expected number of rows "
+			<< *(int*)table_config[6].get_data()
+			<< std::endl;
+		return -1;
+	}
+
+	// Clean up incoming data and convert strings to numbers
+	for (int i = 1; i < table_col_config.size(); i++) {
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
+	}
+
 	set_proper_col_names(*dept_index, *raw_table);
 
 	return 0;
