@@ -4894,5 +4894,13 @@
 		"Pruebas": 19206158,
 		"Recuperados": 2183409,
 		"Hospitalizados": 3065
+	},
+	{
+		"Fecha": "2021-11-05",
+		"Casos": 2205486,
+		"Fallecidos": 200373,
+		"Pruebas": 19253562,
+		"Recuperados": 2184508,
+		"Hospitalizados": 3084
 	}
 ]
