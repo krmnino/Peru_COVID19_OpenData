@@ -1,4 +1,5 @@
 #include "RawTableProcessing.hpp"
+#include "RTPErrorHandler.hpp"
 
 int check_data_type(std::string& data) {
 	std::string::const_iterator it = data.begin();
@@ -14,13 +15,15 @@ int check_data_type(std::string& data) {
 			// If decimal point appears for the first time, then it may be a double
 			decimal_point = true;
 		}
-		if (0 > * it || *it > 255) {
-			// If char val is outside the ASCII range, then it is a string
-			return 0;
-		}
-		else if (!std::isdigit(*it)) {
-			// If non-digit value appears, then it is a string
-			return 0;
+		else {
+			if (0 > * it || *it > 255) {
+				// If char val is outside the ASCII range, then it is a string
+				return 0;
+			}
+			else if (!std::isdigit(*it)) {
+				// If non-digit value appears, then it is a string
+				return 0;
+			}
 		}
 		it++;
 	}
@@ -34,28 +37,47 @@ int check_data_type(std::string& data) {
 	}
 }
 
-Variant convert_to_number(int idx, std::vector<std::vector<Variant>>& col) {
+Variant convert2integer(int idx, std::vector<std::vector<Variant>>& col) {
 	Variant out;
 	if (col[0][idx].get_type() == (int)DataType::STRING) {
 		std::string raw_str = *(std::string*)col[0][idx].get_data();
 		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), ','), raw_str.end());
 		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), '"'), raw_str.end());
 		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), ' '), raw_str.end());
-		switch (check_data_type(raw_str)) {
-		case 0:
-			out = raw_str;
-			break;
-		case 1:
+		int ret_type = check_data_type(raw_str);
+		if (ret_type != 1 && ret_type != 2) {
+			RTP_Error ex(ErrorCode::INVALID_STR2INT);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+		else {
 			out = std::stoi(raw_str);
-			break;
-		case 2:
-			out = std::stod(raw_str);
-			break;
-		default:
-			break;
 		}
 	}
-	else {
+	else if (col[0][idx].get_type() == (int)DataType::INTEGER) {
+		out = col[0][idx];
+	}
+	return out;
+}
+
+Variant convert2double(int idx, std::vector<std::vector<Variant>>& col) {
+	Variant out;
+	if (col[0][idx].get_type() == (int)DataType::STRING) {
+		std::string raw_str = *(std::string*)col[0][idx].get_data();
+		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), '"'), raw_str.end());
+		raw_str.erase(std::remove(raw_str.begin(), raw_str.end(), ' '), raw_str.end());
+		std::replace(raw_str.begin(), raw_str.end(), ',', '.');
+		int ret_type = check_data_type(raw_str);
+		if (ret_type != 1 && ret_type != 2) {
+			RTP_Error ex(ErrorCode::INVALID_STR2DBL);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+		else {
+			out = std::stod(raw_str);
+		}
+	}
+	else if (col[0][idx].get_type() == (int)DataType::DOUBLE) {
 		out = col[0][idx];
 	}
 	return out;
@@ -71,28 +93,45 @@ void set_proper_col_names(Config& names_index, Table& raw_table) {
 	}
 }
 
+
 int process_pa_depto(Table*& raw_table, Config* main_config, Config* areas_config, Config* dept_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
 	std::vector<Variant> table_config = areas_config->get_value("PruebasAcumuladasDepto")->get_list_data();
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("PruebasAcumuladasDepto_Hdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
-		std::cout << "PruebasAcumuladasDepto.csv -> Table rows "
-			<< raw_table->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "PruebasAcumuladasDepto.csv -> Table rows: " << 
+					 raw_table->get_rows() <<
+				     " | Expected rows: " <<
+					 *(int*)table_config[6].get_data() << 
+					 "\n" << ex.what() <<
+					 std::endl;
+		throw ex;
 		return -1;
 	}
-
-	// Clean up incoming data and convert strings to numbers
-	for (int i = 1; i < table_col_config.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
-		raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-
+	// Set proper department names (STRING)
 	set_proper_col_names(*dept_index, *raw_table);
-
+	// Sanitize PCR tests data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[1].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize PR tests data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[2].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize AG tests data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[3].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Total tests data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[4].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
 	return 0;
 }
 
@@ -102,22 +141,38 @@ int process_ca_depto(Table*& raw_table, Config* main_config, Config* areas_confi
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("CasosAcumuladosDepto_Hdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
-		std::cout << "CasosAcumuladosDepto.csv -> Table rows "
-			<< raw_table->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "CasosAcumuladosDepto.csv -> Table rows: " <<
+			raw_table->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
-	
-	// Clean up incoming data and convert strings to numbers
-	for (int i = 1; i < table_col_config.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
-		raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-	
+	// Set proper department names (STRING)
 	set_proper_col_names(*dept_index, *raw_table);
-	
+	// Sanitize PCR cases data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[1].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize PR cases data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[2].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize AG cases data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[3].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Total cases data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[4].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}	
 	return 0;
 }
 
@@ -127,22 +182,33 @@ int process_cp_edades(Table*& raw_table, Config* main_config, Config* areas_conf
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("CasosPositivosEdades_Hdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
-		std::cout << "CasosPositivosEdades.csv -> Table rows "
-			<< raw_table->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "CasosPositivosEdades.csv -> Table rows: " <<
+			raw_table->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
-	
-	// Clean up incoming data and convert strings to numbers
-	for (int i = 1; i < table_col_config.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
-		raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-	
+	// Set proper department names (STRING)
 	set_proper_col_names(*age_index, *raw_table);
-
+	// Sanitize Total cases data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[1].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Tasa_Ataque data (DOUBLE)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[2].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2double);
+	}
+	// Sanitize Razon_Tasas data (DOUBLE)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[3].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2double);
+	}
 	return 0;
 }
 
@@ -152,22 +218,28 @@ int process_ma_depto(Table*& raw_table, Config* main_config, Config* areas_confi
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("MuertesAcumuladasDepto_Hdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
-		std::cout << "MuertesAcumuladasDepto.csv -> Table rows "
-			<< raw_table->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "MuertesAcumuladasDepto.csv -> Table rows: " <<
+			raw_table->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
-	
-	// Clean up incoming data and convert strings to numbers
-	for (int i = 1; i < table_col_config.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
-		raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-	
+	// Set proper department names (STRING)
 	set_proper_col_names(*dept_index, *raw_table);
-
+	// Sanitize Muertes_Total data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[1].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Muertes_Dia data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[2].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
 	return 0;
 }
 
@@ -177,22 +249,38 @@ int process_ma_deptosm(Table*& raw_table, Config* main_config, Config* areas_con
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("MuertesAcumuladasDeptoSM_Hdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
-		std::cout << "MuertesAcumuladasDepto.csv -> Table rows "
-			<< raw_table->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "MuertesAcumuladasDepto.csv -> Table rows: " <<
+			raw_table->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
-
-	// Clean up incoming data and convert strings to numbers
-	for (int i = 1; i < table_col_config.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[i].get_data() };
-		raw_table->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-
+	// Set proper department names (STRING)
 	set_proper_col_names(*dept_index, *raw_table);
-
+	// Sanitize Muertes_Conf data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[1].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Muertes_Sosp data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[2].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Total_Muertes_SisVig data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[3].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Muertes_SINADEF data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config[4].get_data() };
+		raw_table->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
 	return 0;
 }
 
@@ -205,42 +293,45 @@ int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("CasosAcumuDistrito2020P1_Hdr")->get_list_data();
 	std::vector<Variant> table_col_config_p2 = main_config->get_value("CasosAcumuDistrito2020P2_Hdr")->get_list_data();
 	if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
-		std::cout << "CasosAcumuDistrito2020P1.csv -> Table rows "
-			<< raw_table_p1->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config_p1[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "CasosAcumuDistrito2020P1.csv -> Table rows: " <<
+			raw_table_p1->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config_p1[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
 	if (raw_table_p2->get_rows() != *(int*)table_config_p2[6].get_data()) {
-		std::cout << "CasosAcumuDistrito2020P2.csv -> Table rows "
-			<< raw_table_p2->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config_p2[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "CasosAcumuDistrito2020P2.csv -> Table rows: " <<
+			raw_table_p2->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config_p2[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
-	
-	// Clean up incoming data and convert strings to numbers
-	for (int i = 1; i < table_col_config_p1.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
-		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-	for (int i = 1; i < table_col_config_p2.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p2[i].get_data() };
-		raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-	
 	std::vector<Variant> erase_fields = main_config->get_value("EraseCADistr20Fields")->get_list_data();
 	// Remove percentage column
 	raw_table_p1->remove_column(*(std::string*)erase_fields[0].get_data());
 	raw_table_p2->remove_column(*(std::string*)erase_fields[0].get_data());
-
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);	
-
+	// Set proper district names (STRING)
 	set_proper_col_names(*distr_index, *raw_table_p1);
-
+	// Sanitize Casos_Totales data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[1].get_data() };
+		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Tasa_Ataque data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[2].get_data() };
+		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert2double);
+	}
 	return 0;
 }
 
@@ -253,42 +344,45 @@ int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("CasosAcumuDistrito2021P1_Hdr")->get_list_data();
 	std::vector<Variant> table_col_config_p2 = main_config->get_value("CasosAcumuDistrito2021P2_Hdr")->get_list_data();
 	if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
-		std::cout << "CasosAcumuDistrito2021P1.csv -> Table rows "
-			<< raw_table_p1->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config_p1[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "CasosAcumuDistrito2021P1.csv -> Table rows: " <<
+			raw_table_p1->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config_p1[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
 	if (raw_table_p2->get_rows() != *(int*)table_config_p2[6].get_data()) {
-		std::cout << "CasosAcumuDistrito2021P2.csv -> Table rows "
-			<< raw_table_p2->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config_p2[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "CasosAcumuDistrito2021P2.csv -> Table rows: " <<
+			raw_table_p2->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config_p2[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
-	
-	// Clean up incoming data and convert strings to numbers
-	for (int i = 1; i < table_col_config_p1.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
-		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-	for (int i = 1; i < table_col_config_p2.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p2[i].get_data() };
-		raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-	
 	std::vector<Variant> erase_fields = main_config->get_value("EraseCADistr21Fields")->get_list_data();
 	// Remove percentage column
 	raw_table_p1->remove_column(*(std::string*)erase_fields[0].get_data());
 	raw_table_p2->remove_column(*(std::string*)erase_fields[0].get_data());
-
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);
-
+	// Set proper district names (STRING)
 	set_proper_col_names(*distr_index, *raw_table_p1);
-
+	// Sanitize Casos_Totales data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[1].get_data() };
+		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Tasa_Ataque data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[2].get_data() };
+		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert2double);
+	}
 	return 0;
 }
 
@@ -300,37 +394,42 @@ int process_ma_distr(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_co
 	raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("MuertesAcumulaDistritoP1_Hdr")->get_list_data();
 	std::vector<Variant> table_col_config_p2 = main_config->get_value("MuertesAcumulaDistritoP2_Hdr")->get_list_data();
-	if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
-		std::cout << "MuertesAcumulaDistritoP1.csv -> Table rows "
-			<< raw_table_p1->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config_p1[6].get_data()
-			<< std::endl;
+	if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {\
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "MuertesAcumulaDistritoP1.csv -> Table rows: " <<
+			raw_table_p1->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config_p1[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
 	if (raw_table_p2->get_rows() != *(int*)table_config_p2[6].get_data()) {
-		std::cout << "MuertesAcumulaDistritoP2.csv -> Table rows "
-			<< raw_table_p2->get_rows()
-			<< " do not match the expected number of rows "
-			<< *(int*)table_config_p2[6].get_data()
-			<< std::endl;
+		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
+		std::cerr << "MuertesAcumulaDistritoP2.csv -> Table rows: " <<
+			raw_table_p2->get_rows() <<
+			" | Expected rows: " <<
+			*(int*)table_config_p2[6].get_data() <<
+			"\n" << ex.what() <<
+			std::endl;
+		throw ex;
 		return -1;
 	}
-	
-	// Clean up incoming data and convert strings to numbers
-	for (int i = 1; i < table_col_config_p1.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[i].get_data() };
-		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-	for (int i = 1; i < table_col_config_p2.size(); i++) {
-		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p2[i].get_data() };
-		raw_table_p2->compute_update_column(table_col_str[0], table_col_str, convert_to_number);
-	}
-	
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);
-
+	// Set proper district names (STRING)
 	set_proper_col_names(*distr_index, *raw_table_p1);
+	// Sanitize Defunciones data (INTEGER)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[1].get_data() };
+		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert2integer);
+	}
+	// Sanitize Tasa_Mortalidad data (DOUBLE)
+	{
+		std::vector<std::string> table_col_str = { *(std::string*)table_col_config_p1[2].get_data() };
+		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert2double);
+	}
 	
 	return 0;
 }

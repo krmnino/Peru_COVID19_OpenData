@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <exception>
 
 int check_data_type(std::string&);
 Variant convert_to_number(int, std::vector<std::vector<Variant>>&);
@@ -39,7 +40,4 @@ int append_end_ca_distr_20(Table*&, Config*, Config*, Config*);
 int append_end_ca_distr_21(Table*&, Config*, Config*, Config*);
 int append_end_ma_distr(Table*&, Config*, Config*, Config*);
 
-
-
 #endif // !RTP
-
