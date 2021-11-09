@@ -14,7 +14,6 @@ int main() {
 	Config* age_index = new Config(config_files_dir + *(std::string*)main_config->get_value("AgeGroupsIndex")->get_num_str_data().get_data());
 	int n_tables = areas_config->get_n_pairs();
 
-
 	// Process PruebasAcumuladasDepto.csv
 	{
 		Table* input_raw_table;
@@ -43,11 +42,19 @@ int main() {
 	}
 
 	// Process MuertesAcumuladasDepto.csv
+	//{
+	//	Table* input_raw_table;
+	//	process_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+	//	//append_end_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+	//	append_begin_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+	//	delete input_raw_table;
+	//}
+
 	{
 		Table* input_raw_table;
-		process_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+		process_ma_deptosm(input_raw_table, main_config, areas_config, dept_index);
 		//append_end_ma_depto(input_raw_table, main_config, areas_config, dept_index);
-		append_begin_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+		append_begin_ma_deptosm(input_raw_table, main_config, areas_config, dept_index);
 		delete input_raw_table;
 	}
 
@@ -86,6 +93,12 @@ int main() {
 		delete input_raw_table_p1;
 		delete input_raw_table_p2;
 	}
+
+	delete main_config;
+	delete areas_config;
+	delete dept_index;
+	delete distr_index;
+	delete age_index;
 	
 	return 0;
 }
