@@ -150,13 +150,13 @@ def run():
         ['bar', 'bar', 'bar', 'bar'],
         ['Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)'],
         ['Casos Confirmados (acumulado por dia)', 'Nuevos Casos Confirmados (por dia)', 'Nuevos Recuperados (por dia)', 'Hospitalizados (por dia)'],
-        [PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:]],
-        [PER_full_data.get_column('Casos')[-30:], PER_full_data.get_column('NuevosCasos')[-30:], PER_full_data.get_column('NuevosRecuperados')[-30:], PER_full_data.get_column('Hospitalizados')[-30:]],
+        [PER_full_data.get_column_data('Fecha')[-30:], PER_full_data.get_column_data('Fecha')[-30:], PER_full_data.get_column_data('Fecha')[-30:], PER_full_data.get_column_data('Fecha')[-30:]],
+        [PER_full_data.get_column_data('Casos')[-30:], PER_full_data.get_column_data('NuevosCasos')[-30:], PER_full_data.get_column_data('NuevosRecuperados')[-30:], PER_full_data.get_column_data('Hospitalizados')[-30:]],
         current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
         top_level_directory + main_config.get_value('TwitterGraph1'),
         ravg_days=[7, 7, 7, 7],
         ravg_labels=['Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias'],
-        ravg_ydata=[None, PER_full_data.get_column('NuevosCasos'), PER_full_data.get_column('NuevosRecuperados'), PER_full_data.get_column('Hospitalizados')]
+        ravg_ydata=[None, PER_full_data.get_column_data('NuevosCasos'), PER_full_data.get_column_data('NuevosRecuperados'), PER_full_data.get_column_data('Hospitalizados')]
     )
 
     # Create quadplot object for second tweet
@@ -167,13 +167,13 @@ def run():
         ['bar', 'scatter', 'bar', 'scatter'],
         ['Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)'],
         ['Nuevos Fallecidos (por dia)', 'Tasa de Letalidad (acumulado por dia)', 'Nuevas Pruebas (por dia)', 'Positividad Diaria * 100% (PM+PR+AG)'],
-        [PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:]],
-        [PER_full_data.get_column('NuevosFallecidos')[-30:], PER_full_data.get_column('TasaLetalidad')[-30:], PER_full_data.get_column('NuevasPruebas')[-30:], PER_full_data.get_column('%PruebasPositivasDiarias')[-30:]],
+        [PER_full_data.get_column_data('Fecha')[-30:], PER_full_data.get_column_data('Fecha')[-30:], PER_full_data.get_column_data('Fecha')[-30:], PER_full_data.get_column_data('Fecha')[-30:]],
+        [PER_full_data.get_column_data('NuevosFallecidos')[-30:], PER_full_data.get_column_data('TasaLetalidad')[-30:], PER_full_data.get_column_data('NuevasPruebas')[-30:], PER_full_data.get_column_data('%PruebasPositivasDiarias')[-30:]],
         current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
         top_level_directory + main_config.get_value('TwitterGraph2'),
         ravg_days=[7, 7, 7, 7],
         ravg_labels=['Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias'],
-        ravg_ydata=[PER_full_data.get_column('NuevosFallecidos'), PER_full_data.get_column('TasaLetalidad'), PER_full_data.get_column('NuevasPruebas'), PER_full_data.get_column('%PruebasPositivasDiarias')]
+        ravg_ydata=[PER_full_data.get_column_data('NuevosFallecidos'), PER_full_data.get_column_data('TasaLetalidad'), PER_full_data.get_column_data('NuevasPruebas'), PER_full_data.get_column_data('%PruebasPositivasDiarias')]
     )
 
     # Generate and store quadplot
@@ -183,7 +183,7 @@ def run():
     quadplot_2.export()
 
     # Obtain the last entry of Peru full data
-    latest_entry = PER_full_data.get_latest_entry()
+    latest_entry = PER_full_data.get_end_row()
     
     # Create instances of tweets to store text and image paths
     tweet1 = Tweet()
