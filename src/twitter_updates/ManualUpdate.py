@@ -33,13 +33,16 @@ from TwitterUpdate import compute_new_hospitalized
 from TwitterUpdate import compute_hospitalized_growth_factor
 from TwitterUpdate import compute_days
 from TwitterUpdate import generate_first_tweet_text
+from TwitterUpdate import generate_first_tweet_text2
 from TwitterUpdate import generate_second_tweet_text
 from TwitterUpdate import export_tweets_to_file
 from TwitterUpdate import update_git_repo_win32
 from TwitterUpdate import update_git_repo_linux
+from StatAnalysis import Stats
 from CommandLineUtility import check_data_menu
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
+
 
 def run():
     # Obtain current date
@@ -56,7 +59,7 @@ def run():
     clean_dir(main_config.get_value('RawImages'))
 
     # Authenticate Twitter API session
-    twitter_session = TwitterAPISession(auth_config)
+    #twitter_session = TwitterAPISession(auth_config)
     
     # Store values read by OCR algorithm in a dictionary
     input_data = {\
@@ -73,20 +76,20 @@ def run():
     clean_dir(main_config.get_value('RawImages'))
 
     # Open temporary command line to check if data is correct
-    check_data_menu(input_data) 
+    #check_data_menu(input_data) 
     
     # Load simple Peru data set
     PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'), delimiter=',')
 
     # Agregate new data entry
-    PER_data.append_end_row([   
-        input_data['Date'],
-        int(input_data['Cases']),
-        int(input_data['Deaths']),
-        int(input_data['Tests']),
-        int(input_data['Recovered']),
-        int(input_data['Hospitalized'])
-    ])
+    #PER_data.append_end_row([   
+    #    input_data['Date'],
+    #    int(input_data['Cases']),
+    #    int(input_data['Deaths']),
+    #    int(input_data['Tests']),
+    #    int(input_data['Recovered']),
+    #    int(input_data['Hospitalized'])
+    #])
     
     # Save simple Peru data set
     PER_data.save_as_csv(top_level_directory + main_config.get_value('PeruSimpleData'))
@@ -190,7 +193,8 @@ def run():
     tweet2 = Tweet()
     
     # Create and add tweet body for first tweet
-    tweet1.set_message(generate_first_tweet_text(top_level_directory + main_config.get_value('TwTemplate1'), latest_entry, int(input_data['Cases24H'])))
+    tweet_msg1 = generate_first_tweet_text2(top_level_directory + main_config.get_value('TwTemplate1'), PER_full_data, 30)
+    tweet1.set_message(tweet_msg1)
     
     # Create and add tweet body for second tweet
     tweet2.set_message(generate_second_tweet_text(top_level_directory + main_config.get_value('TwTemplate2'), latest_entry,
@@ -204,13 +208,13 @@ def run():
     export_tweets_to_file(top_level_directory + main_config.get_value('TweetExport'), [tweet1, tweet2])
     
     # Reply to @Minsa_Peru with tweet thread
-    twitter_session.send_thread([tweet1, tweet2])
-
-    # Update GitHub repository with new data    
-    if(sys.platform == 'win32'):
-        update_git_repo_win32(input_data['Date'])
-    else:
-        update_git_repo_linux(input_data['Date'])
+    #twitter_session.send_thread([tweet1, tweet2])
+    #
+    ## Update GitHub repository with new data    
+    #if(sys.platform == 'win32'):
+    #    update_git_repo_win32(input_data['Date'])
+    #else:
+    #    update_git_repo_linux(input_data['Date'])
 
 #####################################################################################################################
 
