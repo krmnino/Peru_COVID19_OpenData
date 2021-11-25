@@ -18,7 +18,11 @@ class Stats:
             acc += (self.data[i] - self.mean) ** 2
         acc = acc / self.size
         self.stdev = sqrt(acc)
+        print(self.mean, self.stdev)
 
     def plot_gauss_bell():
+        self.plot = LayeredScatterPlot()
         return 0
-        
+
+data = np.array([5,98,4,94,6,46,4,6,48,2,1,854,62,6,5,4,3,65,6,6,9,869,2,1,68,3,61,9,3,57,3,3,5,553,53,3,35,9])
+tmp = Stats(data)
