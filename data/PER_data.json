@@ -5118,5 +5118,13 @@
 		"Pruebas": 20414072,
 		"Recuperados": 2220089,
 		"Hospitalizados": 3139
+	},
+	{
+		"Fecha": "2021-12-03",
+		"Casos": 2241027,
+		"Fallecidos": 201326,
+		"Pruebas": 20463224,
+		"Recuperados": 2221793,
+		"Hospitalizados": 3109
 	}
 ]
