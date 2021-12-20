@@ -5246,5 +5246,13 @@
 		"Pruebas": 21125401,
 		"Recuperados": 2245774,
 		"Hospitalizados": 2908
+	},
+	{
+		"Fecha": "2021-12-19",
+		"Casos": 2265320,
+		"Fallecidos": 202225,
+		"Pruebas": 21169755,
+		"Recuperados": 2247460,
+		"Hospitalizados": 2913
 	}
 ]
