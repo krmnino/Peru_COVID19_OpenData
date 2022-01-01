@@ -291,7 +291,7 @@ class BarPlot:
         return self.out_file
 
 class LayeredScatterPlot:
-    def __init__(self, n_datasets, colors_ds, linestyle_ds, markers_ds, enable_rolling_avg_ds, x_label, y_label,
+    def __init__(self, n_datasets, colors_ds, linestyle_ds, markers_ds, title, enable_rolling_avg_ds, x_label, y_label,
                  x_data, y_data, stitle, ofile, ravg_days_ds, ravg_labels_ds, ravg_ydata_ds):
         self.n_datasets = n_datasets
         
@@ -340,8 +340,6 @@ class LayeredScatterPlot:
         else:
             self.ravg_ydata_datasets = ravg_ydata_ds
 
-        self.x_label = x_label
-        self.y_label = y_label
 
         for i in range(0, self.n_datasets):
             if(self.enable_rolling_avg_datasets[i] and self.ravg_days_datasets[i] < 0):
@@ -349,6 +347,9 @@ class LayeredScatterPlot:
             if(self.enable_rolling_avg_datasets[i] and self.ravg_labels_datasets[i] == None):
                 sys.exit('ravg_labels_datasets[' + str(i) + '] cannot be None if rolling average is enabled')
 
+        self.title_plot = title
+        self.x_label = x_label
+        self.y_label = y_label
         self.suptitle = stitle
         self.out_file = ofile
         self.text_font = {'fontname':'Bahnschrift'}
@@ -369,7 +370,8 @@ class LayeredScatterPlot:
             tick.set_fontsize(12)
         self.axis.set_xlabel(self.x_label, **self.text_font, fontsize=12)
         self.axis.set_ylabel(self.y_label, **self.text_font, fontsize=12)
+        self.axis.set_title(self.title_plot, fontsize=22, **self.text_font)
         self.axis.grid()
         
-        self.fig.suptitle(self.suptitle, fontsize=10, **self.text_font)
+        self.fig.suptitle(self.suptitle, fontsize=12, **self.text_font)
         self.fig.savefig(self.out_file)
