@@ -147,8 +147,10 @@ class QuadPlot:
         return self.out_file
         
 class ScatterPlot:
-    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=1, ravg_label='', ravg_ydata=[]):
+    def __init__(self, color, linestyle, marker, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=1, ravg_label='', ravg_ydata=[]):
         self.color_plot = color
+        self.linestyle_plot = linestyle
+        self.marker_plot = marker
         self.title_plot = title
         self.enable_rolling_avg_plot = enable_rolling_avg
         self.ravg_days = ravg
@@ -168,8 +170,7 @@ class ScatterPlot:
         self.axis = self.fig.add_subplot(1,1,1)
         self.fig.subplots_adjust(left=0.07, bottom=0.14, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
 
-        self.axis.plot(self.x_data, self.y_data, color=self.color_plot)
-        self.axis.plot(self.x_data, self.y_data, 'ko')
+        self.axis.plot(self.x_data, self.y_data, color=self.color_plot, linestyle=self.linestyle_plot, marker=self.marker_plot)
         self.axis.set_title(self.title_plot, fontsize=22, **self.text_font)
         self.axis.tick_params(axis='x',labelrotation=90)
         self.axis.set_xticklabels(labels=self.x_data, fontsize=12, **self.digit_font)
@@ -290,7 +291,7 @@ class BarPlot:
         return self.out_file
 
 class LayeredScatterPlot:
-    def __init__(self, n_datasets, colors_ds, enable_rolling_avg_ds, x_label, y_label,
+    def __init__(self, n_datasets, colors_ds, linestyle_ds, markers_ds, enable_rolling_avg_ds, x_label, y_label,
                  x_data, y_data, stitle, ofile, ravg_days_ds, ravg_labels_ds, ravg_ydata_ds):
         self.n_datasets = n_datasets
         
@@ -298,6 +299,16 @@ class LayeredScatterPlot:
             sys.exit('colors_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
         else:
             self.colors_datasets = colors_ds
+
+        if(len(linestyle_ds) != self.n_datasets):
+            sys.exit('linestyle_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
+        else:
+            self.linestyle_datasets = linestyle_ds
+
+        if(len(markers_ds) != self.n_datasets):
+            sys.exit('markers_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
+        else:
+            self.markers_datasets = markers_ds
 
         if(len(enable_rolling_avg_ds) != self.n_datasets):
             sys.exit('enable_rolling_avg_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
@@ -349,7 +360,8 @@ class LayeredScatterPlot:
         self.fig.subplots_adjust(left=0.07, bottom=0.14, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
 
         for i in range(0, self.n_datasets):
-            self.axis.plot(self.x_data[i], self.y_data[i], color=self.colors_datasets[i])
+            self.axis.plot(self.x_data[i], self.y_data[i], color=self.colors_datasets[i],
+                           linestyle=self.linestyle_datasets[i], marker=self.markers_datasets[i])
         
         self.axis.tick_params(axis='x',labelrotation=90)
         for tick in self.axis.get_yticklabels():
