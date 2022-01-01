@@ -370,8 +370,46 @@ class LayeredScatterPlot:
             tick.set_fontsize(12)
         self.axis.set_xlabel(self.x_label, **self.text_font, fontsize=12)
         self.axis.set_ylabel(self.y_label, **self.text_font, fontsize=12)
+        for i in range(0, self.n_datasets):
+            if(self.enable_rolling_avg_datasets[i]):
+                if(len(self.ravg_labels_datasets[i]) == 0):
+                    sys.exit('Rolling average label or ydata is empty')
+                if(len(self.ravg_ydata_datasets[i] == None) == 0):
+                    sys.exit('Rolling average ydata is empty')
+                self.generate_rolling_average(i)
+
         self.axis.set_title(self.title_plot, fontsize=22, **self.text_font)
         self.axis.grid()
         
         self.fig.suptitle(self.suptitle, fontsize=12, **self.text_font)
         self.fig.savefig(self.out_file)
+        
+    def rgb_threshold(self, color, min=0, max=255):
+        if (color < min):
+            return min
+        if (color > max):
+            return max
+        return color
+
+    def generate_rolling_average(self, idx):
+        avgd_data = np.array([])
+        for i in range(len(self.ravg_ydata_datasets[idx]) - (len(self.x_data[idx]) + self.ravg_days_datasets[idx]), len(self.ravg_ydata_datasets[idx])):
+            sum_data = 0
+            for j in range(i - self.ravg_days_datasets[i], i):
+                sum_data += self.ravg_ydata_datasets[idx][j]
+            sum_data /= self.ravg_days_datasets[i]
+            avgd_data = np.append(avgd_data, sum_data)
+
+        color_to_string = self.colors_datasets[idx][1:] 
+        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+        r = int(self.rgb_threshold(r * 0.6))
+        g = int(self.rgb_threshold(g * 0.6))
+        b = int(self.rgb_threshold(b * 0.6))
+        avg_color = "#%02x%02x%02x" % (r, g, b)
+
+        self.axis.plot(self.x_data[idx], avgd_data[self.ravg_days_datasets[idx]:], linestyle='dashed', 
+                       linewidth=2.5, color=avg_color, label=self.ravg_labels_datasets[idx])
+        self.axis.legend(loc='upper left')
+
+    def get_path(self):
+        return self.out_file
