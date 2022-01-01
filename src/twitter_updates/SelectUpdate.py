@@ -116,7 +116,7 @@ def run():
     check_data_menu(input_data) 
     
     # Load simple Peru data set
-    PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'), delimiter = ',')
+    PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'), delimiter=',')
 
     # Agregate new data entry
     PER_data.append_end_row([   
