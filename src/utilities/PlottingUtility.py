@@ -296,47 +296,47 @@ class LayeredScatterPlot:
         self.n_datasets = n_datasets
         
         if(len(colors_ds) != self.n_datasets):
-            sys.exit('colors_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
+            sys.exit('colors_ds size does not equal the expected n_datasets value (' + str(n_datasets) + ')')
         else:
             self.colors_datasets = colors_ds
 
         if(len(linestyle_ds) != self.n_datasets):
-            sys.exit('linestyle_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
+            sys.exit('linestyle_ds size does not equal the expected n_datasets value (' + str(n_datasets) + ')')
         else:
             self.linestyle_datasets = linestyle_ds
 
         if(len(markers_ds) != self.n_datasets):
-            sys.exit('markers_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
+            sys.exit('markers_ds size does not equal the expected n_datasets value (' + str(n_datasets) + ')')
         else:
             self.markers_datasets = markers_ds
 
         if(len(enable_rolling_avg_ds) != self.n_datasets):
-            sys.exit('enable_rolling_avg_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
+            sys.exit('enable_rolling_avg_ds size does not equal the expected n_datasets value (' + str(n_datasets) + ')')
         else:
             self.enable_rolling_avg_datasets = enable_rolling_avg_ds
 
         if(len(x_data) != self.n_datasets):
-            sys.exit('x_data size does not equal the expected n_datasets value (' + n_datasets + ')')
+            sys.exit('x_data size does not equal the expected n_datasets value (' + str(n_datasets) + ')')
         else:
             self.x_data = x_data
 
         if(len(y_data) != self.n_datasets):
-            sys.exit('y_data size does not equal the expected n_datasets value (' + n_datasets + ')')
+            sys.exit('y_data size does not equal the expected n_datasets value (' + str(n_datasets) + ')')
         else:
             self.y_data = y_data
 
         if(len(ravg_days_ds) != self.n_datasets):
-            sys.exit('ravg_days size does not equal the expected n_datasets value (' + n_datasets + ')')
+            sys.exit('ravg_days size does not equal the expected n_datasets value (' + str(n_datasets) + ')')
         else:
             self.ravg_days_datasets = ravg_days_ds
 
         if(len(ravg_labels_ds) != self.n_datasets):
-            sys.exit('ravg_labels_ds does not equal the expected n_datasets value (' + n_datasets + ')')
+            sys.exit('ravg_labels_ds does not equal the expected n_datasets value (' + str(n_datasets) + ')')
         else:
             self.ravg_labels_datasets = ravg_labels_ds
 
         if(len(ravg_ydata_ds) != self.n_datasets):
-            sys.exit('ravg_ydata does not equal the expected n_datasets value (' + n_datasets + ')')
+            sys.exit('ravg_ydata does not equal the expected n_datasets value (' + str(n_datasets) + ')')
         else:
             self.ravg_ydata_datasets = ravg_ydata_ds
 
