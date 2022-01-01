@@ -288,3 +288,76 @@ class BarPlot:
 
     def get_path(self):
         return self.out_file
+
+class LayeredScatterPlot:
+    def __init__(self, n_datasets, colors_ds, enable_rolling_avg_ds, x_label, y_label,
+                 x_data, y_data, stitle, ofile, ravg_days_ds, ravg_labels_ds, ravg_ydata_ds):
+        self.n_datasets = n_datasets
+        
+        if(len(colors_ds) != self.n_datasets):
+            sys.exit('colors_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
+        else:
+            self.colors_datasets = colors_ds
+
+        if(len(enable_rolling_avg_ds) != self.n_datasets):
+            sys.exit('enable_rolling_avg_ds size does not equal the expected n_datasets value (' + n_datasets + ')')
+        else:
+            self.enable_rolling_avg_datasets = enable_rolling_avg_ds
+
+        if(len(x_data) != self.n_datasets):
+            sys.exit('x_data size does not equal the expected n_datasets value (' + n_datasets + ')')
+        else:
+            self.x_data = x_data
+
+        if(len(y_data) != self.n_datasets):
+            sys.exit('y_data size does not equal the expected n_datasets value (' + n_datasets + ')')
+        else:
+            self.y_data = y_data
+
+        if(len(ravg_days_ds) != self.n_datasets):
+            sys.exit('ravg_days size does not equal the expected n_datasets value (' + n_datasets + ')')
+        else:
+            self.ravg_days_datasets = ravg_days_ds
+
+        if(len(ravg_labels_ds) != self.n_datasets):
+            sys.exit('ravg_labels_ds does not equal the expected n_datasets value (' + n_datasets + ')')
+        else:
+            self.ravg_labels_datasets = ravg_labels_ds
+
+        if(len(ravg_ydata_ds) != self.n_datasets):
+            sys.exit('ravg_ydata does not equal the expected n_datasets value (' + n_datasets + ')')
+        else:
+            self.ravg_ydata_datasets = ravg_ydata_ds
+
+        self.x_label = x_label
+        self.y_label = y_label
+
+        for i in range(0, self.n_datasets):
+            if(self.enable_rolling_avg_datasets[i] and self.ravg_days_datasets[i] < 0):
+                sys.exit('ravg_days_datasets[' + str(i) + '] must be 1 or greater if rolling average is enabled')
+            if(self.enable_rolling_avg_datasets[i] and self.ravg_labels_datasets[i] == None):
+                sys.exit('ravg_labels_datasets[' + str(i) + '] cannot be None if rolling average is enabled')
+
+        self.suptitle = stitle
+        self.out_file = ofile
+        self.text_font = {'fontname':'Bahnschrift'}
+        self.digit_font = {'fontname':'Consolas'}
+
+    def export(self):
+        self.fig = Figure(figsize=(14, 10), dpi=200)
+        self.axis = self.fig.add_subplot(1,1,1)
+        self.fig.subplots_adjust(left=0.07, bottom=0.14, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
+
+        for i in range(0, self.n_datasets):
+            self.axis.plot(self.x_data[i], self.y_data[i], color=self.colors_datasets[i])
+        
+        self.axis.tick_params(axis='x',labelrotation=90)
+        for tick in self.axis.get_yticklabels():
+            tick.set_fontname(**self.digit_font)
+            tick.set_fontsize(12)
+        self.axis.set_xlabel(self.x_label, **self.text_font, fontsize=12)
+        self.axis.set_ylabel(self.y_label, **self.text_font, fontsize=12)
+        self.axis.grid()
+        
+        self.fig.suptitle(self.suptitle, fontsize=10, **self.text_font)
+        self.fig.savefig(self.out_file)
