@@ -38,7 +38,7 @@ class Stats:
             7 : (self.mean + (3 * self.stdev), float('inf')),
         }
 
-        if(region_colors != 8):
+        if(len(region_colors) != 8):
             sys.exit('region_colors parameter must be a list of 8 integers')
         self.region_colors = region_colors
 
@@ -192,3 +192,23 @@ class Stats:
             ravg_ydata_ds
         )
         self.plot.export()
+
+    def get_indicator(self, idx):
+        if(idx < 0 or idx >= len(self.data)):
+            sys.exit('idx cannot be < 0 or >= len(self.data) ->', str(len(self.data)))
+        datapoint = self.data[idx]
+        color_val = 0
+        for i in range(0, len(self.regions)):
+            if(datapoint >= self.regions[i][0] and datapoint < self.regions[i][1]):
+                color_val = self.region_colors[i]
+                break
+        indicator = 0
+        if(color_val == 0):
+            indicator = u'\U0001F534'
+        elif(color_val == 1):
+            indicator = u'\U0001F7E0'
+        elif(color_val == 2):
+            indicator = u'\U0001F7E1'
+        elif(color_val == 3):
+            indicator = u'\U0001F7E2'
+        return indicator
