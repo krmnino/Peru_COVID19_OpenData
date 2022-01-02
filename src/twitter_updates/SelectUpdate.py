@@ -146,7 +146,7 @@ def run():
     PER_full_data.compute_new_column('%DifPruebas', ['Pruebas'], compute_tests_growth_factor)
     PER_full_data.compute_new_column('%PruebasPositivasDiarias', ['NuevasPruebas', 'NuevosCasos'], compute_daily_positivity_rate)
     PER_full_data.compute_new_column('NuevosRecuperados', ['Recuperados'], compute_new_recovered)
-    PER_full_data.compute_new_column('%DifRecuperados', ['Recuperados'], compute_tests_growth_factor)
+    PER_full_data.compute_new_column('%DifRecuperados', ['Recuperados'], compute_recovered_growth_factor)
     PER_full_data.compute_new_column('NuevosHospitalizados', ['Hospitalizados'], compute_new_hospitalized)
     PER_full_data.compute_new_column('%DifHospitalizados', ['Hospitalizados'], compute_hospitalized_growth_factor)
     PER_full_data.compute_new_column('Dia', [], compute_days)
