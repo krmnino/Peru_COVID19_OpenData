@@ -46,6 +46,11 @@ class Config:
             split_list = raw_string.split(',')
             for i in range(0, len(split_list)):
                 split_list[i] = self.__remove_side_spaces(split_list[i])
+                try:
+                    to_float = float(split_list[i])
+                    split_list[i] = to_float
+                except:
+                    split_list[i] = raw_string
             return split_list
         else:
             raw_string = self.__remove_side_spaces(raw_string)
