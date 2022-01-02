@@ -2,14 +2,20 @@ import sys
 from math import e, pi, sqrt
 import random
 import numpy as np
-from numpy.lib.shape_base import tile
+from numpy.core.numeric import Infinity
 
 sys.path.insert(0, '../utilities')
 
 import PlottingUtility as pu
 
+# === Region Colors ===
+# 0 : Red
+# 1 : Orange
+# 2 : Yellow
+# 3 : Green 
+
 class Stats:
-    def __init__(self, input_vect):
+    def __init__(self, input_vect, region_colors):
         self.data = input_vect
         self.size = len(self.data)
         self.mean = np.average(self.data)
@@ -21,11 +27,26 @@ class Stats:
         acc = acc / self.size
         self.stdev = sqrt(acc)
 
+        self.regions = {
+            0 : (-float('inf'), self.mean - (3 * self.stdev)),
+            1 : (self.mean - (3 * self.stdev), self.mean - (2 * self.stdev)),
+            2 : (self.mean - (2 * self.stdev), self.mean - (self.stdev)),
+            3 : (self.mean - (self.stdev), self.mean),
+            4 : (self.mean, self.mean + (self.stdev)),
+            5 : (self.mean + (self.stdev), self.mean + (2 * self.stdev)),
+            6 : (self.mean + (2 * self.stdev), self.mean + (3 * self.stdev)),
+            7 : (self.mean + (3 * self.stdev), float('inf')),
+        }
+
+        if(region_colors != 8):
+            sys.exit('region_colors parameter must be a list of 8 integers')
+        self.region_colors = region_colors
+
     def display_dataset(self):
         for i in range(0, len(self.data)):
             print(i, ':', self.data[i])
 
-    def plot_gauss_bell(self, ofile):
+    def plot_gauss_bell(self, ofile, title):
         xbell = np.array([])
         xdata = np.array([])
         ybell = np.array([])
@@ -64,10 +85,11 @@ class Stats:
         ysd6 = np.array([0, max_y_curve])
 
         n_datasets = 9
-        colors_ds = ['b', 'r', 'k', 'k', 'k', 'k', 'k', 'k', 'k']
+        colors_ds = ['#0743E8', '#E80730', '#009E1A', '#000000', '#000000',
+                     '#000000', '#000000', '#000000', '#000000', '#000000']
         linestyle_ds = ['-', '', '-', '--', '--', '--', '--', '--', '--']
         markers_ds = ['', 'o', '', '', '', '', '', '', '']
-        title = 'Stats Analysis Gaussian Bell'
+        title_plot = title
         enable_rolling_avg_ds = [False, False, False, False, False, False, False, False, False]
         x_label = ''
         y_label = ''
@@ -82,7 +104,7 @@ class Stats:
             colors_ds,
             linestyle_ds,
             markers_ds,
-            title,
+            title_plot,
             enable_rolling_avg_ds,
             x_label,
             y_label,
@@ -96,7 +118,7 @@ class Stats:
         )
         self.plot.export()
 
-    def plot_gauss_bell_datapoint(self, ofile, idx):
+    def plot_gauss_bell_datapoint(self, ofile, title, idx):
         xbell = np.array([])
         xdata = np.array([])
         ybell = np.array([])
@@ -138,7 +160,8 @@ class Stats:
         ydatapoint = np.array([ydata[idx]])
 
         n_datasets = 10
-        colors_ds = ['b', 'r', 'g', 'k', 'k', 'k', 'k', 'k', 'k', 'k']
+        colors_ds = ['#0743E8', '#E80730', '#009E1A', '#000000', '#000000',
+                     '#000000', '#000000', '#000000', '#000000', '#000000']
         linestyle_ds = ['-', '', '', '-', '--', '--', '--', '--', '--', '--']
         markers_ds = ['', 'o', 'o', '', '', '', '', '', '', '']
         enable_rolling_avg_ds = [False, False, False, False, False, False, False, False, False, False]
@@ -169,12 +192,3 @@ class Stats:
             ravg_ydata_ds
         )
         self.plot.export()
-
-
-data = np.array([])
-for i in range(0, 100):
-    data = np.append(data, random.uniform(-100.0, 50.0))
-tmp = Stats(data)
-tmp.display_dataset()
-tmp.plot_gauss_bell('test1.png')
-tmp.plot_gauss_bell_datapoint('test2.png', 99)
