@@ -203,12 +203,16 @@ class Stats:
                 color_val = self.region_colors[i]
                 break
         indicator = 0
+        # return red circle
         if(color_val == 0):
             indicator = u'\U0001F534'
+        # return orange circle
         elif(color_val == 1):
             indicator = u'\U0001F7E0'
+        # return yellow circle
         elif(color_val == 2):
             indicator = u'\U0001F7E1'
+        # return green circle
         elif(color_val == 3):
             indicator = u'\U0001F7E2'
         return indicator
