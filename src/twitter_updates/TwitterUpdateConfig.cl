@@ -1,4 +1,4 @@
-TwitterAuth=/src/twitter_updates/auth.cl;
+TwitterAuth = /src/twitter_updates/auth.cl;
 RawImages = /res/raw_images;
 GraphPath = /res/graphs;
 TwitterMINSA = Minsa_Peru;
