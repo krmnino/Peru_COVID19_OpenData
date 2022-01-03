@@ -219,44 +219,6 @@ def compute_hospitalized_growth_factor(index, columns):
 def compute_days(index, columns):
     return index
 
-# The lower the prercentage, the better (closest to color green)
-def text_indicator_lower_green(percent_change):
-    if(percent_change < 0.2):
-        return u'\U0001F7E2'
-    if(percent_change >= 0.2 and percent_change < 0.4):
-        return u'\U0001F7E1'
-    if(percent_change >= 0.4 and percent_change < 0.6):
-        return u'\U0001F7E0'
-    elif(percent_change >= 0.6):
-        return u'\U0001F534'
-    else:
-        return ''
-
-# The higher the prercentage, the better (closest to color green)
-def text_indicator_higher_green(percent_change):
-    if(percent_change < 0.2):
-        return u'\U0001F534'
-    if(percent_change >= 0.2 and percent_change < 0.4):
-        return u'\U0001F7E0'
-    if(percent_change >= 0.4 and percent_change < 0.6):
-        return u'\U0001F7E1'
-    elif(percent_change >= 0.6):
-        return u'\U0001F7E2'
-    else:
-        return ''
-
-# The lower the prercentage, the better (closest to color green)
-def text_indicator_positivity(percent_change):
-    if(percent_change < 0.05):
-        return u'\U0001F7E2'
-    if(percent_change >= 0.05 and percent_change < 0.10):
-        return u'\U0001F7E1'
-    if(percent_change >= 0.10 and percent_change < 0.15):
-        return u'\U0001F7E0'
-    elif(percent_change >= 0.15):
-        return u'\U0001F534'
-    else:
-        return ''
 
 def set_plus_sign(value):
     if(value > 0):
@@ -264,92 +226,47 @@ def set_plus_sign(value):
     else:
         return ''
 
-def calculate_mean(data):    
-    return np.average(data)
-
-def calculate_stdev_ranges(data):
-    mean = calculate_mean(data)
-    acc = 0
-    for i in range(0, len(data)):
-        acc += (data[i] - mean) ** 2
-    acc = acc / len(data)
-    acc = sqrt(acc)
-    half_stdev = acc / 2
-    stdev_ranges = [0 for i in range(0, 13)]
-    stdev_ranges[0] = mean - (half_stdev * 6)
-    stdev_ranges[1] = mean - (half_stdev * 5)
-    stdev_ranges[2] = mean - (half_stdev * 4)
-    stdev_ranges[3] = mean - (half_stdev * 3)
-    stdev_ranges[4] = mean - (half_stdev * 2)
-    stdev_ranges[5] = mean - (half_stdev * 1)
-    stdev_ranges[6] = mean
-    stdev_ranges[7] = mean + (half_stdev * 1)
-    stdev_ranges[8] = mean + (half_stdev * 2)
-    stdev_ranges[9] = mean + (half_stdev * 3)
-    stdev_ranges[10] = mean + (half_stdev * 4)
-    stdev_ranges[11] = mean + (half_stdev * 5)
-    stdev_ranges[12] = mean + (half_stdev * 6)
-    return stdev_ranges
-
-def generate_first_tweet_text2(template_path, data_table, last_days):
-    template = tpl.Text(template_path)
-    latest_entry = data_table.get_end_row()
-
-
-    gf_cases = (latest_entry['%DifCasos'] - 1.0) * 100
-
-    row = data_table.get_column_data('NuevosCasos')[-last_days:]
-    stdev_ranges = calculate_stdev_ranges(row)
-    #template.set_ph_value_by_position(0, text_indicator_lower_green(gf_cases))
-    template.set_ph_value_by_position(1, str(latest_entry['Casos']))
-    template.set_ph_value_by_position(2, set_plus_sign(latest_entry['NuevosCasos']) + str(int(latest_entry['NuevosCasos'])))
-
-
-def generate_first_tweet_text(template_path, latest_entry, cases24):
+def generate_first_tweet_text(template_path, latest_entry, cases24, new_cases_ind, new_recovered_ind, new_hospitalized_ind):
     template = tpl.Text(template_path)
 
-    gf_cases = (latest_entry['%DifCasos'] - 1.0) * 100
-    template.set_ph_value_by_position(0, text_indicator_lower_green(gf_cases))
+    template.set_ph_value_by_position(0, new_cases_ind)
     template.set_ph_value_by_position(1, str(latest_entry['Casos']))
     template.set_ph_value_by_position(2, set_plus_sign(latest_entry['NuevosCasos']) + str(int(latest_entry['NuevosCasos'])))
 
     template.set_ph_value_by_position(3, set_plus_sign(latest_entry['NuevosCasos'] - cases24) + str(int(latest_entry['NuevosCasos'] - cases24)))
     template.set_ph_value_by_position(4, set_plus_sign(cases24) + str(int(cases24)))
 
-    gf_recovered = (latest_entry['%DifRecuperados'] - 1.0) * 100
-    template.set_ph_value_by_position(5, text_indicator_higher_green(gf_recovered))
+    template.set_ph_value_by_position(5, new_recovered_ind)
     template.set_ph_value_by_position(6, str(latest_entry['Recuperados']))
     template.set_ph_value_by_position(7, set_plus_sign(latest_entry['NuevosRecuperados']) + str(int(latest_entry['NuevosRecuperados'])))
 
-    gf_hospitalized = (latest_entry['%DifHospitalizados'] - 1.0) * 100
-    template.set_ph_value_by_position(8, text_indicator_lower_green(gf_hospitalized))
+    template.set_ph_value_by_position(8, new_hospitalized_ind)
     template.set_ph_value_by_position(9, str(latest_entry['Hospitalizados']))
     template.set_ph_value_by_position(10, set_plus_sign(latest_entry['NuevosHospitalizados']) + str(int(latest_entry['NuevosHospitalizados'])))
 
     return template.process_text()
 
-def generate_second_tweet_text(template_path, latest_entry, case_fatality_prev, positivity_rate_prev):
+def generate_second_tweet_text(template_path, latest_entry, case_fatality_prev, positivity_rate_prev,
+                               new_deaths_ind, new_case_fatality_ind, new_tests_ind, new_positivity_ind):
     template = tpl.Text(template_path)
 
-    gf_deaths = (latest_entry['%DifFallecidos'] - 1.0) * 100
-    template.set_ph_value_by_position(0, text_indicator_lower_green(gf_deaths))
+    template.set_ph_value_by_position(0, new_deaths_ind)
     template.set_ph_value_by_position(1, str(latest_entry['Fallecidos']))
     template.set_ph_value_by_position(2, set_plus_sign(latest_entry['NuevosFallecidos']) + str(int(latest_entry['NuevosFallecidos'])))
 
     case_fatality = (latest_entry['TasaLetalidad']) * 100
     diff_case_fatality = (latest_entry['TasaLetalidad'] - case_fatality_prev) * 100
-    template.set_ph_value_by_position(3, text_indicator_lower_green(case_fatality))
+    template.set_ph_value_by_position(3, new_case_fatality_ind)
     template.set_ph_value_by_position(4, str(round(case_fatality, 4)))
     template.set_ph_value_by_position(5, set_plus_sign(diff_case_fatality) + str(round(diff_case_fatality, 4)))
 
-    gf_recovered = (latest_entry['%DifPruebas'] - 1.0) * 100
-    template.set_ph_value_by_position(6, text_indicator_higher_green(gf_recovered))
+    template.set_ph_value_by_position(6, new_tests_ind)
     template.set_ph_value_by_position(7, str(latest_entry['Pruebas']))
     template.set_ph_value_by_position(8, set_plus_sign(latest_entry['NuevasPruebas']) + str(int(latest_entry['NuevasPruebas'])))
 
     positivity_rate = (latest_entry['%PruebasPositivasDiarias']) * 100
     diff_positivity_rate = (latest_entry['%PruebasPositivasDiarias'] - positivity_rate_prev) * 100
-    template.set_ph_value_by_position(9, text_indicator_positivity(latest_entry['%PruebasPositivasDiarias']))
+    template.set_ph_value_by_position(9, new_positivity_ind)
     template.set_ph_value_by_position(10, str(round(positivity_rate, 3)))
     template.set_ph_value_by_position(11, set_plus_sign(diff_positivity_rate) + str(round(diff_positivity_rate, 3)))
 
@@ -362,9 +279,3 @@ def export_tweets_to_file(path, tweets):
         for t in tweets:
             file.write(t.message)        
             file.write('\n')
-
-def update_git_repo_win32(date):
-    os.system('sh Windows_AutoUpdateRepo.sh "' + date + '"')
-
-def update_git_repo_linux(date):
-    os.system('./Linux_AutoUpdateRepo.sh "' + date + '"')
