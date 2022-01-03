@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import copy
+import numpy as np
 
 sys.path.insert(0, '../utilities')
 
@@ -35,10 +36,9 @@ from TwitterUpdate import compute_days
 from TwitterUpdate import generate_first_tweet_text
 from TwitterUpdate import generate_second_tweet_text
 from TwitterUpdate import export_tweets_to_file
-from TwitterUpdate import update_git_repo_win32
-from TwitterUpdate import update_git_repo_linux
 from CommandLineUtility import check_data_menu
 from CommandLineUtility import check_tweets_menu
+from StatAnalysis import Stats
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
 
@@ -99,7 +99,7 @@ def run():
         process_image(bulletin_path, top_level_directory + main_config.get_value('RawCases24'), (150, 160, 530, 310), grescale=True, invert=True, contrast=2.0)
     
     # Store values read by OCR algorithm in a dictionary
-    input_data = {\
+    input_data = {
         'Date' : current_date,
         'Cases' : decode_image(top_level_directory + main_config.get_value('RawCases')),
         'Deaths' : decode_image(top_level_directory + main_config.get_value('RawDeaths')),
@@ -150,6 +150,48 @@ def run():
     PER_full_data.compute_new_column('NuevosHospitalizados', ['Hospitalizados'], compute_new_hospitalized)
     PER_full_data.compute_new_column('%DifHospitalizados', ['Hospitalizados'], compute_hospitalized_growth_factor)
     PER_full_data.compute_new_column('Dia', [], compute_days)
+
+    # StatsAnalysis for tweet indicators
+    new_cases_data = PER_full_data.get_column_data('NuevosCasos')[-31:]
+    new_cases_stats = Stats(new_cases_data, main_config.get_value('NewCasesSA'))
+    new_cases_ind = new_cases_stats.get_indicator(len(new_cases_data) - 1)
+    #new_cases_stats.plot_gauss_bell_datapoint('plot.png', 'New Cases', len(new_cases_data) - 1)
+
+    new_recovered_data = PER_full_data.get_column_data('NuevosRecuperados')[-31:]
+    new_recovered_stats = Stats(new_recovered_data, main_config.get_value('NewRecoveredSA'))
+    new_recovered_ind = new_recovered_stats.get_indicator(len(new_recovered_data) - 1)
+    #new_recovered_stats.plot_gauss_bell_datapoint('plot.png', 'New Recovered', len(new_recovered_data) - 1)
+    
+    new_hospitalized_data = PER_full_data.get_column_data('NuevosHospitalizados')[-31:]
+    new_hospitalized_stats = Stats(new_hospitalized_data, main_config.get_value('NewHospitalizedSA'))
+    new_hospitalized_ind = new_hospitalized_stats.get_indicator(len(new_hospitalized_data) - 1)
+    #new_hospitalized_stats.plot_gauss_bell_datapoint('plot.png', 'New Hospitalized', len(new_hospitalized_data) - 1)
+
+    new_deaths_data = PER_full_data.get_column_data('NuevosFallecidos')[-31:]
+    new_deaths_stats = Stats(new_deaths_data, main_config.get_value('NewDeathsSA'))
+    new_deaths_ind = new_deaths_stats.get_indicator(len(new_deaths_data) - 1)
+    #new_deaths_stats.plot_gauss_bell_datapoint('plot.png', 'New Deaths', len(new_deaths_data) - 1)
+
+    new_case_fatality_data = PER_full_data.get_column_data('TasaLetalidad')[-32:]
+    diff_case_fatality_data = np.array([])
+    for i in range(1, len(new_case_fatality_data)):
+        diff_case_fatality_data = np.append(diff_case_fatality_data, new_case_fatality_data[i] - new_case_fatality_data[i - 1])
+    new_case_fatality_stats = Stats(diff_case_fatality_data, main_config.get_value('NewCaseFatalitiesSA'))
+    new_case_fatality_ind = new_case_fatality_stats.get_indicator(len(diff_case_fatality_data) - 1)
+    #new_case_fatality_stats.plot_gauss_bell_datapoint('plot.png', 'New Case Fatality', len(diff_case_fatality_data) - 1)
+
+    new_tests_data = PER_full_data.get_column_data('NuevasPruebas')[-31:]
+    new_tests_stats = Stats(new_tests_data, main_config.get_value('NewTestsSA'))
+    new_tests_ind = new_tests_stats.get_indicator(len(new_tests_data) - 1)
+    #new_tests_stats.plot_gauss_bell_datapoint('plot.png', 'New Tests', len(new_tests_data) - 1)
+
+    new_positivity_data = PER_full_data.get_column_data('%PruebasPositivasDiarias')[-32:]
+    diff_positivity_data = np.array([])
+    for i in range(1, len(new_positivity_data)):
+        diff_positivity_data = np.append(diff_positivity_data, new_positivity_data[i] - new_positivity_data[i - 1])
+    new_positivity_stats = Stats(diff_positivity_data, main_config.get_value('NewPositivitySA'))
+    new_positivity_ind = new_positivity_stats.get_indicator(len(diff_positivity_data) - 1)
+    #new_positivity_stats.plot_gauss_bell_datapoint('plot.png', 'New Tests', len(diff_positivity_data) - 1)
 
     # Reorganize header index before saving
     new_header = [
@@ -230,11 +272,27 @@ def run():
     tweet2 = Tweet()
     
     # Create and add tweet body for first tweet
-    tweet1.set_message(generate_first_tweet_text(top_level_directory + main_config.get_value('TwTemplate1'), latest_entry, int(input_data['Cases24H'])))
+    tweet1.set_message(generate_first_tweet_text(
+        top_level_directory + main_config.get_value('TwTemplate1'),
+        latest_entry,
+        int(input_data['Cases24H']),
+        new_cases_ind,
+        new_recovered_ind,
+        new_hospitalized_ind
+    ))
     
     # Create and add tweet body for second tweet
-    tweet2.set_message(generate_second_tweet_text(top_level_directory + main_config.get_value('TwTemplate2'), latest_entry,
-         PER_full_data.get_cell_data('TasaLetalidad', PER_full_data.rows-2), PER_full_data.get_cell_data('%PruebasPositivasDiarias', PER_full_data.rows-2)))
+    tweet2.set_message(generate_second_tweet_text(
+        top_level_directory + main_config.get_value('TwTemplate2'),
+        latest_entry,
+        PER_full_data.get_cell_data('TasaLetalidad', PER_full_data.rows-2),
+        PER_full_data.get_cell_data('%PruebasPositivasDiarias',
+        PER_full_data.rows-2),
+        new_deaths_ind,
+        new_case_fatality_ind,
+        new_tests_ind,
+        new_positivity_ind
+    ))
 
     # Add paths to graph images
     tweet1.add_image(top_level_directory + main_config.get_value('TwitterGraph1'))
@@ -243,9 +301,9 @@ def run():
     # Export tweet messages into a file
     export_tweets_to_file(top_level_directory + main_config.get_value('TweetExport'), [tweet1, tweet2])
     
-    # Reply to @Minsa_Peru with tweet thread
+    ## Reply to @Minsa_Peru with tweet thread
     twitter_session.reply_thread(ret_tweet.tweet_id, [tweet1, tweet2])
-
+    
     # Update GitHub repository with new data    
     if(sys.platform == 'win32'):
         os.system('sh Windows_AutoUpdateRepo.sh "' + input_data['Date'] + '"')

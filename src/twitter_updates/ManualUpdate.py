@@ -36,8 +36,8 @@ from TwitterUpdate import compute_days
 from TwitterUpdate import generate_first_tweet_text
 from TwitterUpdate import generate_second_tweet_text
 from TwitterUpdate import export_tweets_to_file
-from StatAnalysis import Stats
 from CommandLineUtility import check_data_menu
+from StatAnalysis import Stats
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
 
