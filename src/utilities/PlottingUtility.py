@@ -340,7 +340,6 @@ class LayeredScatterPlot:
         else:
             self.ravg_ydata_datasets = ravg_ydata_ds
 
-
         for i in range(0, self.n_datasets):
             if(self.enable_rolling_avg_datasets[i] and self.ravg_days_datasets[i] < 0):
                 sys.exit('ravg_days_datasets[' + str(i) + '] must be 1 or greater if rolling average is enabled')

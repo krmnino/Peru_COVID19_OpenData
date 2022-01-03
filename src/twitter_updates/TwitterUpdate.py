@@ -219,7 +219,6 @@ def compute_hospitalized_growth_factor(index, columns):
 def compute_days(index, columns):
     return index
 
-
 def set_plus_sign(value):
     if(value > 0):
         return '+'

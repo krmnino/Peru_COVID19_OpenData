@@ -301,7 +301,7 @@ def run():
     # Export tweet messages into a file
     export_tweets_to_file(top_level_directory + main_config.get_value('TweetExport'), [tweet1, tweet2])
     
-    ## Reply to @Minsa_Peru with tweet thread
+    # Reply to @Minsa_Peru with tweet thread
     twitter_session.reply_thread(ret_tweet.tweet_id, [tweet1, tweet2])
     
     # Update GitHub repository with new data    

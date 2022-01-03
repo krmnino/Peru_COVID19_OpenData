@@ -41,7 +41,6 @@ from StatAnalysis import Stats
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
 
-
 def run():
     # Obtain current date
     current_date = datetime.date.today().strftime('%Y-%m-%d')
@@ -259,7 +258,7 @@ def run():
     # Export tweet messages into a file
     export_tweets_to_file(top_level_directory + main_config.get_value('TweetExport'), [tweet1, tweet2])
     
-    ## Reply to @Minsa_Peru with tweet thread
+    # Reply to @Minsa_Peru with tweet thread
     twitter_session.send_thread([tweet1, tweet2])
     
     # Update GitHub repository with new data    

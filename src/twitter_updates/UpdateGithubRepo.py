@@ -12,7 +12,6 @@ def update_git(opt_date=datetime.date.today().strftime('%Y-%m-%d')):
     else:
         update_git_repo_linux(opt_date)
 
-
 if(len(sys.argv)):
     update_git()
 else:

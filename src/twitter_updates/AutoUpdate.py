@@ -302,7 +302,7 @@ def run():
     
     # Reply to @Minsa_Peru with tweet thread
     twitter_session.reply_thread(reply_to_tweet.tweet_id, [tweet1, tweet2])
-
+    
     # Update GitHub repository with new data    
     if(sys.platform == 'win32'):
         os.system('sh Windows_AutoUpdateRepo.sh "' + input_data['Date'] + '"')
