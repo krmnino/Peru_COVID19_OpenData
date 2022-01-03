@@ -248,9 +248,9 @@ def run():
 
     # Update GitHub repository with new data    
     if(sys.platform == 'win32'):
-        update_git_repo_win32(input_data['Date'])
+        os.system('sh Windows_AutoUpdateRepo.sh "' + input_data['Date'] + '"')
     else:
-        update_git_repo_linux(input_data['Date'])
+        os.system('./Linux_AutoUpdateRepo.sh "' + input_data['Date'] + '"')
 
 #####################################################################################################################
 
