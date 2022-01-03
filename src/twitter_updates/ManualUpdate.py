@@ -74,11 +74,7 @@ def run():
     check_data_menu(input_data) 
     
     # Load simple Peru data set
-<<<<<<< HEAD
     PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'), delimiter=',')
-=======
-    PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'), delimiter = ',')
->>>>>>> master
 
     # Agregate new data entry
     PER_data.append_end_row([   
@@ -244,7 +240,6 @@ def run():
     ))
     
     # Create and add tweet body for second tweet
-<<<<<<< HEAD
     tweet2.set_message(generate_second_tweet_text(
         top_level_directory + main_config.get_value('TwTemplate2'),
         latest_entry,
@@ -256,10 +251,6 @@ def run():
         new_tests_ind,
         new_positivity_ind
     ))
-=======
-    tweet2.set_message(generate_second_tweet_text(top_level_directory + main_config.get_value('TwTemplate2'), latest_entry,
-         PER_full_data.get_cell_data('TasaLetalidad', PER_full_data.rows-2), PER_full_data.get_cell_data('%PruebasPositivasDiarias', PER_full_data.rows-2)))
->>>>>>> master
 
     # Add paths to graph images
     tweet1.add_image(top_level_directory + main_config.get_value('TwitterGraph1'))
