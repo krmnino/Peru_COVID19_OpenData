@@ -1,4 +1,5 @@
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 import warnings
 import numpy as np
 import sys
@@ -468,6 +469,23 @@ class ScatterPlot:
         # Validate len(x_dataset) = len(y_dataset)
         if(len(self.x_dataset) != len(self.y_dataset)):
             sys.exit('Error: x_dataset size does not equal y_dataset size.')
+        if(self.rolling_avg and (not isinstance(self.n_rolling_avg, int))):
+            sys.exit('Error: rolling_avg is True -> n_rolling_avg must be an integer.')
+        if(self.rolling_avg and (self.n_rolling_avg < 0 or self.n_rolling_avg > len(self.x_dataset) - 1)):
+            sys.exit('Error: rolling_avg is True -> n_rolling_avg must be greater than 0 and less than', str(len(self.x_dataset) - 1) + '.')
+        if(not isinstance(self.color, str)):
+            sys.exit('Error: color is must be a str type.')
+        if(self.color[0] != '#'):
+            sys.exit('Error: color is must be a string with a HEX value for a color -> ex: #FFFFFF.')
+        for i in range(1, len(self.color)):
+            if(not self.color[i].isalnum()):
+                sys.exit('Error: color is must be a string with a HEX value for a color -> ex: #FFFFFF.')
+        if(not isinstance(self.x_axis_orientation, int)):
+            sys.exit('Error: rolling_avg is True -> n_rolling_avg must be an integer.')
+        if(self.x_axis_orientation != 0 and self.x_axis_orientation != 90 and 
+           self.x_axis_orientation != 180 and self.x_axis_orientation != 270 and
+           self.x_axis_orientation != 360):
+            sys.exit('Error: x_axis_orientation must be either 0, 90, 180, 270, 360.')
         
     def __rgb_threshold(self, color, min=0, max=255):
         if (color < min):
@@ -498,7 +516,7 @@ class ScatterPlot:
     def export(self):
         self.fig = Figure(figsize=(14, 10), dpi=200)
         self.axis = self.fig.add_subplot(1,1,1)
-        self.fig.subplots_adjust(left=0.07, bottom=0.14, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
+        self.fig.subplots_adjust(left=0.07, bottom=0.08, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
         
         self.axis.plot(self.x_dataset, self.y_dataset, color=self.color, linestyle=self.linestyle, marker=self.marker, linewidth=self.linewidth)
         
@@ -518,7 +536,7 @@ class ScatterPlot:
 
         self.fig.suptitle(self.super_title, fontsize=self.super_title_size, **self.text_font)
         self.fig.savefig(self.filename)
-
+        
 
 import random
 xdata = [i for i in range(0, 100)]
@@ -549,4 +567,4 @@ p = ScatterPlot(
     True,
     'output.png'
 )
-p.export()
+p.display()
