@@ -220,47 +220,47 @@ class QuadPlot:
 #    def get_path(self):
 #        return self.out_file
 
-class BarPlot:
-    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=1, ravg_label='', ravg_ydata=[]):
-        self.color_plot = color
-        self.title_plot = title
-        self.enable_rolling_avg_plot = enable_rolling_avg
-        self.ravg_days = ravg
-        self.ravg_label = ravg_label
-        self.ravg_ydata = ravg_ydata
-        self.x_label_plot = x_label
-        self.y_label_plot = y_label
-        self.x_data = x_data
-        self.y_data = y_data
-        self.suptitle = stitle
-        self.out_file = ofile
-        self.text_font = {'fontname':'Bahnschrift'}
-        self.digit_font = {'fontname':'Consolas'}            
-    
-    def export(self):
-        self.fig = Figure(figsize=(14, 10), dpi=200)
-        self.axis = self.fig.add_subplot(1,1,1)
-        self.fig.subplots_adjust(left=0.07, bottom=0.14, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
-
-        self.axis.grid(zorder=0)
-        self.axis.bar(self.x_data, self.y_data, color=self.color_plot, zorder=2)
-        self.axis.set_title(self.title_plot, fontsize=22, **self.text_font)
-        self.axis.tick_params(axis='x',labelrotation=90)
-        self.axis.set_xticklabels(labels=self.x_data, fontsize=12, **self.digit_font)
-        for tick in self.axis.get_yticklabels():
-            tick.set_fontname(**self.digit_font)
-            tick.set_fontsize(12)
-        self.axis.set_xlabel(self.x_label_plot, **self.text_font, fontsize=12)
-        self.axis.set_ylabel(self.y_label_plot, **self.text_font, fontsize=12)
-        if(self.enable_rolling_avg_plot):
-            if(len(self.ravg_label) == 0):
-                sys.exit('Rolling average label or ydata is empty')
-            if(len(self.ravg_ydata == None) == 0):
-                sys.exit('Rolling average ydata is empty')
-            self.generate_rolling_average()
-
-        self.fig.suptitle(self.suptitle, fontsize=12, **self.text_font)
-        self.fig.savefig(self.out_file)
+#class BarPlot:
+#    def __init__(self, color, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=1, ravg_label='', ravg_ydata=[]):
+#        self.color_plot = color
+#        self.title_plot = title
+#        self.enable_rolling_avg_plot = enable_rolling_avg
+#        self.ravg_days = ravg
+#        self.ravg_label = ravg_label
+#        self.ravg_ydata = ravg_ydata
+#        self.x_label_plot = x_label
+#        self.y_label_plot = y_label
+#        self.x_data = x_data
+#        self.y_data = y_data
+#        self.suptitle = stitle
+#        self.out_file = ofile
+#        self.text_font = {'fontname':'Bahnschrift'}
+#        self.digit_font = {'fontname':'Consolas'}            
+#    
+#    def export(self):
+#        self.fig = Figure(figsize=(14, 10), dpi=200)
+#        self.axis = self.fig.add_subplot(1,1,1)
+#        self.fig.subplots_adjust(left=0.07, bottom=0.14, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
+#
+#        self.axis.grid(zorder=0)
+#        self.axis.bar(self.x_data, self.y_data, color=self.color_plot, zorder=2)
+#        self.axis.set_title(self.title_plot, fontsize=22, **self.text_font)
+#        self.axis.tick_params(axis='x',labelrotation=90)
+#        self.axis.set_xticklabels(labels=self.x_data, fontsize=12, **self.digit_font)
+#        for tick in self.axis.get_yticklabels():
+#            tick.set_fontname(**self.digit_font)
+#            tick.set_fontsize(12)
+#        self.axis.set_xlabel(self.x_label_plot, **self.text_font, fontsize=12)
+#        self.axis.set_ylabel(self.y_label_plot, **self.text_font, fontsize=12)
+#        if(self.enable_rolling_avg_plot):
+#            if(len(self.ravg_label) == 0):
+#                sys.exit('Rolling average label or ydata is empty')
+#            if(len(self.ravg_ydata == None) == 0):
+#                sys.exit('Rolling average ydata is empty')
+#            self.generate_rolling_average()
+#
+#        self.fig.suptitle(self.suptitle, fontsize=12, **self.text_font)
+#        self.fig.savefig(self.out_file)
 
     def rgb_threshold(self, color, min=0, max=255):
         if (color < min):
@@ -510,7 +510,7 @@ class ScatterPlot:
         b = int(self.__rgb_threshold(b * 0.6))
         avg_color = "#%02x%02x%02x" % (r, g, b)
 
-        self.axis.plot(self.x_dataset, avgd_data[self.n_rolling_avg:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.x_ravg_label)
+        self.axis.plot(self.x_dataset, avgd_data[self.n_rolling_avg:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.rolling_avg_label)
         self.axis.legend(loc='upper left')
 
     def export(self):
@@ -537,6 +537,8 @@ class ScatterPlot:
         self.fig.suptitle(self.super_title, fontsize=self.super_title_size, **self.text_font)
         self.fig.savefig(self.filename)
         
+#class BarPlot:
+
 
 import random
 xdata = [i for i in range(0, 100)]
@@ -549,14 +551,14 @@ p = ScatterPlot(
     '#5B90F3',
     '',
     2.5,
-    False,
-    0,
-    '',
+    True,
+    5,
+    'avg 5',
     'xaxis',
     12,
     90,
     12,
-    'xaxis',
+    'yaxis',
     12,
     'my title',
     20,
@@ -567,4 +569,4 @@ p = ScatterPlot(
     True,
     'output.png'
 )
-p.display()
+p.export()
