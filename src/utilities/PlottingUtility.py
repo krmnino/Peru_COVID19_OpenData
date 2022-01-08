@@ -261,35 +261,35 @@ class QuadPlot:
 #
 #        self.fig.suptitle(self.suptitle, fontsize=12, **self.text_font)
 #        self.fig.savefig(self.out_file)
-
-    def rgb_threshold(self, color, min=0, max=255):
-        if (color < min):
-            return min
-        if (color > max):
-            return max
-        return color
-
-    def generate_rolling_average(self):
-        avgd_data = np.array([])
-        for i in range(len(self.ravg_ydata) - (len(self.x_data) + self.ravg_days), len(self.ravg_ydata)):
-            sum_data = 0
-            for j in range(i - self.ravg_days, i):
-                sum_data += self.ravg_ydata[j]
-            sum_data /= self.ravg_days
-            avgd_data = np.append(avgd_data, sum_data)
-
-        color_to_string = self.color_plot[1:] 
-        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
-        r = int(self.rgb_threshold(r * 0.6))
-        g = int(self.rgb_threshold(g * 0.6))
-        b = int(self.rgb_threshold(b * 0.6))
-        avg_color = "#%02x%02x%02x" % (r, g, b)
-
-        self.axis.plot(self.x_data, avgd_data[self.ravg_days:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.ravg_label)
-        self.axis.legend(loc='upper left')
-
-    def get_path(self):
-        return self.out_file
+#
+#    def rgb_threshold(self, color, min=0, max=255):
+#        if (color < min):
+#            return min
+#        if (color > max):
+#            return max
+#        return color
+#
+#    def generate_rolling_average(self):
+#        avgd_data = np.array([])
+#        for i in range(len(self.ravg_ydata) - (len(self.x_data) + self.ravg_days), len(self.ravg_ydata)):
+#            sum_data = 0
+#            for j in range(i - self.ravg_days, i):
+#                sum_data += self.ravg_ydata[j]
+#            sum_data /= self.ravg_days
+#            avgd_data = np.append(avgd_data, sum_data)
+#
+#        color_to_string = self.color_plot[1:] 
+#        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+#        r = int(self.rgb_threshold(r * 0.6))
+#        g = int(self.rgb_threshold(g * 0.6))
+#        b = int(self.rgb_threshold(b * 0.6))
+#        avg_color = "#%02x%02x%02x" % (r, g, b)
+#
+#        self.axis.plot(self.x_data, avgd_data[self.ravg_days:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.ravg_label)
+#        self.axis.legend(loc='upper left')
+#
+#    def get_path(self):
+#        return self.out_file
 
 class LayeredScatterPlot:
     def __init__(self, n_datasets, colors_ds, linestyle_ds, markers_ds, title, enable_rolling_avg_ds, x_label, y_label,
@@ -469,19 +469,33 @@ class ScatterPlot:
         # Validate len(x_dataset) = len(y_dataset)
         if(len(self.x_dataset) != len(self.y_dataset)):
             sys.exit('Error: x_dataset size does not equal y_dataset size.')
+
+        # Validate if rolling_avg is True and n_rolling_avg is an integer type
         if(self.rolling_avg and (not isinstance(self.n_rolling_avg, int))):
             sys.exit('Error: rolling_avg is True -> n_rolling_avg must be an integer.')
+
+        # Validate if rolling_avg is True and 0 <= n_rolling_avg < len(x_dataset) - 1
         if(self.rolling_avg and (self.n_rolling_avg < 0 or self.n_rolling_avg > len(self.x_dataset) - 1)):
             sys.exit('Error: rolling_avg is True -> n_rolling_avg must be greater than 0 and less than', str(len(self.x_dataset) - 1) + '.')
+            
+        # Validate if color is a string type
         if(not isinstance(self.color, str)):
             sys.exit('Error: color is must be a str type.')
+
+        # Validate first char of color is a pound sign (#)
         if(self.color[0] != '#'):
             sys.exit('Error: color is must be a string with a HEX value for a color -> ex: #FFFFFF.')
+
+        # Validate that the following 6 chars of color are alphanumeric
         for i in range(1, len(self.color)):
             if(not self.color[i].isalnum()):
                 sys.exit('Error: color is must be a string with a HEX value for a color -> ex: #FFFFFF.')
+
+        # Validate that x_axis_orientation is an integer type
         if(not isinstance(self.x_axis_orientation, int)):
             sys.exit('Error: rolling_avg is True -> n_rolling_avg must be an integer.')
+
+        # Validate that x_axis_orientation value is either 0, 90, 180, 270, 360
         if(self.x_axis_orientation != 0 and self.x_axis_orientation != 90 and 
            self.x_axis_orientation != 180 and self.x_axis_orientation != 270 and
            self.x_axis_orientation != 360):
@@ -531,14 +545,149 @@ class ScatterPlot:
         
         if(self.rolling_avg):
             self.__generate_rolling_avg()
+
+        if(self.legend):
+            self.axis.legend(loc='upper left')
         
         self.axis.grid()
 
         self.fig.suptitle(self.super_title, fontsize=self.super_title_size, **self.text_font)
         self.fig.savefig(self.filename)
         
-#class BarPlot:
+class BarPlot:
+    # x_dataset -> array
+    # y_dataset -> array
+    # color -> string
+    # legend -> boolean
+    # rolling_avg -> boolean
+    # n_rolling_avg -> integer
+    # rolling_avg_label -> string
+    # x_axis_label -> string
+    # x_axis_labelsize -> integer
+    # x_axis_orientation -> integer
+    # x_ticks_size -> integer
+    # y_axis_label -> string
+    # y_axis_labelsize -> integer
+    # title -> string
+    # title_size -> integer
+    # super_title -> string
+    # super_title_size -> integer
+    # text_font -> string
+    # digit_font -> string
+    # filename -> string
+    def __init__(self, x_dataset, y_dataset, color, rolling_avg, n_rolling_avg, rolling_avg_label, x_axis_label,
+                 x_axis_labelsize, x_axis_orientation, x_ticks_size, y_axis_label, y_axis_labelsize, title, 
+                 title_size, super_title, super_title_size, text_font, digit_font, legend, filename):
+            self.x_dataset = x_dataset
+            self.y_dataset = y_dataset
+            self.color = color
+            self.legend = legend
+            self.rolling_avg = rolling_avg
+            self.n_rolling_avg = n_rolling_avg
+            self.rolling_avg_label = rolling_avg_label
+            self.x_axis_label = x_axis_label
+            self.x_axis_labelsize = x_axis_labelsize
+            self.x_axis_orientation = x_axis_orientation
+            self.x_ticks_size = x_ticks_size
+            self.y_axis_label = y_axis_label
+            self.y_axis_labelsize = y_axis_labelsize
+            self.title = title
+            self.title_size = title_size
+            self.super_title = super_title
+            self.super_title_size = super_title_size
+            self.text_font = {'fontname': text_font}
+            self.digit_font = {'fontname': digit_font}
+            self.filename = filename
+            self.__validate()
+    
+    def __validate(self):
+        # Validate len(x_dataset) = len(y_dataset)
+        if(len(self.x_dataset) != len(self.y_dataset)):
+            sys.exit('Error: x_dataset size does not equal y_dataset size.')
 
+        # Validate if rolling_avg is True and n_rolling_avg is an integer type
+        if(self.rolling_avg and (not isinstance(self.n_rolling_avg, int))):
+            sys.exit('Error: rolling_avg is True -> n_rolling_avg must be an integer.')
+
+        # Validate if rolling_avg is True and 0 <= n_rolling_avg < len(x_dataset) - 1
+        if(self.rolling_avg and (self.n_rolling_avg < 0 or self.n_rolling_avg > len(self.x_dataset) - 1)):
+            sys.exit('Error: rolling_avg is True -> n_rolling_avg must be greater than 0 and less than', str(len(self.x_dataset) - 1) + '.')
+            
+        # Validate if color is a string type
+        if(not isinstance(self.color, str)):
+            sys.exit('Error: color is must be a str type.')
+
+        # Validate first char of color is a pound sign (#)
+        if(self.color[0] != '#'):
+            sys.exit('Error: color is must be a string with a HEX value for a color -> ex: #FFFFFF.')
+
+        # Validate that the following 6 chars of color are alphanumeric
+        for i in range(1, len(self.color)):
+            if(not self.color[i].isalnum()):
+                sys.exit('Error: color is must be a string with a HEX value for a color -> ex: #FFFFFF.')
+
+        # Validate that x_axis_orientation is an integer type
+        if(not isinstance(self.x_axis_orientation, int)):
+            sys.exit('Error: rolling_avg is True -> n_rolling_avg must be an integer.')
+
+        # Validate that x_axis_orientation value is either 0, 90, 180, 270, 360
+        if(self.x_axis_orientation != 0 and self.x_axis_orientation != 90 and 
+           self.x_axis_orientation != 180 and self.x_axis_orientation != 270 and
+           self.x_axis_orientation != 360):
+            sys.exit('Error: x_axis_orientation must be either 0, 90, 180, 270, 360.')
+
+    def __rgb_threshold(self, color, min=0, max=255):
+        if (color < min):
+            return min
+        if (color > max):
+            return max
+        return color
+    
+    def __generate_rolling_avg(self):
+        avgd_data = np.array([])
+        for i in range(len(self.y_dataset) - (len(self.x_dataset) + self.n_rolling_avg), len(self.y_dataset)):
+            sum_data = 0
+            for j in range(i - self.n_rolling_avg, i):
+                sum_data += self.y_dataset[j]
+            sum_data /= self.n_rolling_avg
+            avgd_data = np.append(avgd_data, sum_data)
+
+        color_to_string = self.color[1:] 
+        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+        r = int(self.__rgb_threshold(r * 0.6))
+        g = int(self.__rgb_threshold(g * 0.6))
+        b = int(self.__rgb_threshold(b * 0.6))
+        avg_color = "#%02x%02x%02x" % (r, g, b)
+
+        self.axis.plot(self.x_dataset, avgd_data[self.n_rolling_avg:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.rolling_avg_label)
+        self.axis.legend(loc='upper left')
+        
+    def export(self):
+        self.fig = Figure(figsize=(14, 10), dpi=200)
+        self.axis = self.fig.add_subplot(1,1,1)
+        self.fig.subplots_adjust(left=0.07, bottom=0.08, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
+
+        self.axis.bar(self.x_dataset, self.y_dataset, color=self.color, zorder=2)
+
+        self.axis.tick_params(axis='x',labelrotation=self.x_axis_orientation)
+        self.axis.set_xticklabels(labels=self.x_dataset, fontsize=12, **self.digit_font)
+        for tick in self.axis.get_yticklabels():
+            tick.set_fontname(**self.digit_font)
+            tick.set_fontsize(self.x_ticks_size)
+        self.axis.set_xlabel(self.x_axis_label, **self.text_font, fontsize=12)
+        self.axis.set_ylabel(self.y_axis_label, **self.text_font, fontsize=12)
+
+        if(self.rolling_avg):
+            self.__generate_rolling_avg()
+
+        if(self.legend):
+            self.axis.legend(loc='upper left')
+
+        self.axis.grid(zorder=0)
+
+        self.axis.set_title(self.title, fontsize=self.title_size, **self.text_font)
+        self.fig.suptitle(self.super_title, fontsize=self.super_title_size, **self.text_font)
+        self.fig.savefig(self.filename)
 
 import random
 xdata = [i for i in range(0, 100)]
