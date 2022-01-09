@@ -18,11 +18,16 @@ class ScatterPlot:
     # linewidth -> string
     # legend -> boolean
     # rolling_avg -> boolean
+    # rolling_avg_data -> array
     # n_rolling_avg -> integer
+    # rolling_avg_label -> string
     # x_axis_label -> string
     # x_axis_labelsize -> integer
     # x_axis_orientation -> integer
     # x_ticks_size -> integer
+    # x_ticks_interval -> integer
+    # y_axis_label -> string
+    # y_axis_labelsize -> integer
     # title -> string
     # title_size -> integer
     # super_title -> string
@@ -31,7 +36,7 @@ class ScatterPlot:
     # digit_font -> string
     # filename -> string
     def __init__(self, x_dataset, y_dataset, linestyle, marker, color, label, linewidth, legend, rolling_avg, rolling_avg_data,
-                 n_rolling_avg, rolling_avg_label, x_axis_label, x_axis_labelsize, x_axis_orientation, x_ticks_size, x_tick_interval,
+                 n_rolling_avg, rolling_avg_label, x_axis_label, x_axis_labelsize, x_axis_orientation, x_ticks_size, x_ticks_interval,
                  y_axis_label, y_axis_labelsize, title, title_size, super_title, super_title_size, text_font, digit_font, filename):
         self.x_dataset  = x_dataset
         self.y_dataset = y_dataset
@@ -49,7 +54,7 @@ class ScatterPlot:
         self.x_axis_labelsize = x_axis_labelsize
         self.x_axis_orientation = x_axis_orientation
         self.x_ticks_size = x_ticks_size
-        self.x_tick_interval = x_tick_interval
+        self.x_tick_interval = x_ticks_interval
         self.y_axis_label = y_axis_label
         self.y_axis_labelsize = y_axis_labelsize
         self.title = title
@@ -676,7 +681,7 @@ class QuadPlot:
                      self.fig.add_subplot(2,2,2),
                      self.fig.add_subplot(2,2,3),
                      self.fig.add_subplot(2,2,4)]
-        self.fig.subplots_adjust(left=0.05, bottom=0.08, right=0.98, top=0.94, wspace=0.15, hspace=0.38)
+        self.fig.subplots_adjust(left=0.05, bottom=0.10, right=0.98, top=0.94, wspace=0.15, hspace=0.33)
 
         self.plot1.set_up_axis(self.axes[0])
         self.plot2.set_up_axis(self.axes[1])
