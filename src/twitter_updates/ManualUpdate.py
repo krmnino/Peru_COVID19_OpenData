@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import copy
+import numpy as np
 
 sys.path.insert(0, '../utilities')
 
@@ -35,9 +36,8 @@ from TwitterUpdate import compute_days
 from TwitterUpdate import generate_first_tweet_text
 from TwitterUpdate import generate_second_tweet_text
 from TwitterUpdate import export_tweets_to_file
-from TwitterUpdate import update_git_repo_win32
-from TwitterUpdate import update_git_repo_linux
 from CommandLineUtility import check_data_menu
+from StatAnalysis import Stats
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
 
@@ -59,7 +59,7 @@ def run():
     twitter_session = TwitterAPISession(auth_config)
     
     # Store values read by OCR algorithm in a dictionary
-    input_data = {\
+    input_data = {
         'Date' : current_date,
         'Cases' : 0,
         'Deaths' : 0,
@@ -69,14 +69,11 @@ def run():
         'Cases24H' : 0
     }
 
-    # Remove any old files from /res/raw_images
-    clean_dir(main_config.get_value('RawImages'))
-
     # Open temporary command line to check if data is correct
     check_data_menu(input_data) 
     
     # Load simple Peru data set
-    PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'))
+    PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'), delimiter=',')
 
     # Agregate new data entry
     PER_data.append_end_row([   
@@ -106,10 +103,52 @@ def run():
     PER_full_data.compute_new_column('%DifPruebas', ['Pruebas'], compute_tests_growth_factor)
     PER_full_data.compute_new_column('%PruebasPositivasDiarias', ['NuevasPruebas', 'NuevosCasos'], compute_daily_positivity_rate)
     PER_full_data.compute_new_column('NuevosRecuperados', ['Recuperados'], compute_new_recovered)
-    PER_full_data.compute_new_column('%DifRecuperados', ['Recuperados'], compute_tests_growth_factor)
+    PER_full_data.compute_new_column('%DifRecuperados', ['Recuperados'], compute_recovered_growth_factor)
     PER_full_data.compute_new_column('NuevosHospitalizados', ['Hospitalizados'], compute_new_hospitalized)
     PER_full_data.compute_new_column('%DifHospitalizados', ['Hospitalizados'], compute_hospitalized_growth_factor)
     PER_full_data.compute_new_column('Dia', [], compute_days)
+
+    # StatsAnalysis for tweet indicators
+    new_cases_data = PER_full_data.get_column_data('NuevosCasos')[-31:]
+    new_cases_stats = Stats(new_cases_data, main_config.get_value('NewCasesSA'))
+    new_cases_ind = new_cases_stats.get_indicator(len(new_cases_data) - 1)
+    #new_cases_stats.plot_gauss_bell_datapoint('plot.png', 'New Cases', len(new_cases_data) - 1)
+
+    new_recovered_data = PER_full_data.get_column_data('NuevosRecuperados')[-31:]
+    new_recovered_stats = Stats(new_recovered_data, main_config.get_value('NewRecoveredSA'))
+    new_recovered_ind = new_recovered_stats.get_indicator(len(new_recovered_data) - 1)
+    #new_recovered_stats.plot_gauss_bell_datapoint('plot.png', 'New Recovered', len(new_recovered_data) - 1)
+    
+    new_hospitalized_data = PER_full_data.get_column_data('NuevosHospitalizados')[-31:]
+    new_hospitalized_stats = Stats(new_hospitalized_data, main_config.get_value('NewHospitalizedSA'))
+    new_hospitalized_ind = new_hospitalized_stats.get_indicator(len(new_hospitalized_data) - 1)
+    #new_hospitalized_stats.plot_gauss_bell_datapoint('plot.png', 'New Hospitalized', len(new_hospitalized_data) - 1)
+
+    new_deaths_data = PER_full_data.get_column_data('NuevosFallecidos')[-31:]
+    new_deaths_stats = Stats(new_deaths_data, main_config.get_value('NewDeathsSA'))
+    new_deaths_ind = new_deaths_stats.get_indicator(len(new_deaths_data) - 1)
+    #new_deaths_stats.plot_gauss_bell_datapoint('plot.png', 'New Deaths', len(new_deaths_data) - 1)
+
+    new_case_fatality_data = PER_full_data.get_column_data('TasaLetalidad')[-32:]
+    diff_case_fatality_data = np.array([])
+    for i in range(1, len(new_case_fatality_data)):
+        diff_case_fatality_data = np.append(diff_case_fatality_data, new_case_fatality_data[i] - new_case_fatality_data[i - 1])
+    new_case_fatality_stats = Stats(diff_case_fatality_data, main_config.get_value('NewCaseFatalitiesSA'))
+    new_case_fatality_ind = new_case_fatality_stats.get_indicator(len(diff_case_fatality_data) - 1)
+    #new_case_fatality_stats.plot_gauss_bell_datapoint('plot.png', 'New Case Fatality', len(diff_case_fatality_data) - 1)
+
+    new_tests_data = PER_full_data.get_column_data('NuevasPruebas')[-31:]
+    new_tests_stats = Stats(new_tests_data, main_config.get_value('NewTestsSA'))
+    new_tests_ind = new_tests_stats.get_indicator(len(new_tests_data) - 1)
+    #new_tests_stats.plot_gauss_bell_datapoint('plot.png', 'New Tests', len(new_tests_data) - 1)
+
+    new_positivity_data = PER_full_data.get_column_data('%PruebasPositivasDiarias')[-32:]
+    diff_positivity_data = np.array([])
+    for i in range(1, len(new_positivity_data)):
+        diff_positivity_data = np.append(diff_positivity_data, new_positivity_data[i] - new_positivity_data[i - 1])
+    new_positivity_stats = Stats(diff_positivity_data, main_config.get_value('NewPositivitySA'))
+    new_positivity_ind = new_positivity_stats.get_indicator(len(diff_positivity_data) - 1)
+    #new_positivity_stats.plot_gauss_bell_datapoint('plot.png', 'New Tests', len(diff_positivity_data) - 1)
 
     # Reorganize header index before saving
     new_header = [
@@ -142,59 +181,277 @@ def run():
     # Save full Peru data set
     PER_full_data.save_as_csv(top_level_directory + main_config.get_value('PeruFullData'))
 
-    # Create quadplot object for first tweet
+    # Create QuadPlot for first tweet
+    cases183_plot = pu.BarPlot(
+        PER_full_data.get_column_data('Fecha')[-183:],          # x_dataset -> array
+        PER_full_data.get_column_data('NuevosCasos')[-183:],    # y_dataset -> array
+        main_config.get_value('CasesColor'),                    # color -> string
+        'Nuevos Casos',                                         # label -> string
+        True,                                                   # legend -> boolean
+        True,                                                   # rolling_avg -> boolean 
+        PER_full_data.get_column_data('NuevosCasos')[-190:],    # rolling_avg_data -> array
+        7,                                                      # n_rolling_avg -> integer
+        'Promedio ultimos 7 dias',                              # rolling_avg_label -> string
+        'Fecha (YYYY-MM-DD)',                                   # x_axis_label -> string
+        11,                                                     # x_axis_labelsize -> integer
+        90,                                                     # x_axis_orientation -> integer
+        7,                                                      # x_ticks_size -> integer
+        8,                                                      # x_ticks_interval -> integer
+        'Nuevos Casos Confirmados (por dia)',                   # y_axis_label -> string
+        11,                                                     # y_axis_labelsize -> integer
+        'Casos Confirmados (ultimos 183 dias)',                 # title -> string
+        16,                                                     # title_size -> integer
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        10,                                                     # super_title_size -> integer
+        'Bahnschrift',                                          # text_font -> string
+        'Consolas',                                             # digit_font -> string
+        'output1.png'                                           # filename -> string
+    )
+
+    cases30_plot = pu.BarPlot(
+        PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
+        PER_full_data.get_column_data('NuevosCasos')[-30:],         # y_dataset -> array
+        main_config.get_value('CasesColor'),                        # color -> string
+        'Nuevos Casos',                                             # label -> string
+        True,                                                       # legend -> boolean
+        True,                                                       # rolling_avg -> boolean 
+        PER_full_data.get_column_data('NuevosCasos')[-37:],         # rolling_avg_data -> array
+        7,                                                          # n_rolling_avg -> integer
+        'Promedio ultimos 7 dias',                                  # rolling_avg_label -> string
+        'Fecha (YYYY-MM-DD)',                                       # x_axis_label -> string
+        11,                                                         # x_axis_labelsize -> integer
+        90,                                                         # x_axis_orientation -> integer
+        7,                                                          # x_ticks_size -> integer
+        1,                                                          # x_ticks_interval -> integer
+        'Nuevos Casos Confirmados (por dia)',                       # y_axis_label -> string
+        11,                                                         # y_axis_labelsize -> integer
+        'Casos Confirmados (ultimos 30 dias)',                      # title -> string
+        16,                                                         # title_size -> integer
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        10,                                                         # super_title_size -> integer
+        'Bahnschrift',                                              # text_font -> string
+        'Consolas',                                                 # digit_font -> string
+        'output1.png'                                               # filename -> string
+    )
+
+    recovered_plot = pu.BarPlot(
+        PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
+        PER_full_data.get_column_data('NuevosRecuperados')[-30:],   # y_dataset -> array
+        main_config.get_value('RecoveredColor'),                    # color -> string
+        'Nuevos Recuperados',                                       # label -> string
+        True,                                                       # legend -> boolean
+        True,                                                       # rolling_avg -> boolean 
+        PER_full_data.get_column_data('NuevosRecuperados')[-37:],   # rolling_avg_data -> array
+        7,                                                          # n_rolling_avg -> integer
+        'Promedio ultimos 7 dias',                                  # rolling_avg_label -> string
+        'Fecha (YYYY-MM-DD)',                                       # x_axis_label -> string
+        11,                                                         # x_axis_labelsize -> integer
+        90,                                                         # x_axis_orientation -> integer
+        7,                                                          # x_ticks_size -> integer
+        1,                                                          # x_ticks_interval -> integer
+        'Nuevos Recuperados (por dia)',                             # y_axis_label -> string
+        11,                                                         # y_axis_labelsize -> integer
+        'Nuevos Recuperados (ultimos 30 dias)',                     # title -> string
+        16,                                                         # title_size -> integer
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        10,                                                         # super_title_size -> integer
+        'Bahnschrift',                                              # text_font -> string
+        'Consolas',                                                 # digit_font -> string
+        'output1.png'                                               # filename -> string
+    )
+    
+    hospitalized_plot = pu.BarPlot(
+        PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
+        PER_full_data.get_column_data('Hospitalizados')[-30:],      # y_dataset -> array
+        main_config.get_value('HospitalizedColor'),                 # color -> string
+        'Hospitalizados',                                           # label -> string
+        True,                                                       # legend -> boolean
+        True,                                                       # rolling_avg -> boolean 
+        PER_full_data.get_column_data('Hospitalizados')[-37:],      # rolling_avg_data -> array
+        7,                                                          # n_rolling_avg -> integer
+        'Promedio ultimos 7 dias',                                  # rolling_avg_label -> string
+        'Fecha (YYYY-MM-DD)',                                       # x_axis_label -> string
+        11,                                                         # x_axis_labelsize -> integer
+        90,                                                         # x_axis_orientation -> integer
+        7,                                                          # x_ticks_size -> integer
+        1,                                                          # x_ticks_interval -> integer
+        'Nuevos Hospitalizados (por dia)',                          # y_axis_label -> string
+        11,                                                         # y_axis_labelsize -> integer
+        'Nuevos Hospitalizados (ultimos 30 dias)',                  # title -> string
+        16,                                                         # title_size -> integer
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        10,                                                         # super_title_size -> integer
+        'Bahnschrift',                                              # text_font -> string
+        'Consolas',                                                 # digit_font -> string
+        'output1.png'                                               # filename -> string
+    )
+
+    # Create QuadPlot for first tweet
+    deaths_plot = pu.BarPlot(
+        PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
+        PER_full_data.get_column_data('NuevosFallecidos')[-30:],    # y_dataset -> array
+        main_config.get_value('DeathsColor'),                       # color -> string
+        'Nuevos Fallecidos',                                        # label -> string
+        True,                                                       # legend -> boolean
+        True,                                                       # rolling_avg -> boolean 
+        PER_full_data.get_column_data('NuevosFallecidos')[-37:],    # rolling_avg_data -> array
+        7,                                                          # n_rolling_avg -> integer
+        'Promedio ultimos 7 dias',                                  # rolling_avg_label -> string
+        'Fecha (YYYY-MM-DD)',                                       # x_axis_label -> string
+        11,                                                         # x_axis_labelsize -> integer
+        90,                                                         # x_axis_orientation -> integer
+        7,                                                          # x_ticks_size -> integer
+        1,                                                          # x_ticks_interval -> integer
+        'Nuevos Fallecidos (por dia)',                              # y_axis_label -> string
+        11,                                                         # y_axis_labelsize -> integer
+        'Nuevos Fallecidos (ultimos 30 dias)',                      # title -> string
+        16,                                                         # title_size -> integer
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        10,                                                         # super_title_size -> integer
+        'Bahnschrift',                                              # text_font -> string
+        'Consolas',                                                 # digit_font -> string
+        'output1.png'                                               # filename -> string
+    )
+    
+    case_fatality_plot = pu.ScatterPlot(
+        PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
+        PER_full_data.get_column_data('TasaLetalidad')[-30:],       # y_dataset -> array
+        '-',                                                        # linestyle -> string
+        'o',                                                        # marker -> string
+        main_config.get_value('DeathsColor'),                       # color -> string
+        'Tasa Letalidad',                                           # label -> string
+        2.0,                                                        # linewidth -> string
+        True,                                                       # legend -> boolean
+        True,                                                       # rolling_avg -> boolean 
+        PER_full_data.get_column_data('TasaLetalidad')[-37:],       # rolling_avg_data -> array
+        7,                                                          # n_rolling_avg -> integer
+        'Promedio ultimos 7 dias',                                  # rolling_avg_label -> string
+        'Fecha (YYYY-MM-DD)',                                       # x_axis_label -> string
+        11,                                                         # x_axis_labelsize -> integer
+        90,                                                         # x_axis_orientation -> integer
+        7,                                                          # x_ticks_size -> integer
+        1,                                                          # x_ticks_interval -> integer
+        'Tasa de Letalidad (acumulado por dia)',                    # y_axis_label -> string
+        11,                                                         # y_axis_labelsize -> integer
+        'Tasa de Letalidad (ultimos 30 dias)',                      # title -> string
+        16,                                                         # title_size -> integer
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        10,                                                         # super_title_size -> integer
+        'Bahnschrift',                                              # text_font -> string
+        'Consolas',                                                 # digit_font -> string
+        'output1.png'                                               # filename -> string
+    )
+
+    tests_plot = pu.BarPlot(
+        PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
+        PER_full_data.get_column_data('NuevasPruebas')[-30:],       # y_dataset -> array
+        main_config.get_value('TestsColor'),                        # color -> string
+        'Nuevas Pruebas',                                           # label -> string
+        True,                                                       # legend -> boolean
+        True,                                                       # rolling_avg -> boolean 
+        PER_full_data.get_column_data('NuevasPruebas')[-37:],       # rolling_avg_data -> array
+        7,                                                          # n_rolling_avg -> integer
+        'Promedio ultimos 7 dias',                                  # rolling_avg_label -> string
+        'Fecha (YYYY-MM-DD)',                                       # x_axis_label -> string
+        11,                                                         # x_axis_labelsize -> integer
+        90,                                                         # x_axis_orientation -> integer
+        7,                                                          # x_ticks_size -> integer
+        1,                                                          # x_ticks_interval -> integer
+        'Nuevas Pruebas (por dia)',                                 # y_axis_label -> string
+        11,                                                         # y_axis_labelsize -> integer
+        'Nuevas Pruebas (ultimos 30 dias)',                         # title -> string
+        16,                                                         # title_size -> integer
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        10,                                                         # super_title_size -> integer
+        'Bahnschrift',                                              # text_font -> string
+        'Consolas',                                                 # digit_font -> string
+        'output1.png'                                               # filename -> string
+    )
+    
+    positivity_plot = pu.ScatterPlot(
+        PER_full_data.get_column_data('Fecha')[-30:],                       # x_dataset -> array
+        PER_full_data.get_column_data('%PruebasPositivasDiarias')[-30:],    # y_dataset -> array
+        '-',                                                                # linestyle -> string
+        'o',                                                                # marker -> string
+        main_config.get_value('TestsColor'),                                # color -> string
+        'Positividad Diaria',                                               # label -> string
+        2,                                                                  # linewidth -> string
+        True,                                                               # legend -> boolean
+        True,                                                               # rolling_avg -> boolean 
+        PER_full_data.get_column_data('%PruebasPositivasDiarias')[-37:],    # rolling_avg_data -> array
+        7,                                                                  # n_rolling_avg -> integer
+        'Promedio ultimos 7 dias',                                          # rolling_avg_label -> string
+        'Fecha (YYYY-MM-DD)',                                               # x_axis_label -> string
+        11,                                                                 # x_axis_labelsize -> integer
+        90,                                                                 # x_axis_orientation -> integer
+        7,                                                                  # x_ticks_size -> integer
+        1,                                                                  # x_ticks_interval -> integer
+        'Positividad Diaria * 100% (PM+PR+AG)',                             # y_axis_label -> string
+        11,                                                                 # y_axis_labelsize -> integer
+        'Positividad Diaria (PM+PR+AG) (ultimos 30 dias)',                  # title -> string
+        16,                                                                 # title_size -> integer
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        10,                                                                 # super_title_size -> integer
+        'Bahnschrift',                                                      # text_font -> string
+        'Consolas',                                                         # digit_font -> string
+        'output1.png'                                                       # filename -> string
+    )
+
+    # Generate and store quadplot
     quadplot_1 = pu.QuadPlot(
-        [main_config.get_value('CasesColor'), main_config.get_value('CasesColor'), main_config.get_value('RecoveredColor'), main_config.get_value('HospitalizedColor')],
-        ['Casos Confirmados (ultimos 30 dias)', 'Nuevos Casos Confirmados (ultimos 30 dias)', 'Nuevos Recuperados (ultimos 30 dias)', 'Hospitalizados (ultimos 30 dias)'],
-        [False, True, True, True],
-        ['bar', 'bar', 'bar', 'bar'],
-        ['Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)'],
-        ['Casos Confirmados (acumulado por dia)', 'Nuevos Casos Confirmados (por dia)', 'Nuevos Recuperados (por dia)', 'Hospitalizados (por dia)'],
-        [PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:]],
-        [PER_full_data.get_column('Casos')[-30:], PER_full_data.get_column('NuevosCasos')[-30:], PER_full_data.get_column('NuevosRecuperados')[-30:], PER_full_data.get_column('Hospitalizados')[-30:]],
-        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
-        top_level_directory + main_config.get_value('TwitterGraph1'),
-        ravg_days=[7, 7, 7, 7],
-        ravg_labels=['Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias'],
-        ravg_ydata=[None, PER_full_data.get_column('NuevosCasos'), PER_full_data.get_column('NuevosRecuperados'), PER_full_data.get_column('Hospitalizados')]
+        cases183_plot,                                                      # plot1 -> ScatterPlot/BarPlot/LayeredScatterPlot
+        cases30_plot,                                                       # plot2 -> ScatterPlot/BarPlot/LayeredScatterPlot
+        recovered_plot,                                                     # plot3 -> ScatterPlot/BarPlot/LayeredScatterPlot
+        hospitalized_plot,                                                  # plot4 -> ScatterPlot/BarPlot/LayeredScatterPlot
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        9,                                                                  # super_title_size -> integer
+        'Bahnschrift',                                                      # text_font -> string
+        top_level_directory + main_config.get_value('TwitterGraph1')        # filename -> string
     )
+    quadplot_1.export()
 
-    # Create quadplot object for second tweet
+    # Generate and store quadplot
     quadplot_2 = pu.QuadPlot(
-        [main_config.get_value('DeathsColor'), main_config.get_value('DeathsColor'), main_config.get_value('TestsColor'), main_config.get_value('TestsColor')],
-        ['Nuevos Fallecidos (ultimos 30 dias)', 'Tasa de Letalidad (ultimos 30 dias)', 'Nuevas Pruebas (PM+PR+AG) (ultimos 30 dias)', 'Positividad Diaria (PM+PR+AG) (ultimos 30 dias)'],
-        [True, True, True, True],
-        ['bar', 'scatter', 'bar', 'scatter'],
-        ['Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)','Fecha (YYYY-MM-DD)'],
-        ['Nuevos Fallecidos (por dia)', 'Tasa de Letalidad (acumulado por dia)', 'Nuevas Pruebas (por dia)', 'Positividad Diaria * 100% (PM+PR+AG)'],
-        [PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:], PER_full_data.get_column('Fecha')[-30:]],
-        [PER_full_data.get_column('NuevosFallecidos')[-30:], PER_full_data.get_column('TasaLetalidad')[-30:], PER_full_data.get_column('NuevasPruebas')[-30:], PER_full_data.get_column('%PruebasPositivasDiarias')[-30:]],
-        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',
-        top_level_directory + main_config.get_value('TwitterGraph2'),
-        ravg_days=[7, 7, 7, 7],
-        ravg_labels=['Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias', 'Promedio ultimos 7 dias'],
-        ravg_ydata=[PER_full_data.get_column('NuevosFallecidos'), PER_full_data.get_column('TasaLetalidad'), PER_full_data.get_column('NuevasPruebas'), PER_full_data.get_column('%PruebasPositivasDiarias')]
+        deaths_plot,                                                        # plot1 -> ScatterPlot/BarPlot/LayeredScatterPlot
+        case_fatality_plot,                                                 # plot2 -> ScatterPlot/BarPlot/LayeredScatterPlot
+        tests_plot,                                                         # plot3 -> ScatterPlot/BarPlot/LayeredScatterPlot
+        positivity_plot,                                                    # plot4 -> ScatterPlot/BarPlot/LayeredScatterPlot
+        current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
+        9,                                                                  # super_title_size -> integer
+        'Bahnschrift',                                                      # text_font -> string
+        top_level_directory + main_config.get_value('TwitterGraph2')        # filename -> string
     )
-
-    # Generate and store quadplot
-    quadplot_1.export()   
-
-    # Generate and store quadplot
     quadplot_2.export()
 
     # Obtain the last entry of Peru full data
-    latest_entry = PER_full_data.get_latest_entry()
+    latest_entry = PER_full_data.get_end_row()
     
     # Create instances of tweets to store text and image paths
     tweet1 = Tweet()
     tweet2 = Tweet()
     
     # Create and add tweet body for first tweet
-    tweet1.set_message(generate_first_tweet_text(top_level_directory + main_config.get_value('TwTemplate1'), latest_entry, int(input_data['Cases24H'])))
+    tweet1.set_message(generate_first_tweet_text(
+        top_level_directory + main_config.get_value('TwTemplate1'),
+        latest_entry,
+        int(input_data['Cases24H']),
+        new_cases_ind,
+        new_recovered_ind,
+        new_hospitalized_ind
+    ))
     
     # Create and add tweet body for second tweet
-    tweet2.set_message(generate_second_tweet_text(top_level_directory + main_config.get_value('TwTemplate2'), latest_entry,
-         PER_full_data.col_row_query('TasaLetalidad', PER_full_data.rows-2), PER_full_data.col_row_query('%PruebasPositivasDiarias', PER_full_data.rows-2)))
+    tweet2.set_message(generate_second_tweet_text(
+        top_level_directory + main_config.get_value('TwTemplate2'),
+        latest_entry,
+        PER_full_data.get_cell_data('TasaLetalidad', PER_full_data.rows-2),
+        PER_full_data.get_cell_data('%PruebasPositivasDiarias',
+        PER_full_data.rows-2),
+        new_deaths_ind,
+        new_case_fatality_ind,
+        new_tests_ind,
+        new_positivity_ind
+    ))
 
     # Add paths to graph images
     tweet1.add_image(top_level_directory + main_config.get_value('TwitterGraph1'))
@@ -205,12 +462,12 @@ def run():
     
     # Reply to @Minsa_Peru with tweet thread
     twitter_session.send_thread([tweet1, tweet2])
-
+    
     # Update GitHub repository with new data    
     if(sys.platform == 'win32'):
-        update_git_repo_win32(input_data['Date'])
+        os.system('sh Windows_AutoUpdateRepo.sh "' + input_data['Date'] + '"')
     else:
-        update_git_repo_linux(input_data['Date'])
+        os.system('./Linux_AutoUpdateRepo.sh "' + input_data['Date'] + '"')
 
 #####################################################################################################################
 

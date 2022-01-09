@@ -4694,5 +4694,725 @@
 		"Pruebas": 18273305,
 		"Recuperados": 2161439,
 		"Hospitalizados": 3301
+	},
+	{
+		"Fecha": "2021-10-11",
+		"Casos": 2184676,
+		"Fallecidos": 199703,
+		"Pruebas": 18289317,
+		"Recuperados": 2161893,
+		"Hospitalizados": 3342
+	},
+	{
+		"Fecha": "2021-10-12",
+		"Casos": 2185355,
+		"Fallecidos": 199727,
+		"Pruebas": 18324467,
+		"Recuperados": 2162620,
+		"Hospitalizados": 3326
+	},
+	{
+		"Fecha": "2021-10-13",
+		"Casos": 2186246,
+		"Fallecidos": 199746,
+		"Pruebas": 18367317,
+		"Recuperados": 2163578,
+		"Hospitalizados": 3334
+	},
+	{
+		"Fecha": "2021-10-14",
+		"Casos": 2187368,
+		"Fallecidos": 199775,
+		"Pruebas": 18412077,
+		"Recuperados": 2164746,
+		"Hospitalizados": 3327
+	},
+	{
+		"Fecha": "2021-10-15",
+		"Casos": 2188351,
+		"Fallecidos": 199792,
+		"Pruebas": 18458015,
+		"Recuperados": 2165822,
+		"Hospitalizados": 3201
+	},
+	{
+		"Fecha": "2021-10-16",
+		"Casos": 2189165,
+		"Fallecidos": 199816,
+		"Pruebas": 18501179,
+		"Recuperados": 2166743,
+		"Hospitalizados": 3265
+	},
+	{
+		"Fecha": "2021-10-17",
+		"Casos": 2190009,
+		"Fallecidos": 199843,
+		"Pruebas": 18538550,
+		"Recuperados": 2167606,
+		"Hospitalizados": 3226
+	},
+	{
+		"Fecha": "2021-10-18",
+		"Casos": 2190396,
+		"Fallecidos": 199882,
+		"Pruebas": 18558389,
+		"Recuperados": 2168056,
+		"Hospitalizados": 3245
+	},
+	{
+		"Fecha": "2021-10-19",
+		"Casos": 2191171,
+		"Fallecidos": 199928,
+		"Pruebas": 18594953,
+		"Recuperados": 2168991,
+		"Hospitalizados": 3299
+	},
+	{
+		"Fecha": "2021-10-20",
+		"Casos": 2192205,
+		"Fallecidos": 199945,
+		"Pruebas": 18640751,
+		"Recuperados": 2170168,
+		"Hospitalizados": 3345
+	},
+	{
+		"Fecha": "2021-10-21",
+		"Casos": 2193089,
+		"Fallecidos": 199978,
+		"Pruebas": 18683017,
+		"Recuperados": 2171196,
+		"Hospitalizados": 3285
+	},
+	{
+		"Fecha": "2021-10-22",
+		"Casos": 2194132,
+		"Fallecidos": 200003,
+		"Pruebas": 18728727,
+		"Recuperados": 2172319,
+		"Hospitalizados": 3383
+	},
+	{
+		"Fecha": "2021-10-23",
+		"Casos": 2195101,
+		"Fallecidos": 200019,
+		"Pruebas": 18771607,
+		"Recuperados": 2173324,
+		"Hospitalizados": 3292
+	},
+	{
+		"Fecha": "2021-10-24",
+		"Casos": 2195859,
+		"Fallecidos": 200052,
+		"Pruebas": 18811869,
+		"Recuperados": 2174106,
+		"Hospitalizados": 3266
+	},
+	{
+		"Fecha": "2021-10-25",
+		"Casos": 2196259,
+		"Fallecidos": 200083,
+		"Pruebas": 18833282,
+		"Recuperados": 2174561,
+		"Hospitalizados": 3313
+	},
+	{
+		"Fecha": "2021-10-26",
+		"Casos": 2197052,
+		"Fallecidos": 200118,
+		"Pruebas": 18867422,
+		"Recuperados": 2175510,
+		"Hospitalizados": 3289
+	},
+	{
+		"Fecha": "2021-10-27",
+		"Casos": 2198038,
+		"Fallecidos": 200149,
+		"Pruebas": 18910768,
+		"Recuperados": 2176645,
+		"Hospitalizados": 3229
+	},
+	{
+		"Fecha": "2021-10-28",
+		"Casos": 2199036,
+		"Fallecidos": 200179,
+		"Pruebas": 18955153,
+		"Recuperados": 2177657,
+		"Hospitalizados": 3212
+	},
+	{
+		"Fecha": "2021-10-29",
+		"Casos": 2199876,
+		"Fallecidos": 200197,
+		"Pruebas": 18999051,
+		"Recuperados": 2178596,
+		"Hospitalizados": 3164
+	},
+	{
+		"Fecha": "2021-10-30",
+		"Casos": 2200908,
+		"Fallecidos": 200217,
+		"Pruebas": 19043600,
+		"Recuperados": 2179725,
+		"Hospitalizados": 3118
+	},
+	{
+		"Fecha": "2021-10-31",
+		"Casos": 2201796,
+		"Fallecidos": 200246,
+		"Pruebas": 19087167,
+		"Recuperados": 2180599,
+		"Hospitalizados": 3135
+	},
+	{
+		"Fecha": "2021-11-01",
+		"Casos": 2202189,
+		"Fallecidos": 200276,
+		"Pruebas": 19107779,
+		"Recuperados": 2181044,
+		"Hospitalizados": 3125
+	},
+	{
+		"Fecha": "2021-11-02",
+		"Casos": 2202671,
+		"Fallecidos": 200300,
+		"Pruebas": 19127782,
+		"Recuperados": 2181588,
+		"Hospitalizados": 3064
+	},
+	{
+		"Fecha": "2021-11-03",
+		"Casos": 2203310,
+		"Fallecidos": 200326,
+		"Pruebas": 19162650,
+		"Recuperados": 2182302,
+		"Hospitalizados": 3014
+	},
+	{
+		"Fecha": "2021-11-04",
+		"Casos": 2204424,
+		"Fallecidos": 200350,
+		"Pruebas": 19206158,
+		"Recuperados": 2183409,
+		"Hospitalizados": 3065
+	},
+	{
+		"Fecha": "2021-11-05",
+		"Casos": 2205486,
+		"Fallecidos": 200373,
+		"Pruebas": 19253562,
+		"Recuperados": 2184508,
+		"Hospitalizados": 3084
+	},
+	{
+		"Fecha": "2021-11-06",
+		"Casos": 2206556,
+		"Fallecidos": 200409,
+		"Pruebas": 19300645,
+		"Recuperados": 2185612,
+		"Hospitalizados": 3045
+	},
+	{
+		"Fecha": "2021-11-07",
+		"Casos": 2207510,
+		"Fallecidos": 200438,
+		"Pruebas": 19345563,
+		"Recuperados": 2186590,
+		"Hospitalizados": 3119
+	},
+	{
+		"Fecha": "2021-11-08",
+		"Casos": 2207890,
+		"Fallecidos": 200469,
+		"Pruebas": 19364380,
+		"Recuperados": 2186951,
+		"Hospitalizados": 3196
+	},
+	{
+		"Fecha": "2021-11-09",
+		"Casos": 2208891,
+		"Fallecidos": 200502,
+		"Pruebas": 19405865,
+		"Recuperados": 2188042,
+		"Hospitalizados": 3255
+	},
+	{
+		"Fecha": "2021-11-10",
+		"Casos": 2210129,
+		"Fallecidos": 200532,
+		"Pruebas": 19455747,
+		"Recuperados": 2189378,
+		"Hospitalizados": 3238
+	},
+	{
+		"Fecha": "2021-11-11",
+		"Casos": 2211366,
+		"Fallecidos": 200554,
+		"Pruebas": 19503585,
+		"Recuperados": 2190703,
+		"Hospitalizados": 3193
+	},
+	{
+		"Fecha": "2021-11-12",
+		"Casos": 2212514,
+		"Fallecidos": 200573,
+		"Pruebas": 19552599,
+		"Recuperados": 2191955,
+		"Hospitalizados": 3258
+	},
+	{
+		"Fecha": "2021-11-13",
+		"Casos": 2213548,
+		"Fallecidos": 200605,
+		"Pruebas": 19599815,
+		"Recuperados": 2193056,
+		"Hospitalizados": 3203
+	},
+	{
+		"Fecha": "2021-11-14",
+		"Casos": 2214543,
+		"Fallecidos": 200635,
+		"Pruebas": 19641289,
+		"Recuperados": 2194127,
+		"Hospitalizados": 3416
+	},
+	{
+		"Fecha": "2021-11-15",
+		"Casos": 2215373,
+		"Fallecidos": 200672,
+		"Pruebas": 19664890,
+		"Recuperados": 2194989,
+		"Hospitalizados": 3392
+	},
+	{
+		"Fecha": "2021-11-16",
+		"Casos": 2216832,
+		"Fallecidos": 200695,
+		"Pruebas": 19707040,
+		"Recuperados": 2196596,
+		"Hospitalizados": 3393
+	},
+	{
+		"Fecha": "2021-11-17",
+		"Casos": 2218202,
+		"Fallecidos": 200741,
+		"Pruebas": 19752740,
+		"Recuperados": 2198039,
+		"Hospitalizados": 3330
+	},
+	{
+		"Fecha": "2021-11-18",
+		"Casos": 2219617,
+		"Fallecidos": 200767,
+		"Pruebas": 19798022,
+		"Recuperados": 2199566,
+		"Hospitalizados": 3235
+	},
+	{
+		"Fecha": "2021-11-19",
+		"Casos": 2221154,
+		"Fallecidos": 200801,
+		"Pruebas": 19846203,
+		"Recuperados": 2201170,
+		"Hospitalizados": 3250
+	},
+	{
+		"Fecha": "2021-11-20",
+		"Casos": 2222879,
+		"Fallecidos": 200833,
+		"Pruebas": 19894374,
+		"Recuperados": 2203028,
+		"Hospitalizados": 3244
+	},
+	{
+		"Fecha": "2021-11-21",
+		"Casos": 2224344,
+		"Fallecidos": 200866,
+		"Pruebas": 19939334,
+		"Recuperados": 2204525,
+		"Hospitalizados": 3234
+	},
+	{
+		"Fecha": "2021-11-22",
+		"Casos": 2225117,
+		"Fallecidos": 200894,
+		"Pruebas": 19964326,
+		"Recuperados": 2205275,
+		"Hospitalizados": 3210
+	},
+	{
+		"Fecha": "2021-11-23",
+		"Casos": 2226656,
+		"Fallecidos": 200931,
+		"Pruebas": 20008200,
+		"Recuperados": 2206930,
+		"Hospitalizados": 3181
+	},
+	{
+		"Fecha": "2021-11-24",
+		"Casos": 2228212,
+		"Fallecidos": 200961,
+		"Pruebas": 20059723,
+		"Recuperados": 2208575,
+		"Hospitalizados": 3217
+	},
+	{
+		"Fecha": "2021-11-25",
+		"Casos": 2229741,
+		"Fallecidos": 200987,
+		"Pruebas": 20109465,
+		"Recuperados": 2210240,
+		"Hospitalizados": 3177
+	},
+	{
+		"Fecha": "2021-11-26",
+		"Casos": 2231175,
+		"Fallecidos": 201026,
+		"Pruebas": 20157400,
+		"Recuperados": 2211774,
+		"Hospitalizados": 3106
+	},
+	{
+		"Fecha": "2021-11-27",
+		"Casos": 2232749,
+		"Fallecidos": 201071,
+		"Pruebas": 20204659,
+		"Recuperados": 2213380,
+		"Hospitalizados": 3069
+	},
+	{
+		"Fecha": "2021-11-28",
+		"Casos": 2234075,
+		"Fallecidos": 201108,
+		"Pruebas": 20249074,
+		"Recuperados": 2214771,
+		"Hospitalizados": 3085
+	},
+	{
+		"Fecha": "2021-11-29",
+		"Casos": 2234970,
+		"Fallecidos": 201144,
+		"Pruebas": 20273392,
+		"Recuperados": 2215631,
+		"Hospitalizados": 3127
+	},
+	{
+		"Fecha": "2021-11-30",
+		"Casos": 2236351,
+		"Fallecidos": 201176,
+		"Pruebas": 20314089,
+		"Recuperados": 2217002,
+		"Hospitalizados": 3128
+	},
+	{
+		"Fecha": "2021-12-01",
+		"Casos": 2237842,
+		"Fallecidos": 201209,
+		"Pruebas": 20363118,
+		"Recuperados": 2218490,
+		"Hospitalizados": 3130
+	},
+	{
+		"Fecha": "2021-12-02",
+		"Casos": 2239421,
+		"Fallecidos": 201282,
+		"Pruebas": 20414072,
+		"Recuperados": 2220089,
+		"Hospitalizados": 3139
+	},
+	{
+		"Fecha": "2021-12-03",
+		"Casos": 2241027,
+		"Fallecidos": 201326,
+		"Pruebas": 20463224,
+		"Recuperados": 2221793,
+		"Hospitalizados": 3109
+	},
+	{
+		"Fecha": "2021-12-04",
+		"Casos": 2242646,
+		"Fallecidos": 201360,
+		"Pruebas": 20511702,
+		"Recuperados": 2223523,
+		"Hospitalizados": 3132
+	},
+	{
+		"Fecha": "2021-12-05",
+		"Casos": 2243415,
+		"Fallecidos": 201379,
+		"Pruebas": 20555444,
+		"Recuperados": 2224331,
+		"Hospitalizados": 3102
+	},
+	{
+		"Fecha": "2021-12-06",
+		"Casos": 2245146,
+		"Fallecidos": 201421,
+		"Pruebas": 20580665,
+		"Recuperados": 2226093,
+		"Hospitalizados": 3091
+	},
+	{
+		"Fecha": "2021-12-07",
+		"Casos": 2246633,
+		"Fallecidos": 201450,
+		"Pruebas": 20623407,
+		"Recuperados": 2227617,
+		"Hospitalizados": 3078
+	},
+	{
+		"Fecha": "2021-12-08",
+		"Casos": 2248447,
+		"Fallecidos": 201490,
+		"Pruebas": 20674445,
+		"Recuperados": 2229549,
+		"Hospitalizados": 3054
+	},
+	{
+		"Fecha": "2021-12-09",
+		"Casos": 2249671,
+		"Fallecidos": 201527,
+		"Pruebas": 20708063,
+		"Recuperados": 2230818,
+		"Hospitalizados": 3052
+	},
+	{
+		"Fecha": "2021-12-10",
+		"Casos": 2251027,
+		"Fallecidos": 201650,
+		"Pruebas": 20753581,
+		"Recuperados": 2232282,
+		"Hospitalizados": 3082
+	},
+	{
+		"Fecha": "2021-12-11",
+		"Casos": 2252846,
+		"Fallecidos": 201733,
+		"Pruebas": 20806885,
+		"Recuperados": 2234285,
+		"Hospitalizados": 3028
+	},
+	{
+		"Fecha": "2021-12-12",
+		"Casos": 2254373,
+		"Fallecidos": 201770,
+		"Pruebas": 20854234,
+		"Recuperados": 2235884,
+		"Hospitalizados": 3028
+	},
+	{
+		"Fecha": "2021-12-13",
+		"Casos": 2255318,
+		"Fallecidos": 201848,
+		"Pruebas": 20879254,
+		"Recuperados": 2236843,
+		"Hospitalizados": 2997
+	},
+	{
+		"Fecha": "2021-12-14",
+		"Casos": 2256796,
+		"Fallecidos": 201902,
+		"Pruebas": 20921494,
+		"Recuperados": 2238476,
+		"Hospitalizados": 2947
+	},
+	{
+		"Fecha": "2021-12-15",
+		"Casos": 2258456,
+		"Fallecidos": 201992,
+		"Pruebas": 20969226,
+		"Recuperados": 2240189,
+		"Hospitalizados": 2937
+	},
+	{
+		"Fecha": "2021-12-16",
+		"Casos": 2260180,
+		"Fallecidos": 202076,
+		"Pruebas": 21022179,
+		"Recuperados": 2241999,
+		"Hospitalizados": 2981
+	},
+	{
+		"Fecha": "2021-12-17",
+		"Casos": 2261883,
+		"Fallecidos": 202120,
+		"Pruebas": 21074547,
+		"Recuperados": 2243798,
+		"Hospitalizados": 2871
+	},
+	{
+		"Fecha": "2021-12-18",
+		"Casos": 2263739,
+		"Fallecidos": 202154,
+		"Pruebas": 21125401,
+		"Recuperados": 2245774,
+		"Hospitalizados": 2908
+	},
+	{
+		"Fecha": "2021-12-19",
+		"Casos": 2265320,
+		"Fallecidos": 202225,
+		"Pruebas": 21169755,
+		"Recuperados": 2247460,
+		"Hospitalizados": 2913
+	},
+	{
+		"Fecha": "2021-12-20",
+		"Casos": 2266205,
+		"Fallecidos": 202295,
+		"Pruebas": 21192993,
+		"Recuperados": 2248377,
+		"Hospitalizados": 2928
+	},
+	{
+		"Fecha": "2021-12-21",
+		"Casos": 2267715,
+		"Fallecidos": 202338,
+		"Pruebas": 21231952,
+		"Recuperados": 2250006,
+		"Hospitalizados": 2923
+	},
+	{
+		"Fecha": "2021-12-22",
+		"Casos": 2269497,
+		"Fallecidos": 202375,
+		"Pruebas": 21280472,
+		"Recuperados": 2251832,
+		"Hospitalizados": 2927
+	},
+	{
+		"Fecha": "2021-12-23",
+		"Casos": 2271549,
+		"Fallecidos": 202424,
+		"Pruebas": 21333592,
+		"Recuperados": 2253941,
+		"Hospitalizados": 2916
+	},
+	{
+		"Fecha": "2021-12-24",
+		"Casos": 2272885,
+		"Fallecidos": 202454,
+		"Pruebas": 21352702,
+		"Recuperados": 2255325,
+		"Hospitalizados": 2866
+	},
+	{
+		"Fecha": "2021-12-25",
+		"Casos": 2278807,
+		"Fallecidos": 202488,
+		"Pruebas": 21507541,
+		"Recuperados": 2261437,
+		"Hospitalizados": 2796
+	},
+	{
+		"Fecha": "2021-12-26",
+		"Casos": 2279299,
+		"Fallecidos": 202524,
+		"Pruebas": 21524736,
+		"Recuperados": 2261972,
+		"Hospitalizados": 2848
+	},
+	{
+		"Fecha": "2021-12-27",
+		"Casos": 2281362,
+		"Fallecidos": 202550,
+		"Pruebas": 21550239,
+		"Recuperados": 2264036,
+		"Hospitalizados": 2904
+	},
+	{
+		"Fecha": "2021-12-28",
+		"Casos": 2283474,
+		"Fallecidos": 202584,
+		"Pruebas": 21591818,
+		"Recuperados": 2266183,
+		"Hospitalizados": 2946
+	},
+	{
+		"Fecha": "2021-12-29",
+		"Casos": 2287494,
+		"Fallecidos": 202584,
+		"Pruebas": 21656119,
+		"Recuperados": 2270349,
+		"Hospitalizados": 3199
+	},
+	{
+		"Fecha": "2021-12-30",
+		"Casos": 2292254,
+		"Fallecidos": 202653,
+		"Pruebas": 21725629,
+		"Recuperados": 2275087,
+		"Hospitalizados": 3386
+	},
+	{
+		"Fecha": "2021-12-31",
+		"Casos": 2296831,
+		"Fallecidos": 202690,
+		"Pruebas": 21790289,
+		"Recuperados": 2279739,
+		"Hospitalizados": 3482
+	},
+	{
+		"Fecha": "2022-01-01",
+		"Casos": 2301177,
+		"Fallecidos": 202741,
+		"Pruebas": 21843645,
+		"Recuperados": 2283768,
+		"Hospitalizados": 3499
+	},
+	{
+		"Fecha": "2022-01-02",
+		"Casos": 2302678,
+		"Fallecidos": 202782,
+		"Pruebas": 21861790,
+		"Recuperados": 2285361,
+		"Hospitalizados": 3535
+	},
+	{
+		"Fecha": "2022-01-03",
+		"Casos": 2304674,
+		"Fallecidos": 202818,
+		"Pruebas": 21881553,
+		"Recuperados": 2287484,
+		"Hospitalizados": 3609
+	},
+	{
+		"Fecha": "2022-01-04",
+		"Casos": 2309856,
+		"Fallecidos": 202867,
+		"Pruebas": 21929599,
+		"Recuperados": 2292626,
+		"Hospitalizados": 3714
+	},
+	{
+		"Fecha": "2022-01-05",
+		"Casos": 2318543,
+		"Fallecidos": 202904,
+		"Pruebas": 21999418,
+		"Recuperados": 2301359,
+		"Hospitalizados": 3796
+	},
+	{
+		"Fecha": "2022-01-06",
+		"Casos": 2329717,
+		"Fallecidos": 202934,
+		"Pruebas": 22086761,
+		"Recuperados": 2312482,
+		"Hospitalizados": 3953
+	},
+	{
+		"Fecha": "2022-01-07",
+		"Casos": 2342550,
+		"Fallecidos": 202981,
+		"Pruebas": 22173887,
+		"Recuperados": 2324625,
+		"Hospitalizados": 4064
+	},
+	{
+		"Fecha": "2022-01-08",
+		"Casos": 2358685,
+		"Fallecidos": 203019,
+		"Pruebas": 22270297,
+		"Recuperados": 2340784,
+		"Hospitalizados": 4319
 	}
 ]
