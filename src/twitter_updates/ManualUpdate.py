@@ -404,7 +404,7 @@ def run():
         recovered_plot,                                                     # plot3 -> ScatterPlot/BarPlot/LayeredScatterPlot
         hospitalized_plot,                                                  # plot4 -> ScatterPlot/BarPlot/LayeredScatterPlot
         current_date + ' | Elaborado por Kurt Manrique-Nino | Datos del Ministerio de Salud del Peru (@Minsa_Peru)',    # super_title -> string
-    9,                                                                      # super_title_size -> integer
+        9,                                                                  # super_title_size -> integer
         'Bahnschrift',                                                      # text_font -> string
         top_level_directory + main_config.get_value('TwitterGraph1')        # filename -> string
     )
