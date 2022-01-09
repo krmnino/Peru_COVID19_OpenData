@@ -5382,5 +5382,37 @@
 		"Pruebas": 21929599,
 		"Recuperados": 2292626,
 		"Hospitalizados": 3714
+	},
+	{
+		"Fecha": "2022-01-05",
+		"Casos": 2318543,
+		"Fallecidos": 202904,
+		"Pruebas": 21999418,
+		"Recuperados": 2301359,
+		"Hospitalizados": 3796
+	},
+	{
+		"Fecha": "2022-01-06",
+		"Casos": 2329717,
+		"Fallecidos": 202934,
+		"Pruebas": 22086761,
+		"Recuperados": 2312482,
+		"Hospitalizados": 3953
+	},
+	{
+		"Fecha": "2022-01-07",
+		"Casos": 2342550,
+		"Fallecidos": 202981,
+		"Pruebas": 22173887,
+		"Recuperados": 2324625,
+		"Hospitalizados": 4064
+	},
+	{
+		"Fecha": "2022-01-08",
+		"Casos": 2358685,
+		"Fallecidos": 203019,
+		"Pruebas": 22270297,
+		"Recuperados": 2340784,
+		"Hospitalizados": 4319
 	}
 ]
