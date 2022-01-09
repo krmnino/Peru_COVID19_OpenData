@@ -380,8 +380,8 @@ class BarPlot:
 
     def set_up_axis(self, ax):
         if(self.legend):
-            ax.legend(loc='upper left')
             ax.bar(self.x_dataset, self.y_dataset, color=self.color, label=self.label, zorder=2)
+            ax.legend(loc='upper left')
         else:
             ax.bar(self.x_dataset, self.y_dataset, color=self.color, zorder=2)
 
@@ -685,75 +685,3 @@ class QuadPlot:
 
         self.fig.suptitle(self.super_title, fontsize=self.super_title_size, **self.text_font)
         self.fig.savefig(self.filename)
-
-############################################################################################################################################################
-
-#import random
-#xdata1 = [i for i in range(0, 100)]
-#ydata1 = [random.uniform(1, 2) for i in range(0,100)]
-#p1 = ScatterPlot(
-#    xdata1,
-#    ydata1,
-#    '-',
-#    'o',
-#    '#5B90F3',
-#    True,
-#    'data',
-#    2.5,
-#    True,
-#    5,
-#    'avg 5',
-#    'xaxis',
-#    12,
-#    90,
-#    12,
-#    'yaxis',
-#    12,
-#    'my title 1',
-#    20,
-#    'username',
-#    10,
-#    'Bahnschrift',
-#    'Consolas',
-#    'output1.png'
-#)
-#p1.export()
-#
-#xdata2 = [i for i in range(0, 30)]
-#ydata2 = [random.uniform(1, 2) for i in range(0,30)]
-#p2 = BarPlot(
-#    xdata2,
-#    ydata2,
-#    '#8C8C8C',
-#    '',
-#    False,
-#    True,
-#    10,
-#    'avg 10',
-#    'days',
-#    12,
-#    90,
-#    12,
-#    'cases',
-#    12,
-#    'my title 2',
-#    20,
-#    'username',
-#    10,
-#    'Bahnschrift',
-#    'Consolas',
-#    'output2.png'    
-#)
-#p2.export()
-#
-#p3 = QuadPlot(
-#    p1, 
-#    p2,
-#    p1,
-#    p2,
-#    'username',
-#    12,
-#    'Bahnschrift',
-#    'output3.png'
-#)
-#p3.export()
