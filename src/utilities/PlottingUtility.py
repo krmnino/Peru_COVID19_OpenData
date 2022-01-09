@@ -4,148 +4,150 @@ import warnings
 import numpy as np
 import sys
 
+from numpy.lib.arraysetops import isin
+
 warnings.filterwarnings('ignore')
 
-class QuadPlot:
-    def __init__(self, colors_sp, titles_sp, enable_rolling_avg_sp, type_sp, x_label_sp, y_label_sp, x_data, y_data, stitle, ofile,
-                 ravg_days=[1, 1, 1, 1], ravg_labels=[None, None, None, None], ravg_ydata=[None, None, None, None]):        
-        if(len(colors_sp) != 4):
-            sys.exit('colors_sp does not equal 4')
-        else:
-            self.colors_subplots = colors_sp
-        
-        if(len(titles_sp) != 4):
-            sys.exit('titles_sp does not equal 4')
-        else:
-            self.titles_subplots = titles_sp
-
-        if(len(enable_rolling_avg_sp) != 4):
-            sys.exit('enable_rolling_avg_sp does not equal 4')
-        else:
-            self.enable_rolling_avg_subplots = enable_rolling_avg_sp
-
-        if(len(type_sp) != 4):
-            sys.exit('type_sp does not equal 4')
-        else:
-            self.type_subplots = type_sp
-
-        if(len(x_label_sp) != 4):
-            sys.exit('x_label_sp does not equal 4')
-        else:
-            self.x_label_subplots = x_label_sp
-
-        if(len(y_label_sp) != 4):
-            sys.exit('y_label_sp does not equal 4')
-        else:
-            self.y_label_subplots = y_label_sp
-
-        if(len(x_data) != 4):
-            sys.exit('x_data does not equal 4')
-        else:
-            self.x_data = x_data
-
-        if(len(y_data) != 4):
-            sys.exit('y_data does not equal 4')
-        else:
-            self.y_data = y_data
-
-        if(len(ravg_days) != 4):
-            sys.exit('ravg_days does not equal 4')
-        else:
-            self.ravg_days = ravg_days
-
-        if(len(ravg_labels) != 4):
-            sys.exit('ravg_labels does not equal 4')
-        else:
-            self.ravg_labels = ravg_labels
-
-        if(len(ravg_ydata) != 4):
-            sys.exit('ravg_ydata does not equal 4')
-        else:
-            self.ravg_ydata = ravg_ydata
-
-        for i in range(0, 4):
-            if(self.enable_rolling_avg_subplots[i] and self.ravg_days[i] < 0):
-                sys.exit('ravg_days[' + str(i) + '] must be 1 or greater if rolling average is enabled')
-            if(self.enable_rolling_avg_subplots[i] and self.ravg_labels[i] == None):
-                sys.exit('ravg_labels[' + str(i) + '] cannot be None if rolling average is enabled')
-
-        self.suptitle = stitle
-        self.out_file = ofile
-        self.text_font = {'fontname':'Bahnschrift'}
-        self.digit_font = {'fontname':'Consolas'}
-
-    def export(self):
-        self.fig = Figure(figsize=(14, 10), dpi=200)
-        self.axes = [self.fig.add_subplot(2,2,1),
-                     self.fig.add_subplot(2,2,2),
-                     self.fig.add_subplot(2,2,3),
-                     self.fig.add_subplot(2,2,4)]
-        self.fig.subplots_adjust(left=0.05, bottom=0.10, right=0.98, top=0.94, wspace=0.15, hspace=0.38)
-
-        for i in range(0, 4):
-            if(self.type_subplots[i] == 'bar'):
-                self.bar_plot(i)
-            elif(self.type_subplots[i] == 'scatter'):
-                self.scatter_plot(i)
-
-            if(self.enable_rolling_avg_subplots[i]):
-                self.generate_rolling_average(i)
-        
-        self.fig.suptitle(self.suptitle, fontsize=10, **self.text_font)
-        self.fig.savefig(self.out_file)
-
-    def bar_plot(self, index):
-        self.axes[index].grid(zorder=0)
-        self.axes[index].bar(self.x_data[index], self.y_data[index], color=self.colors_subplots[index], zorder=2)
-        self.axes[index].set_title(self.titles_subplots[index], fontsize=14, **self.text_font)
-        self.axes[index].tick_params(axis='x',labelrotation=90)
-        self.axes[index].set_xticklabels(labels=self.x_data[index], fontsize=8, **self.digit_font)
-        for tick in self.axes[index].get_yticklabels():
-            tick.set_fontname(**self.digit_font)
-        self.axes[index].set_xlabel(self.x_label_subplots[index], **self.text_font)
-        self.axes[index].set_ylabel(self.y_label_subplots[index], **self.text_font)
-
-    def scatter_plot(self, index):
-        self.axes[index].plot(self.x_data[index], self.y_data[index], color=self.colors_subplots[index])
-        self.axes[index].plot(self.x_data[index], self.y_data[index], 'ko')
-        self.axes[index].set_title(self.titles_subplots[index], fontsize=14, **self.text_font)
-        self.axes[index].tick_params(axis='x',labelrotation=90)
-        self.axes[index].set_xticklabels(labels=self.x_data[index], fontsize=8, **self.digit_font)
-        for tick in self.axes[index].get_yticklabels():
-            tick.set_fontname(**self.digit_font)
-        self.axes[index].set_xlabel(self.x_label_subplots[index], **self.text_font)
-        self.axes[index].set_ylabel(self.y_label_subplots[index], **self.text_font)
-        self.axes[index].grid()
-
-    def rgb_threshold(self, color, min=0, max=255):
-        if (color < min):
-            return min
-        if (color > max):
-            return max
-        return color
-    
-    def generate_rolling_average(self, index):
-        avgd_data = np.array([])
-        for i in range(len(self.ravg_ydata[index]) - (len(self.x_data[index]) + self.ravg_days[index]), len(self.ravg_ydata[index])):
-            sum_data = 0
-            for j in range(i - self.ravg_days[index], i):
-                sum_data += self.ravg_ydata[index][j]
-            sum_data /= self.ravg_days[index]
-            avgd_data = np.append(avgd_data, sum_data)
-
-        color_to_string = self.colors_subplots[index][1:] 
-        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
-        r = int(self.rgb_threshold(r * 0.6))
-        g = int(self.rgb_threshold(g * 0.6))
-        b = int(self.rgb_threshold(b * 0.6))
-        avg_color = "#%02x%02x%02x" % (r, g, b)
-
-        self.axes[index].plot(self.x_data[index], avgd_data[self.ravg_days[index]:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.ravg_labels[index])
-        self.axes[index].legend(loc='upper left')
-    
-    def get_path(self):
-        return self.out_file
+#class QuadPlot:
+#    def __init__(self, colors_sp, titles_sp, enable_rolling_avg_sp, type_sp, x_label_sp, y_label_sp, x_data, y_data, stitle, ofile,
+#                 ravg_days=[1, 1, 1, 1], ravg_labels=[None, None, None, None], ravg_ydata=[None, None, None, None]):        
+#        if(len(colors_sp) != 4):
+#            sys.exit('colors_sp does not equal 4')
+#        else:
+#            self.colors_subplots = colors_sp
+#        
+#        if(len(titles_sp) != 4):
+#            sys.exit('titles_sp does not equal 4')
+#        else:
+#            self.titles_subplots = titles_sp
+#
+#        if(len(enable_rolling_avg_sp) != 4):
+#            sys.exit('enable_rolling_avg_sp does not equal 4')
+#        else:
+#            self.enable_rolling_avg_subplots = enable_rolling_avg_sp
+#
+#        if(len(type_sp) != 4):
+#            sys.exit('type_sp does not equal 4')
+#        else:
+#            self.type_subplots = type_sp
+#
+#        if(len(x_label_sp) != 4):
+#            sys.exit('x_label_sp does not equal 4')
+#        else:
+#            self.x_label_subplots = x_label_sp
+#
+#        if(len(y_label_sp) != 4):
+#            sys.exit('y_label_sp does not equal 4')
+#        else:
+#            self.y_label_subplots = y_label_sp
+#
+#        if(len(x_data) != 4):
+#            sys.exit('x_data does not equal 4')
+#        else:
+#            self.x_data = x_data
+#
+#        if(len(y_data) != 4):
+#            sys.exit('y_data does not equal 4')
+#        else:
+#            self.y_data = y_data
+#
+#        if(len(ravg_days) != 4):
+#            sys.exit('ravg_days does not equal 4')
+#        else:
+#            self.ravg_days = ravg_days
+#
+#        if(len(ravg_labels) != 4):
+#            sys.exit('ravg_labels does not equal 4')
+#        else:
+#            self.ravg_labels = ravg_labels
+#
+#        if(len(ravg_ydata) != 4):
+#            sys.exit('ravg_ydata does not equal 4')
+#        else:
+#            self.ravg_ydata = ravg_ydata
+#
+#        for i in range(0, 4):
+#            if(self.enable_rolling_avg_subplots[i] and self.ravg_days[i] < 0):
+#                sys.exit('ravg_days[' + str(i) + '] must be 1 or greater if rolling average is enabled')
+#            if(self.enable_rolling_avg_subplots[i] and self.ravg_labels[i] == None):
+#                sys.exit('ravg_labels[' + str(i) + '] cannot be None if rolling average is enabled')
+#
+#        self.suptitle = stitle
+#        self.out_file = ofile
+#        self.text_font = {'fontname':'Bahnschrift'}
+#        self.digit_font = {'fontname':'Consolas'}
+#
+#    def export(self):
+#        self.fig = Figure(figsize=(14, 10), dpi=200)
+#        self.axes = [self.fig.add_subplot(2,2,1),
+#                     self.fig.add_subplot(2,2,2),
+#                     self.fig.add_subplot(2,2,3),
+#                     self.fig.add_subplot(2,2,4)]
+#        self.fig.subplots_adjust(left=0.05, bottom=0.10, right=0.98, top=0.94, wspace=0.15, hspace=0.38)
+#
+#        for i in range(0, 4):
+#            if(self.type_subplots[i] == 'bar'):
+#                self.bar_plot(i)
+#            elif(self.type_subplots[i] == 'scatter'):
+#                self.scatter_plot(i)
+#
+#            if(self.enable_rolling_avg_subplots[i]):
+#                self.generate_rolling_average(i)
+#        
+#        self.fig.suptitle(self.suptitle, fontsize=10, **self.text_font)
+#        self.fig.savefig(self.out_file)
+#
+#    def bar_plot(self, index):
+#        self.axes[index].grid(zorder=0)
+#        self.axes[index].bar(self.x_data[index], self.y_data[index], color=self.colors_subplots[index], zorder=2)
+#        self.axes[index].set_title(self.titles_subplots[index], fontsize=14, **self.text_font)
+#        self.axes[index].tick_params(axis='x',labelrotation=90)
+#        self.axes[index].set_xticklabels(labels=self.x_data[index], fontsize=8, **self.digit_font)
+#        for tick in self.axes[index].get_yticklabels():
+#            tick.set_fontname(**self.digit_font)
+#        self.axes[index].set_xlabel(self.x_label_subplots[index], **self.text_font)
+#        self.axes[index].set_ylabel(self.y_label_subplots[index], **self.text_font)
+#
+#    def scatter_plot(self, index):
+#        self.axes[index].plot(self.x_data[index], self.y_data[index], color=self.colors_subplots[index])
+#        self.axes[index].plot(self.x_data[index], self.y_data[index], 'ko')
+#        self.axes[index].set_title(self.titles_subplots[index], fontsize=14, **self.text_font)
+#        self.axes[index].tick_params(axis='x',labelrotation=90)
+#        self.axes[index].set_xticklabels(labels=self.x_data[index], fontsize=8, **self.digit_font)
+#        for tick in self.axes[index].get_yticklabels():
+#            tick.set_fontname(**self.digit_font)
+#        self.axes[index].set_xlabel(self.x_label_subplots[index], **self.text_font)
+#        self.axes[index].set_ylabel(self.y_label_subplots[index], **self.text_font)
+#        self.axes[index].grid()
+#
+#    def rgb_threshold(self, color, min=0, max=255):
+#        if (color < min):
+#            return min
+#        if (color > max):
+#            return max
+#        return color
+#    
+#    def generate_rolling_average(self, index):
+#        avgd_data = np.array([])
+#        for i in range(len(self.ravg_ydata[index]) - (len(self.x_data[index]) + self.ravg_days[index]), len(self.ravg_ydata[index])):
+#            sum_data = 0
+#            for j in range(i - self.ravg_days[index], i):
+#                sum_data += self.ravg_ydata[index][j]
+#            sum_data /= self.ravg_days[index]
+#            avgd_data = np.append(avgd_data, sum_data)
+#
+#        color_to_string = self.colors_subplots[index][1:] 
+#        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+#        r = int(self.rgb_threshold(r * 0.6))
+#        g = int(self.rgb_threshold(g * 0.6))
+#        b = int(self.rgb_threshold(b * 0.6))
+#        avg_color = "#%02x%02x%02x" % (r, g, b)
+#
+#        self.axes[index].plot(self.x_data[index], avgd_data[self.ravg_days[index]:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.ravg_labels[index])
+#        self.axes[index].legend(loc='upper left')
+#    
+#    def get_path(self):
+#        return self.out_file
         
 #class ScatterPlot:
 #    def __init__(self, color, linestyle, marker, title, enable_rolling_avg, x_label, y_label, x_data, y_data, stitle, ofile, ravg=1, ravg_label='', ravg_ydata=[]):
@@ -463,9 +465,9 @@ class ScatterPlot:
         self.text_font = {'fontname': text_font}
         self.digit_font = {'fontname': digit_font}
         self.filename = filename
-        self.__validate()
+        self.validate()
 
-    def __validate(self):
+    def validate(self):
         # Validate len(x_dataset) = len(y_dataset)
         if(len(self.x_dataset) != len(self.y_dataset)):
             sys.exit('Error: x_dataset size does not equal y_dataset size.')
@@ -508,7 +510,7 @@ class ScatterPlot:
             return max
         return color
     
-    def __generate_rolling_avg(self):
+    def __export_generate_rolling_avg(self):
         avgd_data = np.array([])
         for i in range(len(self.y_dataset) - (len(self.x_dataset) + self.n_rolling_avg), len(self.y_dataset)):
             sum_data = 0
@@ -526,6 +528,25 @@ class ScatterPlot:
 
         self.axis.plot(self.x_dataset, avgd_data[self.n_rolling_avg:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.rolling_avg_label)
         self.axis.legend(loc='upper left')
+
+    def __setup_generate_rolling_avg(self, ax):
+        avgd_data = np.array([])
+        for i in range(len(self.y_dataset) - (len(self.x_dataset) + self.n_rolling_avg), len(self.y_dataset)):
+            sum_data = 0
+            for j in range(i - self.n_rolling_avg, i):
+                sum_data += self.y_dataset[j]
+            sum_data /= self.n_rolling_avg
+            avgd_data = np.append(avgd_data, sum_data)
+
+        color_to_string = self.color[1:] 
+        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+        r = int(self.__rgb_threshold(r * 0.6))
+        g = int(self.__rgb_threshold(g * 0.6))
+        b = int(self.__rgb_threshold(b * 0.6))
+        avg_color = "#%02x%02x%02x" % (r, g, b)
+
+        ax.plot(self.x_dataset, avgd_data[self.n_rolling_avg:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.rolling_avg_label)
+        ax.legend(loc='upper left')
 
     def export(self):
         self.fig = Figure(figsize=(14, 10), dpi=200)
@@ -547,13 +568,33 @@ class ScatterPlot:
         self.axis.set_ylabel(self.y_axis_label, **self.text_font, fontsize=self.y_axis_labelsize)
         
         if(self.rolling_avg):
-            self.__generate_rolling_avg()
+            self.__export_generate_rolling_avg()
 
         self.axis.grid()
 
         self.axis.set_title(self.title, fontsize=self.title_size, **self.text_font)
         self.fig.suptitle(self.super_title, fontsize=self.super_title_size, **self.text_font)
         self.fig.savefig(self.filename)
+
+    def set_up_axis(self, ax):
+        if(self.legend):
+            ax.plot(self.x_dataset, self.y_dataset, color=self.color, linestyle=self.linestyle, marker=self.marker, linewidth=self.linewidth, label=self.label)
+            ax.legend(loc='upper left')
+        else:
+            ax.plot(self.x_dataset, self.y_dataset, color=self.color, linestyle=self.linestyle, marker=self.marker, linewidth=self.linewidth)
+
+        ax.tick_params(axis='x',labelrotation=self.x_axis_orientation)
+        ax.set_xticklabels(labels=self.x_dataset, fontsize=self.x_ticks_size, **self.digit_font)
+        for tick in ax.get_yticklabels():
+            tick.set_fontname(**self.digit_font)
+            tick.set_fontsize(self.x_ticks_size)
+        ax.set_xlabel(self.x_axis_label, **self.text_font, fontsize=self.x_axis_labelsize)
+        ax.set_ylabel(self.y_axis_label, **self.text_font, fontsize=self.y_axis_labelsize)
+        
+        if(self.rolling_avg):
+            self.__setup_generate_rolling_avg(ax)
+        ax.grid()
+        ax.set_title(self.title, fontsize=self.title_size, **self.text_font)
         
 class BarPlot:
     # x_dataset -> array
@@ -601,9 +642,9 @@ class BarPlot:
             self.text_font = {'fontname': text_font}
             self.digit_font = {'fontname': digit_font}
             self.filename = filename
-            self.__validate()
+            self.validate()
     
-    def __validate(self):
+    def validate(self):
         # Validate len(x_dataset) = len(y_dataset)
         if(len(self.x_dataset) != len(self.y_dataset)):
             sys.exit('Error: x_dataset size does not equal y_dataset size.')
@@ -646,7 +687,7 @@ class BarPlot:
             return max
         return color
     
-    def __generate_rolling_avg(self):
+    def __export_generate_rolling_avg(self):
         avgd_data = np.array([])
         for i in range(len(self.y_dataset) - (len(self.x_dataset) + self.n_rolling_avg), len(self.y_dataset)):
             sum_data = 0
@@ -664,6 +705,25 @@ class BarPlot:
 
         self.axis.plot(self.x_dataset, avgd_data[self.n_rolling_avg:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.rolling_avg_label)
         self.axis.legend(loc='upper left')
+
+    def __setup_generate_rolling_avg(self, ax):
+        avgd_data = np.array([])
+        for i in range(len(self.y_dataset) - (len(self.x_dataset) + self.n_rolling_avg), len(self.y_dataset)):
+            sum_data = 0
+            for j in range(i - self.n_rolling_avg, i):
+                sum_data += self.y_dataset[j]
+            sum_data /= self.n_rolling_avg
+            avgd_data = np.append(avgd_data, sum_data)
+
+        color_to_string = self.color[1:] 
+        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+        r = int(self.__rgb_threshold(r * 0.6))
+        g = int(self.__rgb_threshold(g * 0.6))
+        b = int(self.__rgb_threshold(b * 0.6))
+        avg_color = "#%02x%02x%02x" % (r, g, b)
+
+        ax.plot(self.x_dataset, avgd_data[self.n_rolling_avg:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.rolling_avg_label)
+        ax.legend(loc='upper left')
         
     def export(self):
         self.fig = Figure(figsize=(14, 10), dpi=200)
@@ -686,13 +746,34 @@ class BarPlot:
         self.axis.set_ylabel(self.y_axis_label, **self.text_font, fontsize=self.y_axis_labelsize)
 
         if(self.rolling_avg):
-            self.__generate_rolling_avg()
+            self.__export_generate_rolling_avg()
 
         self.axis.grid(zorder=0)
 
         self.axis.set_title(self.title, fontsize=self.title_size, **self.text_font)
         self.fig.suptitle(self.super_title, fontsize=self.super_title_size, **self.text_font)
         self.fig.savefig(self.filename)
+
+    def set_up_axis(self, ax):
+        if(self.legend):
+            ax.legend(loc='upper left')
+            ax.bar(self.x_dataset, self.y_dataset, color=self.color, label=self.label, zorder=2)
+        else:
+            ax.bar(self.x_dataset, self.y_dataset, color=self.color, zorder=2)
+
+        ax.tick_params(axis='x',labelrotation=self.x_axis_orientation)
+        ax.set_xticklabels(labels=self.x_dataset, fontsize=self.x_ticks_size, **self.digit_font)
+        for tick in ax.get_yticklabels():
+            tick.set_fontname(**self.digit_font)
+            tick.set_fontsize(self.x_ticks_size)
+        ax.set_xlabel(self.x_axis_label, **self.text_font, fontsize=self.x_axis_labelsize)
+        ax.set_ylabel(self.y_axis_label, **self.text_font, fontsize=self.y_axis_labelsize)
+
+        if(self.rolling_avg):
+            self.__setup_generate_rolling_avg(ax)
+        ax.grid(zorder=0)
+        ax.set_title(self.title, fontsize=self.title_size, **self.text_font)
+        
 
 class LayeredScatterPlot:
     # n_datasets -> integer
@@ -743,8 +824,9 @@ class LayeredScatterPlot:
         self.text_font = {'fontname': text_font}
         self.digit_font = {'fontname': digit_font}
         self.filename = filename
+        self.validate()
 
-    def __validate(self):
+    def validate(self):
         # Validate n_datasets = len(y_datasets)
         if(self.n_datasets != len(self.y_datasets[i])):
             sys.exit('Error: y_datasets size does not equal n_datasets.')    
@@ -817,7 +899,7 @@ class LayeredScatterPlot:
             return max
         return color
     
-    def __generate_rolling_avg(self, idx):
+    def __export_generate_rolling_avg(self, idx):
         avgd_data = np.array([])
         for i in range(len(self.y_datasets[idx]) - (len(self.x_dataset) + self.n_rolling_avgs[idx]), len(self.y_datasets[idx])):
             sum_data = 0
@@ -836,11 +918,29 @@ class LayeredScatterPlot:
         self.axis.plot(self.x_dataset, avgd_data[self.n_rolling_avgs[idx]:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.rolling_avg_labels[idx])
         self.axis.legend(loc='upper left')
 
+    def __setup_generate_rolling_avg(self, ax, idx):
+        avgd_data = np.array([])
+        for i in range(len(self.y_datasets[idx]) - (len(self.x_dataset) + self.n_rolling_avgs[idx]), len(self.y_datasets[idx])):
+            sum_data = 0
+            for j in range(i - self.n_rolling_avgs[idx], i):
+                sum_data += self.y_datasets[idx][j]
+            sum_data /= self.n_rolling_avgs[idx]
+            avgd_data = np.append(avgd_data, sum_data)
+
+        color_to_string = self.colors[idx][1:] 
+        r, g, b = int(color_to_string[0:2], 16), int(color_to_string[2:4], 16), int(color_to_string[4:], 16)
+        r = int(self.__rgb_threshold(r * 0.6))
+        g = int(self.__rgb_threshold(g * 0.6))
+        b = int(self.__rgb_threshold(b * 0.6))
+        avg_color = "#%02x%02x%02x" % (r, g, b)
+
+        ax.plot(self.x_dataset, avgd_data[self.n_rolling_avgs[idx]:], linestyle='dashed', linewidth=2.5, color=avg_color, label=self.rolling_avg_labels[idx])
+        ax.legend(loc='upper left')
+
     def export(self):
         self.fig = Figure(figsize=(14, 10), dpi=200)
         self.axis = self.fig.add_subplot(1,1,1)
         self.fig.subplots_adjust(left=0.08, bottom=0.08, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
-
 
         if(self.legend):
             for i in range(0, self.n_datasets):
@@ -860,7 +960,7 @@ class LayeredScatterPlot:
         self.axis.set_ylabel(self.y_label, **self.text_font, fontsize=self.y_axis_label)
 
         for i in range(0, self.n_datasets):
-            self.__generate_rolling_avg(i)
+            self.__export_generate_rolling_avg(i)
 
         self.axis.grid()
 
@@ -868,13 +968,79 @@ class LayeredScatterPlot:
         self.fig.suptitle(self.super_title, fontsize=self.super_title_size, **self.text_font)
         self.fig.savefig(self.filename)
 
+    def set_up_axis(self, ax):
+        if(self.legend):
+            for i in range(0, self.n_datasets):
+                ax.plot(self.x_dataset[i], self.y_datasets[i], color=self.colors[i], linestyle=self.linestyles[i],
+                        marker=self.markers[i], linewidth=self.linewidths[i], label=self.labels[i])
+            ax.legend(loc='upper left')
+        else:
+            for i in range(0, self.n_datasets):
+                ax.plot(self.x_dataset[i], self.y_datasets[i], color=self.colors[i], linestyle=self.linestyles[i],
+                        marker=self.markers[i], linewidth=self.linewidths[i])
+        
+        ax.tick_params(axis='x',labelrotation=90)
+        for tick in ax.get_yticklabels():
+            tick.set_fontname(**self.digit_font)
+            tick.set_fontsize(self.x_ticks_size)
+        ax.set_xlabel(self.x_label, **self.text_font, fontsize=self.x_axis_label)
+        ax.set_ylabel(self.y_label, **self.text_font, fontsize=self.y_axis_label)
+
+        for i in range(0, self.n_datasets):
+            self.__setup_generate_rolling_avg(i)
+        ax.grid()
+        ax.set_title(self.title, fontsize=self.title_size, **self.text_font)
+
+class QuadPlot:
+    # plot1 -> ScatterPlot/BarPlot/LayeredScatterPlot
+    # plot2 -> ScatterPlot/BarPlot/LayeredScatterPlot
+    # plot3 -> ScatterPlot/BarPlot/LayeredScatterPlot
+    # plot4 -> ScatterPlot/BarPlot/LayeredScatterPlot
+    # super_title -> string
+    # super_title_size -> integer
+    # text_font -> string
+    # filename -> string
+    def __init__(self, plot1, plot2, plot3, plot4, super_title, super_title_size, text_font, filename):
+        self.plot1 = plot1
+        self.plot2 = plot2
+        self.plot3 = plot3
+        self.plot4 = plot4
+        self.super_title = super_title
+        self.super_title_size = super_title_size
+        self.text_font = {'fontname': text_font}
+        self.filename = filename
+        self.validate()
+
+    def validate(self):
+        self.plot1.validate()
+        self.plot2.validate()
+        self.plot3.validate()
+        self.plot4.validate()
+
+    def export(self):
+        self.fig = Figure(figsize=(14, 10), dpi=200)
+        self.axes = [self.fig.add_subplot(2,2,1),
+                     self.fig.add_subplot(2,2,2),
+                     self.fig.add_subplot(2,2,3),
+                     self.fig.add_subplot(2,2,4)]
+        self.fig.subplots_adjust(left=0.05, bottom=0.08, right=0.98, top=0.94, wspace=0.15, hspace=0.38)
+
+        self.plot1.set_up_axis(self.axes[0])
+        self.plot2.set_up_axis(self.axes[1])
+        self.plot3.set_up_axis(self.axes[2])
+        self.plot4.set_up_axis(self.axes[3])
+
+        self.fig.suptitle(self.super_title, fontsize=self.super_title_size, **self.text_font)
+        self.fig.savefig(self.filename)
+
+############################################################################################################################################################
 
 import random
-xdata = [i for i in range(0, 100)]
-ydata = [random.uniform(1, 2) for i in range(0,100)]
-p = ScatterPlot(
-    xdata,
-    ydata,
+xdata1 = [i for i in range(0, 100)]
+ydata1 = [random.uniform(1, 2) for i in range(0,100)]
+p1 = ScatterPlot(
+    xdata1,
+    ydata1,
     '-',
     'o',
     '#5B90F3',
@@ -890,12 +1056,51 @@ p = ScatterPlot(
     12,
     'yaxis',
     12,
-    'my title',
+    'my title 1',
     20,
     'username',
     10,
     'Bahnschrift',
     'Consolas',
-    'output.png'
+    'output1.png'
 )
-p.export()
+p1.export()
+
+xdata2 = [i for i in range(0, 30)]
+ydata2 = [random.uniform(1, 2) for i in range(0,30)]
+p2 = BarPlot(
+    xdata2,
+    ydata2,
+    '#8C8C8C',
+    '',
+    False,
+    True,
+    10,
+    'avg 10',
+    'days',
+    12,
+    90,
+    12,
+    'cases',
+    12,
+    'my title 2',
+    20,
+    'username',
+    10,
+    'Bahnschrift',
+    'Consolas',
+    'output2.png'    
+)
+p2.export()
+
+p3 = QuadPlot(
+    p1, 
+    p2,
+    p1,
+    p2,
+    'username',
+    12,
+    'Bahnschrift',
+    'output3.png'
+)
+p3.export()
