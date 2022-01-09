@@ -30,9 +30,9 @@ class ScatterPlot:
     # text_font -> string
     # digit_font -> string
     # filename -> string
-    def __init__(self, x_dataset, y_dataset, linestyle, marker, color, label, linewidth, legend, rolling_avg, n_rolling_avg,
-                 rolling_avg_label, x_axis_label, x_axis_labelsize, x_axis_orientation, x_ticks_size, y_axis_label,
-                 y_axis_labelsize, title, title_size, super_title, super_title_size, text_font, digit_font, filename):
+    def __init__(self, x_dataset, y_dataset, linestyle, marker, color, label, linewidth, legend, rolling_avg, rolling_avg_data,
+                 n_rolling_avg, rolling_avg_label, x_axis_label, x_axis_labelsize, x_axis_orientation, x_ticks_size, x_tick_interval,
+                 y_axis_label, y_axis_labelsize, title, title_size, super_title, super_title_size, text_font, digit_font, filename):
         self.x_dataset  = x_dataset
         self.y_dataset = y_dataset
         self.linestyle = linestyle
@@ -42,12 +42,14 @@ class ScatterPlot:
         self.linewidth = linewidth
         self.legend = legend
         self.rolling_avg = rolling_avg
+        self.rolling_avg_data = rolling_avg_data
         self.n_rolling_avg = n_rolling_avg
         self.rolling_avg_label = rolling_avg_label
         self.x_axis_label = x_axis_label
         self.x_axis_labelsize = x_axis_labelsize
         self.x_axis_orientation = x_axis_orientation
         self.x_ticks_size = x_ticks_size
+        self.x_tick_interval = x_tick_interval
         self.y_axis_label = y_axis_label
         self.y_axis_labelsize = y_axis_labelsize
         self.title = title
@@ -71,6 +73,10 @@ class ScatterPlot:
         # Validate if rolling_avg is True and 0 <= n_rolling_avg < len(x_dataset) - 1
         if(self.rolling_avg and (self.n_rolling_avg < 0 or self.n_rolling_avg > len(self.x_dataset) - 1)):
             sys.exit('Error: rolling_avg is True -> n_rolling_avg must be greater than 0 and less than', str(len(self.x_dataset) - 1) + '.')
+
+        # Validate if rolling_avg is True and n_rolling_avg = len(self.rolling_avg_data) - len(y_dataset)
+        if(self.rolling_avg and self.n_rolling_avg != len(self.rolling_avg_data) - len(self.y_dataset)):
+            sys.exit('Error: rolling_avg is True -> the size of rolling_avg_data must be equal to len(y_dataset) + n_rolling_avg.')
             
         # Validate if color is a string type
         if(not isinstance(self.color, str)):
@@ -104,10 +110,10 @@ class ScatterPlot:
     
     def __export_generate_rolling_avg(self):
         avgd_data = np.array([])
-        for i in range(len(self.y_dataset) - (len(self.x_dataset) + self.n_rolling_avg), len(self.y_dataset)):
+        for i in range(len(self.rolling_avg_data) - (len(self.x_dataset) + self.n_rolling_avg), len(self.rolling_avg_data)):
             sum_data = 0
             for j in range(i - self.n_rolling_avg, i):
-                sum_data += self.y_dataset[j]
+                sum_data += self.rolling_avg_data[j]
             sum_data /= self.n_rolling_avg
             avgd_data = np.append(avgd_data, sum_data)
 
@@ -123,10 +129,10 @@ class ScatterPlot:
 
     def __setup_generate_rolling_avg(self, ax):
         avgd_data = np.array([])
-        for i in range(len(self.y_dataset) - (len(self.x_dataset) + self.n_rolling_avg), len(self.y_dataset)):
+        for i in range(len(self.rolling_avg_data) - (len(self.x_dataset) + self.n_rolling_avg), len(self.rolling_avg_data)):
             sum_data = 0
             for j in range(i - self.n_rolling_avg, i):
-                sum_data += self.y_dataset[j]
+                sum_data += self.rolling_avg_data[j]
             sum_data /= self.n_rolling_avg
             avgd_data = np.append(avgd_data, sum_data)
 
@@ -152,7 +158,13 @@ class ScatterPlot:
             self.axis.plot(self.x_dataset, self.y_dataset, color=self.color, linestyle=self.linestyle, marker=self.marker, linewidth=self.linewidth)
         
         self.axis.tick_params(axis='x',labelrotation=self.x_axis_orientation)
-        self.axis.set_xticklabels(labels=self.x_dataset, fontsize=self.x_ticks_size, **self.digit_font)
+        x_axis_ticks = []
+        for i in range(0, len(self.x_dataset)):
+            if(i % self.x_tick_interval == 0):
+                x_axis_ticks.insert(0, self.x_dataset[len(self.y_dataset) - i - 1])
+            else:
+                x_axis_ticks.insert(0, '')
+        self.axis.set_xticklabels(labels=x_axis_ticks, fontsize=self.x_ticks_size, **self.digit_font)
         for tick in self.axis.get_yticklabels():
             tick.set_fontname(**self.digit_font)
             tick.set_fontsize(self.x_ticks_size)
@@ -176,7 +188,13 @@ class ScatterPlot:
             ax.plot(self.x_dataset, self.y_dataset, color=self.color, linestyle=self.linestyle, marker=self.marker, linewidth=self.linewidth)
 
         ax.tick_params(axis='x',labelrotation=self.x_axis_orientation)
-        ax.set_xticklabels(labels=self.x_dataset, fontsize=self.x_ticks_size, **self.digit_font)
+        x_axis_ticks = []
+        for i in range(0, len(self.x_dataset)):
+            if(i % self.x_tick_interval == 0):
+                x_axis_ticks.insert(0, self.x_dataset[len(self.y_dataset) - i - 1])
+            else:
+                x_axis_ticks.insert(0, '')
+        ax.set_xticklabels(labels=x_axis_ticks, fontsize=self.x_ticks_size, **self.digit_font)
         for tick in ax.get_yticklabels():
             tick.set_fontname(**self.digit_font)
             tick.set_fontsize(self.x_ticks_size)
@@ -202,6 +220,7 @@ class BarPlot:
     # x_axis_labelsize -> integer
     # x_axis_orientation -> integer
     # x_ticks_size -> integer
+    # x_ticks_interval -> integer
     # y_axis_label -> string
     # y_axis_labelsize -> integer
     # title -> string
@@ -212,8 +231,9 @@ class BarPlot:
     # digit_font -> string
     # filename -> string
     def __init__(self, x_dataset, y_dataset, color, label, legend, rolling_avg, rolling_avg_data, n_rolling_avg,
-                 rolling_avg_label, x_axis_label, x_axis_labelsize, x_axis_orientation, x_ticks_size, y_axis_label,
-                 y_axis_labelsize, title, title_size, super_title, super_title_size, text_font, digit_font, filename):
+                 rolling_avg_label, x_axis_label, x_axis_labelsize, x_axis_orientation, x_ticks_size, x_ticks_interval, 
+                 y_axis_label, y_axis_labelsize, title, title_size, super_title, super_title_size, text_font, digit_font,
+                 filename):
             self.x_dataset = x_dataset
             self.y_dataset = y_dataset
             self.color = color
@@ -227,6 +247,7 @@ class BarPlot:
             self.x_axis_labelsize = x_axis_labelsize
             self.x_axis_orientation = x_axis_orientation
             self.x_ticks_size = x_ticks_size
+            self.x_ticks_interval = x_ticks_interval
             self.y_axis_label = y_axis_label
             self.y_axis_labelsize = y_axis_labelsize
             self.title = title
@@ -251,6 +272,7 @@ class BarPlot:
         if(self.rolling_avg and (self.n_rolling_avg < 0 or self.n_rolling_avg > len(self.x_dataset) - 1)):
             sys.exit('Error: rolling_avg is True -> n_rolling_avg must be greater than 0 and less than', str(len(self.x_dataset) - 1) + '.')
 
+        # Validate if rolling_avg is True and n_rolling_avg = len(self.rolling_avg_data) - len(y_dataset)
         if(self.rolling_avg and self.n_rolling_avg != len(self.rolling_avg_data) - len(self.y_dataset)):
             sys.exit('Error: rolling_avg is True -> the size of rolling_avg_data must be equal to len(y_dataset) + n_rolling_avg.')
             
@@ -328,14 +350,19 @@ class BarPlot:
         self.fig.subplots_adjust(left=0.07, bottom=0.12, right=0.98, top=0.92, wspace=0.15, hspace=0.38)
 
         if(self.legend):
-            self.axis.legend(loc='upper left')
             self.axis.bar(self.x_dataset, self.y_dataset, color=self.color, label=self.label, zorder=2)
+            self.axis.legend(loc='upper left')
         else:
             self.axis.bar(self.x_dataset, self.y_dataset, color=self.color, zorder=2)
             
-
         self.axis.tick_params(axis='x',labelrotation=self.x_axis_orientation)
-        self.axis.set_xticklabels(labels=self.x_dataset, fontsize=self.x_ticks_size, **self.digit_font)
+        x_axis_ticks = []
+        for i in range(0, len(self.x_dataset)):
+            if(i % self.x_ticks_interval == 0):
+                x_axis_ticks.insert(0, self.x_dataset[len(self.y_dataset) - i - 1])
+            else:
+                x_axis_ticks.insert(0, '')
+        self.axis.set_xticklabels(labels=x_axis_ticks, fontsize=self.x_ticks_size, **self.digit_font)
         for tick in self.axis.get_yticklabels():
             tick.set_fontname(**self.digit_font)
             tick.set_fontsize(self.x_ticks_size)
@@ -359,7 +386,13 @@ class BarPlot:
             ax.bar(self.x_dataset, self.y_dataset, color=self.color, zorder=2)
 
         ax.tick_params(axis='x',labelrotation=self.x_axis_orientation)
-        ax.set_xticklabels(labels=self.x_dataset, fontsize=self.x_ticks_size, **self.digit_font)
+        x_axis_ticks = []
+        for i in range(0, len(self.x_dataset)):
+            if(i % self.x_ticks_interval == 0):
+                x_axis_ticks.insert(0, self.x_dataset[len(self.y_dataset) - i - 1])
+            else:
+                x_axis_ticks.insert(0, '')
+        ax.set_xticklabels(labels=x_axis_ticks, fontsize=self.x_ticks_size, **self.digit_font)
         for tick in ax.get_yticklabels():
             tick.set_fontname(**self.digit_font)
             tick.set_fontsize(self.x_ticks_size)
@@ -382,11 +415,13 @@ class LayeredScatterPlot:
     # labels -> array of strings
     # linewidths -> array of strings
     # rolling_avgs -> array of booleans
+    # rolling_avgs_data -> array of arrays
     # n_rolling_avgs -> array of integers
     # x_axis_label -> string
     # x_axis_labelsize -> integer
     # x_axis_orientation -> integer
     # x_ticks_size -> integer
+    # x_ticks_interval -> integer
     # title -> string
     # title_size -> integer
     # super_title -> string
@@ -394,8 +429,8 @@ class LayeredScatterPlot:
     # text_font -> string
     # digit_font -> string
     # filename -> string
-    def __init__(self, n_datasets, x_dataset, y_datasets, linestyles, markers, colors, labels, linewidths, rolling_avgs,
-                 n_rolling_avgs, rolling_avg_labels, x_axis_label, x_axis_labelsize, x_axis_orientation, x_ticks_size,
+    def __init__(self, n_datasets, x_dataset, y_datasets, linestyles, markers, colors, labels, linewidths, rolling_avgs, rolling_avgs_data, 
+                 n_rolling_avgs, rolling_avg_labels, x_axis_label, x_axis_labelsize, x_axis_orientation, x_ticks_size, x_ticks_interval,
                  y_axis_label, y_axis_labelsize, title, title_size, super_title, super_title_size, text_font, digit_font, filename):
         self.n_datasets = n_datasets
         self.x_dataset  = x_dataset
@@ -406,12 +441,14 @@ class LayeredScatterPlot:
         self.labels = labels
         self.linewidths = linewidths
         self.rolling_avgs = rolling_avgs
+        self.rolling_avgs_data = rolling_avgs_data
         self.n_rolling_avgs = n_rolling_avgs
         self.rolling_avg_labels = rolling_avg_labels
         self.x_axis_label = x_axis_label
         self.x_axis_labelsize = x_axis_labelsize
         self.x_axis_orientation = x_axis_orientation
         self.x_ticks_size = x_ticks_size
+        self.x_ticks_interval = x_ticks_interval
         self.y_axis_label = y_axis_label
         self.y_axis_labelsize = y_axis_labelsize
         self.title = title
@@ -462,6 +499,11 @@ class LayeredScatterPlot:
         for i in range(0, self.n_datasets):
             if(self.rolling_avgs[i] and (self.n_rolling_avgs[i] < 0 or self.n_rolling_avgs[i] > len(self.x_dataset) - 1)):
                 sys.exit('Error: rolling_avgs[' + str(i) + '] is True -> n_rolling_avg must be greater than 0 and less than', str(len(self.x_dataset) - 1) + '.')
+
+        # Validate if rolling_avgs[i] is True and n_rolling_avgs[i] = len(self.rolling_avgs_data[i]) - len(y_datasets[i])
+        for i in range(0, self.n_datasets):
+            if(self.rolling_avgs[i] and self.n_rolling_avgs[i] != len(self.rolling_avgs_data[i]) - len(self.y_datasets[i])):
+                sys.exit('Error: rolling_avgs[i] is True -> the size of rolling_avgs_data[i] must be equal to len(y_datasets[i]) + n_rolling_avg[i].')
             
         # Validate if colors[i] is a string type
         for i in range(0, self.n_datasets):
@@ -498,10 +540,10 @@ class LayeredScatterPlot:
     
     def __export_generate_rolling_avg(self, idx):
         avgd_data = np.array([])
-        for i in range(len(self.y_datasets[idx]) - (len(self.x_dataset) + self.n_rolling_avgs[idx]), len(self.y_datasets[idx])):
+        for i in range(len(self.rolling_avgs_data[idx]) - (len(self.x_dataset) + self.n_rolling_avgs[idx]), len(self.rolling_avgs_data[idx])):
             sum_data = 0
             for j in range(i - self.n_rolling_avgs[idx], i):
-                sum_data += self.y_datasets[idx][j]
+                sum_data += self.rolling_avgs_data[idx][j]
             sum_data /= self.n_rolling_avgs[idx]
             avgd_data = np.append(avgd_data, sum_data)
 
@@ -517,10 +559,10 @@ class LayeredScatterPlot:
 
     def __setup_generate_rolling_avg(self, ax, idx):
         avgd_data = np.array([])
-        for i in range(len(self.y_datasets[idx]) - (len(self.x_dataset) + self.n_rolling_avgs[idx]), len(self.y_datasets[idx])):
+        for i in range(len(self.rolling_avgs_data[idx]) - (len(self.x_dataset) + self.n_rolling_avgs[idx]), len(self.rolling_avgs_data[idx])):
             sum_data = 0
             for j in range(i - self.n_rolling_avgs[idx], i):
-                sum_data += self.y_datasets[idx][j]
+                sum_data += self.rolling_avgs_data[idx][j]
             sum_data /= self.n_rolling_avgs[idx]
             avgd_data = np.append(avgd_data, sum_data)
 
@@ -549,7 +591,14 @@ class LayeredScatterPlot:
                 self.axis.plot(self.x_dataset[i], self.y_datasets[i], color=self.colors[i], linestyle=self.linestyles[i],
                             marker=self.markers[i], linewidth=self.linewidths[i])
         
-        self.axis.tick_params(axis='x',labelrotation=90)
+        self.axis.tick_params(axis='x',labelrotation=self.x_axis_orientation)
+        x_axis_ticks = []
+        for i in range(0, len(self.x_dataset)):
+            if(i % self.x_ticks_interval == 0):
+                x_axis_ticks.insert(0, self.x_dataset[len(self.x_dataset) - i - 1])
+            else:
+                x_axis_ticks.insert(0, '')
+        self.axis.set_xticklabels(labels=x_axis_ticks, fontsize=self.x_ticks_size, **self.digit_font)
         for tick in self.axis.get_yticklabels():
             tick.set_fontname(**self.digit_font)
             tick.set_fontsize(self.x_ticks_size)
@@ -576,7 +625,14 @@ class LayeredScatterPlot:
                 ax.plot(self.x_dataset[i], self.y_datasets[i], color=self.colors[i], linestyle=self.linestyles[i],
                         marker=self.markers[i], linewidth=self.linewidths[i])
         
-        ax.tick_params(axis='x',labelrotation=90)
+        ax.tick_params(axis='x',labelrotation=self.x_axis_orientation)
+        x_axis_ticks = []
+        for i in range(0, len(self.x_dataset)):
+            if(i % self.x_ticks_interval == 0):
+                x_axis_ticks.insert(0, self.x_dataset[len(self.x_dataset) - i - 1])
+            else:
+                x_axis_ticks.insert(0, '')
+        self.axis.set_xticklabels(labels=x_axis_ticks, fontsize=self.x_ticks_size, **self.digit_font)
         for tick in ax.get_yticklabels():
             tick.set_fontname(**self.digit_font)
             tick.set_fontsize(self.x_ticks_size)
