@@ -7,11 +7,10 @@ sys.path.insert(0, '../utilities')
 
 import ConfigUtility as cu    
 
-def process_pa_depto(table_pg_config, pdf_path, w_width, w_height):
+def process_pa_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
     pa_depto = convert_from_path(pdf_path,
                                  first_page=int(table_pg_config.get_value('PruebasAcumuladasDepto')),
                                  last_page=int(table_pg_config.get_value('PruebasAcumuladasDepto')))[0]
-    pa_depto = pa_depto.convert('RGB')
     print('PruebasAcumuladasDepto done.')
     cv2_pa_depto = np.array(pa_depto)
     cv2_pa_depto = cv2.resize(cv2_pa_depto, (w_width, w_height))
@@ -19,10 +18,11 @@ def process_pa_depto(table_pg_config, pdf_path, w_width, w_height):
     cv2.destroyWindow('PruebasAcumuladasDepto')
     cv2_pa_depto = cv2_pa_depto[int(bounds_pa_depto[1]):int(bounds_pa_depto[1]+bounds_pa_depto[3]),
                                 int(bounds_pa_depto[0]):int(bounds_pa_depto[0]+bounds_pa_depto[2])]
-    cv2.imshow('test.jpeg', cv2_pa_depto)
+    if(showimg):
+        cv2.imshow('test.jpeg', cv2_pa_depto)
 
 
-def process_ca_depto(table_pg_config, pdf_path, w_width, w_height):
+def process_ca_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
     ca_depto = convert_from_path(pdf_path,
                                  first_page=int(table_pg_config.get_value('CasosAcumuladosDepto')),
                                  last_page=int(table_pg_config.get_value('CasosAcumuladosDepto')))[0]
@@ -33,10 +33,11 @@ def process_ca_depto(table_pg_config, pdf_path, w_width, w_height):
     cv2.destroyWindow('CasosAcumuladosDepto')
     cv2_ca_depto = cv2_ca_depto[int(bounds_ca_depto[1]):int(bounds_ca_depto[1]+bounds_ca_depto[3]),
                                 int(bounds_ca_depto[0]):int(bounds_ca_depto[0]+bounds_ca_depto[2])]
-    cv2.imshow('test.jpeg', cv2_ca_depto)
+    if(showimg):
+        cv2.imshow('test.jpeg', cv2_ca_depto)
 
 
-def process_cp_edades(table_pg_config, pdf_path, w_width, w_height):
+def process_cp_edades(table_pg_config, pdf_path, w_width, w_height, showimg):
     cp_edades = convert_from_path(pdf_path,
                                  first_page=int(table_pg_config.get_value('CasosPositivosEdades')),
                                  last_page=int(table_pg_config.get_value('CasosPositivosEdades')))[0]
@@ -47,10 +48,11 @@ def process_cp_edades(table_pg_config, pdf_path, w_width, w_height):
     cv2.destroyWindow('CasosPositivosEdades')
     cv2_cp_edades = cv2_cp_edades[int(bounds_cp_edades[1]):int(bounds_cp_edades[1]+bounds_cp_edades[3]),
                                   int(bounds_cp_edades[0]):int(bounds_cp_edades[0]+bounds_cp_edades[2])]
-    cv2.imshow('test.jpeg', cv2_cp_edades)
+    if(showimg):
+        cv2.imshow('test.jpeg', cv2_cp_edades)
 
 
-def process_ma_depto(table_pg_config, pdf_path, w_width, w_height):
+def process_ma_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
     ma_depto = convert_from_path(pdf_path,
                                  first_page=int(table_pg_config.get_value('MuertesAcumuladasDepto')),
                                  last_page=int(table_pg_config.get_value('MuertesAcumuladasDepto')))[0]
@@ -61,10 +63,11 @@ def process_ma_depto(table_pg_config, pdf_path, w_width, w_height):
     cv2.destroyWindow('MuertesAcumuladasDepto')
     cv2_ma_depto = cv2_ma_depto[int(bounds_ma_depto[1]):int(bounds_ma_depto[1]+bounds_ma_depto[3]),
                                 int(bounds_ma_depto[0]):int(bounds_ma_depto[0]+bounds_ma_depto[2])]
-    cv2.imshow('test.jpeg', cv2_ma_depto)
+    if(showimg):
+        cv2.imshow('test.jpeg', cv2_ma_depto)
 
 
-def process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height):
+def process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height, showimg):
     ca_distr_20 = convert_from_path(pdf_path,
                                     first_page=int(table_pg_config.get_value('CasosAcumuDistrito2020P1')),
                                     last_page=int(table_pg_config.get_value('CasosAcumuDistrito2020P1')))[0]
@@ -75,10 +78,11 @@ def process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height):
     cv2.destroyWindow('CasosAcumuDistrito2020')
     cv2_ca_distr_20 = cv2_ca_distr_20[int(bounds_ca_distr_20[1]):int(bounds_ca_distr_20[1]+bounds_ca_distr_20[3]),
                                       int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
-    cv2.imshow('test.jpeg', cv2_ca_distr_20)
+    if(showimg):
+        cv2.imshow('test.jpeg', cv2_ca_distr_20)
 
 
-def process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height):
+def process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, showimg):
     ca_distr_21 = convert_from_path(pdf_path,
                                     first_page=int(table_pg_config.get_value('CasosAcumuDistrito2021P1')),
                                     last_page=int(table_pg_config.get_value('CasosAcumuDistrito2021P1')))[0]
@@ -89,10 +93,11 @@ def process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height):
     cv2.destroyWindow('CasosAcumuDistrito2021')
     cv2_ca_distr_21 = cv2_ca_distr_21[int(bounds_ca_distr_21[1]):int(bounds_ca_distr_21[1]+bounds_ca_distr_21[3]),
                                       int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
-    cv2.imshow('test.jpeg', cv2_ca_distr_21)
+    if(showimg):
+        cv2.imshow('test.jpeg', cv2_ca_distr_21)
 
 
-def process_ma_distr(table_pg_config, pdf_path, w_width, w_height):
+def process_ma_distr(table_pg_config, pdf_path, w_width, w_height, showimg):
     ma_distr = convert_from_path(pdf_path,
                                  first_page=int(table_pg_config.get_value('MuertesAcumulaDistritoP1')),
                                  last_page=int(table_pg_config.get_value('MuertesAcumulaDistritoP1')))[0]
@@ -103,8 +108,10 @@ def process_ma_distr(table_pg_config, pdf_path, w_width, w_height):
     cv2.destroyWindow('MuertesAcumulaDistrito')
     cv2_ma_distr = cv2_ma_distr[int(bounds_ma_distr[1]):int(bounds_ma_distr[1]+bounds_ma_distr[3]),
                                 int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
-    cv2.imshow('test.jpeg', cv2_ma_distr)
+    if(showimg):
+        cv2.imshow('test.jpeg', cv2_ma_distr)
 
+#####################################################################################################
 
 def main():
     table_pg_config = cu.Config('PDFTablePages.cl')
@@ -112,14 +119,15 @@ def main():
     w_width = 1280
     w_height = 720
 
-    process_pa_depto(table_pg_config, pdf_path, w_width, w_height)
-    process_ca_depto(table_pg_config, pdf_path, w_width, w_height)
-    process_cp_edades(table_pg_config, pdf_path, w_width, w_height)
-    process_ma_depto(table_pg_config, pdf_path, w_width, w_height)
-    process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height)
-    process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height)
-    process_ma_distr(table_pg_config, pdf_path, w_width, w_height)
+    process_pa_depto(table_pg_config, pdf_path, w_width, w_height, False)
+    process_ca_depto(table_pg_config, pdf_path, w_width, w_height, False)
+    process_cp_edades(table_pg_config, pdf_path, w_width, w_height, False)
+    process_ma_depto(table_pg_config, pdf_path, w_width, w_height, False)
+    process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height, False)
+    process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, False)
+    process_ma_distr(table_pg_config, pdf_path, w_width, w_height, False)
     
+#####################################################################################################
 
 main()
     
