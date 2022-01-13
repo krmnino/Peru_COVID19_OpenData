@@ -2,16 +2,27 @@ import sys
 from pdf2image import convert_from_path
 import numpy as np
 import cv2
+from PIL import Image
+from PIL import ImageOps 
+from PIL import ImageEnhance
+import pytesseract
 
 sys.path.insert(0, '../utilities')
 
 import ConfigUtility as cu    
 
+if(sys.platform == 'win32'):
+    pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
+
 def process_pa_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
     pa_depto = convert_from_path(pdf_path,
                                  first_page=int(table_pg_config.get_value('PruebasAcumuladasDepto')),
-                                 last_page=int(table_pg_config.get_value('PruebasAcumuladasDepto')))[0]
-    print('PruebasAcumuladasDepto done.')
+                                 last_page=int(table_pg_config.get_value('PruebasAcumuladasDepto')),
+                                 dpi=200)[0]
+    pa_depto = ImageOps.invert(pa_depto)
+    pa_depto = ImageOps.grayscale(pa_depto)
+    enhancer = ImageEnhance.Contrast(pa_depto)
+    pa_depto = enhancer.enhance(1.5)
     cv2_pa_depto = np.array(pa_depto)
     cv2_pa_depto = cv2.resize(cv2_pa_depto, (w_width, w_height))
     bounds_pa_depto = cv2.selectROI('PruebasAcumuladasDepto', cv2_pa_depto, False, False)
@@ -20,7 +31,9 @@ def process_pa_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
                                 int(bounds_pa_depto[0]):int(bounds_pa_depto[0]+bounds_pa_depto[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_pa_depto)
-
+    img_pa_depto = Image.fromarray(cv2_pa_depto)
+    pa_depto_data = pytesseract.image_to_string(img_pa_depto)
+    print('PruebasAcumuladasDepto done.')
 
 def process_ca_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
     ca_depto = convert_from_path(pdf_path,
@@ -116,16 +129,16 @@ def process_ma_distr(table_pg_config, pdf_path, w_width, w_height, showimg):
 def main():
     table_pg_config = cu.Config('PDFTablePages.cl')
     pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
-    w_width = 1280
-    w_height = 720
+    w_width = 1760
+    w_height = 990
 
-    process_pa_depto(table_pg_config, pdf_path, w_width, w_height, False)
-    process_ca_depto(table_pg_config, pdf_path, w_width, w_height, False)
-    process_cp_edades(table_pg_config, pdf_path, w_width, w_height, False)
-    process_ma_depto(table_pg_config, pdf_path, w_width, w_height, False)
-    process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height, False)
-    process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, False)
-    process_ma_distr(table_pg_config, pdf_path, w_width, w_height, False)
+    process_pa_depto(table_pg_config, pdf_path, w_width, w_height, True)
+    #process_ca_depto(table_pg_config, pdf_path, w_width, w_height, False)
+    #process_cp_edades(table_pg_config, pdf_path, w_width, w_height, False)
+    #process_ma_depto(table_pg_config, pdf_path, w_width, w_height, False)
+    #process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height, False)
+    #process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, False)
+    #process_ma_distr(table_pg_config, pdf_path, w_width, w_height, False)
     
 #####################################################################################################
 
