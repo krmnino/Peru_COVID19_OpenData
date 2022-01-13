@@ -31,6 +31,7 @@ def process_pa_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
                                 int(bounds_pa_depto[0]):int(bounds_pa_depto[0]+bounds_pa_depto[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_pa_depto)
+        cv2.waitKey(0)
     img_pa_depto = Image.fromarray(cv2_pa_depto)
     pa_depto_data = pytesseract.image_to_string(img_pa_depto)
     print('PruebasAcumuladasDepto done.')
@@ -48,6 +49,7 @@ def process_ca_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
                                 int(bounds_ca_depto[0]):int(bounds_ca_depto[0]+bounds_ca_depto[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ca_depto)
+        cv2.waitKey(0)
 
 
 def process_cp_edades(table_pg_config, pdf_path, w_width, w_height, showimg):
@@ -63,6 +65,7 @@ def process_cp_edades(table_pg_config, pdf_path, w_width, w_height, showimg):
                                   int(bounds_cp_edades[0]):int(bounds_cp_edades[0]+bounds_cp_edades[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_cp_edades)
+        cv2.waitKey(0)
 
 
 def process_ma_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
@@ -78,6 +81,7 @@ def process_ma_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
                                 int(bounds_ma_depto[0]):int(bounds_ma_depto[0]+bounds_ma_depto[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ma_depto)
+        cv2.waitKey(0)
 
 
 def process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height, showimg):
@@ -93,6 +97,7 @@ def process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height, showimg):
                                       int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ca_distr_20)
+        cv2.waitKey(0)
 
 
 def process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, showimg):
@@ -108,6 +113,7 @@ def process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, showimg):
                                       int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ca_distr_21)
+        cv2.waitKey(0)
 
 
 def process_ma_distr(table_pg_config, pdf_path, w_width, w_height, showimg):
@@ -123,6 +129,7 @@ def process_ma_distr(table_pg_config, pdf_path, w_width, w_height, showimg):
                                 int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ma_distr)
+        cv2.waitKey(0)
 
 #####################################################################################################
 
