@@ -50,7 +50,7 @@ class Config:
                     to_float = float(split_list[i])
                     split_list[i] = to_float
                 except:
-                    split_list[i] = raw_string
+                    continue
             return split_list
         else:
             raw_string = self.__remove_side_spaces(raw_string)
