@@ -37,7 +37,7 @@ def process_pa_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
     # Show cropped image if showimg = True
     if(showimg):
         cv2.imshow('test.jpeg', cv2_pa_depto)
-    # Convert opencv2 image back to PIL image
+        cv2.waitKey(0)
     img_pa_depto = Image.fromarray(cv2_pa_depto)
     # Perform OCR in PIL image with pytesseract
     pa_depto_data = pytesseract.image_to_string(img_pa_depto)
@@ -67,6 +67,7 @@ def process_ca_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
     # Show cropped image if showimg = True
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ca_depto)
+        cv2.waitKey(0)
     # Convert opencv2 image back to PIL image
     img_ca_depto = Image.fromarray(cv2_ca_depto)
     # Perform OCR in PIL image with pytesseract
@@ -87,6 +88,7 @@ def process_cp_edades(table_pg_config, pdf_path, w_width, w_height, showimg):
                                   int(bounds_cp_edades[0]):int(bounds_cp_edades[0]+bounds_cp_edades[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_cp_edades)
+        cv2.waitKey(0)
     print('CasosPositivosEdades done.')
 
 
@@ -102,6 +104,7 @@ def process_ma_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
                                 int(bounds_ma_depto[0]):int(bounds_ma_depto[0]+bounds_ma_depto[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ma_depto)
+        cv2.waitKey(0)
     print('MuertesAcumuladasDepto done.')
 
 
@@ -117,6 +120,7 @@ def process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height, showimg):
                                       int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ca_distr_20)
+        cv2.waitKey(0)
     print('CasosAcumuDistrito2020 done.')
 
 
@@ -132,6 +136,7 @@ def process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, showimg):
                                       int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ca_distr_21)
+        cv2.waitKey(0)
     print('CasosAcumuDistrito2021 done.')
 
 
@@ -147,6 +152,7 @@ def process_ma_distr(table_pg_config, pdf_path, w_width, w_height, showimg):
                                 int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
     if(showimg):
         cv2.imshow('test.jpeg', cv2_ma_distr)
+        cv2.waitKey(0)
     print('MuertesAcumulaDistrito done.')
 
 #####################################################################################################
