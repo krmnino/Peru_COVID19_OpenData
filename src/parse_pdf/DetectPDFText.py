@@ -1,3 +1,4 @@
+from ast import parse
 import sys
 from pdf2image import convert_from_path
 import numpy as np
@@ -9,12 +10,74 @@ import pytesseract
 
 sys.path.insert(0, '../utilities')
 
-import ConfigUtility as cu    
+import ConfigUtility as cu
+import DataUtility as du
 
 if(sys.platform == 'win32'):
     pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
-def process_pa_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
+def clean_up_data(n_cols, parsed_columns):
+    for i in range(0, n_cols):
+        while(True):
+            for j in range(0, len(parsed_columns[i])):
+                print('[' + str(j) + ']: ' + parsed_columns[i][j])
+            cmd = input('>> ')
+            cmd_split = cmd.split(' ')
+            if(cmd_split[0] == 'ok'):
+                # end column clean up
+                break
+            if(cmd_split[0] == 'add'):
+                # add [after_idx] [value]
+                try:
+                    idx = int(cmd_split[1])
+                except:
+                    print('Error: index must be an integer.')
+                    continue
+                if(idx < 0 or idx >= len(parsed_columns[i])):
+                    print('Error: index must be between 0 and ' + str(len(parsed_columns[i]) - 1))
+                    continue
+                if(len(cmd_split) != 2):
+                    print('Error: use the correct syntax -> add [after_idx] [value]')
+                    continue
+                parsed_columns[i].insert(idx, cmd_split[2])
+                print('')
+                continue
+            if(cmd_split[0] == 'del'):
+                # del [at_idx]
+                try:
+                    idx = int(cmd_split[1])
+                except:
+                    print('Error: index must be an integer.')
+                    continue
+                if(idx < 0 or idx >= len(parsed_columns[i])):
+                    print('Error: index must be between 0 and ' + str(len(parsed_columns[i]) - 1))
+                    continue
+                if(len(cmd_split) != 2):
+                    print('Error: use the correct syntax -> del [at_idx]')
+                    continue
+                parsed_columns[i].pop(idx)
+                print('')
+                continue
+            if(cmd_split[0] == 'mod'):
+                # mod [at_idx] [new_value]
+                try:
+                    idx = int(cmd_split[1])
+                except:
+                    print('Error: index must be an integer.')
+                    continue
+                if(idx < 0 or idx >= len(parsed_columns[i])):
+                    print('Error: index must be between 0 and ' + str(len(parsed_columns[i]) - 1))
+                    continue
+                if(len(cmd_split) != 3):
+                    print('Error: use the correct syntax -> mod [at_idx] [new_value]')
+                    continue
+                parsed_columns[i][idx] = cmd_split[2]
+                print('')
+                continue
+        print('Col ' + str(i + 1) + '/' + str(n_cols))
+    return parsed_columns
+
+def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     # Extract page from PDF file
     pa_depto = convert_from_path(pdf_path,
                                  first_page=int(table_pg_config.get_value('PruebasAcumuladasDepto')),
@@ -28,23 +91,54 @@ def process_pa_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
     # Convert PIL image to opencv2 image
     cv2_pa_depto = np.array(pa_depto)
     # Resize image to fit in 1080p screen
+    w_width = int(main_config.get_value('WindowWidth'))
+    w_height = int(main_config.get_value('WindowHeight'))
     cv2_pa_depto = cv2.resize(cv2_pa_depto, (w_width, w_height))
-    # Select area and crop image
-    bounds_pa_depto = cv2.selectROI('PruebasAcumuladasDepto', cv2_pa_depto, False, False)
-    cv2.destroyWindow('PruebasAcumuladasDepto')
-    cv2_pa_depto = cv2_pa_depto[int(bounds_pa_depto[1]):int(bounds_pa_depto[1]+bounds_pa_depto[3]),
-                                int(bounds_pa_depto[0]):int(bounds_pa_depto[0]+bounds_pa_depto[2])]
-    # Show cropped image if showimg = True
-    if(showimg):
-        cv2.imshow('test.jpeg', cv2_pa_depto)
-        cv2.waitKey(0)
-    img_pa_depto = Image.fromarray(cv2_pa_depto)
-    # Perform OCR in PIL image with pytesseract
-    pa_depto_data = pytesseract.image_to_string(img_pa_depto)
-    print('PruebasAcumuladasDepto done.')
+
+    # Parse data in image column by column 
+    n_cols = int(table_pg_config.get_value('PADepto_RawCols'))
+    parsed_columns = []
+    for i in range(0, n_cols):
+        # Select area and crop image
+        bounds_pa_depto = cv2.selectROI('PruebasAcumuladasDepto', cv2_pa_depto, False, False)
+        cv2.destroyWindow('PruebasAcumuladasDepto')
+        col_pa_depto = cv2_pa_depto[int(bounds_pa_depto[1]):int(bounds_pa_depto[1]+bounds_pa_depto[3]),
+                                    int(bounds_pa_depto[0]):int(bounds_pa_depto[0]+bounds_pa_depto[2])]
+        # Show cropped image if showimg = True
+        if(showimg):
+            window_name = 'PruebasAcumuladasDepto - Col: ' + str(i + 1) + '/' + str(n_cols)
+            cv2.imshow(window_name, col_pa_depto)
+            cv2.waitKey(0)
+        # Convert opencv2 image back to PIL image
+        img_pa_depto = Image.fromarray(col_pa_depto)
+        # Perform OCR in PIL image with pytesseract
+        pa_depto_data = pytesseract.image_to_string(img_pa_depto)
+        pa_depto_data = pa_depto_data.split('\n')
+        parsed_columns.append(pa_depto_data)
+        print('PruebasAcumuladasDepto - Col ' + str(i + 1) + '/' + str(n_cols))
+    
+    # Clean up data read using OCR
+    parsed_columns = clean_up_data(n_cols, parsed_columns)
+
+    # Create new Table and add each row of data
+    out_filename = table_names_config.get_value('PruebasAcumuladasDepto')
+    header = main_config.get_value('PruebasAcumuladasDepto_Hdr')
+    n_rows = int(main_config.get_value('PADepto_RawRows'))
+    output_table = du.Table(
+        'n',
+        filename=out_filename,
+        header_index=header,
+        delimiter=','
+    )
+    # Fill table with data
+    for i in range(0, n_rows):
+        new_row = [parsed_columns[i][j] for j in range(0, len(header))]
+        output_table.append_end_row(new_row)
+    output_table.save_csv(main_config.get_value('RawTablesDir') + '/' + table_names_config.get_value('PruebasAcumuladasDepto'))
+    print('PruebasAcumuladasDepto - Done.')
 
 
-def process_ca_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
+def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     # Extract page from PDF file
     ca_depto = convert_from_path(pdf_path,
                                  first_page=int(table_pg_config.get_value('CasosAcumuladosDepto')),
@@ -58,21 +152,35 @@ def process_ca_depto(table_pg_config, pdf_path, w_width, w_height, showimg):
     # Convert PIL image to opencv2 image
     cv2_ca_depto = np.array(ca_depto)
     # Resize image to fit in 1080p screen
+    w_width = int(main_config.get_value('WindowWidth'))
+    w_height = int(main_config.get_value('WindowHeight'))
     cv2_ca_depto = cv2.resize(cv2_ca_depto, (w_width, w_height))
-    # Select area and crop image
-    bounds_ca_depto = cv2.selectROI('CasosAcumuladosDepto', cv2_ca_depto, False, False)
-    cv2.destroyWindow('CasosAcumuladosDepto')
-    cv2_ca_depto = cv2_ca_depto[int(bounds_ca_depto[1]):int(bounds_ca_depto[1]+bounds_ca_depto[3]),
-                                int(bounds_ca_depto[0]):int(bounds_ca_depto[0]+bounds_ca_depto[2])]
-    # Show cropped image if showimg = True
-    if(showimg):
-        cv2.imshow('test.jpeg', cv2_ca_depto)
-        cv2.waitKey(0)
-    # Convert opencv2 image back to PIL image
-    img_ca_depto = Image.fromarray(cv2_ca_depto)
-    # Perform OCR in PIL image with pytesseract
-    ca_depto_data = pytesseract.image_to_string(img_ca_depto)
-    print('PruebasAcumuladasDepto done.')
+
+    # Parse data in image column by column 
+    n_cols = int(table_pg_config.get_value('CADeptoCols'))
+    parsed_columns = []
+    for i in range(0, n_cols):
+        # Select area and crop image
+        bounds_ca_depto = cv2.selectROI('CasosAcumuladosDepto', cv2_ca_depto, False, False)
+        cv2.destroyWindow('CasosAcumuladosDepto')
+        col_ca_depto = cv2_ca_depto[int(bounds_ca_depto[1]):int(bounds_ca_depto[1]+bounds_ca_depto[3]),
+                                    int(bounds_ca_depto[0]):int(bounds_ca_depto[0]+bounds_ca_depto[2])]
+        # Show cropped image if showimg = True
+        if(showimg):
+            window_name = 'CasosAcumuladosDepto - Col: ' + str(i + 1) + '/' + str(n_cols)
+            cv2.imshow(window_name, col_ca_depto)
+            cv2.waitKey(0)
+        # Convert opencv2 image back to PIL image
+        img_ca_depto = Image.fromarray(cv2_ca_depto)
+        # Perform OCR in PIL image with pytesseract and append column
+        ca_depto_data = pytesseract.image_to_string(img_ca_depto)
+        ca_depto_data = ca_depto_data.split('\n')
+        parsed_columns.append(ca_depto_data)
+
+        print('CasosAcumuladosDepto - Col ' + str(i + 1) + '/' + str(n_cols))
+    parsed_columns = clean_up_data(table_pg_config, parsed_columns)
+    output_table = du.Table('n', filename=table_names_config.get_value('PruebasAcumuladasDepto'))
+        
     print('CasosAcumuladosDepto done.')
 
 
@@ -158,12 +266,12 @@ def process_ma_distr(table_pg_config, pdf_path, w_width, w_height, showimg):
 #####################################################################################################
 
 def main():
+    main_config = cu.Config('ParsePDFConfig.cl')
+    table_names_config = cu.Config('RawTableFileNames.cl')
     table_pg_config = cu.Config('PDFTablePages.cl')
     pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
-    w_width = 1760
-    w_height = 990
 
-    process_pa_depto(table_pg_config, pdf_path, w_width, w_height, True)
+    process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_depto(table_pg_config, pdf_path, w_width, w_height, False)
     #process_cp_edades(table_pg_config, pdf_path, w_width, w_height, False)
     #process_ma_depto(table_pg_config, pdf_path, w_width, w_height, False)
