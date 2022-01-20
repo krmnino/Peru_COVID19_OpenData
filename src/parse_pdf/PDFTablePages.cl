@@ -13,13 +13,13 @@ ReportName=coronavirus261021.pdf;
 
 # ExtractPDFText and DetectPDFText specific key-val pairs
 DatosResumen = 2;
-PADeptoCols = 5;
-CADeptoCols = 5;
-CAEdadesCols = 4;
-MADeptoCols = 3;
-CADistr20P1 = 4;
-CADistr20P2 = 4;
-CADistr21P1 = 4;
-CADistr21P2 = 4;
-MADistrP1 = 3;
-MADistrP2 = 3;
+PADepto_RawCols = 5;
+CADepto_RawCols = 5;
+CAEdades_RawCols = 4;
+MADepto_RawCols = 3;
+CADistr20P1_RawCols = 4;
+CADistr20P2_RawCols = 4;
+CADistr21P1_RawCols = 4;
+CADistr21P2_RawCols = 4;
+MADistrP1_RawCols = 3;
+MADistrP2_RawCols = 3;

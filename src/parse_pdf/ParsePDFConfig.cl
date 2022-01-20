@@ -62,3 +62,16 @@ EraseCADistr21Fields = [Porcentaje];
 
 # Additional final table names
 CAEdades_Table = CasosPositivosEdades.csv;
+
+# DetectPDFText Constants
+WindowWidth = 1760;
+WindowHeight = 990;
+PADepto_RawRows = 26;
+CADepto_RawRows = 26;
+CAEdades_RawRows = 5;
+MADepto_RawRows = 26;
+MADeptoSM_RawRows = 26;
+CADistr20_RawRows = 22;
+CADistr21_RawRows = 22;
+MADistr_RawRows = 22;
+MADistr_RawRows = 22;

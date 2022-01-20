@@ -36,7 +36,7 @@ def clean_up_data(n_cols, parsed_columns):
                 if(idx < 0 or idx >= len(parsed_columns[i])):
                     print('Error: index must be between 0 and ' + str(len(parsed_columns[i]) - 1))
                     continue
-                if(len(cmd_split) != 2):
+                if(len(cmd_split) != 3):
                     print('Error: use the correct syntax -> add [after_idx] [value]')
                     continue
                 parsed_columns[i].insert(idx, cmd_split[2])
@@ -74,7 +74,7 @@ def clean_up_data(n_cols, parsed_columns):
                 parsed_columns[i][idx] = cmd_split[2]
                 print('')
                 continue
-        print('Col ' + str(i + 1) + '/' + str(n_cols))
+        print('Col ' + str(i + 1) + '/' + str(n_cols) + ' completed.')
     return parsed_columns
 
 def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
@@ -128,13 +128,13 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
         'n',
         filename=out_filename,
         header_index=header,
-        delimiter=','
+        delimiter=';'
     )
     # Fill table with data
     for i in range(0, n_rows):
-        new_row = [parsed_columns[i][j] for j in range(0, len(header))]
+        new_row = [parsed_columns[j][i] for j in range(0, len(header))]
         output_table.append_end_row(new_row)
-    output_table.save_csv(main_config.get_value('RawTablesDir') + '/' + table_names_config.get_value('PruebasAcumuladasDepto'))
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + table_names_config.get_value('PruebasAcumuladasDepto'))
     print('PruebasAcumuladasDepto - Done.')
 
 
@@ -271,7 +271,7 @@ def main():
     table_pg_config = cu.Config('PDFTablePages.cl')
     pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
 
-    process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_depto(table_pg_config, pdf_path, w_width, w_height, False)
     #process_cp_edades(table_pg_config, pdf_path, w_width, w_height, False)
     #process_ma_depto(table_pg_config, pdf_path, w_width, w_height, False)
