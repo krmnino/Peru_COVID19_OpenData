@@ -171,16 +171,32 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
             cv2.imshow(window_name, col_ca_depto)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
-        img_ca_depto = Image.fromarray(cv2_ca_depto)
+        img_ca_depto = Image.fromarray(col_ca_depto)
         # Perform OCR in PIL image with pytesseract and append column
         ca_depto_data = pytesseract.image_to_string(img_ca_depto)
         ca_depto_data = ca_depto_data.split('\n')
         parsed_columns.append(ca_depto_data)
 
         print('CasosAcumuladosDepto - Col ' + str(i + 1) + '/' + str(n_cols))
+
+    # Clean up data read using OCR
     parsed_columns = clean_up_data(table_pg_config, parsed_columns)
-    output_table = du.Table('n', filename=table_names_config.get_value('PruebasAcumuladasDepto'))
-        
+
+    # Create new Table and add each row of data
+    out_filename = table_names_config.get_value('CasosAcumuladosDepto')
+    header = main_config.get_value('CasosAcumuladosDepto_Hdr')
+    n_rows = int(main_config.get_value('CADepto_RawRows'))
+    output_table = du.Table(
+        'n',
+        filename=out_filename,
+        header_index=header,
+        delimiter=';'
+    )
+    # Fill table with data
+    for i in range(0, n_rows):
+        new_row = [parsed_columns[j][i] for j in range(0, len(header))]
+        output_table.append_end_row(new_row)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + table_names_config.get_value('PruebasAcumuladasDepto'))
     print('CasosAcumuladosDepto done.')
 
 
