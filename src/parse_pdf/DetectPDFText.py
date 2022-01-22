@@ -134,7 +134,7 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
     for i in range(0, n_rows):
         new_row = [parsed_columns[j][i] for j in range(0, len(header))]
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + table_names_config.get_value('PruebasAcumuladasDepto'))
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('PruebasAcumuladasDepto - Done.')
 
 
@@ -196,7 +196,7 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
     for i in range(0, n_rows):
         new_row = [parsed_columns[j][i] for j in range(0, len(header))]
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + table_names_config.get_value('PruebasAcumuladasDepto'))
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CasosAcumuladosDepto done.')
 
 
