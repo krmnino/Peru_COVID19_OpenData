@@ -18,8 +18,8 @@ int main() {
 	{
 		Table* input_raw_table;
 		process_pa_depto(input_raw_table, main_config, areas_config, dept_index);
-		//append_end_pa_depto(input_raw_table, main_config, areas_config, dept_index);
-		append_begin_pa_depto(input_raw_table, main_config, areas_config, dept_index);
+		append_end_pa_depto(input_raw_table, main_config, areas_config, dept_index);
+		//append_begin_pa_depto(input_raw_table, main_config, areas_config, dept_index);
 		delete input_raw_table;
 	}
 
@@ -27,8 +27,8 @@ int main() {
 	{
 		Table* input_raw_table;
 		process_ca_depto(input_raw_table, main_config, areas_config, dept_index);
-		//append_end_ca_depto(input_raw_table, main_config, areas_config, dept_index);
-		append_begin_ca_depto(input_raw_table, main_config, areas_config, dept_index);
+		append_end_ca_depto(input_raw_table, main_config, areas_config, dept_index);
+		//append_begin_ca_depto(input_raw_table, main_config, areas_config, dept_index);
 		delete input_raw_table;
 	}
 
@@ -36,27 +36,27 @@ int main() {
 	{
 		Table* input_raw_table;
 		process_cp_edades(input_raw_table, main_config, areas_config, age_index);
-		//append_end_cp_edades(input_raw_table, main_config, areas_config, age_index);
-		append_begin_cp_edades(input_raw_table, main_config, areas_config, age_index);
+		append_end_cp_edades(input_raw_table, main_config, areas_config, age_index);
+		//append_begin_cp_edades(input_raw_table, main_config, areas_config, age_index);
 		delete input_raw_table;
 	}
 
 	// Process MuertesAcumuladasDepto.csv
-	//{
-	//	Table* input_raw_table;
-	//	process_ma_depto(input_raw_table, main_config, areas_config, dept_index);
-	//	//append_end_ma_depto(input_raw_table, main_config, areas_config, dept_index);
-	//	append_begin_ma_depto(input_raw_table, main_config, areas_config, dept_index);
-	//	delete input_raw_table;
-	//}
-
 	{
 		Table* input_raw_table;
-		process_ma_deptosm(input_raw_table, main_config, areas_config, dept_index);
-		//append_end_ma_depto(input_raw_table, main_config, areas_config, dept_index);
-		append_begin_ma_deptosm(input_raw_table, main_config, areas_config, dept_index);
+		process_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+		append_end_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+		//append_begin_ma_depto(input_raw_table, main_config, areas_config, dept_index);
 		delete input_raw_table;
 	}
+
+	//{
+	//	Table* input_raw_table;
+	//	process_ma_deptosm(input_raw_table, main_config, areas_config, dept_index);
+	//	//append_end_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+	//	append_begin_ma_deptosm(input_raw_table, main_config, areas_config, dept_index);
+	//	delete input_raw_table;
+	//}
 
 	// Process CasosAcumuDistrito2020P1.csv
 	// Process CasosAcumuDistrito2020P2.csv
@@ -64,8 +64,8 @@ int main() {
 		Table* input_raw_table_p1;
 		Table* input_raw_table_p2;
 		process_ca_distr_20(input_raw_table_p1, input_raw_table_p2, main_config, areas_config, distr_index);
-		//append_end_ca_distr_20(input_raw_table_p1, main_config, areas_config, distr_index);
-		append_begin_ca_distr_20(input_raw_table_p1, main_config, areas_config, distr_index);
+		append_end_ca_distr_20(input_raw_table_p1, main_config, areas_config, distr_index);
+		//append_begin_ca_distr_20(input_raw_table_p1, main_config, areas_config, distr_index);
 		delete input_raw_table_p1;
 		delete input_raw_table_p2;
 	}
@@ -76,8 +76,8 @@ int main() {
 		Table* input_raw_table_p1;
 		Table* input_raw_table_p2;
 		process_ca_distr_21(input_raw_table_p1, input_raw_table_p2, main_config, areas_config, distr_index);
-		//append_end_ca_distr_21(input_raw_table_p1, main_config, areas_config, distr_index);
-		append_begin_ca_distr_21(input_raw_table_p1, main_config, areas_config, distr_index);
+		append_end_ca_distr_21(input_raw_table_p1, main_config, areas_config, distr_index);
+		//append_begin_ca_distr_21(input_raw_table_p1, main_config, areas_config, distr_index);
 		delete input_raw_table_p1;
 		delete input_raw_table_p2;
 	}
@@ -88,8 +88,8 @@ int main() {
 		Table* input_raw_table_p1;
 		Table* input_raw_table_p2;
 		process_ma_distr(input_raw_table_p1, input_raw_table_p2, main_config, areas_config, distr_index);
-		//append_end_ma_distr(input_raw_table_p1, main_config, areas_config, distr_index);
-		append_begin_ma_distr(input_raw_table_p1, main_config, areas_config, distr_index);
+		append_end_ma_distr(input_raw_table_p1, main_config, areas_config, distr_index);
+		//append_begin_ma_distr(input_raw_table_p1, main_config, areas_config, distr_index);
 		delete input_raw_table_p1;
 		delete input_raw_table_p2;
 	}
