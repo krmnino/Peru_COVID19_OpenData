@@ -322,19 +322,63 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
     print('MuertesAcumuladasDepto done.')
 
 
-def process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height, showimg):
+def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     ca_distr_20 = convert_from_path(pdf_path,
                                     first_page=int(table_pg_config.get_value('CasosAcumuDistrito2020P1')),
-                                    last_page=int(table_pg_config.get_value('CasosAcumuDistrito2020P1')))[0]
+                                    last_page=int(table_pg_config.get_value('CasosAcumuDistrito2020P1')),
+                                    dpi=200)[0]
+    # Apply postprocessing to image
+    ca_distr_20 = ImageOps.invert(ca_distr_20)
+    ca_distr_20 = ImageOps.grayscale(ca_distr_20)
+    enhancer = ImageEnhance.Contrast(ca_distr_20)
+    ca_distr_20 = enhancer.enhance(1.5)
+    # Convert PIL image to opencv2 image
     cv2_ca_distr_20 = np.array(ca_distr_20)
+    # Resize image to fit in 1080p screen
+    w_width = int(main_config.get_value('WindowWidth'))
+    w_height = int(main_config.get_value('WindowHeight'))
     cv2_ca_distr_20 = cv2.resize(cv2_ca_distr_20, (w_width, w_height))
-    bounds_ca_distr_20 = cv2.selectROI('CasosAcumuDistrito2020', cv2_ca_distr_20, False, False)
-    cv2.destroyWindow('CasosAcumuDistrito2020')
-    cv2_ca_distr_20 = cv2_ca_distr_20[int(bounds_ca_distr_20[1]):int(bounds_ca_distr_20[1]+bounds_ca_distr_20[3]),
-                                      int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
-    if(showimg):
-        cv2.imshow('test.jpeg', cv2_ca_distr_20)
-        cv2.waitKey(0)
+
+    # Parse data in image column by column 
+    n_cols = int(table_pg_config.get_value('PADepto_RawCols'))
+    parsed_columns = []
+    for i in range(0, n_cols):
+        # Select area and crop image
+        bounds_ca_distr_20 = cv2.selectROI('CasosAcumuDistrito2020', cv2_ca_distr_20, False, False)
+        cv2.destroyWindow('CasosAcumuDistrito2020')
+        col_ca_distr_20 = cv2_ca_distr_20[int(bounds_ca_distr_20[1]):int(bounds_ca_distr_20[1]+bounds_ca_distr_20[3]),
+                                        int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
+        # Show cropped image if showimg = True
+        if(showimg):
+            window_name = 'CasosAcumuDistrito2020 - Col: ' + str(i + 1) + '/' + str(n_cols)
+            cv2.imshow(window_name, col_ca_distr_20)
+            cv2.waitKey(0)
+        # Convert opencv2 image back to PIL image
+        img_ca_distr_20 = Image.fromarray(col_ca_distr_20)
+        # Perform OCR in PIL image with pytesseract
+        ca_distr_20_data = pytesseract.image_to_string(img_ca_distr_20)
+        ca_distr_20_data = ca_distr_20_data.split('\n')
+        parsed_columns.append(ca_distr_20_data)
+        print('CasosAcumuDistrito2020 - Col ' + str(i + 1) + '/' + str(n_cols))
+
+    # Clean up data read using OCR
+    parsed_columns = clean_up_data(n_cols, parsed_columns)
+
+    # Create new Table and add each row of data
+    out_filename = table_names_config.get_value('CasosAcumuDistrito2020')
+    header = main_config.get_value('CasosAcumuDistrito2020_Hdr')
+    n_rows = int(main_config.get_value('CADistr20P1_RawCols_RawRows'))
+    output_table = du.Table(
+        'n',
+        filename=out_filename,
+        header_index=header,
+        delimiter=';'
+    )
+    # Fill table with data
+    for i in range(0, n_rows):
+        new_row = [parsed_columns[j][i] for j in range(0, len(header))]
+        output_table.append_end_row(new_row)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CasosAcumuDistrito2020 done.')
 
 
