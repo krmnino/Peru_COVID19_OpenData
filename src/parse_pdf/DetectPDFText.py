@@ -339,18 +339,18 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
     w_height = int(main_config.get_value('WindowHeight'))
     cv2_ca_distr_20 = cv2.resize(cv2_ca_distr_20, (w_width, w_height))
 
-    # Parse data in image column by column 
+    # Parse data in image column by column of first table 
     n_cols = int(table_pg_config.get_value('PADepto_RawCols'))
-    parsed_columns = []
+    parsed_columns_p1 = []
     for i in range(0, n_cols):
         # Select area and crop image
         bounds_ca_distr_20 = cv2.selectROI('CasosAcumuDistrito2020', cv2_ca_distr_20, False, False)
         cv2.destroyWindow('CasosAcumuDistrito2020')
         col_ca_distr_20 = cv2_ca_distr_20[int(bounds_ca_distr_20[1]):int(bounds_ca_distr_20[1]+bounds_ca_distr_20[3]),
-                                        int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
+                                          int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'CasosAcumuDistrito2020 - Col: ' + str(i + 1) + '/' + str(n_cols)
+            window_name = 'CasosAcumuDistrito2020P1 - Col: ' + str(i + 1) + '/' + str(n_cols)
             cv2.imshow(window_name, col_ca_distr_20)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -358,11 +358,31 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
         # Perform OCR in PIL image with pytesseract
         ca_distr_20_data = pytesseract.image_to_string(img_ca_distr_20)
         ca_distr_20_data = ca_distr_20_data.split('\n')
-        parsed_columns.append(ca_distr_20_data)
-        print('CasosAcumuDistrito2020 - Col ' + str(i + 1) + '/' + str(n_cols))
+        parsed_columns_p1.append(ca_distr_20_data)
+        print('CasosAcumuDistrito2020P1 - Col ' + str(i + 1) + '/' + str(n_cols))
+    parsed_columns_p2 = []
+    for i in range(0, n_cols):
+        # Select area and crop image
+        bounds_ca_distr_20 = cv2.selectROI('CasosAcumuDistrito2020', cv2_ca_distr_20, False, False)
+        cv2.destroyWindow('CasosAcumuDistrito2020')
+        col_ca_distr_20 = cv2_ca_distr_20[int(bounds_ca_distr_20[1]):int(bounds_ca_distr_20[1]+bounds_ca_distr_20[3]),
+                                          int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
+        # Show cropped image if showimg = True
+        if(showimg):
+            window_name = 'CasosAcumuDistrito2020P2 - Col: ' + str(i + 1) + '/' + str(n_cols)
+            cv2.imshow(window_name, col_ca_distr_20)
+            cv2.waitKey(0)
+        # Convert opencv2 image back to PIL image
+        img_ca_distr_20 = Image.fromarray(col_ca_distr_20)
+        # Perform OCR in PIL image with pytesseract
+        ca_distr_20_data = pytesseract.image_to_string(img_ca_distr_20)
+        ca_distr_20_data = ca_distr_20_data.split('\n')
+        parsed_columns_p2.append(ca_distr_20_data)
+        print('CasosAcumuDistrito2020P2 - Col ' + str(i + 1) + '/' + str(n_cols))
 
     # Clean up data read using OCR
-    parsed_columns = clean_up_data(n_cols, parsed_columns)
+    parsed_columns_p1 = clean_up_data(n_cols, parsed_columns_p1)
+    parsed_columns_p2 = clean_up_data(n_cols, parsed_columns_p2)
 
     # Create new Table and add each row of data
     out_filename = table_names_config.get_value('CasosAcumuDistrito2020')
@@ -374,9 +394,14 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
         header_index=header,
         delimiter=';'
     )
-    # Fill table with data
+    # Fill table with data from part 1
     for i in range(0, n_rows):
-        new_row = [parsed_columns[j][i] for j in range(0, len(header))]
+        new_row = [parsed_columns_p1[j][i] for j in range(0, len(header))]
+        output_table.append_end_row(new_row)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    # Fill table with data from part 2
+    for i in range(0, n_rows):
+        new_row = [parsed_columns_p2[j][i] for j in range(0, len(header))]
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CasosAcumuDistrito2020 done.')
@@ -424,8 +449,8 @@ def main():
     #process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_distr_20(table_pg_config, pdf_path, w_width, w_height, False)
+    #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, False)
     #process_ma_distr(table_pg_config, pdf_path, w_width, w_height, False)
     
