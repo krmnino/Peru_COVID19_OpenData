@@ -77,6 +77,8 @@ def clean_up_data(n_cols, parsed_columns):
         print('Col ' + str(i + 1) + '/' + str(n_cols) + ' completed.')
     return parsed_columns
 
+#####################################################################################################
+
 def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     # Extract page from PDF file
     pa_depto = convert_from_path(pdf_path,
@@ -137,6 +139,7 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('PruebasAcumuladasDepto - Done.')
 
+#####################################################################################################
 
 def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     # Extract page from PDF file
@@ -198,6 +201,8 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CasosAcumuladosDepto done.')
+
+#####################################################################################################
 
 
 def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
@@ -261,6 +266,7 @@ def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CasosPositivosEdades - Done.')
 
+#####################################################################################################
 
 def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     # Extract page from PDF file
@@ -321,6 +327,7 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('MuertesAcumuladasDepto done.')
 
+#####################################################################################################
 
 def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     ca_distr_20 = convert_from_path(pdf_path,
@@ -418,21 +425,102 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
     print('CasosAcumuDistrito2020 done.')
 
 
-def process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, showimg):
+def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     ca_distr_21 = convert_from_path(pdf_path,
                                     first_page=int(table_pg_config.get_value('CasosAcumuDistrito2021P1')),
-                                    last_page=int(table_pg_config.get_value('CasosAcumuDistrito2021P1')))[0]
+                                    last_page=int(table_pg_config.get_value('CasosAcumuDistrito2021P1')),
+                                    dpi=200)[0]
+    # Apply postprocessing to image
+    ca_distr_21 = ImageOps.invert(ca_distr_21)
+    ca_distr_21 = ImageOps.grayscale(ca_distr_21)
+    enhancer = ImageEnhance.Contrast(ca_distr_21)
+    ca_distr_21 = enhancer.enhance(1.5)
+    # Convert PIL image to opencv2 image
     cv2_ca_distr_21 = np.array(ca_distr_21)
+    # Resize image to fit in 1080p screen
+    w_width = int(main_config.get_value('WindowWidth'))
+    w_height = int(main_config.get_value('WindowHeight'))
     cv2_ca_distr_21 = cv2.resize(cv2_ca_distr_21, (w_width, w_height))
-    bounds_ca_distr_21 = cv2.selectROI('CasosAcumuDistrito2021', cv2_ca_distr_21, False, False)
-    cv2.destroyWindow('CasosAcumuDistrito2021')
-    cv2_ca_distr_21 = cv2_ca_distr_21[int(bounds_ca_distr_21[1]):int(bounds_ca_distr_21[1]+bounds_ca_distr_21[3]),
-                                      int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
-    if(showimg):
-        cv2.imshow('test.jpeg', cv2_ca_distr_21)
-        cv2.waitKey(0)
+
+    # Parse data in image column by column of first table 
+    n_cols = int(table_pg_config.get_value('CADistr21P1_RawCols'))
+    parsed_columns_p1 = []
+    for i in range(0, n_cols):
+        # Select area and crop image
+        bounds_ca_distr_21 = cv2.selectROI('CasosAcumuDistrito2021', cv2_ca_distr_21, False, False)
+        cv2.destroyWindow('CasosAcumuDistrito2021')
+        col_ca_distr_21 = cv2_ca_distr_21[int(bounds_ca_distr_21[1]):int(bounds_ca_distr_21[1]+bounds_ca_distr_21[3]),
+                                          int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
+        # Show cropped image if showimg = True
+        if(showimg):
+            window_name = 'CasosAcumuDistrito2021P1 - Col: ' + str(i + 1) + '/' + str(n_cols)
+            cv2.imshow(window_name, col_ca_distr_21)
+            cv2.waitKey(0)
+        # Convert opencv2 image back to PIL image
+        img_ca_distr_21 = Image.fromarray(col_ca_distr_21)
+        # Perform OCR in PIL image with pytesseract
+        ca_distr_21_data = pytesseract.image_to_string(img_ca_distr_21)
+        ca_distr_21_data = ca_distr_21_data.split('\n')
+        parsed_columns_p1.append(ca_distr_21_data)
+        print('CasosAcumuDistrito2021P1 - Col ' + str(i + 1) + '/' + str(n_cols))
+    parsed_columns_p2 = []
+    for i in range(0, n_cols):
+        # Select area and crop image
+        bounds_ca_distr_21 = cv2.selectROI('CasosAcumuDistrito2021', cv2_ca_distr_21, False, False)
+        cv2.destroyWindow('CasosAcumuDistrito2021')
+        col_ca_distr_21 = cv2_ca_distr_21[int(bounds_ca_distr_21[1]):int(bounds_ca_distr_21[1]+bounds_ca_distr_21[3]),
+                                          int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
+        # Show cropped image if showimg = True
+        if(showimg):
+            window_name = 'CasosAcumuDistrito2021P2 - Col: ' + str(i + 1) + '/' + str(n_cols)
+            cv2.imshow(window_name, col_ca_distr_21)
+            cv2.waitKey(0)
+        # Convert opencv2 image back to PIL image
+        img_ca_distr_21 = Image.fromarray(col_ca_distr_21)
+        # Perform OCR in PIL image with pytesseract
+        ca_distr_21_data = pytesseract.image_to_string(img_ca_distr_21)
+        ca_distr_21_data = ca_distr_21_data.split('\n')
+        parsed_columns_p2.append(ca_distr_21_data)
+        print('CasosAcumuDistrito2021P2 - Col ' + str(i + 1) + '/' + str(n_cols))
+
+    # Clean up data read using OCR
+    parsed_columns_p1 = clean_up_data(n_cols, parsed_columns_p1)
+    parsed_columns_p2 = clean_up_data(n_cols, parsed_columns_p2)
+
+    # Create new Table and add each row of data from part 1
+    out_filename = table_names_config.get_value('CasosAcumuDistrito2021P1')
+    header = main_config.get_value('CasosAcumuDistrito2021P1_Hdr')
+    n_rows = int(main_config.get_value('CADistr21P1_RawRows'))
+    output_table = du.Table(
+        'n',
+        filename=out_filename,
+        header_index=header,
+        delimiter=';'
+    )
+    # Fill table with data from part 1
+    for i in range(0, n_rows):
+        new_row = [parsed_columns_p1[j][i] for j in range(0, len(header))]
+        output_table.append_end_row(new_row)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+
+    # Create new Table and add each row of data from part 2
+    out_filename = table_names_config.get_value('CasosAcumuDistrito2021P2')
+    header = main_config.get_value('CasosAcumuDistrito2021P2_Hdr')
+    n_rows = int(main_config.get_value('CADistr21P2_RawRows'))
+    output_table = du.Table(
+        'n',
+        filename=out_filename,
+        header_index=header,
+        delimiter=';'
+    )
+    # Fill table with data from part 2
+    for i in range(0, n_rows):
+        new_row = [parsed_columns_p2[j][i] for j in range(0, len(header))]
+        output_table.append_end_row(new_row)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CasosAcumuDistrito2021 done.')
 
+#####################################################################################################
 
 def process_ma_distr(table_pg_config, pdf_path, w_width, w_height, showimg):
     ma_distr = convert_from_path(pdf_path,
@@ -461,8 +549,8 @@ def main():
     #process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, False)
+    #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ma_distr(table_pg_config, pdf_path, w_width, w_height, False)
     
 #####################################################################################################
