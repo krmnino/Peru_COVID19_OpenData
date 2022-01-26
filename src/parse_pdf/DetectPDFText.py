@@ -340,7 +340,7 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
     cv2_ca_distr_20 = cv2.resize(cv2_ca_distr_20, (w_width, w_height))
 
     # Parse data in image column by column of first table 
-    n_cols = int(table_pg_config.get_value('PADepto_RawCols'))
+    n_cols = int(table_pg_config.get_value('CADistr20P1_RawCols'))
     parsed_columns_p1 = []
     for i in range(0, n_cols):
         # Select area and crop image
@@ -384,10 +384,10 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
     parsed_columns_p1 = clean_up_data(n_cols, parsed_columns_p1)
     parsed_columns_p2 = clean_up_data(n_cols, parsed_columns_p2)
 
-    # Create new Table and add each row of data
-    out_filename = table_names_config.get_value('CasosAcumuDistrito2020')
-    header = main_config.get_value('CasosAcumuDistrito2020_Hdr')
-    n_rows = int(main_config.get_value('CADistr20P1_RawCols_RawRows'))
+    # Create new Table and add each row of data from part 1
+    out_filename = table_names_config.get_value('CasosAcumuDistrito2020P1')
+    header = main_config.get_value('CasosAcumuDistrito2020P1_Hdr')
+    n_rows = int(main_config.get_value('CADistr20P1_RawRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
@@ -399,6 +399,17 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
         new_row = [parsed_columns_p1[j][i] for j in range(0, len(header))]
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+
+    # Create new Table and add each row of data from part 2
+    out_filename = table_names_config.get_value('CasosAcumuDistrito2020P2')
+    header = main_config.get_value('CasosAcumuDistrito2020P2_Hdr')
+    n_rows = int(main_config.get_value('CADistr20P2_RawRows'))
+    output_table = du.Table(
+        'n',
+        filename=out_filename,
+        header_index=header,
+        delimiter=';'
+    )
     # Fill table with data from part 2
     for i in range(0, n_rows):
         new_row = [parsed_columns_p2[j][i] for j in range(0, len(header))]
@@ -450,7 +461,7 @@ def main():
     #process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_distr_21(table_pg_config, pdf_path, w_width, w_height, False)
     #process_ma_distr(table_pg_config, pdf_path, w_width, w_height, False)
     
