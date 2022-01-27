@@ -424,6 +424,7 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CasosAcumuDistrito2020 done.')
 
+#####################################################################################################
 
 def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     ca_distr_21 = convert_from_path(pdf_path,
@@ -522,19 +523,99 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
 
 #####################################################################################################
 
-def process_ma_distr(table_pg_config, pdf_path, w_width, w_height, showimg):
+def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     ma_distr = convert_from_path(pdf_path,
-                                 first_page=int(table_pg_config.get_value('MuertesAcumulaDistritoP1')),
-                                 last_page=int(table_pg_config.get_value('MuertesAcumulaDistritoP1')))[0]
+                                    first_page=int(table_pg_config.get_value('MuertesAcumulaDistritoP1')),
+                                    last_page=int(table_pg_config.get_value('MuertesAcumulaDistritoP1')),
+                                    dpi=200)[0]
+    # Apply postprocessing to image
+    ma_distr = ImageOps.invert(ma_distr)
+    ma_distr = ImageOps.grayscale(ma_distr)
+    enhancer = ImageEnhance.Contrast(ma_distr)
+    ma_distr = enhancer.enhance(1.5)
+    # Convert PIL image to opencv2 image
     cv2_ma_distr = np.array(ma_distr)
+    # Resize image to fit in 1080p screen
+    w_width = int(main_config.get_value('WindowWidth'))
+    w_height = int(main_config.get_value('WindowHeight'))
     cv2_ma_distr = cv2.resize(cv2_ma_distr, (w_width, w_height))
-    bounds_ma_distr = cv2.selectROI('MuertesAcumulaDistrito', cv2_ma_distr, False, False)
-    cv2.destroyWindow('MuertesAcumulaDistrito')
-    cv2_ma_distr = cv2_ma_distr[int(bounds_ma_distr[1]):int(bounds_ma_distr[1]+bounds_ma_distr[3]),
-                                int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
-    if(showimg):
-        cv2.imshow('test.jpeg', cv2_ma_distr)
-        cv2.waitKey(0)
+
+    # Parse data in image column by column of first table 
+    n_cols = int(table_pg_config.get_value('MADistrP1_RawCols'))
+    parsed_columns_p1 = []
+    for i in range(0, n_cols):
+        # Select area and crop image
+        bounds_ma_distr = cv2.selectROI('MuertesAcumulaDistritoP1', cv2_ma_distr, False, False)
+        cv2.destroyWindow('MuertesAcumulaDistritoP1')
+        col_ma_distr = cv2_ma_distr[int(bounds_ma_distr[1]):int(bounds_ma_distr[1]+bounds_ma_distr[3]),
+                                    int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
+        # Show cropped image if showimg = True
+        if(showimg):
+            window_name = 'MuertesAcumulaDistritoP1 - Col: ' + str(i + 1) + '/' + str(n_cols)
+            cv2.imshow(window_name, col_ma_distr)
+            cv2.waitKey(0)
+        # Convert opencv2 image back to PIL image
+        img_ma_distr = Image.fromarray(col_ma_distr)
+        # Perform OCR in PIL image with pytesseract
+        ma_distr_data = pytesseract.image_to_string(img_ma_distr)
+        ma_distr_data = ma_distr_data.split('\n')
+        parsed_columns_p1.append(ma_distr_data)
+        print('MuertesAcumulaDistritoP1 - Col ' + str(i + 1) + '/' + str(n_cols))
+    parsed_columns_p2 = []
+    for i in range(0, n_cols):
+        # Select area and crop image
+        bounds_ma_distr = cv2.selectROI('MuertesAcumulaDistritoP2', cv2_ma_distr, False, False)
+        cv2.destroyWindow('MuertesAcumulaDistritoP2')
+        col_ma_distr = cv2_ma_distr[int(bounds_ma_distr[1]):int(bounds_ma_distr[1]+bounds_ma_distr[3]),
+                                    int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
+        # Show cropped image if showimg = True
+        if(showimg):
+            window_name = 'MuertesAcumulaDistritoP2 - Col: ' + str(i + 1) + '/' + str(n_cols)
+            cv2.imshow(window_name, col_ma_distr)
+            cv2.waitKey(0)
+        # Convert opencv2 image back to PIL image
+        img_ma_distr = Image.fromarray(col_ma_distr)
+        # Perform OCR in PIL image with pytesseract
+        ma_distr_data = pytesseract.image_to_string(img_ma_distr)
+        ma_distr_data = ma_distr_data.split('\n')
+        parsed_columns_p2.append(ma_distr_data)
+        print('MuertesAcumulaDistritoP2 - Col ' + str(i + 1) + '/' + str(n_cols))
+
+    # Clean up data read using OCR
+    parsed_columns_p1 = clean_up_data(n_cols, parsed_columns_p1)
+    parsed_columns_p2 = clean_up_data(n_cols, parsed_columns_p2)
+
+    # Create new Table and add each row of data from part 1
+    out_filename = table_names_config.get_value('MuertesAcumulaDistritoP1')
+    header = main_config.get_value('MuertesAcumulaDistritoP1_Hdr')
+    n_rows = int(main_config.get_value('MADistrP1_RawRows'))
+    output_table = du.Table(
+        'n',
+        filename=out_filename,
+        header_index=header,
+        delimiter=';'
+    )
+    # Fill table with data from part 1
+    for i in range(0, n_rows):
+        new_row = [parsed_columns_p1[j][i] for j in range(0, len(header))]
+        output_table.append_end_row(new_row)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+
+    # Create new Table and add each row of data from part 2
+    out_filename = table_names_config.get_value('MuertesAcumulaDistritoP2')
+    header = main_config.get_value('MuertesAcumulaDistritoP2_Hdr')
+    n_rows = int(main_config.get_value('MADistrP2_RawRows'))
+    output_table = du.Table(
+        'n',
+        filename=out_filename,
+        header_index=header,
+        delimiter=';'
+    )
+    # Fill table with data from part 2
+    for i in range(0, n_rows):
+        new_row = [parsed_columns_p2[j][i] for j in range(0, len(header))]
+        output_table.append_end_row(new_row)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('MuertesAcumulaDistrito done.')
 
 #####################################################################################################
@@ -550,8 +631,8 @@ def main():
     #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ma_distr(table_pg_config, pdf_path, w_width, w_height, False)
+    #process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     
 #####################################################################################################
 
