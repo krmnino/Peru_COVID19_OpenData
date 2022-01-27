@@ -626,12 +626,12 @@ def main():
     table_pg_config = cu.Config('PDFTablePages.cl')
     pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
 
-    #process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     
 #####################################################################################################
