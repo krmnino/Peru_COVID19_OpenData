@@ -18,12 +18,15 @@ areas <- data.frame(name=rep("",tables),
                     fnames=rep("",tables),
                     row_num=rep(1,tables))
 
+n_pages <- 12
+
 ################################################################################
 
 PDF_table_num_pages <- file(PDF_pages_num_dict, "r")
 pg_c <- 1
+ln_c <- 1
 
-while(TRUE){
+while(ln_c <= n_pages){
   line = readLines(PDF_table_num_pages, n=1)
   if(length(line) == 0){
     break
@@ -35,6 +38,7 @@ while(TRUE){
     report_path <- paste(report_path, substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1), sep="")
   }
   pg_c <- pg_c + 1
+  ln_c <- ln_c + 1
 }
 
 close(PDF_table_num_pages)
@@ -43,8 +47,9 @@ close(PDF_table_num_pages)
 
 table_fnames <- file(table_fnames_dict, "r")
 tb_c <- 1
+ln_c <- 1
 
-while(TRUE){
+while(ln_c <= n_pages){
   line = readLines(table_fnames, n=1)
   if(length(line) == 0){
     break
@@ -52,6 +57,7 @@ while(TRUE){
   line_split = strsplit(line, '=')
   areas[tb_c,7] = substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1)
   tb_c <- tb_c + 1
+  ln_c <- ln_c + 1
 }
 
 close(table_fnames)
@@ -60,8 +66,9 @@ close(table_fnames)
 
 table_rows_num <- file(table_rows_num_dict, "r")
 tr_c <- 1
+ln_c <- 1
 
-while(TRUE){
+while(ln_c <= n_pages){
   line = readLines(table_rows_num, n=1)
   if(length(line) == 0){
     break
@@ -74,29 +81,6 @@ while(TRUE){
 close(table_rows_num)
 
 ################################################################################
-
-strtest = "CasosPositivosEdades=14=test=string"
-ret = strsplit(strtest, split='=')
-print(ret[1,1])
-print(typeof(ret))
-
-
-table_pages = file(PDF_table_pages, "r")
-line = ""
-idx <- 1
-while(TRUE){
-  line = readLines(table_pages, n=1)
-  if(length(line) == 0){
-    break
-  }
-  #line = strsplit(line, "=")
-  #areas[idx,5] <- line[1]
-  line = strsplit(line, split='=')
-  print(line[1])
-  #pages.append(line[1]=line[2])
-  idx <- idx + 1
-}
-close(table_pages)
 
 # Pruebas acumuladas por departamento
 i <- 1
