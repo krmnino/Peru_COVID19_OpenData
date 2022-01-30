@@ -5478,5 +5478,101 @@
 		"Pruebas": 23289858,
 		"Recuperados": 2585515,
 		"Hospitalizados": 5631
+	},
+	{
+		"Fecha": "2022-01-17",
+		"Casos": 2631826,
+		"Fallecidos": 203550,
+		"Pruebas": 23372678,
+		"Recuperados": 2610800,
+		"Hospitalizados": 5705
+	},
+	{
+		"Fecha": "2022-01-18",
+		"Casos": 2668224,
+		"Fallecidos": 203645,
+		"Pruebas": 23488903,
+		"Recuperados": 2647704,
+		"Hospitalizados": 5859
+	},
+	{
+		"Fecha": "2022-01-19",
+		"Casos": 2723166,
+		"Fallecidos": 203750,
+		"Pruebas": 23656156,
+		"Recuperados": 2702813,
+		"Hospitalizados": 6080
+	},
+	{
+		"Fecha": "2022-01-20",
+		"Casos": 2780049,
+		"Fallecidos": 203868,
+		"Pruebas": 23825355,
+		"Recuperados": 2759887,
+		"Hospitalizados": 6497
+	},
+	{
+		"Fecha": "2022-01-21",
+		"Casos": 2839519,
+		"Fallecidos": 203994,
+		"Pruebas": 23995453,
+		"Recuperados": 2816617,
+		"Hospitalizados": 6521
+	},
+	{
+		"Fecha": "2022-01-22",
+		"Casos": 2894215,
+		"Fallecidos": 204141,
+		"Pruebas": 24166026,
+		"Recuperados": 2871659,
+		"Hospitalizados": 6754
+	},
+	{
+		"Fecha": "2022-01-23",
+		"Casos": 2946151,
+		"Fallecidos": 204323,
+		"Pruebas": 24325873,
+		"Recuperados": 2924142,
+		"Hospitalizados": 6684
+	},
+	{
+		"Fecha": "2022-01-24",
+		"Casos": 2976260,
+		"Fallecidos": 204404,
+		"Pruebas": 24413349,
+		"Recuperados": 2954737,
+		"Hospitalizados": 6773
+	},
+	{
+		"Fecha": "2022-01-25",
+		"Casos": 3020756,
+		"Fallecidos": 204587,
+		"Pruebas": 24547117,
+		"Recuperados": 3000334,
+		"Hospitalizados": 6892
+	},
+	{
+		"Fecha": "2022-01-26",
+		"Casos": 3070357,
+		"Fallecidos": 204769,
+		"Pruebas": 24712863,
+		"Recuperados": 3050454,
+		"Hospitalizados": 7061
+	},
+	{
+		"Fecha": "2022-01-27",
+		"Casos": 3120401,
+		"Fallecidos": 204940,
+		"Pruebas": 24888301,
+		"Recuperados": 3101249,
+		"Hospitalizados": 7055
+	},
+	{
+		"Fecha": "2022-01-28",
+		"Casos": 3160732,
+		"Fallecidos": 205112,
+		"Pruebas": 25035696,
+		"Recuperados": 3141499,
+		"Hospitalizados": 6912
 	}
 ]
