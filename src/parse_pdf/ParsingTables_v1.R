@@ -9,8 +9,9 @@ output_abs_path <- "C:/Users/kurt_/github/Peru_COVID19_Stats/res/raw_tables/"
 
 PDF_table_num_pages <- file(PDF_pages_num_dict, "r")
 pg_c <- 1
+ln_c <- 1
 
-while(TRUE){
+while(ln_c <= n_pages){
   line = readLines(PDF_table_num_pages, n=1)
   print(line)
   if(length(line) == 0){
@@ -21,6 +22,7 @@ while(TRUE){
     report_path <- paste(report_path, substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1), sep="")
   }
   pg_c <- pg_c + 1
+  ln_c <- ln_c + 1
 }
 
 close(PDF_table_num_pages)
