@@ -144,8 +144,8 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
 def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     # Extract page from PDF file
     ca_depto = convert_from_path(pdf_path,
-                                 first_page=int(table_pg_config.get_value('CasosAcumuladosDepto')),
-                                 last_page=int(table_pg_config.get_value('CasosAcumuladosDepto')),
+                                 first_page=int(table_pg_config.get_value('CADepto')),
+                                 last_page=int(table_pg_config.get_value('CADepto')),
                                  dpi=200)[0]
     # Apply postprocessing to image
     ca_depto = ImageOps.invert(ca_depto)
@@ -160,17 +160,17 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
     cv2_ca_depto = cv2.resize(cv2_ca_depto, (w_width, w_height))
 
     # Parse data in image column by column 
-    n_cols = int(table_pg_config.get_value('CADepto_RawCols'))
+    n_cols = int(main_config.get_value('CADepto_RTCols'))
     parsed_columns = []
     for i in range(0, n_cols):
         # Select area and crop image
-        bounds_ca_depto = cv2.selectROI('CasosAcumuladosDepto', cv2_ca_depto, False, False)
-        cv2.destroyWindow('CasosAcumuladosDepto')
+        bounds_ca_depto = cv2.selectROI('CADepto', cv2_ca_depto, False, False)
+        cv2.destroyWindow('CADepto')
         col_ca_depto = cv2_ca_depto[int(bounds_ca_depto[1]):int(bounds_ca_depto[1]+bounds_ca_depto[3]),
                                     int(bounds_ca_depto[0]):int(bounds_ca_depto[0]+bounds_ca_depto[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'CasosAcumuladosDepto - Col: ' + str(i + 1) + '/' + str(n_cols)
+            window_name = 'CADepto - Col: ' + str(i + 1) + '/' + str(n_cols)
             cv2.imshow(window_name, col_ca_depto)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -180,15 +180,15 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
         ca_depto_data = ca_depto_data.split('\n')
         parsed_columns.append(ca_depto_data)
 
-        print('CasosAcumuladosDepto - Col ' + str(i + 1) + '/' + str(n_cols))
+        print('CADepto - Col ' + str(i + 1) + '/' + str(n_cols))
 
     # Clean up data read using OCR
     parsed_columns = clean_up_data(n_cols, parsed_columns)
 
     # Create new Table and add each row of data
-    out_filename = table_names_config.get_value('CasosAcumuladosDepto')
-    header = main_config.get_value('CasosAcumuladosDepto_Hdr')
-    n_rows = int(main_config.get_value('CADepto_RawRows'))
+    out_filename = table_names_config.get_value('CADepto')
+    header = main_config.get_value('CADepto_RTHdr')
+    n_rows = int(main_config.get_value('CADepto_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
@@ -200,7 +200,7 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
         new_row = [parsed_columns[j][i] for j in range(0, len(header))]
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
-    print('CasosAcumuladosDepto done.')
+    print('CADepto done.')
 
 #####################################################################################################
 
@@ -626,8 +626,8 @@ def main():
     table_pg_config = cu.Config('./config/PDFTablePages.cl')
     pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
 
-    process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
