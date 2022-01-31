@@ -4,18 +4,14 @@ import os
 
 from datetime import datetime, timedelta
 
-sys.path.insert(0, '../utilities')
-
-import ConfigUtility as cu
-
 class PDF_Downloader:
-    def __init__(self, sdate, fdate):
+    def __init__(self, sdate, fdate, main_config):
         self.start_date = sdate
         self.finish_date = fdate
         self.current_date = self.start_date
         self.current_url = ''
         self.current_filename = ''
-        self.config = cu.Config('./PDFDownload.cl')
+        self.config = main_config
         self.out_filenames = []
 
     def generate_filename(self):
@@ -36,7 +32,8 @@ class PDF_Downloader:
     def download_pdf(self):
         print('\nDownloading:', self.current_filename)
         try:
-            wget.download(self.current_url, out=os.path.abspath(self.config.get_value('PDF_Path')) + '/' + self.current_filename)
+            abs_path = os.path.abspath(self.config.get_value('PDF_Path') + '/' + self.current_filename)
+            wget.download(self.current_url, out=abs_path)
         except Exception as e:
             print('Could not download PDF from url')
             print(str(e))
@@ -46,7 +43,15 @@ class PDF_Downloader:
         self.out_filenames.append(self.current_filename)
 
     def save_out_filenames(self, list_filename):
-        with open(list_filename, 'w') as file:
+        abs_path = os.path.abspath(self.config.get_value('PDF_Path') + '/' + list_filename)
+        with open(abs_path, 'w') as file:
             for i in range(0, len(self.out_filenames)):
                 file.write(self.out_filenames[i] + '\n')
 
+def check_convert_date(input_date):
+    try:
+        date_conv = datetime.strptime(input_date, '%Y-%m-%d').date()
+        date_ret = datetime(date_conv.year, date_conv.month, date_conv.day)
+    except:
+        sys.exit('Invalid input date. Exiting...')
+    return date_ret

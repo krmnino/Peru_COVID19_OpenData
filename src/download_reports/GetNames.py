@@ -1,16 +1,32 @@
+import sys
+
 import PDFDownload as gf
-from datetime import datetime, timedelta, date
+from PDFDownload import check_convert_date
 
-# from date to date exclusive
-start = datetime(2021, 5, 1)
-end = datetime(2021, 5, 10)
+sys.path.insert(0, '../utilities')
 
-handler = gf.PDF_Downloader(start, end)
-out_filename = 'test.dat' 
+import ConfigUtility as cu
 
-while(handler.current_date.timestamp() <= handler.finish_date.timestamp()):
-    handler.generate_filename()
-    handler.append_name()
-    handler.next_day()
 
-handler.save_out_filenames(out_filename)
+def main():
+    main_config = cu.Config('./config/PDFDownload.cl')
+        
+    # from date to date exclusive
+    start_date = main_config.get_value('StartDate')
+    end_date = main_config.get_value('EndDate')
+    start_date = check_convert_date(start_date)
+    end_date = check_convert_date(end_date)
+
+    handler = gf.PDF_Downloader(start_date, end_date, main_config)
+    out_filename = main_config.get_value('GetNamesFilename') 
+
+    while(handler.current_date.timestamp() < handler.finish_date.timestamp()):
+        handler.generate_filename()
+        handler.append_name()
+        handler.next_day()
+
+    handler.save_out_filenames(out_filename)
+
+    return 0
+
+main()
