@@ -12,8 +12,8 @@ CADistr21_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuDistrito
 MADistr_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumulaDistrito;
 
 # PDF Area config and csv files
-PDFAreasCSV = PDFAreas.csv;
-PDFAreasCL = PDFAreas.cl;
+PDFAreasCSV = config/PDFAreas.csv;
+PDFAreasCL = config/PDFAreas.cl;
 
 # Config files with information about departments and districts
 DepartmentsAreas = DepartmentsAreas.cl;

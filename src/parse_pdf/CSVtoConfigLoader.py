@@ -14,8 +14,8 @@ def get_date(raw_str):
     return year + '-' + month + '-' + day
 
 def main():
-    config = cu.Config('ParsePDFConfig.cl')
-    config_table_pages = cu.Config('PDFTablePages.cl')
+    config = cu.Config('./config/ParsePDFConfig.cl')
+    config_table_pages = cu.Config('./config/PDFTablePages.cl')
     PDFAreas = du.Table('l', filename=config.get_value('ParsePDFDir') + '/' + config.get_value('PDFAreasCSV'), delimiter=',')
 
     with open(config.get_value('PDFAreasCL'), 'w') as f:
