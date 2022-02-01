@@ -34,8 +34,8 @@ CADistr20P1_RTHdr = [Distrito, Casos_Totales, Tasa_Ataque];
 CADistr20P2_RTHdr = [Distrito, Casos_Totales, Tasa_Ataque];
 CADistr21P1_RTHdr = [Distrito, Casos_Totales, Tasa_Ataque];
 CADistr21P2_RTHdr = [Distrito, Casos_Totales, Tasa_Ataque];
-MADistritoP1_RTHdr = [Distrito, Defunciones, Tasa_Mortalidad];
-MADistritoP2_RTHdr = [Distrito, Defunciones, Tasa_Mortalidad];
+MADistrP1_RTHdr = [Distrito, Defunciones, Tasa_Mortalidad];
+MADistrP2_RTHdr = [Distrito, Defunciones, Tasa_Mortalidad];
 
 # Number of departments and districts
 DeptoNum = 26;
