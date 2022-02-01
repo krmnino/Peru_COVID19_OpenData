@@ -1,8 +1,8 @@
 library("tabulizer")
 
 report_path <- ""
-pdf_areas_path <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFAreas.csv" 
-PDF_pages_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/PDFTablePages.cl"
+pdf_areas_path <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/config/PDFAreas.csv" 
+PDF_pages_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/config/PDFTablePages.cl"
 output_abs_path <- "C:/Users/kurt_/github/Peru_COVID19_Stats/res/raw_tables/"
 
 ################################################################################
