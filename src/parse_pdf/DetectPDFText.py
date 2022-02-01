@@ -208,8 +208,8 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
 def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     # Extract page from PDF file
     cp_edades = convert_from_path(pdf_path,
-                                 first_page=int(table_pg_config.get_value('CasosPositivosEdades')),
-                                 last_page=int(table_pg_config.get_value('CasosPositivosEdades')),
+                                 first_page=int(table_pg_config.get_value('CPEdades')),
+                                 last_page=int(table_pg_config.get_value('CPEdades')),
                                  dpi=200)[0]
     # Apply postprocessing to image
     cp_edades = ImageOps.invert(cp_edades)
@@ -224,35 +224,35 @@ def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path
     cv2_cp_edades = cv2.resize(cv2_cp_edades, (w_width, w_height))
 
     # Parse data in image column by column 
-    n_cols = int(table_pg_config.get_value('CAEdades_RawCols'))
+    n_cols = int(main_config.get_value('CAEdades_RTCols'))
     parsed_columns = []
     for i in range(0, n_cols):
         # Select area and crop image    
-        bounds_cp_edades = cv2.selectROI('CasosPositivosEdades', cv2_cp_edades, False, False)
-        cv2.destroyWindow('CasosPositivosEdades')
+        bounds_cp_edades = cv2.selectROI('CPEdades', cv2_cp_edades, False, False)
+        cv2.destroyWindow('CPEdades')
         col_cp_edades = cv2_cp_edades[int(bounds_cp_edades[1]):int(bounds_cp_edades[1]+bounds_cp_edades[3]),
-                                    int(bounds_cp_edades[0]):int(bounds_cp_edades[0]+bounds_cp_edades[2])]
+                                      int(bounds_cp_edades[0]):int(bounds_cp_edades[0]+bounds_cp_edades[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'CasosPositivosEdades - Col: ' + str(i + 1) + '/' + str(n_cols)
+            window_name = 'CPEdades - Col: ' + str(i + 1) + '/' + str(n_cols)
             cv2.imshow(window_name, col_cp_edades)
             cv2.waitKey(0)
-            print('CasosPositivosEdades done.')
+            print('CPEdades done.')
         # Convert opencv2 image back to PIL image
         img_cp_edades = Image.fromarray(col_cp_edades)
         # Perform OCR in PIL image with pytesseract
         pa_cp_edades = pytesseract.image_to_string(img_cp_edades)
         pa_cp_edades = pa_cp_edades.split('\n')
         parsed_columns.append(pa_cp_edades)
-        print('CasosPositivosEdades - Col ' + str(i + 1) + '/' + str(n_cols))
+        print('CPEdades - Col ' + str(i + 1) + '/' + str(n_cols))
     
     # Clean up data read using OCR
     parsed_columns = clean_up_data(n_cols, parsed_columns)
 
     # Create new Table and add each row of data
-    out_filename = table_names_config.get_value('CasosPositivosEdades')
-    header = main_config.get_value('CasosPositivosEdades_Hdr')
-    n_rows = int(main_config.get_value('CAEdades_RawRows'))
+    out_filename = table_names_config.get_value('CPEdades')
+    header = main_config.get_value('CPEdades_RTHdr')
+    n_rows = int(main_config.get_value('CAEdades_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
@@ -264,7 +264,7 @@ def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path
         new_row = [parsed_columns[j][i] for j in range(0, len(header))]
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
-    print('CasosPositivosEdades - Done.')
+    print('CPEdades - Done.')
 
 #####################################################################################################
 
@@ -627,8 +627,8 @@ def main():
     pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
 
     #process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
