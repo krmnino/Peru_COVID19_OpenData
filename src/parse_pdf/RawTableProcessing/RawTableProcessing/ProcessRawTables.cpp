@@ -96,12 +96,12 @@ void set_proper_col_names(Config& names_index, Table& raw_table) {
 
 int process_pa_depto(Table*& raw_table, Config* main_config, Config* areas_config, Config* dept_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("PruebasAcumuladasDepto")->get_list_data();
+	std::vector<Variant> table_config = areas_config->get_value("PADepto")->get_list_data();
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
-	std::vector<Variant> table_col_config = main_config->get_value("PruebasAcumuladasDepto_Hdr")->get_list_data();
+	std::vector<Variant> table_col_config = main_config->get_value("PADepto_RTHdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
-		std::cerr << "PruebasAcumuladasDepto.csv -> Table rows: " << 
+		std::cerr << "PADepto -> Table rows: " << 
 					 raw_table->get_rows() <<
 				     " | Expected rows: " <<
 					 *(int*)table_config[6].get_data() << 
@@ -137,12 +137,12 @@ int process_pa_depto(Table*& raw_table, Config* main_config, Config* areas_confi
 
 int process_ca_depto(Table*& raw_table, Config* main_config, Config* areas_config, Config* dept_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("CasosAcumuladosDepto")->get_list_data();
+	std::vector<Variant> table_config = areas_config->get_value("CADepto")->get_list_data();
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
-	std::vector<Variant> table_col_config = main_config->get_value("CasosAcumuladosDepto_Hdr")->get_list_data();
+	std::vector<Variant> table_col_config = main_config->get_value("CADepto_RTHdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
-		std::cerr << "CasosAcumuladosDepto.csv -> Table rows: " <<
+		std::cerr << "CADepto -> Table rows: " <<
 			raw_table->get_rows() <<
 			" | Expected rows: " <<
 			*(int*)table_config[6].get_data() <<
@@ -178,12 +178,12 @@ int process_ca_depto(Table*& raw_table, Config* main_config, Config* areas_confi
 
 int process_cp_edades(Table*& raw_table, Config* main_config, Config* areas_config, Config* age_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("CasosPositivosEdades")->get_list_data();
+	std::vector<Variant> table_config = areas_config->get_value("CPEdades")->get_list_data();
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
-	std::vector<Variant> table_col_config = main_config->get_value("CasosPositivosEdades_Hdr")->get_list_data();
+	std::vector<Variant> table_col_config = main_config->get_value("CPEdades_RTHdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
-		std::cerr << "CasosPositivosEdades.csv -> Table rows: " <<
+		std::cerr << "CPEdades -> Table rows: " <<
 			raw_table->get_rows() <<
 			" | Expected rows: " <<
 			*(int*)table_config[6].get_data() <<
@@ -214,12 +214,12 @@ int process_cp_edades(Table*& raw_table, Config* main_config, Config* areas_conf
 
 int process_ma_depto(Table*& raw_table, Config* main_config, Config* areas_config, Config* dept_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("MuertesAcumuladasDepto")->get_list_data();
+	std::vector<Variant> table_config = areas_config->get_value("MADepto")->get_list_data();
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
-	std::vector<Variant> table_col_config = main_config->get_value("MuertesAcumuladasDepto_Hdr")->get_list_data();
+	std::vector<Variant> table_col_config = main_config->get_value("MADepto_RTHdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
-		std::cerr << "MuertesAcumuladasDepto.csv -> Table rows: " <<
+		std::cerr << "MADepto -> Table rows: " <<
 			raw_table->get_rows() <<
 			" | Expected rows: " <<
 			*(int*)table_config[6].get_data() <<
@@ -245,12 +245,12 @@ int process_ma_depto(Table*& raw_table, Config* main_config, Config* areas_confi
 
 int process_ma_deptosm(Table*& raw_table, Config* main_config, Config* areas_config, Config* dept_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("MuertesAcumuladasDepto")->get_list_data();
+	std::vector<Variant> table_config = areas_config->get_value("MADepto")->get_list_data();
 	raw_table = new Table(raw_tables_dir + *(std::string*)table_config[5].get_data(), ';');
-	std::vector<Variant> table_col_config = main_config->get_value("MuertesAcumuladasDeptoSM_Hdr")->get_list_data();
+	std::vector<Variant> table_col_config = main_config->get_value("MADeptoSM_RTHdr")->get_list_data();
 	if (raw_table->get_rows() != *(int*)table_config[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
-		std::cerr << "MuertesAcumuladasDepto.csv -> Table rows: " <<
+		std::cerr << "MADeptoSM -> Table rows: " <<
 			raw_table->get_rows() <<
 			" | Expected rows: " <<
 			*(int*)table_config[6].get_data() <<
@@ -286,15 +286,15 @@ int process_ma_deptosm(Table*& raw_table, Config* main_config, Config* areas_con
 
 int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* distr_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
-	std::vector<Variant> table_config_p1 = areas_config->get_value("CasosAcumuDistrito2020P1")->get_list_data();
-	std::vector<Variant> table_config_p2 = areas_config->get_value("CasosAcumuDistrito2020P2")->get_list_data();
+	std::vector<Variant> table_config_p1 = areas_config->get_value("CADistr20P1")->get_list_data();
+	std::vector<Variant> table_config_p2 = areas_config->get_value("CADistr20P2")->get_list_data();
 	raw_table_p1 = new Table(raw_tables_dir + *(std::string*)table_config_p1[5].get_data(), ';');
 	raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
-	std::vector<Variant> table_col_config_p1 = main_config->get_value("CasosAcumuDistrito2020P1_Hdr")->get_list_data();
-	std::vector<Variant> table_col_config_p2 = main_config->get_value("CasosAcumuDistrito2020P2_Hdr")->get_list_data();
+	std::vector<Variant> table_col_config_p1 = main_config->get_value("CADistr20P1_RTHdr")->get_list_data();
+	std::vector<Variant> table_col_config_p2 = main_config->get_value("CADistr20P2_RTHdr")->get_list_data();
 	if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
-		std::cerr << "CasosAcumuDistrito2020P1.csv -> Table rows: " <<
+		std::cerr << "CADistr20P1 -> Table rows: " <<
 			raw_table_p1->get_rows() <<
 			" | Expected rows: " <<
 			*(int*)table_config_p1[6].get_data() <<
@@ -305,7 +305,7 @@ int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 	}
 	if (raw_table_p2->get_rows() != *(int*)table_config_p2[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
-		std::cerr << "CasosAcumuDistrito2020P2.csv -> Table rows: " <<
+		std::cerr << "CADistr20P2 -> Table rows: " <<
 			raw_table_p2->get_rows() <<
 			" | Expected rows: " <<
 			*(int*)table_config_p2[6].get_data() <<
@@ -314,7 +314,7 @@ int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 		throw ex;
 		return -1;
 	}
-	std::vector<Variant> erase_fields = main_config->get_value("EraseCADistr20Fields")->get_list_data();
+	std::vector<Variant> erase_fields = main_config->get_value("EraseFieldsCADistr20")->get_list_data();
 	// Remove percentage column
 	raw_table_p1->remove_column(*(std::string*)erase_fields[0].get_data());
 	raw_table_p2->remove_column(*(std::string*)erase_fields[0].get_data());
@@ -337,12 +337,12 @@ int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 
 int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* distr_index){
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
-	std::vector<Variant> table_config_p1 = areas_config->get_value("CasosAcumuDistrito2021P1")->get_list_data();
-	std::vector<Variant> table_config_p2 = areas_config->get_value("CasosAcumuDistrito2021P2")->get_list_data();
+	std::vector<Variant> table_config_p1 = areas_config->get_value("CADistr21P1")->get_list_data();
+	std::vector<Variant> table_config_p2 = areas_config->get_value("CADistr21P2")->get_list_data();
 	raw_table_p1 = new Table(raw_tables_dir + *(std::string*)table_config_p1[5].get_data(), ';');
 	raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
-	std::vector<Variant> table_col_config_p1 = main_config->get_value("CasosAcumuDistrito2021P1_Hdr")->get_list_data();
-	std::vector<Variant> table_col_config_p2 = main_config->get_value("CasosAcumuDistrito2021P2_Hdr")->get_list_data();
+	std::vector<Variant> table_col_config_p1 = main_config->get_value("CADistr21P1_RTHdr")->get_list_data();
+	std::vector<Variant> table_col_config_p2 = main_config->get_value("CADistr21P2_RTHdr")->get_list_data();
 	if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "CasosAcumuDistrito2021P1.csv -> Table rows: " <<
@@ -365,7 +365,7 @@ int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 		throw ex;
 		return -1;
 	}
-	std::vector<Variant> erase_fields = main_config->get_value("EraseCADistr21Fields")->get_list_data();
+	std::vector<Variant> erase_fields = main_config->get_value("EraseFieldsCADistr21")->get_list_data();
 	// Remove percentage column
 	raw_table_p1->remove_column(*(std::string*)erase_fields[0].get_data());
 	raw_table_p2->remove_column(*(std::string*)erase_fields[0].get_data());
@@ -388,15 +388,15 @@ int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, Config* main
 
 int process_ma_distr(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_config, Config* areas_config, Config* distr_index) {
 	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
-	std::vector<Variant> table_config_p1 = areas_config->get_value("MuertesAcumulaDistritoP1")->get_list_data();
-	std::vector<Variant> table_config_p2 = areas_config->get_value("MuertesAcumulaDistritoP2")->get_list_data();
+	std::vector<Variant> table_config_p1 = areas_config->get_value("MADistrP1")->get_list_data();
+	std::vector<Variant> table_config_p2 = areas_config->get_value("MADistrP2")->get_list_data();
 	raw_table_p1 = new Table(raw_tables_dir + *(std::string*)table_config_p1[5].get_data(), ';');
 	raw_table_p2 = new Table(raw_tables_dir + *(std::string*)table_config_p2[5].get_data(), ';');
-	std::vector<Variant> table_col_config_p1 = main_config->get_value("MuertesAcumulaDistritoP1_Hdr")->get_list_data();
-	std::vector<Variant> table_col_config_p2 = main_config->get_value("MuertesAcumulaDistritoP2_Hdr")->get_list_data();
-	if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {\
+	std::vector<Variant> table_col_config_p1 = main_config->get_value("MADistrP1_RTHdr")->get_list_data();
+	std::vector<Variant> table_col_config_p2 = main_config->get_value("MADistrP2_RTHdr")->get_list_data();
+	if (raw_table_p1->get_rows() != *(int*)table_config_p1[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
-		std::cerr << "MuertesAcumulaDistritoP1.csv -> Table rows: " <<
+		std::cerr << "MADistrP1 -> Table rows: " <<
 			raw_table_p1->get_rows() <<
 			" | Expected rows: " <<
 			*(int*)table_config_p1[6].get_data() <<
@@ -407,7 +407,7 @@ int process_ma_distr(Table*& raw_table_p1, Table*& raw_table_p2, Config* main_co
 	}
 	if (raw_table_p2->get_rows() != *(int*)table_config_p2[6].get_data()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
-		std::cerr << "MuertesAcumulaDistritoP2.csv -> Table rows: " <<
+		std::cerr << "MADistrP2 -> Table rows: " <<
 			raw_table_p2->get_rows() <<
 			" | Expected rows: " <<
 			*(int*)table_config_p2[6].get_data() <<

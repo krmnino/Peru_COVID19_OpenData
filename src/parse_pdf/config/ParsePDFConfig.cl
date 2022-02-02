@@ -10,6 +10,7 @@ MADeptoSM_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumuladasD
 CADistr20_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuDistrito2020;
 CADistr21_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuDistrito2021;
 MADistr_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumulaDistrito;
+CAEdades_PTName = CasosPositivosEdades.csv;
 
 # PDF Area config and csv files
 PDFAreasCSV = config/PDFAreas.csv;
@@ -57,8 +58,8 @@ CADistr21_PTHdr = [Dia, Casos_Totales, Tasa_Ataque];
 MADistr_PTHdr = [Dia, Muertes_Totales, Tasa_Mortalidad];
 
 # Fields to be erased from raw tables
-EraseCADistr20Fields = [Porcentaje];
-EraseCADistr21Fields = [Porcentaje];
+EraseFieldsCADistr20 = [Porcentaje];
+EraseFieldsCADistr21 = [Porcentaje];
 
 # ExtractPDFText and DetectPDFText Constants
 WindowWidth = 1760;
