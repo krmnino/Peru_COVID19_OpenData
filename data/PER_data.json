@@ -5680,11 +5680,19 @@
 		"Hospitalizados": 4591
 	},
 	{
-		"Fecha": "2022-02-12",
+		"Fecha": "2022-02-11",
 		"Casos": 3424894,
 		"Fallecidos": 207965,
 		"Pruebas": 26363363,
 		"Recuperados": 3440718,
 		"Hospitalizados": 4328
+	},
+	{
+		"Fecha": "2022-02-12",
+		"Casos": 3435753,
+		"Fallecidos": 208120,
+		"Pruebas": 26447601,
+		"Recuperados": 3450526,
+		"Hospitalizados": 3967
 	}
 ]
