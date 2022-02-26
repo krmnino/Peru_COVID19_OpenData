@@ -5790,5 +5790,13 @@
 		"Pruebas": 27166379,
 		"Recuperados": 3533045,
 		"Hospitalizados": 2314
+	},
+	{
+		"Fecha": "2022-02-25",
+		"Casos": 3508642,
+		"Fallecidos": 210229,
+		"Pruebas": 27224498,
+		"Recuperados": 3536538,
+		"Hospitalizados": 2214
 	}
 ]
