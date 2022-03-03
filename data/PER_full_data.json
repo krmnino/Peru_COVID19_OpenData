@@ -16765,5 +16765,28 @@
 		"Hospitalizados": 2003,
 		"NuevosHospitalizados": -65.0,
 		"%DifHospitalizados": -1.0324513230154768
+	},
+	{
+		"Fecha": "2022-03-02",
+		"Dia": 729.0,
+		"Casos": 3520604,
+		"NuevosCasos": 1883.0,
+		"%DifCasos": 1.0005351376252904,
+		"CasosActivos": -239513.0,
+		"NuevosCasosActivos": -205.0,
+		"Fallecidos": 210581,
+		"NuevosFallecidos": -163.0,
+		"%DifFallecidos": -1.0007740489407877,
+		"TasaLetalidad": 0.059813884208505134,
+		"Pruebas": 27460384,
+		"NuevasPruebas": 53321.0,
+		"%DifPruebas": 1.001945520393776,
+		"%PruebasPositivasDiarias": 0.0353144164588061,
+		"Recuperados": 3549536,
+		"NuevosRecuperados": 2251.0,
+		"%DifRecuperados": 1.0006345698188897,
+		"Hospitalizados": 1924,
+		"NuevosHospitalizados": -79.0,
+		"%DifHospitalizados": -1.041060291060291
 	}
 ]
