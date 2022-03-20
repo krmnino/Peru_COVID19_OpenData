@@ -5966,5 +5966,13 @@
 		"Pruebas": 28158045,
 		"Recuperados": 3571347,
 		"Hospitalizados": 1495
+	},
+	{
+		"Fecha": "2022-03-19",
+		"Casos": 3540793,
+		"Fallecidos": 211814,
+		"Pruebas": 28199031,
+		"Recuperados": 3572058,
+		"Hospitalizados": 1461
 	}
 ]
