@@ -99,16 +99,18 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
 
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('PADepto_RTCols'))
+    col_names = main_config.get_value('PADepto_RTHdr')
     parsed_columns = []
     for i in range(0, n_cols):
         # Select area and crop image
+        print('PADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
         bounds_pa_depto = cv2.selectROI('PADepto', cv2_pa_depto, False, False)
         cv2.destroyWindow('PADepto')
         col_pa_depto = cv2_pa_depto[int(bounds_pa_depto[1]):int(bounds_pa_depto[1]+bounds_pa_depto[3]),
                                     int(bounds_pa_depto[0]):int(bounds_pa_depto[0]+bounds_pa_depto[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'PADepto - Col: ' + str(i + 1) + '/' + str(n_cols)
+            window_name = 'PADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols)
             cv2.imshow(window_name, col_pa_depto)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -117,24 +119,30 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
         pa_depto_data = pytesseract.image_to_string(img_pa_depto)
         pa_depto_data = pa_depto_data.split('\n')
         parsed_columns.append(pa_depto_data)
-        print('PADepto - Col ' + str(i + 1) + '/' + str(n_cols))
     
-    # Clean up data read using OCR
-    parsed_columns = clean_up_data(n_cols, parsed_columns)
+    # Find column with most elements
+    max_col_len = 0
+    for i in range(0, len(parsed_columns)):
+        if(max_col_len < len(parsed_columns[i])):
+            max_col_len = len(parsed_columns[i])
+
 
     # Create new Table and add each row of data
     out_filename = table_names_config.get_value('PADepto')
-    header = main_config.get_value('PADepto_RTHdr')
-    n_rows = int(main_config.get_value('PADepto_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names,
         delimiter=';'
     )
     # Fill table with data
-    for i in range(0, n_rows):
-        new_row = [parsed_columns[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len):
+        new_row = []
+        for j in range(0, len(col_names)):
+            if(i >= len(parsed_columns[j])):
+                new_row.append(' ')
+            else:
+                new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('PADepto - Done.')
@@ -620,6 +628,7 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('MADistr done.')
 
+
 #####################################################################################################
 
 def main():
@@ -629,12 +638,12 @@ def main():
     pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
 
     process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     
 #####################################################################################################
 
