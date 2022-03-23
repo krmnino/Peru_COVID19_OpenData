@@ -4,13 +4,13 @@ RawTablesDir = C:/Users/kurt_/github/Peru_COVID19_Stats/res/raw_tables;
 ConfigFilesDir = C:/Users/kurt_/github/Peru_COVID19_Stats/res/config_files;
 PADepto_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/PruebasAcumuladasDepto;
 CADepto_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuladosDepto;
-CAEdades_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosPositivosEdades;
+CPEdades_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosPositivosEdades;
 MADepto_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumuladasDepto;
 MADeptoSM_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumuladasDepto_SINADEF-MINSA;
 CADistr20_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuDistrito2020;
 CADistr21_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuDistrito2021;
 MADistr_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumulaDistrito;
-CAEdades_PTName = CasosPositivosEdades.csv;
+CPEdades_PTName = CasosPositivosEdades.csv;
 
 # PDF Area config and csv files
 PDFAreasCSV = config/PDFAreas.csv;
@@ -45,7 +45,7 @@ DistrNum = 43;
 # Headers for processed tables
 PADepto_PTHdr = [Dia, PCR, PR, AG, Pruebas_Totales];
 CADepto_PTHdr = [Dia, PCR, PR, AG, Casos_Totales];
-CAEdades_PTHdr = [Dia, Nino_Total, Nino_TAtaq, Nino_RazonT,
+CPEdades_PTHdr = [Dia, Nino_Total, Nino_TAtaq, Nino_RazonT,
                 Adolescente_Total, Adolescente_TAtaq, Adolescente_RazonT,
                 Joven_Total, Joven_TAtaq, Joven_RazonT,
                 Adulto_Total, Adulto_TAtaq, Adulto_RazonT,
@@ -67,7 +67,7 @@ WindowHeight = 990;
 DatosResumen = 2;
 PADepto_RTRows = 26;
 CADepto_RTRows = 26;
-CAEdades_RTRows = 5;
+CPEdades_RTRows = 5;
 MADepto_RTRows = 26;
 MADeptoSM_RTRows = 26;
 CADistr20P1_RTRows = 22;
@@ -78,11 +78,11 @@ MADistrP1_RTRows = 22;
 MADistrP2_RTRows = 22;
 PADepto_RTCols = 5;
 CADepto_RTCols = 5;
-CAEdades_RTCols = 4;
+CPEdades_RTCols = 4;
 MADepto_RTCols = 3;
-CADistr20P1_RTCols = 4;
-CADistr20P2_RTCols = 4;
-CADistr21P1_RTCols = 4;
-CADistr21P2_RTCols = 4;
+CADistr20P1_RTCols = 3;
+CADistr20P2_RTCols = 3;
+CADistr21P1_RTCols = 3;
+CADistr21P2_RTCols = 3;
 MADistrP1_RTCols = 3;
 MADistrP2_RTCols = 3;
