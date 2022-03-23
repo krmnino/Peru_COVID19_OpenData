@@ -37,11 +37,11 @@ int append_begin_ca_depto(Table*& input_raw_table, Config* main_config, Config* 
 }
 
 int append_begin_cp_edades(Table*& input_raw_table, Config* main_config, Config* areas_config, Config* age_index) {
-	std::string ca_edades_table_fn = *(std::string*)main_config->get_value("CAEdades_Dir")->get_num_str_data().get_data() + "/" +
-		*(std::string*)main_config->get_value("CAEdades_PTName")->get_num_str_data().get_data();
+	std::string ca_edades_table_fn = *(std::string*)main_config->get_value("CPEdades_Dir")->get_num_str_data().get_data() + "/" +
+		*(std::string*)main_config->get_value("CPEdades_PTName")->get_num_str_data().get_data();
 	Table* ages_table = new Table(ca_edades_table_fn);
 	ages_table->set_filename(ca_edades_table_fn);
-	size_t num_entries = main_config->get_value("CAEdades_PTHdr")->get_list_data().size();
+	size_t num_entries = main_config->get_value("CPEdades_PTHdr")->get_list_data().size();
 	int curr_entry = 0;
 	std::vector<Variant> input_row;
 	input_row.resize(num_entries);
