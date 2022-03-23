@@ -16,67 +16,6 @@ import DataUtility as du
 if(sys.platform == 'win32'):
     pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
-def clean_up_data(n_cols, parsed_columns):
-    for i in range(0, n_cols):
-        while(True):
-            for j in range(0, len(parsed_columns[i])):
-                print('[' + str(j) + ']: ' + parsed_columns[i][j])
-            cmd = input('>> ')
-            cmd_split = cmd.split(' ')
-            if(cmd_split[0] == 'ok'):
-                # end column clean up
-                break
-            if(cmd_split[0] == 'add'):
-                # add [after_idx] [value]
-                try:
-                    idx = int(cmd_split[1])
-                except:
-                    print('Error: index must be an integer.')
-                    continue
-                if(idx < 0 or idx >= len(parsed_columns[i])):
-                    print('Error: index must be between 0 and ' + str(len(parsed_columns[i]) - 1))
-                    continue
-                if(len(cmd_split) != 3):
-                    print('Error: use the correct syntax -> add [after_idx] [value]')
-                    continue
-                parsed_columns[i].insert(idx, cmd_split[2])
-                print('')
-                continue
-            if(cmd_split[0] == 'del'):
-                # del [at_idx]
-                try:
-                    idx = int(cmd_split[1])
-                except:
-                    print('Error: index must be an integer.')
-                    continue
-                if(idx < 0 or idx >= len(parsed_columns[i])):
-                    print('Error: index must be between 0 and ' + str(len(parsed_columns[i]) - 1))
-                    continue
-                if(len(cmd_split) != 2):
-                    print('Error: use the correct syntax -> del [at_idx]')
-                    continue
-                parsed_columns[i].pop(idx)
-                print('')
-                continue
-            if(cmd_split[0] == 'mod'):
-                # mod [at_idx] [new_value]
-                try:
-                    idx = int(cmd_split[1])
-                except:
-                    print('Error: index must be an integer.')
-                    continue
-                if(idx < 0 or idx >= len(parsed_columns[i])):
-                    print('Error: index must be between 0 and ' + str(len(parsed_columns[i]) - 1))
-                    continue
-                if(len(cmd_split) != 3):
-                    print('Error: use the correct syntax -> mod [at_idx] [new_value]')
-                    continue
-                parsed_columns[i][idx] = cmd_split[2]
-                print('')
-                continue
-        print('Col ' + str(i + 1) + '/' + str(n_cols) + ' completed.')
-    return parsed_columns
-
 #####################################################################################################
 
 def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
@@ -126,7 +65,6 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
         if(max_col_len < len(parsed_columns[i])):
             max_col_len = len(parsed_columns[i])
 
-
     # Create new Table and add each row of data
     out_filename = table_names_config.get_value('PADepto')
     output_table = du.Table(
@@ -135,12 +73,15 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
         header_index=col_names,
         delimiter=';'
     )
+
     # Fill table with data
     for i in range(0, max_col_len):
         new_row = []
         for j in range(0, len(col_names)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
             if(i >= len(parsed_columns[j])):
                 new_row.append(' ')
+            # Otherwise store data in row
             else:
                 new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
@@ -169,16 +110,18 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
 
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('CADepto_RTCols'))
+    col_names = main_config.get_value('CADepto_RTHdr')
     parsed_columns = []
     for i in range(0, n_cols):
         # Select area and crop image
+        print('CADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
         bounds_ca_depto = cv2.selectROI('CADepto', cv2_ca_depto, False, False)
         cv2.destroyWindow('CADepto')
         col_ca_depto = cv2_ca_depto[int(bounds_ca_depto[1]):int(bounds_ca_depto[1]+bounds_ca_depto[3]),
                                     int(bounds_ca_depto[0]):int(bounds_ca_depto[0]+bounds_ca_depto[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'CADepto - Col: ' + str(i + 1) + '/' + str(n_cols)
+            window_name = 'CADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols)
             cv2.imshow(window_name, col_ca_depto)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -188,24 +131,31 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
         ca_depto_data = ca_depto_data.split('\n')
         parsed_columns.append(ca_depto_data)
 
-        print('CADepto - Col ' + str(i + 1) + '/' + str(n_cols))
-
-    # Clean up data read using OCR
-    parsed_columns = clean_up_data(n_cols, parsed_columns)
+    # Find column with most elements
+    max_col_len = 0
+    for i in range(0, len(parsed_columns)):
+        if(max_col_len < len(parsed_columns[i])):
+            max_col_len = len(parsed_columns[i])
 
     # Create new Table and add each row of data
     out_filename = table_names_config.get_value('CADepto')
-    header = main_config.get_value('CADepto_RTHdr')
-    n_rows = int(main_config.get_value('CADepto_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names,
         delimiter=';'
     )
+
     # Fill table with data
-    for i in range(0, n_rows):
-        new_row = [parsed_columns[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len):
+        new_row = []
+        for j in range(0, len(col_names)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
+            if(i >= len(parsed_columns[j])):
+                new_row.append(' ')
+            # Otherwise store data in row
+            else:
+                new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CADepto done.')
@@ -232,17 +182,19 @@ def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path
     cv2_cp_edades = cv2.resize(cv2_cp_edades, (w_width, w_height))
 
     # Parse data in image column by column 
-    n_cols = int(main_config.get_value('CAEdades_RTCols'))
+    n_cols = int(main_config.get_value('CPEdades_RTCols'))
+    col_names = main_config.get_value('CPEdades_RTHdr')
     parsed_columns = []
     for i in range(0, n_cols):
         # Select area and crop image    
+        print('CPEdades - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
         bounds_cp_edades = cv2.selectROI('CPEdades', cv2_cp_edades, False, False)
         cv2.destroyWindow('CPEdades')
         col_cp_edades = cv2_cp_edades[int(bounds_cp_edades[1]):int(bounds_cp_edades[1]+bounds_cp_edades[3]),
                                       int(bounds_cp_edades[0]):int(bounds_cp_edades[0]+bounds_cp_edades[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'CPEdades - Col: ' + str(i + 1) + '/' + str(n_cols)
+            window_name = 'CPEdades - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols)
             cv2.imshow(window_name, col_cp_edades)
             cv2.waitKey(0)
             print('CPEdades done.')
@@ -252,24 +204,32 @@ def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path
         pa_cp_edades = pytesseract.image_to_string(img_cp_edades)
         pa_cp_edades = pa_cp_edades.split('\n')
         parsed_columns.append(pa_cp_edades)
-        print('CPEdades - Col ' + str(i + 1) + '/' + str(n_cols))
     
-    # Clean up data read using OCR
-    parsed_columns = clean_up_data(n_cols, parsed_columns)
+    # Find column with most elements
+    max_col_len = 0
+    for i in range(0, len(parsed_columns)):
+        if(max_col_len < len(parsed_columns[i])):
+            max_col_len = len(parsed_columns[i])
 
     # Create new Table and add each row of data
     out_filename = table_names_config.get_value('CPEdades')
-    header = main_config.get_value('CPEdades_RTHdr')
-    n_rows = int(main_config.get_value('CAEdades_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names,
         delimiter=';'
     )
+
     # Fill table with data
-    for i in range(0, n_rows):
-        new_row = [parsed_columns[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len):
+        new_row = []
+        for j in range(0, len(col_names)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
+            if(i >= len(parsed_columns[j])):
+                new_row.append(' ')
+            # Otherwise store data in row
+            else:
+                new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CPEdades - Done.')
@@ -293,18 +253,21 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
     w_width = int(main_config.get_value('WindowWidth'))
     w_height = int(main_config.get_value('WindowHeight'))
     cv2_ma_depto = cv2.resize(cv2_ma_depto, (w_width, w_height))
+
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('MADepto_RTCols'))
+    col_names = main_config.get_value('MADepto_RTHdr')
     parsed_columns = []
     for i in range(0, n_cols):
         # Select area and crop image
+        print('MADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
         bounds_ma_depto = cv2.selectROI('MADepto', cv2_ma_depto, False, False)
         cv2.destroyWindow('MADepto')
         col_ma_depto = cv2_ma_depto[int(bounds_ma_depto[1]):int(bounds_ma_depto[1]+bounds_ma_depto[3]),
                                     int(bounds_ma_depto[0]):int(bounds_ma_depto[0]+bounds_ma_depto[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'MADepto - Col: ' + str(i + 1) + '/' + str(n_cols)
+            window_name = 'MADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols)
             cv2.imshow(window_name, col_ma_depto)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -313,24 +276,32 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
         ma_depto_data = pytesseract.image_to_string(img_ma_depto)
         ma_depto_data = ma_depto_data.split('\n')
         parsed_columns.append(ma_depto_data)
-        print('MADepto - Col ' + str(i + 1) + '/' + str(n_cols))
         
-    # Clean up data read using OCR
-    parsed_columns = clean_up_data(n_cols, parsed_columns)
+    # Find column with most elements
+    max_col_len = 0
+    for i in range(0, len(parsed_columns)):
+        if(max_col_len < len(parsed_columns[i])):
+            max_col_len = len(parsed_columns[i])
 
     # Create new Table and add each row of data
     out_filename = table_names_config.get_value('MADepto')
-    header = main_config.get_value('MADepto_RTHdr')
-    n_rows = int(main_config.get_value('MADepto_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names,
         delimiter=';'
     )
+    
     # Fill table with data
-    for i in range(0, n_rows):
-        new_row = [parsed_columns[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len):
+        new_row = []
+        for j in range(0, len(col_names)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
+            if(i >= len(parsed_columns[j])):
+                new_row.append(' ')
+            # Otherwise store data in row
+            else:
+                new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('MADepto done.')
@@ -356,17 +327,20 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
 
     # Parse data in image column by column of first table 
     n_cols_p1 = int(main_config.get_value('CADistr20P1_RTCols'))
+    col_names_p1 = main_config.get_value('CADistr20P2_RTHdr')
     n_cols_p2 = int(main_config.get_value('CADistr20P2_RTCols'))
+    col_names_p2 = main_config.get_value('CADistr20P2_RTHdr')
     parsed_columns_p1 = []
     for i in range(0, n_cols_p1):
         # Select area and crop image
+        print('CADistr20P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1))
         bounds_ca_distr_20 = cv2.selectROI('CADistr20P1', cv2_ca_distr_20, False, False)
         cv2.destroyWindow('CADistr20P1')
         col_ca_distr_20 = cv2_ca_distr_20[int(bounds_ca_distr_20[1]):int(bounds_ca_distr_20[1]+bounds_ca_distr_20[3]),
                                           int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'CADistr20P1 - Col: ' + str(i + 1) + '/' + str(n_cols_p1)
+            window_name = 'CADistr20P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1)
             cv2.imshow(window_name, col_ca_distr_20)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -375,17 +349,17 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
         ca_distr_20_data = pytesseract.image_to_string(img_ca_distr_20)
         ca_distr_20_data = ca_distr_20_data.split('\n')
         parsed_columns_p1.append(ca_distr_20_data)
-        print('CADistr20P1 - Col ' + str(i + 1) + '/' + str(n_cols_p1))
     parsed_columns_p2 = []
     for i in range(0, n_cols_p2):
         # Select area and crop image
+        print('CADistr20P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2))
         bounds_ca_distr_20 = cv2.selectROI('CADistr20P2', cv2_ca_distr_20, False, False)
         cv2.destroyWindow('CADistr20P2')
         col_ca_distr_20 = cv2_ca_distr_20[int(bounds_ca_distr_20[1]):int(bounds_ca_distr_20[1]+bounds_ca_distr_20[3]),
                                           int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'CADistr20P2 - Col: ' + str(i + 1) + '/' + str(n_cols_p2)
+            window_name = 'CADistr20P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2)
             cv2.imshow(window_name, col_ca_distr_20)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -394,41 +368,58 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
         ca_distr_20_data = pytesseract.image_to_string(img_ca_distr_20)
         ca_distr_20_data = ca_distr_20_data.split('\n')
         parsed_columns_p2.append(ca_distr_20_data)
-        print('CADistr20P2 - Col ' + str(i + 1) + '/' + str(n_cols_p2))
 
-    # Clean up data read using OCR
-    parsed_columns_p1 = clean_up_data(n_cols_p1, parsed_columns_p1)
-    parsed_columns_p2 = clean_up_data(n_cols_p2, parsed_columns_p2)
+    # Find column with most elements
+    max_col_len_p1 = 0
+    for i in range(0, len(parsed_columns_p1)):
+        if(max_col_len_p1 < len(parsed_columns_p1[i])):
+            max_col_len_p1 = len(parsed_columns_p1[i])
+    max_col_len_p2 = 0
+    for i in range(0, len(parsed_columns_p2)):
+        if(max_col_len_p2 < len(parsed_columns_p2[i])):
+            max_col_len_p2 = len(parsed_columns_p2[i])
 
     # Create new Table and add each row of data from part 1
     out_filename = table_names_config.get_value('CADistr20P1')
-    header = main_config.get_value('CADistr20P1_RTHdr')
-    n_rows = int(main_config.get_value('CADistr20P1_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names_p1,
         delimiter=';'
     )
+
     # Fill table with data from part 1
-    for i in range(0, n_rows):
-        new_row = [parsed_columns_p1[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len_p1):
+        new_row = []
+        for j in range(0, len(col_names_p1)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
+            if(i >= len(parsed_columns_p1[j])):
+                new_row.append(' ')
+            # Otherwise store data in row
+            else:
+                new_row.append(parsed_columns_p1[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
 
     # Create new Table and add each row of data from part 2
     out_filename = table_names_config.get_value('CADistr20P2')
-    header = main_config.get_value('CADistr20P2_RTHdr')
-    n_rows = int(main_config.get_value('CADistr20P2_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names_p2,
         delimiter=';'
     )
+    
     # Fill table with data from part 2
-    for i in range(0, n_rows):
-        new_row = [parsed_columns_p2[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len_p2):
+        new_row = []
+        for j in range(0, len(col_names_p2)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
+            if(i >= len(parsed_columns_p2[j])):
+                new_row.append(' ')
+            # Otherwise store data in row
+            else:
+                new_row.append(parsed_columns_p2[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CADistr20 done.')
@@ -454,17 +445,20 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
 
     # Parse data in image column by column of first table 
     n_cols_p1 = int(main_config.get_value('CADistr21P1_RTCols'))
+    col_names_p1 = main_config.get_value('CADistr21P2_RTHdr')
     n_cols_p2 = int(main_config.get_value('CADistr21P2_RTCols'))
+    col_names_p2 = main_config.get_value('CADistr21P2_RTHdr')
     parsed_columns_p1 = []
     for i in range(0, n_cols_p1):
         # Select area and crop image
+        print('CADistr21P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1))
         bounds_ca_distr_21 = cv2.selectROI('CADistr21P1', cv2_ca_distr_21, False, False)
         cv2.destroyWindow('CADistr21P1')
         col_ca_distr_21 = cv2_ca_distr_21[int(bounds_ca_distr_21[1]):int(bounds_ca_distr_21[1]+bounds_ca_distr_21[3]),
                                           int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'CADistr21P1 - Col: ' + str(i + 1) + '/' + str(n_cols_p1)
+            window_name = 'CADistr21P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1)
             cv2.imshow(window_name, col_ca_distr_21)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -473,17 +467,17 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
         ca_distr_21_data = pytesseract.image_to_string(img_ca_distr_21)
         ca_distr_21_data = ca_distr_21_data.split('\n')
         parsed_columns_p1.append(ca_distr_21_data)
-        print('CADistr21P1 - Col ' + str(i + 1) + '/' + str(n_cols_p1))
     parsed_columns_p2 = []
     for i in range(0, n_cols_p2):
         # Select area and crop image
+        print('CADistr21P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2))
         bounds_ca_distr_21 = cv2.selectROI('CADistr21P2', cv2_ca_distr_21, False, False)
         cv2.destroyWindow('CADistr21P2')
         col_ca_distr_21 = cv2_ca_distr_21[int(bounds_ca_distr_21[1]):int(bounds_ca_distr_21[1]+bounds_ca_distr_21[3]),
                                           int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'CADistr21P2 - Col: ' + str(i + 1) + '/' + str(n_cols_p2)
+            window_name = 'CADistr21P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2)
             cv2.imshow(window_name, col_ca_distr_21)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -492,41 +486,60 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
         ca_distr_21_data = pytesseract.image_to_string(img_ca_distr_21)
         ca_distr_21_data = ca_distr_21_data.split('\n')
         parsed_columns_p2.append(ca_distr_21_data)
-        print('CADistr21P2 - Col ' + str(i + 1) + '/' + str(n_cols_p2))
 
-    # Clean up data read using OCR
-    parsed_columns_p1 = clean_up_data(n_cols_p1, parsed_columns_p1)
-    parsed_columns_p2 = clean_up_data(n_cols_p2, parsed_columns_p2)
+    # Find column with most elements
+    max_col_len_p1 = 0
+    for i in range(0, len(parsed_columns_p1)):
+        if(max_col_len_p1 < len(parsed_columns_p1[i])):
+            max_col_len_p1 = len(parsed_columns_p1[i])
+    max_col_len_p2 = 0
+    for i in range(0, len(parsed_columns_p2)):
+        if(max_col_len_p2 < len(parsed_columns_p2[i])):
+            max_col_len_p2 = len(parsed_columns_p2[i])
 
     # Create new Table and add each row of data from part 1
     out_filename = table_names_config.get_value('CADistr21P1')
-    header = main_config.get_value('CADistr21P1_RTHdr')
     n_rows = int(main_config.get_value('CADistr21P1_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names_p1,
         delimiter=';'
     )
+
     # Fill table with data from part 1
-    for i in range(0, n_rows):
-        new_row = [parsed_columns_p1[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len_p1):
+        new_row = []
+        for j in range(0, len(col_names_p1)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
+            if(i >= len(parsed_columns_p1[j])):
+                new_row.append(' ')
+            # Otherwise store data in row
+            else:
+                new_row.append(parsed_columns_p1[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
 
     # Create new Table and add each row of data from part 2
     out_filename = table_names_config.get_value('CADistr21P2')
-    header = main_config.get_value('CADistr21P2_RTHdr')
     n_rows = int(main_config.get_value('CADistr21P2_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names_p2,
         delimiter=';'
     )
+
     # Fill table with data from part 2
-    for i in range(0, n_rows):
-        new_row = [parsed_columns_p2[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len_p2):
+        new_row = []
+        for j in range(0, len(col_names_p2)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
+            if(i >= len(parsed_columns_p2[j])):
+                new_row.append(' ')
+            # Otherwise store data in row
+            else:
+                new_row.append(parsed_columns_p2[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('CADistr21 done.')
@@ -551,17 +564,21 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
     cv2_ma_distr = cv2.resize(cv2_ma_distr, (w_width, w_height))
 
     # Parse data in image column by column of first table 
-    n_cols = int(main_config.get_value('MADistrP1_RTCols'))
+    n_cols_p1 = int(main_config.get_value('MADistrP1_RTCols'))
+    col_names_p1 = main_config.get_value('MADistrP1_RTHdr')
+    n_cols_p2 = int(main_config.get_value('MADistrP2_RTCols'))
+    col_names_p2 = main_config.get_value('MADistrP2_RTHdr')
     parsed_columns_p1 = []
-    for i in range(0, n_cols):
+    for i in range(0, n_cols_p1):
         # Select area and crop image
+        print('MADistrP1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1))
         bounds_ma_distr = cv2.selectROI('MADistrP1', cv2_ma_distr, False, False)
         cv2.destroyWindow('MADistrP1')
         col_ma_distr = cv2_ma_distr[int(bounds_ma_distr[1]):int(bounds_ma_distr[1]+bounds_ma_distr[3]),
                                     int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'MADistrP1 - Col: ' + str(i + 1) + '/' + str(n_cols)
+            window_name = 'MADistrP1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1)
             cv2.imshow(window_name, col_ma_distr)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -570,17 +587,17 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
         ma_distr_data = pytesseract.image_to_string(img_ma_distr)
         ma_distr_data = ma_distr_data.split('\n')
         parsed_columns_p1.append(ma_distr_data)
-        print('MADistrP1 - Col ' + str(i + 1) + '/' + str(n_cols))
     parsed_columns_p2 = []
-    for i in range(0, n_cols):
+    for i in range(0, n_cols_p2):
         # Select area and crop image
+        print('MADistrP2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2))
         bounds_ma_distr = cv2.selectROI('MADistrP2', cv2_ma_distr, False, False)
         cv2.destroyWindow('MADistrP2')
         col_ma_distr = cv2_ma_distr[int(bounds_ma_distr[1]):int(bounds_ma_distr[1]+bounds_ma_distr[3]),
                                     int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
         # Show cropped image if showimg = True
         if(showimg):
-            window_name = 'MADistrP2 - Col: ' + str(i + 1) + '/' + str(n_cols)
+            window_name = 'MADistrP2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2)
             cv2.imshow(window_name, col_ma_distr)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
@@ -589,41 +606,56 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
         ma_distr_data = pytesseract.image_to_string(img_ma_distr)
         ma_distr_data = ma_distr_data.split('\n')
         parsed_columns_p2.append(ma_distr_data)
-        print('MADistrP2 - Col ' + str(i + 1) + '/' + str(n_cols))
 
-    # Clean up data read using OCR
-    parsed_columns_p1 = clean_up_data(n_cols, parsed_columns_p1)
-    parsed_columns_p2 = clean_up_data(n_cols, parsed_columns_p2)
+    # Find column with most elements
+    max_col_len_p1 = 0
+    for i in range(0, len(parsed_columns_p1)):
+        if(max_col_len_p1 < len(parsed_columns_p1[i])):
+            max_col_len_p1 = len(parsed_columns_p1[i])
+    max_col_len_p2 = 0
+    for i in range(0, len(parsed_columns_p2)):
+        if(max_col_len_p2 < len(parsed_columns_p2[i])):
+            max_col_len_p2 = len(parsed_columns_p2[i])
 
     # Create new Table and add each row of data from part 1
     out_filename = table_names_config.get_value('MADistrP1')
-    header = main_config.get_value('MADistrP1_RTHdr')
-    n_rows = int(main_config.get_value('MADistrP1_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names_p1,
         delimiter=';'
     )
     # Fill table with data from part 1
-    for i in range(0, n_rows):
-        new_row = [parsed_columns_p1[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len_p1):
+        new_row = []
+        for j in range(0, len(col_names_p1)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
+            if(i >= len(parsed_columns_p1[j])):
+                new_row.append(' ')
+            # Otherwise store data in row
+            else:
+                new_row.append(parsed_columns_p1[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
 
     # Create new Table and add each row of data from part 2
     out_filename = table_names_config.get_value('MADistrP2')
-    header = main_config.get_value('MADistrP2_RTHdr')
-    n_rows = int(main_config.get_value('MADistrP2_RTRows'))
     output_table = du.Table(
         'n',
         filename=out_filename,
-        header_index=header,
+        header_index=col_names_p2,
         delimiter=';'
     )
     # Fill table with data from part 2
-    for i in range(0, n_rows):
-        new_row = [parsed_columns_p2[j][i] for j in range(0, len(header))]
+    for i in range(0, max_col_len_p2):
+        new_row = []
+        for j in range(0, len(col_names_p2)):
+            # If columns is shorter than longest one in set -> put row entry placeholder
+            if(i >= len(parsed_columns_p2[j])):
+                new_row.append(' ')
+            # Otherwise store data in row
+            else:
+                new_row.append(parsed_columns_p2[j][i])
         output_table.append_end_row(new_row)
     output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
     print('MADistr done.')
@@ -637,13 +669,13 @@ def main():
     table_pg_config = cu.Config('./config/PDFTablePages.cl')
     pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
 
-    process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    #process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     #process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     
 #####################################################################################################
 
