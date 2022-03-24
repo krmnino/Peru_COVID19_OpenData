@@ -382,11 +382,11 @@ void Table::remove_column(std::string col_name) {
 	for (int i = 0; i < this->header_index.size(); i++) {
 		if (this->header_index[i] == col_name) {
 			this->header_index.erase(this->header_index.begin() + i);
+			this->contents.erase(col_name);
+			this->columns--;
 			break;
 		}
 	}
-	this->contents.erase(col_name);
-	this->columns--;
 }
 
 void Table::remove_column(int col_idx) {
@@ -395,11 +395,11 @@ void Table::remove_column(int col_idx) {
 		if (i == col_idx) {
 			field_name = this->header_index[i];
 			this->header_index.erase(this->header_index.begin() + i);
+			this->contents.erase(field_name);
+			this->columns--;
 			break;
 		}
 	}
-	this->contents.erase(field_name);
-	this->columns--;
 }
 
 void Table::remove_row(int col_idx) {
