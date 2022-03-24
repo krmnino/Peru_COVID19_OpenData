@@ -18,6 +18,51 @@ if(sys.platform == 'win32'):
 
 #####################################################################################################
 
+def print_data_table(data):
+    print('\n=====================================================')
+    idx = 0
+    keys = list(data.keys())
+    for i, val in enumerate(data):
+        if(data[val]):
+            print('%2s'%(idx), '%15s'%(keys[i] + ':'), '%10s'%('Y'))
+        else:
+            print('%2s'%(idx), '%15s'%(keys[i] + ':'), '%10s'%('N'))
+        idx += 1
+    print('=====================================================')
+
+#####################################################################################################
+
+def select_read_tables_menu(data):
+    while(True):
+        print_data_table(data)
+        user = input('Edit numbers by entering index [0-' + str(len(data) - 1) +']. Proceed? [Y/N]: ')
+        if(user == 'N' or user == 'n'):
+            sys.exit('Exiting...')
+        elif(user == 'Y' or user == 'y'):
+            break
+        elif(user.isnumeric()):
+            num_user = int(user)
+            if(num_user < 0 or num_user > len(data)):
+                print('Wrong index. Index must be [0-' + str(len(data) - 1) +'].')
+                continue
+            data_keys = list(data.keys())
+            new_data = input(data_keys[num_user] + ': ')        
+            if(new_data == 'Y' or new_data == 'y'):
+                data[data_keys[num_user]] = True
+                continue
+            elif(new_data == 'N' or new_data == 'n'):
+                data[data_keys[num_user]] = False
+                continue
+            else:
+                print('Wrong selection. Must be Y/N.')
+                continue
+        else:
+            print('Wrong input. Try Again.')
+            continue
+    return data
+
+#####################################################################################################
+
 def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     # Extract page from PDF file
     pa_depto = convert_from_path(pdf_path,
@@ -669,13 +714,32 @@ def main():
     table_pg_config = cu.Config('./config/PDFTablePages.cl')
     pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
 
-    #process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    #process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    menu_selection = {
+        'PADepto'     : True,
+        'CADepto'     : True,
+        'CPEdades'    : True,
+        'MADepto'     : True,
+        'CADistr20'   : True,
+        'CADistr21'   : True,
+        'MADistr'     : True,
+    }
+
+    menu_selection = select_read_tables_menu(menu_selection)
+
+    if(menu_selection['PADepto']):
+        process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    if(menu_selection['CADepto']):
+        process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    if(menu_selection['CPEdades']):
+        process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    if(menu_selection['MADepto']):
+        process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    if(menu_selection['CADistr20']):
+        process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    if(menu_selection['CADistr21']):
+        process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+    if(menu_selection['MADistr']):
+        process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
     
 #####################################################################################################
 
