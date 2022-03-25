@@ -8,7 +8,5 @@ CADistr21P1=78;
 CADistr21P2=78;
 MADistrP1=81;
 MADistrP2=81;
-ReportPath=D:/temporary/DGE-MINSA_Reports_2021/10_2021/;
-ReportName=coronavirus311021.pdf;
-
-
+ReportPath=D:/temporary/DGE-MINSA_Reports_2021/11_2021/;
+ReportName=coronavirus031121.pdf;
