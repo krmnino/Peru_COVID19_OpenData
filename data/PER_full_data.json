@@ -17869,5 +17869,28 @@
 		"Hospitalizados": 1106,
 		"NuevosHospitalizados": -13.0,
 		"%DifHospitalizados": -1.011754068716094
+	},
+	{
+		"Fecha": "2022-04-19",
+		"Dia": 777.0,
+		"Casos": 3539694,
+		"NuevosCasos": -16690.0,
+		"%DifCasos": -1.0047150968417045,
+		"CasosActivos": -212676.0,
+		"NuevosCasosActivos": -17196.0,
+		"Fallecidos": 212676,
+		"NuevosFallecidos": 22.0,
+		"%DifFallecidos": 1.0001034544377252,
+		"TasaLetalidad": 0.06008315973075639,
+		"Pruebas": 29453565,
+		"NuevasPruebas": 6051.0,
+		"%DifPruebas": 1.0002054842388393,
+		"%PruebasPositivasDiarias": -2.758221781523715,
+		"Recuperados": 3539694,
+		"NuevosRecuperados": 484.0,
+		"%DifRecuperados": 1.000136753682319,
+		"Hospitalizados": 1040,
+		"NuevosHospitalizados": -66.0,
+		"%DifHospitalizados": -1.0634615384615385
 	}
 ]
