@@ -6230,5 +6230,13 @@
 		"Pruebas": 29509747,
 		"Recuperados": 3540078,
 		"Hospitalizados": 1063
+	},
+	{
+		"Fecha": "2022-04-21",
+		"Casos": 3558613,
+		"Fallecidos": 212715,
+		"Pruebas": 29550426,
+		"Recuperados": 3540405,
+		"Hospitalizados": 1073
 	}
 ]
