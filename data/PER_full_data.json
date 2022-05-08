@@ -18283,5 +18283,28 @@
 		"Hospitalizados": 1010,
 		"NuevosHospitalizados": -1.0,
 		"%DifHospitalizados": -1.000990099009901
+	},
+	{
+		"Fecha": "2022-05-07",
+		"Dia": 795.0,
+		"Casos": 3569326,
+		"NuevosCasos": 300.0,
+		"%DifCasos": 1.0000840565465199,
+		"CasosActivos": -188656.0,
+		"NuevosCasosActivos": 160.0,
+		"Fallecidos": 212933,
+		"NuevosFallecidos": 20.0,
+		"%DifFallecidos": 1.0000939350814653,
+		"TasaLetalidad": 0.0596563608927848,
+		"Pruebas": 30039358,
+		"NuevasPruebas": 27282.0,
+		"%DifPruebas": 1.0009090340834803,
+		"%PruebasPositivasDiarias": 0.010996261271167804,
+		"Recuperados": 3545049,
+		"NuevosRecuperados": 120.0,
+		"%DifRecuperados": 1.0000338511716313,
+		"Hospitalizados": 940,
+		"NuevosHospitalizados": -70.0,
+		"%DifHospitalizados": -1.074468085106383
 	}
 ]

@@ -6358,5 +6358,13 @@
 		"Pruebas": 30012076,
 		"Recuperados": 3544929,
 		"Hospitalizados": 1010
+	},
+	{
+		"Fecha": "2022-05-07",
+		"Casos": 3569326,
+		"Fallecidos": 212933,
+		"Pruebas": 30039358,
+		"Recuperados": 3545049,
+		"Hospitalizados": 940
 	}
 ]
