@@ -418,6 +418,7 @@ class LayeredScatterPlot:
     # markers -> array of strings
     # colors -> array of strings
     # labels -> array of strings
+    # legend -> boolean
     # linewidths -> array of strings
     # rolling_avgs -> array of booleans
     # rolling_avgs_data -> array of arrays
@@ -434,7 +435,7 @@ class LayeredScatterPlot:
     # text_font -> string
     # digit_font -> string
     # filename -> string
-    def __init__(self, n_datasets, x_dataset, y_datasets, linestyles, markers, colors, labels, linewidths, rolling_avgs, rolling_avgs_data, 
+    def __init__(self, n_datasets, x_dataset, y_datasets, linestyles, markers, colors, labels, legend, linewidths, rolling_avgs, rolling_avgs_data, 
                  n_rolling_avgs, rolling_avg_labels, x_axis_label, x_axis_labelsize, x_axis_orientation, x_ticks_size, x_ticks_interval,
                  y_axis_label, y_axis_labelsize, title, title_size, super_title, super_title_size, text_font, digit_font, filename):
         self.n_datasets = n_datasets
@@ -444,6 +445,7 @@ class LayeredScatterPlot:
         self.markers = markers
         self.colors = colors
         self.labels = labels
+        self.legend = legend
         self.linewidths = linewidths
         self.rolling_avgs = rolling_avgs
         self.rolling_avgs_data = rolling_avgs_data
@@ -467,7 +469,7 @@ class LayeredScatterPlot:
 
     def validate(self):
         # Validate n_datasets = len(y_datasets)
-        if(self.n_datasets != len(self.y_datasets[i])):
+        if(self.n_datasets != len(self.y_datasets)):
             sys.exit('Error: y_datasets size does not equal n_datasets.')    
 
         # Validate n_datasets = len(linestyles)
@@ -503,7 +505,7 @@ class LayeredScatterPlot:
         # Validate if rolling_avgs[i] is True and 0 <= n_rolling_avgs[i] < len(x_dataset) - 1
         for i in range(0, self.n_datasets):
             if(self.rolling_avgs[i] and (self.n_rolling_avgs[i] < 0 or self.n_rolling_avgs[i] > len(self.x_dataset) - 1)):
-                sys.exit('Error: rolling_avgs[' + str(i) + '] is True -> n_rolling_avg must be greater than 0 and less than', str(len(self.x_dataset) - 1) + '.')
+                sys.exit('Error: rolling_avgs[' + str(i) + '] is True -> n_rolling_avg must be greater than 0 and less than ' + str(len(self.x_dataset) - 1) + '.')
 
         # Validate if rolling_avgs[i] is True and n_rolling_avgs[i] = len(self.rolling_avgs_data[i]) - len(y_datasets[i])
         for i in range(0, self.n_datasets):
@@ -517,12 +519,12 @@ class LayeredScatterPlot:
 
         # Validate first char of color is a pound sign (#)
         for i in range(0, self.n_datasets):
-            if(self.color[0] != '#'):
+            if(self.colors[i][0] != '#'):
                sys.exit('Error: colors[' + str(i) + '] is must be a string with a HEX value for a color -> ex: #FFFFFF.')
 
         # Validate that the following 6 chars of color are alphanumeric
         for i in range(0, self.n_datasets):
-            for j in range(1, len(self.color)):
+            for j in range(1, len(self.colors)):
                 if(not self.colors[i][j].isalnum()):
                     sys.exit('Error: colors[' + str(i) + '] is must be a string with a HEX value for a color -> ex: #FFFFFF.')
 
@@ -588,12 +590,12 @@ class LayeredScatterPlot:
 
         if(self.legend):
             for i in range(0, self.n_datasets):
-                self.axis.plot(self.x_dataset[i], self.y_datasets[i], color=self.colors[i], linestyle=self.linestyles[i],
+                self.axis.plot(self.x_dataset, self.y_datasets[i], color=self.colors[i], linestyle=self.linestyles[i],
                             marker=self.markers[i], linewidth=self.linewidths[i], label=self.labels[i])
             self.axis.legend(loc='upper left')
         else:
             for i in range(0, self.n_datasets):
-                self.axis.plot(self.x_dataset[i], self.y_datasets[i], color=self.colors[i], linestyle=self.linestyles[i],
+                self.axis.plot(self.x_dataset, self.y_datasets[i], color=self.colors[i], linestyle=self.linestyles[i],
                             marker=self.markers[i], linewidth=self.linewidths[i])
         
         self.axis.tick_params(axis='x',labelrotation=self.x_axis_orientation)
@@ -607,11 +609,12 @@ class LayeredScatterPlot:
         for tick in self.axis.get_yticklabels():
             tick.set_fontname(**self.digit_font)
             tick.set_fontsize(self.x_ticks_size)
-        self.axis.set_xlabel(self.x_label, **self.text_font, fontsize=self.x_axis_label)
-        self.axis.set_ylabel(self.y_label, **self.text_font, fontsize=self.y_axis_label)
+        self.axis.set_xlabel(self.x_axis_label, **self.text_font, fontsize=self.x_axis_labelsize)
+        self.axis.set_ylabel(self.y_axis_label, **self.text_font, fontsize=self.y_axis_labelsize)
 
         for i in range(0, self.n_datasets):
-            self.__export_generate_rolling_avg(i)
+            if(self.rolling_avgs[i]):
+                self.__export_generate_rolling_avg(i)
 
         self.axis.grid()
 
