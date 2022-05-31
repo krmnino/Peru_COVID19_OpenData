@@ -17,13 +17,13 @@ PDFAreasCSV = config/PDFAreas.csv;
 PDFAreasCL = config/PDFAreas.cl;
 
 # Config files with information about departments and districts
-DepartmentsAreas = DepartmentsAreas.cl;
-DepartmentsIndex = DepartmentsIndex.cl;
-DepartmentsMacroregions = DepartmentsMacroregions.cl;
-DepartmentsPopulation = DepartmentsPopulation.cl;
-DistrictsIndex = DistrictsIndex.cl;
-DistrictsZones = DistrictsZones.cl;
-AgeGroupsIndex = AgeGroupsIndex.cl;
+DepartmentsAreas = ../../res/config_files/DepartmentsAreas.cl;
+DepartmentsIndex = ../../res/config_files/DepartmentsIndex.cl;
+DepartmentsMacroregions = ../../res/config_files/DepartmentsMacroregions.cl;
+DepartmentsPopulation = ../../res/config_files/DepartmentsPopulation.cl;
+DistrictsIndex = ../../res/config_files/DistrictsIndex.cl;
+DistrictsZones = ../../res/config_files/DistrictsZones.cl;
+AgeGroupsIndex = ../../res/config_files/AgeGroupsIndex.cl;
 
 # Headers for processing raw rables
 PADepto_RTHdr = [Depto, PCR, PR, AG, Total];

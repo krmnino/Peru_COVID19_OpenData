@@ -81,11 +81,30 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
     w_height = int(main_config.get_value('WindowHeight'))
     cv2_pa_depto = cv2.resize(cv2_pa_depto, (w_width, w_height))
 
+    # Get department names index
+    dept_index = cu.Config(main_config.get_value('DepartmentsIndex'))
+    
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('PADepto_RTCols'))
     col_names = main_config.get_value('PADepto_RTHdr')
     parsed_columns = []
     for i in range(0, n_cols):
+        # Append department names columns
+        if(i == 0):
+            pa_depto_data = []
+            n_rows = int(main_config.get_value('PADepto_RTRows'))
+            for j in range(0, n_rows):
+                pa_depto_data.append(dept_index.get_value(str(j)))
+            parsed_columns.append(pa_depto_data)
+            continue
+        # Append department total placeholder values
+        if(i == 4):
+            pa_depto_data = []
+            n_rows = int(main_config.get_value('PADepto_RTRows'))
+            for j in range(0, n_rows):
+                pa_depto_data.append(0)
+            parsed_columns.append(pa_depto_data)
+            continue
         # Select area and crop image
         print('PADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
         bounds_pa_depto = cv2.selectROI('PADepto', cv2_pa_depto, False, False)
@@ -153,11 +172,30 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
     w_height = int(main_config.get_value('WindowHeight'))
     cv2_ca_depto = cv2.resize(cv2_ca_depto, (w_width, w_height))
 
+    # Get department names index
+    dept_index = cu.Config(main_config.get_value('DepartmentsIndex'))
+
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('CADepto_RTCols'))
     col_names = main_config.get_value('CADepto_RTHdr')
     parsed_columns = []
     for i in range(0, n_cols):
+        # Append department names columns
+        if(i == 0):
+            ca_depto_data = []
+            n_rows = int(main_config.get_value('CADepto_RTRows'))
+            for j in range(0, n_rows):
+                ca_depto_data.append(dept_index.get_value(str(j)))
+            parsed_columns.append(ca_depto_data)
+            continue
+        # Append department total placeholder values
+        if(i == 4):
+            ca_depto_data = []
+            n_rows = int(main_config.get_value('CADepto_RTRows'))
+            for j in range(0, n_rows):
+                ca_depto_data.append(0)
+            parsed_columns.append(ca_depto_data)
+            continue
         # Select area and crop image
         print('CADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
         bounds_ca_depto = cv2.selectROI('CADepto', cv2_ca_depto, False, False)
@@ -207,7 +245,6 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
 
 #####################################################################################################
 
-
 def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
     # Extract page from PDF file
     cp_edades = convert_from_path(pdf_path,
@@ -226,11 +263,22 @@ def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path
     w_height = int(main_config.get_value('WindowHeight'))
     cv2_cp_edades = cv2.resize(cv2_cp_edades, (w_width, w_height))
 
+    # Get age group names index
+    age_group_index = cu.Config(main_config.get_value('AgeGroupsIndex'))
+
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('CPEdades_RTCols'))
     col_names = main_config.get_value('CPEdades_RTHdr')
     parsed_columns = []
     for i in range(0, n_cols):
+        # Append age group names columns
+        if(i == 0):
+            pa_cp_edades = []
+            n_rows = int(main_config.get_value('CPEdades_RTRows'))
+            for j in range(0, n_rows):
+                pa_cp_edades.append(age_group_index.get_value(str(j)))
+            parsed_columns.append(pa_cp_edades)
+            continue
         # Select area and crop image    
         print('CPEdades - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
         bounds_cp_edades = cv2.selectROI('CPEdades', cv2_cp_edades, False, False)
@@ -299,11 +347,22 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
     w_height = int(main_config.get_value('WindowHeight'))
     cv2_ma_depto = cv2.resize(cv2_ma_depto, (w_width, w_height))
 
+    # Get department names index
+    dept_index = cu.Config(main_config.get_value('DepartmentsIndex'))
+
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('MADepto_RTCols'))
     col_names = main_config.get_value('MADepto_RTHdr')
     parsed_columns = []
     for i in range(0, n_cols):
+        # Append department names columns
+        if(i == 0):
+            ma_depto_data = []
+            n_rows = int(main_config.get_value('MADepto_RTRows'))
+            for j in range(0, n_rows):
+                ma_depto_data.append(dept_index.get_value(str(j)))
+            parsed_columns.append(ma_depto_data)
+            continue
         # Select area and crop image
         print('MADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
         bounds_ma_depto = cv2.selectROI('MADepto', cv2_ma_depto, False, False)
@@ -370,13 +429,25 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
     w_height = int(main_config.get_value('WindowHeight'))
     cv2_ca_distr_20 = cv2.resize(cv2_ca_distr_20, (w_width, w_height))
 
-    # Parse data in image column by column of first table 
+    # Get district names index
+    distr_index = cu.Config(main_config.get_value('DistrictsIndex'))
+
     n_cols_p1 = int(main_config.get_value('CADistr20P1_RTCols'))
     col_names_p1 = main_config.get_value('CADistr20P2_RTHdr')
     n_cols_p2 = int(main_config.get_value('CADistr20P2_RTCols'))
     col_names_p2 = main_config.get_value('CADistr20P2_RTHdr')
+    
+    # Parse data in image column by column of first table 
     parsed_columns_p1 = []
     for i in range(0, n_cols_p1):
+        # Append district names columns
+        if(i == 0):
+            ca_distr_20_data = []
+            n_rows = int(main_config.get_value('CADistr20P1_RTRows'))
+            for j in range(0, n_rows):
+                ca_distr_20_data.append(distr_index.get_value(str(j)))
+            parsed_columns_p1.append(ca_distr_20_data)
+            continue
         # Select area and crop image
         print('CADistr20P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1))
         bounds_ca_distr_20 = cv2.selectROI('CADistr20P1', cv2_ca_distr_20, False, False)
@@ -394,8 +465,18 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
         ca_distr_20_data = pytesseract.image_to_string(img_ca_distr_20)
         ca_distr_20_data = ca_distr_20_data.split('\n')
         parsed_columns_p1.append(ca_distr_20_data)
+
+    # Parse data in image column by column of second table 
     parsed_columns_p2 = []
     for i in range(0, n_cols_p2):
+        # Append district names columns
+        if(i == 0):
+            ca_distr_20_data = []
+            n_rows = int(main_config.get_value('CADistr20P2_RTRows'))
+            for j in range(0, n_rows):
+                ca_distr_20_data.append(distr_index.get_value(str(j + n_rows)))
+            parsed_columns_p2.append(ca_distr_20_data)
+            continue
         # Select area and crop image
         print('CADistr20P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2))
         bounds_ca_distr_20 = cv2.selectROI('CADistr20P2', cv2_ca_distr_20, False, False)
@@ -488,13 +569,25 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
     w_height = int(main_config.get_value('WindowHeight'))
     cv2_ca_distr_21 = cv2.resize(cv2_ca_distr_21, (w_width, w_height))
 
-    # Parse data in image column by column of first table 
     n_cols_p1 = int(main_config.get_value('CADistr21P1_RTCols'))
     col_names_p1 = main_config.get_value('CADistr21P2_RTHdr')
     n_cols_p2 = int(main_config.get_value('CADistr21P2_RTCols'))
     col_names_p2 = main_config.get_value('CADistr21P2_RTHdr')
+
+    # Get district names index
+    distr_index = cu.Config(main_config.get_value('DistrictsIndex'))
+
+    # Parse data in image column by column of first table 
     parsed_columns_p1 = []
     for i in range(0, n_cols_p1):
+        # Append district names columns
+        if(i == 0):
+            ca_distr_21_data = []
+            n_rows = int(main_config.get_value('CADistr21P1_RTRows'))
+            for j in range(0, n_rows):
+                ca_distr_21_data.append(distr_index.get_value(str(j)))
+            parsed_columns_p1.append(ca_distr_21_data)
+            continue
         # Select area and crop image
         print('CADistr21P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1))
         bounds_ca_distr_21 = cv2.selectROI('CADistr21P1', cv2_ca_distr_21, False, False)
@@ -512,8 +605,18 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
         ca_distr_21_data = pytesseract.image_to_string(img_ca_distr_21)
         ca_distr_21_data = ca_distr_21_data.split('\n')
         parsed_columns_p1.append(ca_distr_21_data)
+
+    # Parse data in image column by column of second table 
     parsed_columns_p2 = []
     for i in range(0, n_cols_p2):
+        # Append district names columns
+        if(i == 0):
+            ca_distr_21_data = []
+            n_rows = int(main_config.get_value('CADistr21P2_RTRows'))
+            for j in range(0, n_rows):
+                ca_distr_21_data.append(distr_index.get_value(str(j + n_rows)))
+            parsed_columns_p2.append(ca_distr_21_data)
+            continue
         # Select area and crop image
         print('CADistr21P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2))
         bounds_ca_distr_21 = cv2.selectROI('CADistr21P2', cv2_ca_distr_21, False, False)
@@ -608,13 +711,25 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
     w_height = int(main_config.get_value('WindowHeight'))
     cv2_ma_distr = cv2.resize(cv2_ma_distr, (w_width, w_height))
 
-    # Parse data in image column by column of first table 
     n_cols_p1 = int(main_config.get_value('MADistrP1_RTCols'))
     col_names_p1 = main_config.get_value('MADistrP1_RTHdr')
     n_cols_p2 = int(main_config.get_value('MADistrP2_RTCols'))
     col_names_p2 = main_config.get_value('MADistrP2_RTHdr')
+
+    # Get district names index
+    distr_index = cu.Config(main_config.get_value('DistrictsIndex'))
+    
+    # Parse data in image column by column of first table 
     parsed_columns_p1 = []
     for i in range(0, n_cols_p1):
+        # Append district names columns
+        if(i == 0):
+            ma_distr_data = []
+            n_rows = int(main_config.get_value('MADistrP1_RTRows'))
+            for j in range(0, n_rows):
+                ma_distr_data.append(distr_index.get_value(str(j)))
+            parsed_columns_p1.append(ma_distr_data)
+            continue
         # Select area and crop image
         print('MADistrP1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1))
         bounds_ma_distr = cv2.selectROI('MADistrP1', cv2_ma_distr, False, False)
@@ -632,8 +747,17 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
         ma_distr_data = pytesseract.image_to_string(img_ma_distr)
         ma_distr_data = ma_distr_data.split('\n')
         parsed_columns_p1.append(ma_distr_data)
+
+    # Parse data in image column by column of second table 
     parsed_columns_p2 = []
     for i in range(0, n_cols_p2):
+        if(i == 0):
+            ma_distr_data = []
+            n_rows = int(main_config.get_value('MADistrP2_RTRows'))
+            for j in range(0, n_rows):
+                ma_distr_data.append(distr_index.get_value(str(j)))
+            parsed_columns_p2.append(ma_distr_data)
+            continue
         # Select area and crop image
         print('MADistrP2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2))
         bounds_ma_distr = cv2.selectROI('MADistrP2', cv2_ma_distr, False, False)
