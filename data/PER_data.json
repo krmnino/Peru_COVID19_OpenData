@@ -6603,7 +6603,7 @@
 		"Fecha": "2022-06-06",
 		"Casos": 3585767,
 		"Fallecidos": 213269,
-		"Pruebas": 30380666,
+		"Pruebas": 30830666,
 		"Recuperados": 3558588,
 		"Hospitalizados": 747
 	},
@@ -6621,6 +6621,6 @@
 		"Fallecidos": 213289,
 		"Pruebas": 30886823,
 		"Recuperados": 3560377,
-		"Hospitalizados": 213289
+		"Hospitalizados": 753
 	}
 ]
