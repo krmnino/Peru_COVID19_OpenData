@@ -6,12 +6,29 @@ Variant::Variant() {
 }
 
 Variant::Variant(const Variant& src) {
-	if (src.type == DataType::STRING) {
+	if (src.type == DataType::INTEGER) {
+		this->type = DataType::INTEGER;
+		this->int_data = src.int_data;
+	}
+	else if (src.type == DataType::DOUBLE) {
+		this->type = DataType::DOUBLE;
+		this->double_data = src.double_data;
+	}
+	else if (src.type == DataType::STRING) {
 		this->type = DataType::STRING;
 		this->string_data = new std::string(*src.string_data);
 	}
+	else if (src.type == DataType::BOOLEAN) {
+		this->type = DataType::BOOLEAN;
+		this->bool_data = src.bool_data;
+	}
+	else if (src.type == DataType::CHARACTER) {
+		this->type = DataType::CHARACTER;
+		this->char_data = src.char_data;
+	}
 	else {
-		*this = src;
+		this->type = DataType::UNDEFINED;
+		this->int_data = 0;
 	}
 }
 
