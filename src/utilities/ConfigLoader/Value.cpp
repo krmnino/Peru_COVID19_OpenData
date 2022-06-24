@@ -1,5 +1,32 @@
 #include "Value.hpp"
 
+namespace cl {
+Value::Value() {
+	this->type = ValueType::UNDEF;
+	this->single_data = 0;
+}
+
+Value::Value(const Value& src) {
+	this->type = src.type;
+	List list_ret_data;
+	switch (this->type) {
+	case ValueType::INT_NUM:
+	case ValueType::DBL_NUM:
+	case ValueType::STRING:
+		this->single_data = src.single_data;
+		break;
+	case ValueType::LIST:
+		break;
+	case ValueType::UNDEF:
+		this->single_data = 0;
+		break;
+	default:
+		break;
+	}
+}
+
+Value::~Value() {}
+
 Value::Value(std::string& raw_value) {
 	if (raw_value.at(0) == '[' && raw_value.at(raw_value.length() - 1) == ']') {
 		this->type = ValueType::LIST;
@@ -10,15 +37,25 @@ Value::Value(std::string& raw_value) {
 		{
 		case 0:
 			this->type = ValueType::STRING;
-			this->num_str_data = raw_value;
+			this->single_data = raw_value;
 			break;
 		case 1:
-			this->type = ValueType::NUMBER;
-			this->num_str_data = std::stoi(raw_value);
+			this->type = ValueType::INT_NUM;
+			#ifdef LINUX
+			this->single_data = std::atoi(raw_value.c_str());
+			#else
+			this->single_data = std::stoi(raw_value);
+			#endif
+			//this->single_data = std::stoi(raw_value);
 			break;
 		case 2:
-			this->type = ValueType::NUMBER;
-			this->num_str_data = std::stod(raw_value);
+			this->type = ValueType::DBL_NUM;
+			#ifdef LINUX
+			this->single_data = std::atof(raw_value.c_str());
+			#else
+			this->single_data = std::stod(raw_value);
+			#endif
+			//this->single_data = std::stod(raw_value);
 			break;
 		default:
 			break;
@@ -26,30 +63,25 @@ Value::Value(std::string& raw_value) {
 	}
 }
 
-Value::Value() {
-	this->type = ValueType::UNDEF;
-	this->num_str_data = 0;
+Value::Value(int data) {
+	this->type = ValueType::INT_NUM;
+	this->single_data = data;
 }
 
-Value::Value(const Value& src) {
-	this->type = src.type;
-	std::vector<Variant> list_ret_data;
-	switch (this->type) {
-	case ValueType::NUMBER:
-	case ValueType::STRING:
-		this->num_str_data = src.num_str_data;
-		break;
-	case ValueType::LIST:
-		break;
-	case ValueType::UNDEF:
-		this->num_str_data = 0;
-		break;
-	default:
-		break;
-	}
+Value::Value(double data) {
+	this->type = ValueType::DBL_NUM;
+	this->single_data = data;
 }
 
-Value::~Value() {}
+Value::Value(const char* data) {
+	this->type = ValueType::STRING;
+	this->single_data = std::string(data);
+}
+
+Value::Value(List data_list) {
+	this->type = ValueType::LIST;
+	this->list_data = data_list;
+}
 
 int Value::check_data_type(std::string& data) {
 	std::string::const_iterator it = data.begin();
@@ -63,7 +95,7 @@ int Value::check_data_type(std::string& data) {
 			it++;
 			continue;
 		}
-		else if (*it == '.' && decimal_point){
+		else if (*it == '.' && decimal_point) {
 			// Otherwise cannot be a double, it is a string
 			return 0;
 		}
@@ -90,10 +122,10 @@ int Value::check_data_type(std::string& data) {
 void Value::parse_list(std::string& raw_str) {
 	// Remove front and trailing square brackets
 	raw_str = raw_str.substr(1, raw_str.length());
-	raw_str = raw_str.substr(0, raw_str.length()-1);
+	raw_str = raw_str.substr(0, raw_str.length() - 1);
 	std::vector<std::string> split_raw_list;
-	std::vector<Variant> variant_list;
 	this->split_string(split_raw_list, raw_str, ',');
+	this->list_data.resize(split_raw_list.size());
 	for (unsigned int i = 0; i < split_raw_list.size(); i++) {
 		split_raw_list[i].erase(std::remove(split_raw_list[i].begin(), split_raw_list[i].end(), '\t'), split_raw_list[i].end());
 		this->remove_side_spaces(split_raw_list[i]);
@@ -101,21 +133,20 @@ void Value::parse_list(std::string& raw_str) {
 		switch (check_data_type(split_raw_list[i])) {
 		case 0:
 			list_elem = split_raw_list[i];
-			variant_list.push_back(list_elem);
+			this->list_data[i] = list_elem;
 			break;
 		case 1:
 			list_elem = std::stoi(split_raw_list[i]);
-			variant_list.push_back(list_elem);
+			this->list_data[i] = list_elem;
 			break;
 		case 2:
 			list_elem = std::stod(split_raw_list[i]);
-			variant_list.push_back(list_elem);
+			this->list_data[i] = list_elem;
 			break;
 		default:
 			break;
 		}
 	}
-	this->list_data = variant_list;
 }
 
 void Value::split_string(std::vector<std::string>& processed, std::string& buffer, char delimiter) {
@@ -162,11 +193,12 @@ void Value::remove_side_spaces(std::string& raw_str) {
 bool Value::operator<(const Value& other) {
 	Value tmp = other;
 	switch (this->type) {
-	case ValueType::NUMBER:
-		return this->num_str_data < other.num_str_data;
+	case ValueType::INT_NUM:
+	case ValueType::DBL_NUM:
+		return this->single_data < other.single_data;
 		break;
 	case ValueType::STRING:
-		return *(std::string*)this->num_str_data.get_data() < *(std::string*)tmp.num_str_data.get_data();
+		return this->single_data.get_data<std::string>() < tmp.single_data.get_data<std::string>();
 		break;
 	case ValueType::LIST:
 		return this->list_data.size() < other.list_data.size();
@@ -178,22 +210,7 @@ bool Value::operator<(const Value& other) {
 	return false;
 }
 
-Variant Value::get_num_str_data() {
-	Variant ret;
-	if (this->type == ValueType::LIST) {
-		return ret;
-	}
-	return this->num_str_data;
-}
-
-std::vector<Variant> Value::get_list_data() {
-	std::vector<Variant> ret;
-	if (this->type != ValueType::LIST) {
-		return ret;
-	}
-	return this->list_data;
-}
-
 ValueType Value::get_type() {
 	return this->type;
+}
 }
