@@ -17,6 +17,11 @@ Variant::Variant(const Variant& src) {
 
 Variant::Variant(int data) {
 	this->type = DataType::INTEGER;
+	this->int_data = (INT)data;
+}
+
+Variant::Variant(INT data) {
+	this->type = DataType::INTEGER;
 	this->int_data = data;
 }
 
@@ -51,12 +56,21 @@ Variant::~Variant() {
 	}
 }
 
-Variant& Variant::operator= (int data) {
+Variant& Variant::operator= (INT data) {
 	if (this->type == DataType::STRING) {
 		delete this->string_data;
 	}
 	this->type = DataType::INTEGER;
 	this->int_data = data;
+	return *this;
+}
+
+Variant& Variant::operator= (int data) {
+	if (this->type == DataType::STRING) {
+		delete this->string_data;
+	}
+	this->type = DataType::INTEGER;
+	this->int_data = (INT)data;
 	return *this;
 }
 
@@ -70,6 +84,15 @@ Variant& Variant::operator= (double data) {
 }
 
 Variant& Variant::operator= (std::string& data) {
+	if (this->type == DataType::STRING) {
+		delete this->string_data;
+	}
+	this->type = DataType::STRING;
+	this->string_data = new std::string(data);
+	return *this;
+}
+
+Variant& Variant::operator= (const char* data){
 	if (this->type == DataType::STRING) {
 		delete this->string_data;
 	}
@@ -198,6 +221,30 @@ Variant Variant::operator+ (int data) {
 	return out;
 }
 
+Variant Variant::operator+ (INT data) {
+	Variant out;
+	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
+		return out;
+	}
+	switch (this->type) {
+	case DataType::INTEGER:
+		out = this->int_data + data;
+		out.type = DataType::INTEGER;
+		break;
+	case DataType::DOUBLE:
+		out = this->double_data + data;
+		out.type = DataType::DOUBLE;
+		break;
+	case DataType::CHARACTER:
+		out = this->char_data + data;
+		out.type = DataType::CHARACTER;
+		break;
+	default:
+		break;
+	}
+	return out;
+}
+
 Variant Variant::operator+ (double data) {
 	Variant out;
 	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
@@ -255,7 +302,7 @@ Variant Variant::operator+ (const Variant& data) {
 			out.type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			out = (char)this->int_data + data.char_data;
+			out = (char)this->int_data + (INT)data.char_data;
 			out.type = DataType::CHARACTER;
 			break;
 		default:
@@ -283,7 +330,7 @@ Variant Variant::operator+ (const Variant& data) {
 	case DataType::CHARACTER:
 		switch (data.type) {
 		case DataType::INTEGER:
-			out = this->char_data + (char)data.int_data;
+			out = (INT)this->char_data + (char)data.int_data;
 			out.type = DataType::CHARACTER;
 			break;
 		case DataType::DOUBLE:
@@ -291,7 +338,7 @@ Variant Variant::operator+ (const Variant& data) {
 			out.type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			out = this->char_data + data.char_data;
+			out = this->char_data + (INT)data.char_data;
 			out.type = DataType::CHARACTER;
 			break;
 		default:
@@ -318,8 +365,31 @@ Variant Variant::operator+ (const Variant& data) {
 	return out;
 }
 
-
 Variant Variant::operator- (int data) {
+	Variant out;
+	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
+		return out;
+	}
+	switch (this->type) {
+	case DataType::INTEGER:
+		out = this->int_data - data;
+		out.type = DataType::INTEGER;
+		break;
+	case DataType::DOUBLE:
+		out = this->double_data - data;
+		out.type = DataType::DOUBLE;
+		break;
+	case DataType::CHARACTER:
+		out = this->char_data - data;
+		out.type = DataType::CHARACTER;
+		break;
+	default:
+		break;
+	}
+	return out;
+}
+
+Variant Variant::operator- (INT data) {
 	Variant out;
 	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
 		return out;
@@ -385,7 +455,7 @@ Variant Variant::operator- (const Variant& data) {
 			out.type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			out = (char)this->int_data - data.char_data;
+			out = (char)this->int_data - (INT)data.char_data;
 			out.type = DataType::CHARACTER;
 			break;
 		default:
@@ -413,7 +483,7 @@ Variant Variant::operator- (const Variant& data) {
 	case DataType::CHARACTER:
 		switch (data.type) {
 		case DataType::INTEGER:
-			out = this->char_data - (char)data.int_data;
+			out = (INT)this->char_data - (char)data.int_data;
 			out.type = DataType::CHARACTER;
 			break;
 		case DataType::DOUBLE:
@@ -421,7 +491,7 @@ Variant Variant::operator- (const Variant& data) {
 			out.type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			out = this->char_data - data.char_data;
+			out = (INT)this->char_data - data.char_data;
 			out.type = DataType::CHARACTER;
 			break;
 		default:
@@ -449,8 +519,32 @@ Variant Variant::operator* (int data) {
 		out.type = DataType::DOUBLE;
 		break;
 	case DataType::CHARACTER:
-		out = this->char_data * data;
-		out.type = DataType::CHARACTER;
+		out = (INT)this->char_data * data;
+		out.type = DataType::INTEGER;
+		break;
+	default:
+		break;
+	}
+	return out;
+}
+
+Variant Variant::operator* (INT data) {
+	Variant out;
+	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
+		return out;
+	}
+	switch (this->type) {
+	case DataType::INTEGER:
+		out = this->int_data * data;
+		out.type = DataType::INTEGER;
+		break;
+	case DataType::DOUBLE:
+		out = this->double_data * data;
+		out.type = DataType::DOUBLE;
+		break;
+	case DataType::CHARACTER:
+		out = (INT)this->char_data * data;
+		out.type = DataType::INTEGER;
 		break;
 	default:
 		break;
@@ -500,8 +594,8 @@ Variant Variant::operator* (const Variant& data) {
 			out.type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			out = (char)this->int_data * data.char_data;
-			out.type = DataType::CHARACTER;
+			out = this->int_data * (INT)data.char_data;
+			out.type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -528,16 +622,16 @@ Variant Variant::operator* (const Variant& data) {
 	case DataType::CHARACTER:
 		switch (data.type) {
 		case DataType::INTEGER:
-			out = this->char_data * (char)data.int_data;
-			out.type = DataType::CHARACTER;
+			out = (INT)this->char_data * data.int_data;
+			out.type = DataType::INTEGER;
 			break;
 		case DataType::DOUBLE:
 			out = (double)this->char_data * data.double_data;
 			out.type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			out = this->char_data * data.char_data;
-			out.type = DataType::CHARACTER;
+			out = (INT)this->char_data * (INT)data.char_data;
+			out.type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -564,8 +658,32 @@ Variant Variant::operator/ (int data) {
 		out.type = DataType::DOUBLE;
 		break;
 	case DataType::CHARACTER:
-		out = this->char_data / data;
-		out.type = DataType::CHARACTER;
+		out = (INT)this->char_data / data;
+		out.type = DataType::INTEGER;
+		break;
+	default:
+		break;
+	}
+	return out;
+}
+
+Variant Variant::operator/ (INT data) {
+	Variant out;
+	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
+		return out;
+	}
+	switch (this->type) {
+	case DataType::INTEGER:
+		out = this->int_data / data;
+		out.type = DataType::INTEGER;
+		break;
+	case DataType::DOUBLE:
+		out = this->double_data / data;
+		out.type = DataType::DOUBLE;
+		break;
+	case DataType::CHARACTER:
+		out = (INT)this->char_data / data;
+		out.type = DataType::INTEGER;
 		break;
 	default:
 		break;
@@ -615,8 +733,8 @@ Variant Variant::operator/ (const Variant& data) {
 			out.type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			out = (char)this->int_data / data.char_data;
-			out.type = DataType::CHARACTER;
+			out = this->int_data / (INT)data.char_data;
+			out.type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -643,16 +761,16 @@ Variant Variant::operator/ (const Variant& data) {
 	case DataType::CHARACTER:
 		switch (data.type) {
 		case DataType::INTEGER:
-			out = this->char_data / (char)data.int_data;
-			out.type = DataType::CHARACTER;
+			out = (INT)this->char_data / data.int_data;
+			out.type = DataType::INTEGER;
 			break;
 		case DataType::DOUBLE:
 			out = (double)this->char_data / data.double_data;
 			out.type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			out = this->char_data / data.char_data;
-			out.type = DataType::CHARACTER;
+			out = (INT)this->char_data / data.char_data;
+			out.type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -756,7 +874,29 @@ Variant& Variant::operator+= (int data) {
 		this->double_data += data;
 		break;
 	case DataType::CHARACTER:
-		this->char_data += data;
+		this->int_data = (INT)this->char_data + data;
+		this->type = DataType::INTEGER;
+		break;
+	default:
+		break;
+	}
+	return *this;
+}
+
+Variant& Variant::operator+= (INT data) {
+	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
+		return *this;
+	}
+	switch (this->type) {
+	case DataType::INTEGER:
+		this->int_data += data;
+		break;
+	case DataType::DOUBLE:
+		this->double_data += data;
+		break;
+	case DataType::CHARACTER:
+		this->int_data = (INT)this->char_data + data;
+		this->type = DataType::INTEGER;
 		break;
 	default:
 		break;
@@ -779,6 +919,21 @@ Variant& Variant::operator+= (double data) {
 	case DataType::CHARACTER:
 		this->double_data = this->char_data + data;
 		this->type = DataType::DOUBLE;
+		break;
+	default:
+		break;
+	}
+	return *this;
+}
+
+Variant& Variant::operator+= (const char* data) {
+	if (this->type == DataType::INTEGER || this->type == DataType::DOUBLE ||
+		this->type == DataType::BOOLEAN || this->type == DataType::CHARACTER) {
+		return *this;
+	}
+	switch (this->type) {
+	case DataType::STRING:
+		*this->string_data += std::string(data);
 		break;
 	default:
 		break;
@@ -818,8 +973,8 @@ Variant& Variant::operator+= (const Variant& data) {
 			this->type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			this->char_data = (char)this->int_data + data.char_data;
-			this->type = DataType::CHARACTER;
+			this->int_data += (INT)data.char_data;
+			this->type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -846,16 +1001,16 @@ Variant& Variant::operator+= (const Variant& data) {
 	case DataType::CHARACTER:
 		switch (data.type) {
 		case DataType::INTEGER:
-			this->char_data += (char)data.int_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = (INT)this->char_data + data.int_data;
+			this->type = DataType::INTEGER;
 			break;
 		case DataType::DOUBLE:
 			this->double_data = (double)this->char_data + data.double_data;
 			this->type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			this->char_data += data.char_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = (INT)this->char_data + (INT)data.char_data;
+			this->type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -891,7 +1046,29 @@ Variant& Variant::operator-= (int data) {
 		this->double_data -= data;
 		break;
 	case DataType::CHARACTER:
-		this->char_data -= data;
+		this->int_data = (INT)this->char_data - data;
+		this->type = DataType::INTEGER;
+		break;
+	default:
+		break;
+	}
+	return *this;
+}
+
+Variant& Variant::operator-= (INT data) {
+	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
+		return *this;
+	}
+	switch (this->type) {
+	case DataType::INTEGER:
+		this->int_data -= data;
+		break;
+	case DataType::DOUBLE:
+		this->double_data -= data;
+		break;
+	case DataType::CHARACTER:
+		this->int_data = (INT)this->char_data - data;
+		this->type = DataType::INTEGER;
 		break;
 	default:
 		break;
@@ -938,8 +1115,8 @@ Variant& Variant::operator-= (const Variant& data) {
 			this->type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			this->char_data = (char)this->int_data - data.char_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = this->int_data - (INT)data.char_data;
+			this->type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -966,16 +1143,16 @@ Variant& Variant::operator-= (const Variant& data) {
 	case DataType::CHARACTER:
 		switch (data.type) {
 		case DataType::INTEGER:
-			this->char_data -= (char)data.int_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = (INT)this->char_data - data.int_data;
+			this->type = DataType::INTEGER;
 			break;
 		case DataType::DOUBLE:
 			this->double_data = (double)this->char_data - data.double_data;
 			this->type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			this->char_data -= data.char_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = this->char_data - (INT)data.char_data;
+			this->type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -999,7 +1176,29 @@ Variant& Variant::operator*= (int data) {
 		this->double_data *= data;
 		break;
 	case DataType::CHARACTER:
-		this->char_data *= data;
+		this->int_data = this->char_data * data;
+		this->type = DataType::INTEGER;
+		break;
+	default:
+		break;
+	}
+	return *this;
+}
+
+Variant& Variant::operator*= (INT data) {
+	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
+		return *this;
+	}
+	switch (this->type) {
+	case DataType::INTEGER:
+		this->int_data *= data;
+		break;
+	case DataType::DOUBLE:
+		this->double_data *= data;
+		break;
+	case DataType::CHARACTER:
+		this->int_data = this->char_data * data;
+		this->type = DataType::INTEGER;
 		break;
 	default:
 		break;
@@ -1046,8 +1245,8 @@ Variant& Variant::operator*= (const Variant& data) {
 			this->type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			this->char_data = (char)this->int_data * data.char_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = this->int_data * (INT)data.char_data;
+			this->type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -1074,16 +1273,16 @@ Variant& Variant::operator*= (const Variant& data) {
 	case DataType::CHARACTER:
 		switch (data.type) {
 		case DataType::INTEGER:
-			this->char_data *= (char)data.int_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = this->char_data * (INT)data.int_data;
+			this->type = DataType::INTEGER;
 			break;
 		case DataType::DOUBLE:
 			this->double_data = (double)this->char_data * data.double_data;
 			this->type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			this->char_data *= data.char_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = this->char_data * (INT)data.char_data;
+			this->type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -1096,6 +1295,27 @@ Variant& Variant::operator*= (const Variant& data) {
 }
 
 Variant& Variant::operator/= (int data) {
+	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
+		return *this;
+	}
+	switch (this->type) {
+	case DataType::INTEGER:
+		this->int_data /= data;
+		break;
+	case DataType::DOUBLE:
+		this->double_data /= data;
+		break;
+	case DataType::CHARACTER:
+		this->int_data = this->char_data / data;
+		this->type = DataType::INTEGER;
+		break;
+	default:
+		break;
+	}
+	return *this;
+}
+
+Variant& Variant::operator/= (INT data) {
 	if (this->type == DataType::STRING || this->type == DataType::BOOLEAN) {
 		return *this;
 	}
@@ -1154,8 +1374,8 @@ Variant& Variant::operator/= (const Variant& data) {
 			this->type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			this->char_data = (char)this->int_data / data.char_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = this->int_data / (INT)data.char_data;
+			this->type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -1182,16 +1402,16 @@ Variant& Variant::operator/= (const Variant& data) {
 	case DataType::CHARACTER:
 		switch (data.type) {
 		case DataType::INTEGER:
-			this->char_data /= (char)data.int_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = this->char_data / data.int_data;
+			this->type = DataType::INTEGER;
 			break;
 		case DataType::DOUBLE:
 			this->double_data = (double)this->char_data / data.double_data;
 			this->type = DataType::DOUBLE;
 			break;
 		case DataType::CHARACTER:
-			this->char_data /= data.char_data;
-			this->type = DataType::CHARACTER;
+			this->int_data = this->char_data / data.char_data;
+			this->type = DataType::INTEGER;
 			break;
 		default:
 			break;
@@ -1203,27 +1423,6 @@ Variant& Variant::operator/= (const Variant& data) {
 	return *this;
 }
 
-int Variant::get_type() {
-	return (int)this->type;
+DataType Variant::get_type() {
+	return this->type;
 }
-
-void* Variant::get_data() {
-	switch (this->type) {
-	case DataType::INTEGER:
-		return (void*)&this->int_data;
-	case DataType::DOUBLE:
-		return (void*)&this->double_data;
-		break;
-	case DataType::STRING:
-		return (void*)this->string_data;
-		break;
-	case DataType::BOOLEAN:
-		return (void*)&this->bool_data;
-	case DataType::CHARACTER:
-		return (void*)&this->char_data;
-	default:
-		break;
-	}
-	return nullptr;
-}
-
