@@ -7,6 +7,11 @@ Config::Config(std::string filename) {
 	std::string line;
 	std::ifstream file;
 	file.open(filename);
+	if (!file.is_open()) {
+		CL_Error ex(CLErrorCode::FAIL_2_OPEN);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	while (std::getline(file, line)) {
 		if (line.length() == 0) {
 			continue;
@@ -15,13 +20,20 @@ Config::Config(std::string filename) {
 			continue;
 		}
 		if (line.at(line.size() - 1) != ';') {
-			CL_Error ex(CLErrorCode::SEMICOLON);
-			std::cerr << ex.what() << std::endl;
-			throw ex;
+			if (line.at(line.size() - 1) == ',') {
+				buffer += line;
+				continue;
+			}
+			else {
+				CL_Error ex(CLErrorCode::SEMICOLON);
+				std::cerr << ex.what() << std::endl;
+				throw ex;
+			}
 
 		}
 		buffer += line;
 	}
+	file.close();
 	buffer.erase(std::remove(buffer.begin(), buffer.end(), '\t'), buffer.end());
 	std::vector<std::string> raw_entries;
 	split_string(raw_entries, buffer, ';');

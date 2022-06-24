@@ -22,6 +22,9 @@ CL_Error::CL_Error(CLErrorCode error) {
 	case CLErrorCode::ADD_KEY_REPEAT:
 		this->message = "Key already exists in config file.";
 		break;
+	case CLErrorCode::FAIL_2_OPEN:
+		this->message = "Could not open/find specified config file.";
+		break;
 	default:
 		this->message = "Undefinded error.";
 		break;
