@@ -46,7 +46,6 @@ Value::Value(std::string& raw_value) {
 			#else
 			this->single_data = std::stoi(raw_value);
 			#endif
-			//this->single_data = std::stoi(raw_value);
 			break;
 		case 2:
 			this->type = ValueType::DBL_NUM;
@@ -55,7 +54,6 @@ Value::Value(std::string& raw_value) {
 			#else
 			this->single_data = std::stod(raw_value);
 			#endif
-			//this->single_data = std::stod(raw_value);
 			break;
 		default:
 			break;
