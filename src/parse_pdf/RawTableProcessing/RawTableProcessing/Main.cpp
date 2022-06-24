@@ -4,15 +4,15 @@
 #include <algorithm>
 
 int main() {
-	Config* main_config = new Config("../../config/ParsePDFConfig.cl");
-	std::string parse_pdf_dir = *(std::string*)main_config->get_value("ParsePDFDir")->get_num_str_data().get_data() + "/";
-	std::string raw_tables_dir = *(std::string*)main_config->get_value("RawTablesDir")->get_num_str_data().get_data() + "/";
-	std::string config_files_dir = *(std::string*)main_config->get_value("ConfigFilesDir")->get_num_str_data().get_data() + "/";
-	Config* areas_config = new Config(parse_pdf_dir + *(std::string*)main_config->get_value("PDFAreasCL")->get_num_str_data().get_data());
-	Config* dept_index = new Config(config_files_dir + *(std::string*)main_config->get_value("DepartmentsIndex")->get_num_str_data().get_data());
-	Config* distr_index = new Config(config_files_dir + *(std::string*)main_config->get_value("DistrictsIndex")->get_num_str_data().get_data());
-	Config* age_index = new Config(config_files_dir + *(std::string*)main_config->get_value("AgeGroupsIndex")->get_num_str_data().get_data());
-	int n_tables = areas_config->get_n_pairs();
+	cl::Config* main_config = new cl::Config("../../config/ParsePDFConfig.cl");
+	std::string parse_pdf_dir = main_config->get_value("ParsePDFDir")->get_data<std::string>() + "/";
+	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
+	std::string config_files_dir = main_config->get_value("ConfigFilesDir")->get_data<std::string>() + "/";
+	cl::Config* areas_config = new cl::Config(parse_pdf_dir + main_config->get_value("PDFAreasCL")->get_data<std::string>());
+	cl::Config* dept_index = new cl::Config(config_files_dir + main_config->get_value("DepartmentsIndex")->get_data<std::string>());
+	cl::Config* distr_index = new cl::Config(config_files_dir + main_config->get_value("DistrictsIndex")->get_data<std::string>());
+	cl::Config* age_index = new cl::Config(config_files_dir + main_config->get_value("AgeGroupsIndex")->get_data<std::string>());
+	int n_tables = areas_config->get_n_entries();
 
 	// Process PruebasAcumuladasDepto.csv
 	{
