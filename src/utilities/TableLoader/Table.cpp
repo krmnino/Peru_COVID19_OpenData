@@ -1,6 +1,7 @@
 
 #include "Table.hpp"
 
+namespace tl {
 Table::Table(std::string filename, char delim) {
 	this->rows = 0;
 	this->columns = 0;
@@ -34,19 +35,27 @@ Table::Table(std::string filename, char delim) {
 		this->columns++;
 	}
 
+	// Add elements from raw_table to this->contents column by column
 	for (unsigned int i = 0; i < this->columns; i++) {
 		for (unsigned int j = 1; j < raw_table.size(); j++) {
 			// Check if data is string, double, or integer
-			auto tmp = raw_table[j][i];
 			switch (this->check_data_type(raw_table[j][i])) {
 			case 0:
 				this->contents[this->header_index[i]].push_back(raw_table[j][i]);
 				break;
 			case 1:
+				#ifdef LINUX
+				this->contents[this->header_index[i]].push_back(std::atoi(raw_table[j][i].c_str()));
+				#else
 				this->contents[this->header_index[i]].push_back(std::stoi(raw_table[j][i]));
+				#endif
 				break;
 			case 2:
+				#ifdef LINUX
+				this->contents[this->header_index[i]].push_back(std::atof(raw_table[j][i].c_str()));
+				#else
 				this->contents[this->header_index[i]].push_back(std::stod(raw_table[j][i]));
+				#endif
 				break;
 			default:
 				break;
@@ -61,7 +70,7 @@ Table::Table() {
 	this->delimiter = ',';
 }
 
-Table::Table(int cols_, int rows_, char delim) {
+Table::Table(int rows_, int cols_, char delim) {
 	this->rows = rows_;
 	this->columns = cols_;
 	this->delimiter = delim;
@@ -168,6 +177,14 @@ int Table::get_columns() {
 	return this->columns;
 }
 
+char Table::get_delimiter() {
+	return this->delimiter;
+}
+
+std::vector<std::string> Table::get_header() {
+	return this->header_index;
+}
+
 std::string Table::get_filename() {
 	return this->filename;
 }
@@ -177,20 +194,43 @@ std::vector<std::string> Table::get_fields() {
 }
 
 std::vector<Variant> Table::get_column_data(std::string field_name) {
+	if (this->contents.find(field_name) == this->contents.end()) {
+		TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	return this->contents[field_name];
 }
 
 std::vector<Variant> Table::get_column_data(int field_idx) {
+	if (0 > field_idx || field_idx >= this->columns) {
+		TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	return this->contents[this->header_index[field_idx]];
 }
 
 std::vector<Variant> Table::get_row_data(int row_n) {
 	std::vector<Variant> out;
 	if (0 > row_n || row_n >= this->rows) {
-		return out;
+		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	for (int i = 0; i < this->columns; i++) {
 		out.push_back(this->contents[this->header_index[i]][row_n]);
+	}
+	return out;
+}
+
+std::vector<Variant> Table::get_begin_row() {
+	std::vector<Variant> out;
+	if (this->rows == 0) {
+		return out;
+	}
+	for (int i = 0; i < this->columns; i++) {
+		out.push_back(this->contents[this->header_index[i]][0]);
 	}
 	return out;
 }
@@ -209,11 +249,14 @@ std::vector<Variant> Table::get_end_row() {
 Variant Table::get_cell_data(std::string field, int row) {
 	Variant out;
 	if (0 > row || row >= this->rows) {
-		return out;
+		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
-	auto ret = this->contents[field];
-	if (ret.size() == 0) {
-		return out;
+	if (this->contents.find(field) == this->contents.end()) {
+		TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	return this->contents[field][row];
 }
@@ -228,7 +271,9 @@ void Table::set_delimiter(char new_delim) {
 
 void Table::append_begin_row(std::vector<Variant> data) {
 	if (data.size() != this->columns) {
-		return;
+		TL_Error ex(TLErrorCode::INVALID_ROW_LEGNTH);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	for (int i = 0; i < this->columns; i++) {
 		this->contents[this->header_index[i]].insert(this->contents[this->header_index[i]].begin(), data[i]);
@@ -238,7 +283,9 @@ void Table::append_begin_row(std::vector<Variant> data) {
 
 void Table::append_end_row(std::vector<Variant> data) {
 	if (data.size() != this->columns) {
-		return;
+		TL_Error ex(TLErrorCode::INVALID_ROW_LEGNTH);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	for (int i = 0; i < this->columns; i++) {
 		this->contents[this->header_index[i]].push_back(data[i]);
@@ -248,21 +295,28 @@ void Table::append_end_row(std::vector<Variant> data) {
 
 void Table::update_cell_data(std::string field, int row, Variant data) {
 	if (0 > row || row >= this->rows) {
-		return;
+		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
-	auto ret = this->contents[field];
-	if (ret.size() == 0) {
-		return;
+	if (this->contents.find(field) == this->contents.end()) {
+		TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	this->contents[field][row] = data;
 }
 
 void Table::update_cell_data(int col, int row, Variant data) {
 	if (0 > col || col >= this->columns) {
-		return;
+		TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	if (0 > row || row >= this->rows) {
-		return;
+		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	this->contents[this->header_index[col]][row] = data;
 }
@@ -293,6 +347,18 @@ void Table::save_as_csv(std::string path) {
 }
 
 void Table::compute_new_column(std::string new_col_name, std::vector<std::string>& table_col_names, Variant (*fn)(int, std::vector<std::vector<Variant>>&)) {
+	if (this->contents.find(new_col_name) != this->contents.end()) {
+		TL_Error ex(TLErrorCode::DUPLICATE_FIELD);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	for (int i = 0; i < table_col_names.size(); i++) {
+		if (this->contents.find(table_col_names[i]) == this->contents.end()) {
+			TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+	}
 	std::vector<std::vector<Variant>> table_columns;
 	for (unsigned int i = 0; i < table_col_names.size(); i++) {
 		table_columns.push_back(this->contents[table_col_names[i]]);
@@ -306,6 +372,18 @@ void Table::compute_new_column(std::string new_col_name, std::vector<std::string
 }
 
 void Table::compute_new_column(std::string new_col_name, std::vector<int>& table_col_idxs, Variant(*fn)(int, std::vector<std::vector<Variant>>&)) {
+	if (this->contents.find(new_col_name) != this->contents.end()) {
+		TL_Error ex(TLErrorCode::DUPLICATE_FIELD);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	for (int i = 0; i < table_col_idxs.size(); i++) {
+		if (0 > table_col_idxs[i] || table_col_idxs[i] >= this->header_index.size()) {
+			TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+	}
 	std::vector<std::vector<Variant>> table_columns;
 	for (unsigned int i = 0; i < table_col_idxs.size(); i++) {
 		table_columns.push_back(this->contents[this->header_index[table_col_idxs[i]]]);
@@ -319,6 +397,18 @@ void Table::compute_new_column(std::string new_col_name, std::vector<int>& table
 }
 
 void Table::compute_update_column(std::string col_name, std::vector<std::string>& table_col_names, Variant(*fn)(int, std::vector<std::vector<Variant>>&)) {
+	if (this->contents.find(col_name) == this->contents.end()) {
+		TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	for (int i = 0; i < table_col_names.size(); i++) {
+		if (this->contents.find(table_col_names[i]) == this->contents.end()) {
+			TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+	}
 	std::vector<std::vector<Variant>> table_columns;
 	for (unsigned int i = 0; i < table_col_names.size(); i++) {
 		table_columns.push_back(this->contents[table_col_names[i]]);
@@ -329,6 +419,18 @@ void Table::compute_update_column(std::string col_name, std::vector<std::string>
 }
 
 void Table::compute_update_column(int col_idx, std::vector<std::string>& table_col_names, Variant(*fn)(int, std::vector<std::vector<Variant>>&)) {
+	if (0 > col_idx || col_idx >= this->header_index.size()) {
+		TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	for (int i = 0; i < table_col_names.size(); i++) {
+		if (this->contents.find(table_col_names[i]) == this->contents.end()) {
+			TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+	}
 	std::vector<std::vector<Variant>> table_columns;
 	for (unsigned int i = 0; i < table_col_names.size(); i++) {
 		table_columns.push_back(this->contents[table_col_names[i]]);
@@ -339,6 +441,18 @@ void Table::compute_update_column(int col_idx, std::vector<std::string>& table_c
 }
 
 void Table::compute_update_column(std::string col_name, std::vector<int>& table_col_idxs, Variant(*fn)(int, std::vector<std::vector<Variant>>&)) {
+	if (this->contents.find(col_name) == this->contents.end()) {
+		TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	for (int i = 0; i < table_col_idxs.size(); i++) {
+		if (0 > table_col_idxs[i] || table_col_idxs[i] >= this->header_index.size()) {
+			TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+	}
 	std::vector<std::vector<Variant>> table_columns;
 	for (unsigned int i = 0; i < table_col_idxs.size(); i++) {
 		table_columns.push_back(this->contents[this->header_index[table_col_idxs[i]]]);
@@ -349,6 +463,18 @@ void Table::compute_update_column(std::string col_name, std::vector<int>& table_
 }
 
 void Table::compute_update_column(int col_idx, std::vector<int>& table_col_idxs, Variant(*fn)(int, std::vector<std::vector<Variant>>&)) {
+	if (0 > col_idx || col_idx >= this->header_index.size()) {
+		TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	for (int i = 0; i < table_col_idxs.size(); i++) {
+		if (0 > table_col_idxs[i] || table_col_idxs[i] >= this->header_index.size()) {
+			TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+	}
 	std::vector<std::vector<Variant>> table_columns;
 	for (unsigned int i = 0; i < table_col_idxs.size(); i++) {
 		table_columns.push_back(this->contents[this->header_index[table_col_idxs[i]]]);
@@ -379,6 +505,11 @@ void Table::join_tables(Table& src) {
 }
 
 void Table::remove_column(std::string col_name) {
+	if (this->contents.find(col_name) == this->contents.end()) {
+		TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	for (int i = 0; i < this->header_index.size(); i++) {
 		if (this->header_index[i] == col_name) {
 			this->header_index.erase(this->header_index.begin() + i);
@@ -390,21 +521,26 @@ void Table::remove_column(std::string col_name) {
 }
 
 void Table::remove_column(int col_idx) {
-	std::string field_name;
-	for (int i = 0; i < this->header_index.size(); i++) {
-		if (i == col_idx) {
-			field_name = this->header_index[i];
-			this->header_index.erase(this->header_index.begin() + i);
-			this->contents.erase(field_name);
-			this->columns--;
-			break;
-		}
+	if (0 > col_idx || col_idx >= this->header_index.size()) {
+		TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
+	std::string field_name = this->header_index[col_idx];
+	this->header_index.erase(this->header_index.begin() + col_idx);
+	this->contents.erase(field_name);
+	this->columns--;
 }
 
-void Table::remove_row(int col_idx) {
+void Table::remove_row(int row_idx) {
+	if (0 > row_idx || row_idx >= this->rows) {
+		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	for (int i = 0; i < this->header_index.size(); i++) {
-		this->contents[this->header_index[i]].erase(this->contents[this->header_index[i]].begin() + col_idx);
+		this->contents[this->header_index[i]].erase(this->contents[this->header_index[i]].begin() + row_idx);
 	}
 	this->rows--;
+}
 }

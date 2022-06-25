@@ -8,7 +8,9 @@
 #include <map>
 
 #include "../DataVariant/Variant.hpp"
+#include "TLErrorHandler.hpp"
 
+namespace tl {
 class Table {
 private:
 	int rows;
@@ -28,13 +30,17 @@ public:
 	~Table();
 	int get_rows();
 	int get_columns();
+	char get_delimiter();
+	std::vector<std::string> get_header();
 	std::string get_filename();
 	std::vector<std::string> get_fields();
 	std::vector<Variant> get_column_data(std::string);
 	std::vector<Variant> get_column_data(int);
 	std::vector<Variant> get_row_data(int);
+	std::vector<Variant> get_begin_row();
 	std::vector<Variant> get_end_row();
 	Variant get_cell_data(std::string, int);
+	Variant get_cell_data(int, int);
 	void set_filename(std::string);
 	void set_delimiter(char);
 	void append_begin_row(std::vector<Variant>);
@@ -53,5 +59,6 @@ public:
 	void remove_column(int);
 	void remove_row(int);
 };
+}
 
 #endif // TABLE
