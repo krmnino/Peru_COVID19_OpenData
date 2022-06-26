@@ -6750,5 +6750,13 @@
 		"Pruebas": 31346020,
 		"Recuperados": 3578268,
 		"Hospitalizados": 816
+	},
+	{
+		"Fecha": "2022-06-25",
+		"Casos": 3613464,
+		"Fallecidos": 213447,
+		"Pruebas": 31376588,
+		"Recuperados": 3579550,
+		"Hospitalizados": 833
 	}
 ]
