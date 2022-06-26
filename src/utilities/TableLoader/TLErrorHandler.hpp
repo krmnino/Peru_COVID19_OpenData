@@ -1,3 +1,6 @@
+#ifndef TLERROR
+#define TLERROR
+
 #include <exception>
 #include <string>
 
@@ -25,3 +28,5 @@ public:
 	TLErrorCode get_error_code();
 };
 }
+
+#endif // !TLERROR

@@ -1,3 +1,6 @@
+#ifndef CLERROR
+#define CLERROR
+
 #include <exception>
 #include <string>
 
@@ -24,3 +27,5 @@ public:
 	CLErrorCode get_error_code();
 };
 }
+
+#endif // !CLERROR

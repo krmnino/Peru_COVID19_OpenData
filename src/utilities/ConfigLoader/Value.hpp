@@ -1,5 +1,5 @@
-#ifndef PAIR
-#define PAIR
+#ifndef VALUE
+#define VALUE
 
 #include "../DataVariant/Variant.hpp"
 #include <string>
@@ -75,4 +75,4 @@ public:
 };
 }
 
-#endif // !PAIR
+#endif // !VALUE
