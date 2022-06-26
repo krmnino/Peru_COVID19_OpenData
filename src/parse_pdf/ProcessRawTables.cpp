@@ -83,7 +83,7 @@ Variant convert2double(int idx, std::vector<std::vector<Variant>>& col) {
 	return out;
 }
 
-void set_proper_col_names(cl::Config& names_index, Table& raw_table) {
+void set_proper_col_names(cl::Config& names_index, tl::Table& raw_table) {
 	for (int i = 0; i < raw_table.get_rows(); i++) {
 		std::string itr_str = std::to_string(i);
 		std::string name_str = names_index.get_value(itr_str)->get_data<std::string>();
@@ -93,10 +93,10 @@ void set_proper_col_names(cl::Config& names_index, Table& raw_table) {
 }
 
 
-int process_pa_depto(Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int process_pa_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
 	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
 	std::vector<Variant> table_config = areas_config->get_value("PADepto")->get_data<cl::List>();
-	raw_table = new Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("PADepto_RTHdr")->get_data<cl::List>();
 	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
@@ -134,10 +134,10 @@ int process_pa_depto(Table*& raw_table, cl::Config* main_config, cl::Config* are
 	return 0;
 }
 
-int process_ca_depto(Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int process_ca_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
 	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
 	std::vector<Variant> table_config = areas_config->get_value("CADepto")->get_data<cl::List>();
-	raw_table = new Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("CADepto_RTHdr")->get_data<cl::List>();
 	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
@@ -175,10 +175,10 @@ int process_ca_depto(Table*& raw_table, cl::Config* main_config, cl::Config* are
 	return 0;
 }
 
-int process_cp_edades(Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* age_index) {
+int process_cp_edades(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* age_index) {
 	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
 	std::vector<Variant> table_config = areas_config->get_value("CPEdades")->get_data<cl::List>();
-	raw_table = new Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("CPEdades_RTHdr")->get_data<cl::List>();
 	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
@@ -211,10 +211,10 @@ int process_cp_edades(Table*& raw_table, cl::Config* main_config, cl::Config* ar
 	return 0;
 }
 
-int process_ma_depto(Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int process_ma_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
 	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
 	std::vector<Variant> table_config = areas_config->get_value("MADepto")->get_data<cl::List>();
-	raw_table = new Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("MADepto_RTHdr")->get_data<cl::List>();
 	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
@@ -242,10 +242,10 @@ int process_ma_depto(Table*& raw_table, cl::Config* main_config, cl::Config* are
 	return 0;
 }
 
-int process_ma_deptosm(Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int process_ma_deptosm(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
 	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
 	std::vector<Variant> table_config = areas_config->get_value("MADepto")->get_data<cl::List>();
-	raw_table = new Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
 	std::vector<Variant> table_col_config = main_config->get_value("MADeptoSM_RTHdr")->get_data<cl::List>();
 	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
@@ -283,12 +283,12 @@ int process_ma_deptosm(Table*& raw_table, cl::Config* main_config, cl::Config* a
 	return 0;
 }
 
-int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
+int process_ca_distr_20(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
 	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
 	std::vector<Variant> table_config_p1 = areas_config->get_value("CADistr20P1")->get_data<cl::List>();
 	std::vector<Variant> table_config_p2 = areas_config->get_value("CADistr20P2")->get_data<cl::List>();
-	raw_table_p1 = new Table(raw_tables_dir + table_config_p1[5].get_data<std::string>(), ';');
-	raw_table_p2 = new Table(raw_tables_dir + table_config_p2[5].get_data<std::string>(), ';');
+	raw_table_p1 = new tl::Table(raw_tables_dir + table_config_p1[5].get_data<std::string>(), ';');
+	raw_table_p2 = new tl::Table(raw_tables_dir + table_config_p2[5].get_data<std::string>(), ';');
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("CADistr20P1_RTHdr")->get_data<cl::List>();
 	std::vector<Variant> table_col_config_p2 = main_config->get_value("CADistr20P2_RTHdr")->get_data<cl::List>();
 	if (raw_table_p1->get_rows() != table_config_p1[6].get_data<int>()) {
@@ -315,8 +315,18 @@ int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, cl::Config* 
 	}
 	std::vector<Variant> erase_fields = main_config->get_value("EraseFieldsCADistr20")->get_data<cl::List>();
 	// Remove percentage column
-	raw_table_p1->remove_column(erase_fields[0].get_data<std::string>());
-	raw_table_p2->remove_column(erase_fields[0].get_data<std::string>());
+	try {
+		raw_table_p1->remove_column(erase_fields[0].get_data<std::string>());
+	}
+	catch (tl::TL_Error ex) {
+		std::cout << "Overriding Exception." << std::endl;
+	}
+	try {
+		raw_table_p2->remove_column(erase_fields[0].get_data<std::string>());
+	}
+	catch (tl::TL_Error ex) {
+		std::cout << "Overriding Exception." << std::endl;
+	}
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);	
 	// Set proper district names (STRING)
@@ -334,12 +344,12 @@ int process_ca_distr_20(Table*& raw_table_p1, Table*& raw_table_p2, cl::Config* 
 	return 0;
 }
 
-int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index){
+int process_ca_distr_21(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index){
 	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
 	std::vector<Variant> table_config_p1 = areas_config->get_value("CADistr21P1")->get_data<cl::List>();
 	std::vector<Variant> table_config_p2 = areas_config->get_value("CADistr21P2")->get_data<cl::List>();
-	raw_table_p1 = new Table(raw_tables_dir + table_config_p1[5].get_data<std::string>(), ';');
-	raw_table_p2 = new Table(raw_tables_dir + table_config_p2[5].get_data<std::string>(), ';');
+	raw_table_p1 = new tl::Table(raw_tables_dir + table_config_p1[5].get_data<std::string>(), ';');
+	raw_table_p2 = new tl::Table(raw_tables_dir + table_config_p2[5].get_data<std::string>(), ';');
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("CADistr21P1_RTHdr")->get_data<cl::List>();
 	std::vector<Variant> table_col_config_p2 = main_config->get_value("CADistr21P2_RTHdr")->get_data<cl::List>();
 	if (raw_table_p1->get_rows() != table_config_p1[6].get_data<int>()) {
@@ -366,8 +376,18 @@ int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, cl::Config* 
 	}
 	std::vector<Variant> erase_fields = main_config->get_value("EraseFieldsCADistr21")->get_data<cl::List>();
 	// Remove percentage column
-	raw_table_p1->remove_column(erase_fields[0].get_data<std::string>());
-	raw_table_p2->remove_column(erase_fields[0].get_data<std::string>());
+	try {
+		raw_table_p1->remove_column(erase_fields[0].get_data<std::string>());
+	}
+	catch (tl::TL_Error ex) {
+		std::cout << "Overriding Exception." << std::endl;
+	}
+	try {
+		raw_table_p2->remove_column(erase_fields[0].get_data<std::string>());
+	}
+	catch (tl::TL_Error ex) {
+		std::cout << "Overriding Exception." << std::endl;
+	}
 	// Join part 1 and part 2
 	raw_table_p1->join_tables(*raw_table_p2);
 	// Set proper district names (STRING)
@@ -385,12 +405,12 @@ int process_ca_distr_21(Table*& raw_table_p1, Table*& raw_table_p2, cl::Config* 
 	return 0;
 }
 
-int process_ma_distr(Table*& raw_table_p1, Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
+int process_ma_distr(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
 	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
 	std::vector<Variant> table_config_p1 = areas_config->get_value("MADistrP1")->get_data<cl::List>();
 	std::vector<Variant> table_config_p2 = areas_config->get_value("MADistrP2")->get_data<cl::List>();
-	raw_table_p1 = new Table(raw_tables_dir + table_config_p1[5].get_data<std::string>(), ';');
-	raw_table_p2 = new Table(raw_tables_dir + table_config_p2[5].get_data<std::string>(), ';');
+	raw_table_p1 = new tl::Table(raw_tables_dir + table_config_p1[5].get_data<std::string>(), ';');
+	raw_table_p2 = new tl::Table(raw_tables_dir + table_config_p2[5].get_data<std::string>(), ';');
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("MADistrP1_RTHdr")->get_data<cl::List>();
 	std::vector<Variant> table_col_config_p2 = main_config->get_value("MADistrP2_RTHdr")->get_data<cl::List>();
 	if (raw_table_p1->get_rows() != table_config_p1[6].get_data<int>()) {

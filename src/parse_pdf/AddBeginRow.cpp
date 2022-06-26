@@ -1,13 +1,13 @@
 #include "RawTableProcessing.hpp"
 
-int append_begin_pa_depto(Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int append_begin_pa_depto(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
 	if (input_raw_table->get_rows() != dept_index->get_n_entries()) {
 		return -1;
 	}
 	std::string pa_depto_table_dir = main_config->get_value("PADepto_Dir")->get_data<std::string>() + "/";
 	for (int i = 0; i < dept_index->get_n_entries(); i++) {
 		std::string table_path = pa_depto_table_dir + input_raw_table->get_cell_data("Depto", i).get_data<std::string>() + ".csv";
-		Table* depto_table = new Table(table_path);
+		tl::Table* depto_table = new tl::Table(table_path);
 		depto_table->set_filename(table_path);
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
@@ -18,14 +18,14 @@ int append_begin_pa_depto(Table*& input_raw_table, cl::Config* main_config, cl::
 	return 0;
 }
 
-int append_begin_ca_depto(Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int append_begin_ca_depto(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
 	if (input_raw_table->get_rows() != dept_index->get_n_entries()) {
 		return -1;
 	}
 	std::string ca_depto_table_dir = main_config->get_value("CADepto_Dir")->get_data<std::string>() + "/";
 	for (int i = 0; i < dept_index->get_n_entries(); i++) {
 		std::string table_path = ca_depto_table_dir + input_raw_table->get_cell_data("Depto", i).get_data<std::string>() + ".csv";
-		Table* depto_table = new Table(table_path);
+		tl::Table* depto_table = new tl::Table(table_path);
 		depto_table->set_filename(table_path);
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
@@ -36,10 +36,10 @@ int append_begin_ca_depto(Table*& input_raw_table, cl::Config* main_config, cl::
 	return 0;
 }
 
-int append_begin_cp_edades(Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* age_index) {
+int append_begin_cp_edades(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* age_index) {
 	std::string ca_edades_table_fn = main_config->get_value("CPEdades_Dir")->get_data<std::string>() + "/" +
 									 main_config->get_value("CPEdades_PTName")->get_data<std::string>();
-	Table* ages_table = new Table(ca_edades_table_fn);
+	tl::Table* ages_table = new tl::Table(ca_edades_table_fn);
 	ages_table->set_filename(ca_edades_table_fn);
 	size_t num_entries = main_config->get_value("CPEdades_PTHdr")->get_data<cl::List>().size();
 	int curr_entry = 0;
@@ -58,14 +58,14 @@ int append_begin_cp_edades(Table*& input_raw_table, cl::Config* main_config, cl:
 	return 0;
 }
 
-int append_begin_ma_depto(Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int append_begin_ma_depto(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
 	if (input_raw_table->get_rows() != dept_index->get_n_entries()) {
 		return -1;
 	}
 	std::string ma_depto_table_dir = main_config->get_value("MADepto_Dir")->get_data<std::string>() + "/";
 	for (int i = 0; i < dept_index->get_n_entries(); i++) {
 		std::string table_path = ma_depto_table_dir + input_raw_table->get_cell_data("Depto", i).get_data<std::string>() + ".csv";
-		Table* depto_table = new Table(table_path);
+		tl::Table* depto_table = new tl::Table(table_path);
 		depto_table->set_filename(table_path);
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
@@ -76,14 +76,14 @@ int append_begin_ma_depto(Table*& input_raw_table, cl::Config* main_config, cl::
 	return 0;
 }
 
-int append_begin_ma_deptosm(Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int append_begin_ma_deptosm(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
 	if (input_raw_table->get_rows() != dept_index->get_n_entries()) {
 		return -1;
 	}
 	std::string ma_depto_table_dir = main_config->get_value("MADeptoSM_Dir")->get_data<std::string>() + "/";
 	for (int i = 0; i < dept_index->get_n_entries(); i++) {
 		std::string table_path = ma_depto_table_dir + input_raw_table->get_cell_data("Depto", i).get_data<std::string>() + ".csv";
-		Table* depto_table = new Table(table_path);
+		tl::Table* depto_table = new tl::Table(table_path);
 		depto_table->set_filename(table_path);
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
@@ -94,14 +94,14 @@ int append_begin_ma_deptosm(Table*& input_raw_table, cl::Config* main_config, cl
 	return 0;
 }
 
-int append_begin_ca_distr_20(Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
+int append_begin_ca_distr_20(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
 	if (input_raw_table->get_rows() != distr_index->get_n_entries()) {
 		return -1;
 	}
 	std::string ca_distr_20_table_dir = main_config->get_value("CADistr20_Dir")->get_data<std::string>() + "/";
 	for (int i = 0; i < distr_index->get_n_entries(); i++) {
 		std::string table_path = ca_distr_20_table_dir + input_raw_table->get_cell_data("Distrito", i).get_data<std::string>() + ".csv";
-		Table* distr_table = new Table(table_path);
+		tl::Table* distr_table = new tl::Table(table_path);
 		distr_table->set_filename(table_path);
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
@@ -112,14 +112,14 @@ int append_begin_ca_distr_20(Table*& input_raw_table, cl::Config* main_config, c
 	return 0;
 }
 
-int append_begin_ca_distr_21(Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
+int append_begin_ca_distr_21(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
 	if (input_raw_table->get_rows() != distr_index->get_n_entries()) {
 		return -1;
 	}
 	std::string ca_distr_21_table_dir = main_config->get_value("CADistr21_Dir")->get_data<std::string>() + "/";
 	for (int i = 0; i < distr_index->get_n_entries(); i++) {
 		std::string table_path = ca_distr_21_table_dir + input_raw_table->get_cell_data("Distrito", i).get_data<std::string>() + ".csv";
-		Table* distr_table = new Table(table_path);
+		tl::Table* distr_table = new tl::Table(table_path);
 		distr_table->set_filename(table_path);
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
@@ -130,14 +130,14 @@ int append_begin_ca_distr_21(Table*& input_raw_table, cl::Config* main_config, c
 	return 0;
 }
 
-int append_begin_ma_distr(Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
+int append_begin_ma_distr(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
 	if (input_raw_table->get_rows() != distr_index->get_n_entries()) {
 		return -1;
 	}
 	std::string ma_distr_table_dir = main_config->get_value("MADistr_Dir")->get_data<std::string>() + "/";
 	for (int i = 0; i < distr_index->get_n_entries(); i++) {
 		std::string table_path = ma_distr_table_dir + input_raw_table->get_cell_data("Distrito", i).get_data<std::string>() + ".csv";
-		Table* distr_table = new Table(table_path);
+		tl::Table* distr_table = new tl::Table(table_path);
 		distr_table->set_filename(table_path);
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
 		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
