@@ -4,7 +4,7 @@
 #include <algorithm>
 
 int main() {
-	cl::Config* main_config = new cl::Config("../../config/ParsePDFConfig.cl");
+	cl::Config* main_config = new cl::Config("../config/ParsePDFConfig.cl");
 	std::string parse_pdf_dir = main_config->get_value("ParsePDFDir")->get_data<std::string>() + "/";
 	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
 	std::string config_files_dir = main_config->get_value("ConfigFilesDir")->get_data<std::string>() + "/";
