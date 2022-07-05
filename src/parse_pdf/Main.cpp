@@ -3,17 +3,44 @@
 #include <iostream>
 #include <algorithm>
 
-int main() {
-	cl::Config* main_config = new cl::Config("../config/ParsePDFConfig.cl");
-	std::string parse_pdf_dir = main_config->get_value("ParsePDFDir")->get_data<std::string>() + "/";
-	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
-	std::string config_files_dir = main_config->get_value("ConfigFilesDir")->get_data<std::string>() + "/";
-	cl::Config* areas_config = new cl::Config(parse_pdf_dir + main_config->get_value("PDFAreasCL")->get_data<std::string>());
-	cl::Config* dept_index = new cl::Config(config_files_dir + main_config->get_value("DepartmentsIndex")->get_data<std::string>());
-	cl::Config* distr_index = new cl::Config(config_files_dir + main_config->get_value("DistrictsIndex")->get_data<std::string>());
-	cl::Config* age_index = new cl::Config(config_files_dir + main_config->get_value("AgeGroupsIndex")->get_data<std::string>());
-	int n_tables = areas_config->get_n_entries();
+#ifdef LINUX
+static std::string navigate = "";
+#else
+static std::string navigate = "../";
+#endif // LINUX
 
+int main() {
+	std::string config_path;
+
+	// Load main cofiguration file
+	config_path = navigate + "config/ParsePDFConfig.cl";
+	cl::Config* main_config = new cl::Config(config_path);
+
+	// Extract top level directory path
+#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+#endif // LINUX
+
+	// Load PDFAreas configuration file
+	config_path = main_config->get_value("PDFAreasCL")->get_data<std::string>();
+	cl::Config* areas_config = new cl::Config(top_level_path + config_path);
+
+	// Load Departments Index configuration file
+	config_path = main_config->get_value("DepartmentsIndex")->get_data<std::string>();
+	cl::Config* dept_index =  new cl::Config(top_level_path + config_path);
+
+	// Load Districts Index configuration file
+	config_path = main_config->get_value("DistrictsIndex")->get_data<std::string>();
+	cl::Config* distr_index = new cl::Config(top_level_path + config_path);
+
+	// Load Age Groups Index configuration file
+	config_path = main_config->get_value("AgeGroupsIndex")->get_data<std::string>();
+	cl::Config* age_index = new cl::Config(top_level_path + config_path);
+
+	int n_tables = areas_config->get_n_entries();
+	
 	// Process PruebasAcumuladasDepto.csv
 	{
 		tl::Table* input_raw_table;

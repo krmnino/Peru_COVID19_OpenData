@@ -1,29 +1,43 @@
+#Top Level Paths
+WindowsTopLevel = C:/Users/kurt_/github/Peru_COVID19_Stats/;
+LinuxTopLevel = /remote/github/Peru_COVID19_Stats/;
+
+# Paths to raw tables
+PADepto_RT = res/raw_tables/PruebasAcumuladoDepto.csv;
+CADepto_RT = res/raw_tables/CasosAcumuladoDepto.csv;
+CPEdades_RT = res/raw_tables/CasosPositivosEdades.csv;
+MADepto_RT = res/raw_tables/MuertesAcumuladoDepto.csv;
+MADeptoSM_RT = res/raw_tables/MuertesAcumuladoDeptoSM.csv;
+CADistr20P1_RT = res/raw_tables/CasosAcumuladoDistrito2020P1.csv;
+CADistr20P2_RT = res/raw_tables/CasosAcumuladoDistrito2020P2.csv;
+CADistr21P1_RT = res/raw_tables/CasosAcumuladoDistrito2021P1.csv;
+CADistr21P2_RT = res/raw_tables/CasosAcumuladoDistrito2021P2.csv;
+MADistrP1_RT = res/raw_tables/MuertesAcumuladoDistritoP1.csv;
+MADistrP2_RT = res/raw_tables/MuertesAcumuladoDistritoP2.csv;
+
 # Paths to directories
-ParsePDFDir = C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf;
-RawTablesDir = C:/Users/kurt_/github/Peru_COVID19_Stats/res/raw_tables;
-ConfigFilesDir = C:/Users/kurt_/github/Peru_COVID19_Stats/res/config_files;
-PADepto_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/PruebasAcumuladasDepto;
-CADepto_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuladosDepto;
-CPEdades_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosPositivosEdades;
-MADepto_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumuladasDepto;
-MADeptoSM_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumuladasDepto_SINADEF-MINSA;
-CADistr20_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuDistrito2020;
-CADistr21_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/CasosAcumuDistrito2021;
-MADistr_Dir = C:/Users/kurt_/github/Peru_COVID19_Stats/data/MuertesAcumulaDistrito;
-CPEdades_PTName = CasosPositivosEdades.csv;
+ConfigFilesDir = res/config_files/;
+PADepto_Dir = data/PruebasAcumuladasDepto/;
+CADepto_Dir = data/CasosAcumuladosDepto/;
+CPEdades_PTF = data/CasosPositivosEdades/CasosPositivosEdades.csv;
+MADepto_Dir = data/MuertesAcumuladasDepto/;
+MADeptoSM_Dir = data/MuertesAcumuladasDepto_SINADEF-MINSA/;
+CADistr20_Dir = data/CasosAcumuDistrito2020/;
+CADistr21_Dir = data/CasosAcumuDistrito2021/;
+MADistr_Dir = data/MuertesAcumulaDistrito/;
 
 # PDF Area config and csv files
-PDFAreasCSV = config/PDFAreas.csv;
-PDFAreasCL = config/PDFAreas.cl;
+PDFAreasCSV = src/parse_pdf/config/PDFAreas.csv;
+PDFAreasCL = src/parse_pdf/config/PDFAreas.cl;
 
 # Config files with information about departments and districts
-DepartmentsAreas = ../../res/config_files/DepartmentsAreas.cl;
-DepartmentsIndex = ../../res/config_files/DepartmentsIndex.cl;
-DepartmentsMacroregions = ../../res/config_files/DepartmentsMacroregions.cl;
-DepartmentsPopulation = ../../res/config_files/DepartmentsPopulation.cl;
-DistrictsIndex = ../../res/config_files/DistrictsIndex.cl;
-DistrictsZones = ../../res/config_files/DistrictsZones.cl;
-AgeGroupsIndex = ../../res/config_files/AgeGroupsIndex.cl;
+DepartmentsAreas = res/config_files/DepartmentsAreas.cl;
+DepartmentsIndex = res/config_files/DepartmentsIndex.cl;
+DepartmentsMacroregions = res/config_files/DepartmentsMacroregions.cl;
+DepartmentsPopulation = res/config_files/DepartmentsPopulation.cl;
+DistrictsIndex = res/config_files/DistrictsIndex.cl;
+DistrictsZones = res/config_files/DistrictsZones.cl;
+AgeGroupsIndex = res/config_files/AgeGroupsIndex.cl;
 
 # Headers for processing raw rables
 PADepto_RTHdr = [Depto, PCR, PR, AG, Total];

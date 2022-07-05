@@ -94,16 +94,25 @@ void set_proper_col_names(cl::Config& names_index, tl::Table& raw_table) {
 
 
 int process_pa_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
-	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("PADepto")->get_data<cl::List>();
-	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	// Extract top level directory path
+#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+#endif // LINUX
+
+	// Open raw table file
+	std::string raw_table_path = main_config->get_value("PADepto_RT")->get_data<std::string>();
+	raw_table = new tl::Table(top_level_path + raw_table_path, ';');
+
+	int expected_rows = main_config->get_value("PADepto_RTRows")->get_data<int>();
 	std::vector<Variant> table_col_config = main_config->get_value("PADepto_RTHdr")->get_data<cl::List>();
-	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
+	if (raw_table->get_rows() != expected_rows) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "PADepto -> Table rows: " << 
 					 raw_table->get_rows() <<
 				     " | Expected rows: " <<
-					 table_config[6].get_data<int>() << 
+					 expected_rows <<
 					 "\n" << ex.what() <<
 					 std::endl;
 		throw ex;
@@ -135,16 +144,25 @@ int process_pa_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config*
 }
 
 int process_ca_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
-	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("CADepto")->get_data<cl::List>();
-	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	// Extract top level directory path
+#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+#endif // LINUX
+
+	// Open raw table file
+	std::string raw_table_path = main_config->get_value("CADepto_RT")->get_data<std::string>();
+	raw_table = new tl::Table(top_level_path + raw_table_path, ';');
+
+	int expected_rows = main_config->get_value("CADepto_RTRows")->get_data<int>();
 	std::vector<Variant> table_col_config = main_config->get_value("CADepto_RTHdr")->get_data<cl::List>();
-	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
+	if (raw_table->get_rows() != expected_rows) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "CADepto -> Table rows: " <<
 			raw_table->get_rows() <<
 			" | Expected rows: " <<
-			table_config[6].get_data<int>() <<
+			expected_rows <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
@@ -176,16 +194,25 @@ int process_ca_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config*
 }
 
 int process_cp_edades(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* age_index) {
-	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("CPEdades")->get_data<cl::List>();
-	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	// Extract top level directory path
+#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+#endif // LINUX
+
+	// Open raw table file
+	std::string raw_table_path = main_config->get_value("CPEdades_RT")->get_data<std::string>();
+	raw_table = new tl::Table(top_level_path + raw_table_path, ';');
+
+	int expected_rows = main_config->get_value("CPEdades_RTRows")->get_data<int>();
 	std::vector<Variant> table_col_config = main_config->get_value("CPEdades_RTHdr")->get_data<cl::List>();
-	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
+	if (raw_table->get_rows() != expected_rows) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "CPEdades -> Table rows: " <<
 			raw_table->get_rows() <<
 			" | Expected rows: " <<
-			table_config[6].get_data<int>() <<
+			expected_rows <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
@@ -212,16 +239,25 @@ int process_cp_edades(tl::Table*& raw_table, cl::Config* main_config, cl::Config
 }
 
 int process_ma_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
-	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("MADepto")->get_data<cl::List>();
-	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	// Extract top level directory path
+#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+#endif // LINUX
+
+	// Open raw table file
+	std::string raw_table_path = main_config->get_value("MADepto_RT")->get_data<std::string>();
+	raw_table = new tl::Table(top_level_path + raw_table_path, ';');
+
+	int expected_rows = main_config->get_value("MADepto_RTRows")->get_data<int>();
 	std::vector<Variant> table_col_config = main_config->get_value("MADepto_RTHdr")->get_data<cl::List>();
-	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
+	if (raw_table->get_rows() != expected_rows) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "MADepto -> Table rows: " <<
 			raw_table->get_rows() <<
 			" | Expected rows: " <<
-			table_config[6].get_data<int>() <<
+			expected_rows <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
@@ -243,16 +279,25 @@ int process_ma_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config*
 }
 
 int process_ma_deptosm(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
-	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
-	std::vector<Variant> table_config = areas_config->get_value("MADepto")->get_data<cl::List>();
-	raw_table = new tl::Table(raw_tables_dir + table_config[5].get_data<std::string>(), ';');
+	// Extract top level directory path
+#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+#endif // LINUX
+
+	// Open raw table file
+	std::string raw_table_path = main_config->get_value("MADeptoSM_RT")->get_data<std::string>();
+	raw_table = new tl::Table(top_level_path + raw_table_path, ';');
+
+	int expected_rows = main_config->get_value("MADeptoSM_RTRows")->get_data<int>();
 	std::vector<Variant> table_col_config = main_config->get_value("MADeptoSM_RTHdr")->get_data<cl::List>();
-	if (raw_table->get_rows() != table_config[6].get_data<int>()) {
+	if (raw_table->get_rows() != expected_rows) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "MADeptoSM -> Table rows: " <<
 			raw_table->get_rows() <<
 			" | Expected rows: " <<
-			table_config[6].get_data<int>() <<
+			expected_rows <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
@@ -284,30 +329,40 @@ int process_ma_deptosm(tl::Table*& raw_table, cl::Config* main_config, cl::Confi
 }
 
 int process_ca_distr_20(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
-	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
-	std::vector<Variant> table_config_p1 = areas_config->get_value("CADistr20P1")->get_data<cl::List>();
-	std::vector<Variant> table_config_p2 = areas_config->get_value("CADistr20P2")->get_data<cl::List>();
-	raw_table_p1 = new tl::Table(raw_tables_dir + table_config_p1[5].get_data<std::string>(), ';');
-	raw_table_p2 = new tl::Table(raw_tables_dir + table_config_p2[5].get_data<std::string>(), ';');
+	// Extract top level directory path
+#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+#endif // LINUX
+
+	// Open raw table files
+	std::string raw_table_path_p1 = main_config->get_value("CADistr20P1_RT")->get_data<std::string>();
+	std::string raw_table_path_p2 = main_config->get_value("CADistr20P2_RT")->get_data<std::string>();	
+	raw_table_p1 = new tl::Table(top_level_path + raw_table_path_p1, ';');
+	raw_table_p2 = new tl::Table(top_level_path + raw_table_path_p2, ';');
+
+	int expected_rows_p1 = main_config->get_value("CADistr20P1_RTRows")->get_data<int>();
+	int expected_rows_p2 = main_config->get_value("CADistr20P2_RTRows")->get_data<int>();
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("CADistr20P1_RTHdr")->get_data<cl::List>();
 	std::vector<Variant> table_col_config_p2 = main_config->get_value("CADistr20P2_RTHdr")->get_data<cl::List>();
-	if (raw_table_p1->get_rows() != table_config_p1[6].get_data<int>()) {
+	if (raw_table_p1->get_rows() != expected_rows_p1) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "CADistr20P1 -> Table rows: " <<
 			raw_table_p1->get_rows() <<
 			" | Expected rows: " <<
-			table_config_p1[6].get_data<int>() <<
+			expected_rows_p1 <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
 		return -1;
 	}
-	if (raw_table_p2->get_rows() != table_config_p2[6].get_data<int>()) {
+	if (raw_table_p2->get_rows() != expected_rows_p2) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "CADistr20P2 -> Table rows: " <<
 			raw_table_p2->get_rows() <<
 			" | Expected rows: " <<
-			table_config_p2[6].get_data<int>() <<
+			expected_rows_p2 <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
@@ -345,30 +400,40 @@ int process_ca_distr_20(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::
 }
 
 int process_ca_distr_21(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index){
-	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
-	std::vector<Variant> table_config_p1 = areas_config->get_value("CADistr21P1")->get_data<cl::List>();
-	std::vector<Variant> table_config_p2 = areas_config->get_value("CADistr21P2")->get_data<cl::List>();
-	raw_table_p1 = new tl::Table(raw_tables_dir + table_config_p1[5].get_data<std::string>(), ';');
-	raw_table_p2 = new tl::Table(raw_tables_dir + table_config_p2[5].get_data<std::string>(), ';');
+	// Extract top level directory path
+#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+#endif // LINUX
+
+	// Open raw table files
+	std::string raw_table_path_p1 = main_config->get_value("CADistr21P1_RT")->get_data<std::string>();
+	std::string raw_table_path_p2 = main_config->get_value("CADistr21P2_RT")->get_data<std::string>();
+	raw_table_p1 = new tl::Table(top_level_path + raw_table_path_p1, ';');
+	raw_table_p2 = new tl::Table(top_level_path + raw_table_path_p2, ';');
+
+	int expected_rows_p1 = main_config->get_value("CADistr21P1_RTRows")->get_data<int>();
+	int expected_rows_p2 = main_config->get_value("CADistr21P2_RTRows")->get_data<int>();
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("CADistr21P1_RTHdr")->get_data<cl::List>();
 	std::vector<Variant> table_col_config_p2 = main_config->get_value("CADistr21P2_RTHdr")->get_data<cl::List>();
-	if (raw_table_p1->get_rows() != table_config_p1[6].get_data<int>()) {
+	if (raw_table_p1->get_rows() != expected_rows_p1) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "CasosAcumuDistrito2021P1.csv -> Table rows: " <<
 			raw_table_p1->get_rows() <<
 			" | Expected rows: " <<
-			table_config_p1[6].get_data<int>() <<
+			expected_rows_p1 <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
 		return -1;
 	}
-	if (raw_table_p2->get_rows() != table_config_p2[6].get_data<int>()) {
+	if (raw_table_p2->get_rows() != expected_rows_p2) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "CasosAcumuDistrito2021P2.csv -> Table rows: " <<
 			raw_table_p2->get_rows() <<
 			" | Expected rows: " <<
-			table_config_p2[6].get_data<int>() <<
+			expected_rows_p2 <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
@@ -406,30 +471,40 @@ int process_ca_distr_21(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::
 }
 
 int process_ma_distr(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
-	std::string raw_tables_dir = main_config->get_value("RawTablesDir")->get_data<std::string>() + "/";
-	std::vector<Variant> table_config_p1 = areas_config->get_value("MADistrP1")->get_data<cl::List>();
-	std::vector<Variant> table_config_p2 = areas_config->get_value("MADistrP2")->get_data<cl::List>();
-	raw_table_p1 = new tl::Table(raw_tables_dir + table_config_p1[5].get_data<std::string>(), ';');
-	raw_table_p2 = new tl::Table(raw_tables_dir + table_config_p2[5].get_data<std::string>(), ';');
+	// Extract top level directory path
+#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+#endif // LINUX
+
+	// Open raw table files
+	std::string raw_table_path_p1 = main_config->get_value("MADistrP1_RT")->get_data<std::string>();
+	std::string raw_table_path_p2 = main_config->get_value("MADistrP2_RT")->get_data<std::string>();
+	raw_table_p1 = new tl::Table(top_level_path + raw_table_path_p1, ';');
+	raw_table_p2 = new tl::Table(top_level_path + raw_table_path_p2, ';');
+
+	int expected_rows_p1 = main_config->get_value("MADistrP1_RTRows")->get_data<int>();
+	int expected_rows_p2 = main_config->get_value("MADistrP2_RTRows")->get_data<int>();
 	std::vector<Variant> table_col_config_p1 = main_config->get_value("MADistrP1_RTHdr")->get_data<cl::List>();
 	std::vector<Variant> table_col_config_p2 = main_config->get_value("MADistrP2_RTHdr")->get_data<cl::List>();
-	if (raw_table_p1->get_rows() != table_config_p1[6].get_data<int>()) {
+	if (raw_table_p1->get_rows() != expected_rows_p1) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "MADistrP1 -> Table rows: " <<
 			raw_table_p1->get_rows() <<
 			" | Expected rows: " <<
-			table_config_p1[6].get_data<int>() <<
+			expected_rows_p1 <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
 		return -1;
 	}
-	if (raw_table_p2->get_rows() != table_config_p2[6].get_data<int>()) {
+	if (raw_table_p2->get_rows() != expected_rows_p2) {
 		RTP_Error ex(ErrorCode::UNEQUAL_ROWS);
 		std::cerr << "MADistrP2 -> Table rows: " <<
 			raw_table_p2->get_rows() <<
 			" | Expected rows: " <<
-			table_config_p2[6].get_data<int>() <<
+			expected_rows_p2 <<
 			"\n" << ex.what() <<
 			std::endl;
 		throw ex;
