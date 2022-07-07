@@ -1,226 +1,325 @@
+# Set up working environment
+working_dir <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf"
+setwd(working_dir)
+
+# Include dependencies
 library("tabulizer")
+source("../utilities/ConfigLoader/ConfigLoader.R")
 
-report_path <- ""
-PDF_table_pages <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/config/PDFTablePages.cl"
-
-PDF_pages_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/config/PDFTablePages.cl"
-table_fnames_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/config/RawTableFileNames.cl"
-table_rows_num_dict <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/config/RawTableNumRows.cl"
-PDF_areas_out <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf/config/PDFAreas.csv"
-
-tables = 10
-areas <- data.frame(name=rep("",tables),
-                    top=rep(-1,tables),
-                    left=rep(-1,tables),
-                    bottom=rep(-1,tables),
-                    right=rep(-1,tables),
-                    pages=rep(1,tables),
-                    fnames=rep("",tables),
-                    row_num=rep(1,tables))
-
-n_pages <- 12
+# Set up environment for ConfigLoader
+ConfigLoader_set_env(working_dir)
 
 ################################################################################
 
-PDF_table_num_pages <- file(PDF_pages_num_dict, "r")
-pg_c <- 1
-ln_c <- 1
+# Load configuration files
+Main_Config <- ConfigLoader_init("config/ParsePDFConfig.cl")
+Areas_Config <- ConfigLoader_init("config/AreasPDF.cl")
 
-while(ln_c <= n_pages){
-  line = readLines(PDF_table_num_pages, n=1)
-  if(length(line) == 0){
-    break
-  }
-  line_split = strsplit(line, '=')
-  areas[pg_c,1] = line_split[[1]][1]
-  areas[pg_c,6] = substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1)
-  if(pg_c > 10){
-    report_path <- paste(report_path, substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1), sep="")
-  }
-  pg_c <- pg_c + 1
-  ln_c <- ln_c + 1
-}
-
-close(PDF_table_num_pages)
-
-################################################################################
-
-table_fnames <- file(table_fnames_dict, "r")
-tb_c <- 1
-ln_c <- 1
-
-while(ln_c <= n_pages){
-  line = readLines(table_fnames, n=1)
-  if(length(line) == 0){
-    break
-  }
-  line_split = strsplit(line, '=')
-  areas[tb_c,7] = substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1)
-  tb_c <- tb_c + 1
-  ln_c <- ln_c + 1
-}
-
-close(table_fnames)
-
-################################################################################
-
-table_rows_num <- file(table_rows_num_dict, "r")
-tr_c <- 1
-ln_c <- 1
-
-while(ln_c <= n_pages){
-  line = readLines(table_rows_num, n=1)
-  if(length(line) == 0){
-    break
-  }
-  line_split = strsplit(line, '=')
-  areas[tr_c,8] = substr(line_split[[1]][2], 1, nchar(line_split[[1]][2])-1)
-  tr_c <- tr_c + 1
-}
-
-close(table_rows_num)
+# Extract and concatenate PDF report absolute path
+report_path <- ConfigLoader_get_value(Areas_Config, "ReportPath")
+report_name <- ConfigLoader_get_value(Areas_Config, "ReportFilename")
+report_abs_path <- paste(report_path, report_name, sep="")
 
 ################################################################################
 
 # Pruebas acumuladas por departamento
 i <- 1
 sprintf("%d -> Pruebas acumuladas por departamento", i)
-area_pruebas_depto   <- locate_areas(report_path, areas[i,6])
-vec_area_pruebas_depto <- c()
-vec_area_pruebas_depto <- append(vec_area_pruebas_depto, area_pruebas_depto[[1]][["top"]])
-vec_area_pruebas_depto <- append(vec_area_pruebas_depto, area_pruebas_depto[[1]][["left"]])
-vec_area_pruebas_depto <- append(vec_area_pruebas_depto, area_pruebas_depto[[1]][["bottom"]])
-vec_area_pruebas_depto <- append(vec_area_pruebas_depto, area_pruebas_depto[[1]][["right"]])
-areas[i,2] <- vec_area_pruebas_depto[1]
-areas[i,3] <- vec_area_pruebas_depto[2]
-areas[i,4] <- vec_area_pruebas_depto[3]
-areas[i,5] <- vec_area_pruebas_depto[4]
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "PADepto_PDFPage")
+# Extract areas from PDF
+Areas_PADepto <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_PADepto[[1]][["top"]]),
+           as.character(Areas_PADepto[[1]][["left"]]),
+           as.character(Areas_PADepto[[1]][["bottom"]]),
+           as.character(Areas_PADepto[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_PADepto",
+                                        list_value)
+
+################################################################################
 
 # Casos acumulados por departamento
 i <- 2
 sprintf("%d -> Casos acumulados por departamento", i)
-area_casos_depto     <- locate_areas(report_path, areas[i,6])
-vec_area_casos_depto <- c()
-vec_area_casos_depto <- append(vec_area_casos_depto, area_casos_depto[[1]][["top"]])
-vec_area_casos_depto <- append(vec_area_casos_depto, area_casos_depto[[1]][["left"]])
-vec_area_casos_depto <- append(vec_area_casos_depto, area_casos_depto[[1]][["bottom"]])
-vec_area_casos_depto <- append(vec_area_casos_depto, area_casos_depto[[1]][["right"]])
-areas[i,2] <- vec_area_casos_depto[1]
-areas[i,3] <- vec_area_casos_depto[2]
-areas[i,4] <- vec_area_casos_depto[3]
-areas[i,5] <- vec_area_casos_depto[4]
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "CADepto_PDFPage")
+# Extract areas from PDF
+Areas_CADepto <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_CADepto[[1]][["top"]]),
+           as.character(Areas_CADepto[[1]][["left"]]),
+           as.character(Areas_CADepto[[1]][["bottom"]]),
+           as.character(Areas_CADepto[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_CADepto",
+                                        list_value)
+
+################################################################################
 
 # Casos acumulados por edades
 i <- 3
 sprintf("%d -> Casos acumulados por edades", i)
-area_casos_edades    <- locate_areas(report_path, areas[i,6])
-vec_area_casos_edades <- c()
-vec_area_casos_edades <- append(vec_area_casos_edades, area_casos_edades[[1]][["top"]])
-vec_area_casos_edades <- append(vec_area_casos_edades, area_casos_edades[[1]][["left"]])
-vec_area_casos_edades <- append(vec_area_casos_edades, area_casos_edades[[1]][["bottom"]])
-vec_area_casos_edades <- append(vec_area_casos_edades, area_casos_edades[[1]][["right"]])
-areas[i,2] <- vec_area_casos_edades[1]
-areas[i,3] <- vec_area_casos_edades[2]
-areas[i,4] <- vec_area_casos_edades[3]
-areas[i,5] <- vec_area_casos_edades[4]
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "CPEdades_PDFPage")
+# Extract areas from PDF
+Areas_CPEdades <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_CPEdades[[1]][["top"]]),
+           as.character(Areas_CPEdades[[1]][["left"]]),
+           as.character(Areas_CPEdades[[1]][["bottom"]]),
+           as.character(Areas_CPEdades[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_CPEdades",
+                                        list_value)
+
+################################################################################
 
 # Muertes acumuladas por departamento
 i <- 4
 sprintf("%d -> Muertes acumuladas por departamento", i)
-area_muertes_depto   <- locate_areas(report_path, areas[i,6])
-vec_area_muertes_depto <- c()
-vec_area_muertes_depto <- append(vec_area_muertes_depto, area_muertes_depto[[1]][["top"]])
-vec_area_muertes_depto <- append(vec_area_muertes_depto, area_muertes_depto[[1]][["left"]])
-vec_area_muertes_depto <- append(vec_area_muertes_depto, area_muertes_depto[[1]][["bottom"]])
-vec_area_muertes_depto <- append(vec_area_muertes_depto, area_muertes_depto[[1]][["right"]])
-areas[i,2] <- vec_area_muertes_depto[1]
-areas[i,3] <- vec_area_muertes_depto[2]
-areas[i,4] <- vec_area_muertes_depto[3]
-areas[i,5] <- vec_area_muertes_depto[4]
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "MADepto_PDFPage")
+# Extract areas from PDF
+Areas_MADepto <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_MADepto[[1]][["top"]]),
+           as.character(Areas_MADepto[[1]][["left"]]),
+           as.character(Areas_MADepto[[1]][["bottom"]]),
+           as.character(Areas_MADepto[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_MADepto",
+                                        list_value)
+
+################################################################################
 
 # Casos acumulados por distrito 2020 pt.1
 i <- 5
 sprintf("%d -> Casos acumulados por distrito 2020 pt.1", i)
-area_casos_distr20_1 <- locate_areas(report_path, areas[i,6])
-vec_area_casos_distr20_1 <- c()
-vec_area_casos_distr20_1 <- append(vec_area_casos_distr20_1, area_casos_distr20_1[[1]][["top"]])
-vec_area_casos_distr20_1 <- append(vec_area_casos_distr20_1, area_casos_distr20_1[[1]][["left"]])
-vec_area_casos_distr20_1 <- append(vec_area_casos_distr20_1, area_casos_distr20_1[[1]][["bottom"]])
-vec_area_casos_distr20_1 <- append(vec_area_casos_distr20_1, area_casos_distr20_1[[1]][["right"]])
-areas[i,2] <- vec_area_casos_distr20_1[1]
-areas[i,3] <- vec_area_casos_distr20_1[2]
-areas[i,4] <- vec_area_casos_distr20_1[3]
-areas[i,5] <- vec_area_casos_distr20_1[4]
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "CADistr20P1_PDFPage")
+# Extract areas from PDF
+Areas_CADistr20P1 <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_CADistr20P1[[1]][["top"]]),
+           as.character(Areas_CADistr20P1[[1]][["left"]]),
+           as.character(Areas_CADistr20P1[[1]][["bottom"]]),
+           as.character(Areas_CADistr20P1[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_CADistr20P1",
+                                        list_value)
+
+################################################################################
 
 # Casos acumulados por distrito 2020 pt.2
 i <- 6
 sprintf("%d -> Casos acumulados por distrito 2020 pt.2", i)
-area_casos_distr20_2 <- locate_areas(report_path, areas[i,6])
-vec_area_casos_distr20_2 <- c()
-vec_area_casos_distr20_2 <- append(vec_area_casos_distr20_2, area_casos_distr20_2[[1]][["top"]])
-vec_area_casos_distr20_2 <- append(vec_area_casos_distr20_2, area_casos_distr20_2[[1]][["left"]])
-vec_area_casos_distr20_2 <- append(vec_area_casos_distr20_2, area_casos_distr20_2[[1]][["bottom"]])
-vec_area_casos_distr20_2 <- append(vec_area_casos_distr20_2, area_casos_distr20_2[[1]][["right"]])
-areas[i,2] <- vec_area_casos_distr20_2[1]
-areas[i,3] <- vec_area_casos_distr20_2[2]
-areas[i,4] <- vec_area_casos_distr20_2[3]
-areas[i,5] <- vec_area_casos_distr20_2[4]
-i <- i + 1
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "CADistr20P2_PDFPage")
+# Extract areas from PDF
+Areas_CADistr20P2 <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_CADistr20P2[[1]][["top"]]),
+           as.character(Areas_CADistr20P2[[1]][["left"]]),
+           as.character(Areas_CADistr20P2[[1]][["bottom"]]),
+           as.character(Areas_CADistr20P2[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_CADistr20P2",
+                                        list_value)
+
+################################################################################
 
 # Casos acumulados por distrito 2021 pt.1
 i <- 7
 sprintf("%d -> Casos acumulados por distrito 2021 pt.1", i)
-area_casos_distr21_1 <- locate_areas(report_path, areas[i,6])
-vec_area_casos_distr21_1 <- c()
-vec_area_casos_distr21_1 <- append(vec_area_casos_distr21_1, area_casos_distr21_1[[1]][["top"]])
-vec_area_casos_distr21_1 <- append(vec_area_casos_distr21_1, area_casos_distr21_1[[1]][["left"]])
-vec_area_casos_distr21_1 <- append(vec_area_casos_distr21_1, area_casos_distr21_1[[1]][["bottom"]])
-vec_area_casos_distr21_1 <- append(vec_area_casos_distr21_1, area_casos_distr21_1[[1]][["right"]])
-areas[i,2] <- vec_area_casos_distr21_1[1]
-areas[i,3] <- vec_area_casos_distr21_1[2]
-areas[i,4] <- vec_area_casos_distr21_1[3]
-areas[i,5] <- vec_area_casos_distr21_1[4]
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "CADistr21P1_PDFPage")
+# Extract areas from PDF
+Areas_CADistr21P1 <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_CADistr21P1[[1]][["top"]]),
+           as.character(Areas_CADistr21P1[[1]][["left"]]),
+           as.character(Areas_CADistr21P1[[1]][["bottom"]]),
+           as.character(Areas_CADistr21P1[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_CADistr21P1",
+                                        list_value)
+
+################################################################################
 
 # Casos acumulados por distrito 2021 pt.2
 i <- 8
 sprintf("%d -> Casos acumulados por distrito 2021 pt.2", i)
-area_casos_distr21_2 <- locate_areas(report_path, areas[i,6])
-vec_area_casos_distr21_2 <- c()
-vec_area_casos_distr21_2 <- append(vec_area_casos_distr21_2, area_casos_distr21_2[[1]][["top"]])
-vec_area_casos_distr21_2 <- append(vec_area_casos_distr21_2, area_casos_distr21_2[[1]][["left"]])
-vec_area_casos_distr21_2 <- append(vec_area_casos_distr21_2, area_casos_distr21_2[[1]][["bottom"]])
-vec_area_casos_distr21_2 <- append(vec_area_casos_distr21_2, area_casos_distr21_2[[1]][["right"]])
-areas[i,2] <- vec_area_casos_distr21_2[1]
-areas[i,3] <- vec_area_casos_distr21_2[2]
-areas[i,4] <- vec_area_casos_distr21_2[3]
-areas[i,5] <- vec_area_casos_distr21_2[4]
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "CADistr21P2_PDFPage")
+# Extract areas from PDF
+Areas_CADistr21P2 <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_CADistr21P2[[1]][["top"]]),
+           as.character(Areas_CADistr21P2[[1]][["left"]]),
+           as.character(Areas_CADistr21P2[[1]][["bottom"]]),
+           as.character(Areas_CADistr21P2[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_CADistr21P2",
+                                        list_value)
+
+################################################################################
 
 # Muertes acumuladas por distrito pt.1
 i <- 9
 sprintf("%d -> Muertes acumuladas por distrito pt.1", i)
-area_muertes_distr_1 <- locate_areas(report_path, areas[i,6])
-vec_area_muertes_distr_1 <- c()
-vec_area_muertes_distr_1 <- append(vec_area_muertes_distr_1, area_muertes_distr_1[[1]][["top"]])
-vec_area_muertes_distr_1 <- append(vec_area_muertes_distr_1, area_muertes_distr_1[[1]][["left"]])
-vec_area_muertes_distr_1 <- append(vec_area_muertes_distr_1, area_muertes_distr_1[[1]][["bottom"]])
-vec_area_muertes_distr_1 <- append(vec_area_muertes_distr_1, area_muertes_distr_1[[1]][["right"]])
-areas[i,2] <- vec_area_muertes_distr_1[1]
-areas[i,3] <- vec_area_muertes_distr_1[2]
-areas[i,4] <- vec_area_muertes_distr_1[3]
-areas[i,5] <- vec_area_muertes_distr_1[4]
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "MADistrP1_PDFPage")
+# Extract areas from PDF
+Areas_MADistrP1 <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_MADistrP1[[1]][["top"]]),
+           as.character(Areas_MADistrP1[[1]][["left"]]),
+           as.character(Areas_MADistrP1[[1]][["bottom"]]),
+           as.character(Areas_MADistrP1[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_MADistrP1",
+                                        list_value)
+
+################################################################################
 
 # Muertes acumuladas por distrito pt.2
 i <- 10
 sprintf("%d -> Muertes acumuladas por distrito pt.2", i)
-area_muertes_distr_2 <- locate_areas(report_path, areas[i,6])
-vec_area_muertes_distr_2 <- c()
-vec_area_muertes_distr_2 <- append(vec_area_muertes_distr_2, area_muertes_distr_2[[1]][["top"]])
-vec_area_muertes_distr_2 <- append(vec_area_muertes_distr_2, area_muertes_distr_2[[1]][["left"]])
-vec_area_muertes_distr_2 <- append(vec_area_muertes_distr_2, area_muertes_distr_2[[1]][["bottom"]])
-vec_area_muertes_distr_2 <- append(vec_area_muertes_distr_2, area_muertes_distr_2[[1]][["right"]])
-areas[i,2] <- vec_area_muertes_distr_2[1]
-areas[i,3] <- vec_area_muertes_distr_2[2]
-areas[i,4] <- vec_area_muertes_distr_2[3]
-areas[i,5] <- vec_area_muertes_distr_2[4]
+# Get PDF page
+page <- ConfigLoader_get_value(Main_Config, "MADistrP2_PDFPage")
+# Extract areas from PDF
+Areas_MADistrP2 <- locate_areas(report_abs_path, page)
+# Convert Named nums to characters
+to_str = c(as.character(Areas_MADistrP2[[1]][["top"]]),
+           as.character(Areas_MADistrP2[[1]][["left"]]),
+           as.character(Areas_MADistrP2[[1]][["bottom"]]),
+           as.character(Areas_MADistrP2[[1]][["right"]]))
+# Convert list value to string
+list_value <- "["
+for(j in 1:length(to_str)){
+  if(j != length(to_str)){
+    list_value <- paste(list_value, to_str[j], ",", sep="")  
+  }
+  else{
+    list_value <- paste(list_value, to_str[j], sep="")
+  }
+}
+list_value <- paste(list_value, "]", sep="")
+# Update coordinate list value 
+Areas_Config <- ConfigLoader_edit_value(Areas_Config,
+                                        "Areas_MADistrP2",
+                                        list_value)
 
-write.table(areas, PDF_areas_out, sep = ",", row.names=FALSE, quote=FALSE)
+################################################################################
+
+ConfigLoader_save_file(Areas_Config, "config/AreasPDF.cl")
