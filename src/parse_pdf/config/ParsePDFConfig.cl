@@ -1,4 +1,4 @@
-#Top Level Paths
+# Top Level Paths
 WindowsTopLevel = C:/Users/kurt_/github/Peru_COVID19_Stats/;
 LinuxTopLevel = /remote/github/Peru_COVID19_Stats/;
 
@@ -75,10 +75,11 @@ MADistr_PTHdr = [Dia, Muertes_Totales, Tasa_Mortalidad];
 EraseFieldsCADistr20 = [Porcentaje];
 EraseFieldsCADistr21 = [Porcentaje];
 
-# ExtractPDFText and DetectPDFText Constants
+# Global Constants
 WindowWidth = 1760;
 WindowHeight = 990;
 DatosResumen = 2;
+
 PADepto_RTRows = 26;
 CADepto_RTRows = 26;
 CPEdades_RTRows = 5;
@@ -90,6 +91,7 @@ CADistr21P1_RTRows = 22;
 CADistr21P2_RTRows = 22;
 MADistrP1_RTRows = 22;
 MADistrP2_RTRows = 22;
+
 PADepto_RTCols = 5;
 CADepto_RTCols = 5;
 CPEdades_RTCols = 4;
@@ -100,3 +102,14 @@ CADistr21P1_RTCols = 3;
 CADistr21P2_RTCols = 3;
 MADistrP1_RTCols = 3;
 MADistrP2_RTCols = 3;
+
+PADepto_PDFPage = 3;
+CADepto_PDFPage = 3;
+CPEdades_PDFPage = 13;
+MADepto_PDFPage = 21;
+CADistr20P1_PDFPage = 76;
+CADistr20P2_PDFPage = 76;
+CADistr21P1_PDFPage = 77;
+CADistr21P2_PDFPage = 77;
+MADistrP1_PDFPage = 80;
+MADistrP2_PDFPage = 80;
