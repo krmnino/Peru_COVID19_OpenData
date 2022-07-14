@@ -6,14 +6,24 @@ import DataUtility as du
 import ConfigUtility as cu
 
 def generate_padepto_tables():
-    config = cu.Config('ParsePDFConfig.cl')
-    dept_config = cu.Config(config.get_value('ConfigFilesDir') + '/' + config.get_value('DepartmentsIndex'))
+    # Load main configuration file
+    config = cu.Config('config/ParsePDFConfig.cl')
+    # Get top level directory based on platform
+    top_level_directory = ''
+    if(sys.platform == 'win32'):
+        top_level_directory = config.get_value('WindowsTopLevel')
+    else:
+        top_level_directory = config.get_value('LinuxTopLevel')
+    # Load department index configuration file
+    dept_config = cu.Config(top_level_directory + config.get_value('DepartmentsIndex'))
+    # Get number of departments and processed table headers
     depto_num = int(dept_config.get_n_entries())
-    pa_depto_hdr = config.get_value('PADepto_Hdr')
+    processed_table_header = config.get_value('PADepto_PTHdr')
+    # Generate department tables
     for i in range(0, depto_num):
-        table_filename = config.get_value('PADepto_Dir') + '/' + dept_config.get_value(str(i)) + '.csv'
-        pa_depto_table = du.Table('n', filename=table_filename, header_index=pa_depto_hdr, delimiter=',')
-        pa_depto_table.save_as_csv(table_filename)
+        table_filename = top_level_directory + config.get_value('PADepto_Dir') + dept_config.get_value(str(i)) + '.csv'
+        processed_table = du.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
+        processed_table.save_as_csv(table_filename)
     print("PADepto: Generating table complete")
 
 def generate_cadepto_tables():
@@ -91,7 +101,7 @@ def generate_madeptosm_tables():
     print("MADeptoSM: Generating table complete")
 
 def main():
-    gen_padepto = False
+    gen_padepto = True
     gen_cadepto = False
     gen_caedades = False
     gen_madepto = False
