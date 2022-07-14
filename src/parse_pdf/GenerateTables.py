@@ -47,13 +47,22 @@ def generate_cadepto_tables():
         processed_table.save_as_csv(table_filename)
     print("CADepto: Generating table complete")
 
-def generate_caedades_table():
-    config = cu.Config('ParsePDFConfig.cl')
-    ca_edades_hdr = config.get_value('CAEdades_Hdr')
-    table_filename = config.get_value('CAEdades_Dir') + '/' + config.get_value('CAEdades_Table')
+def generate_cpedades_table():
+     # Load main configuration file
+    config = cu.Config('config/ParsePDFConfig.cl')
+    # Get top level directory based on platform
+    top_level_directory = ''
+    if(sys.platform == 'win32'):
+        top_level_directory = config.get_value('WindowsTopLevel')
+    else:
+        top_level_directory = config.get_value('LinuxTopLevel')
+    # Get number of departments and processed table headers
+    ca_edades_hdr = config.get_value('CPEdades_PTHdr')
+    # Generate cases by age group table
+    table_filename = top_level_directory + config.get_value('CPEdades_PTF')
     ca_edades_table = du.Table('n', filename=table_filename, header_index=ca_edades_hdr, delimiter=',')
     ca_edades_table.save_as_csv(table_filename)
-    print("CAEdades: Generating table complete")
+    print("CPEdades: Generating table complete")
 
 def generate_madepto_tables():
     config = cu.Config('ParsePDFConfig.cl')
@@ -112,8 +121,8 @@ def generate_madeptosm_tables():
 
 def main():
     gen_padepto = False
-    gen_cadepto = True
-    gen_caedades = False
+    gen_cadepto = False
+    gen_caedades = True
     gen_madepto = False
     gen_cadistr20 = False
     gen_cadistr21 = False
@@ -125,7 +134,7 @@ def main():
     if (gen_cadepto):
         generate_cadepto_tables()
     if (gen_caedades):
-        generate_caedades_table()
+        generate_cpedades_table()
     if (gen_madepto):
         generate_madepto_tables()
     if (gen_cadistr20):
