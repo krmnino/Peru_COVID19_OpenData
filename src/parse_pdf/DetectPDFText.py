@@ -1,4 +1,3 @@
-from ast import parse
 import sys
 from pdf2image import convert_from_path
 import numpy as np
@@ -63,26 +62,32 @@ def select_read_tables_menu(data):
 
 #####################################################################################################
 
-def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
+def process_pa_depto(main_config, pdf_path, showimg=False):
+    # Get top level directory based on platform
+    top_level_directory = ''
+    if(sys.platform == 'win32'):
+        top_level_directory = main_config.get_value('WindowsTopLevel')
+    else:
+        top_level_directory = main_config.get_value('LinuxTopLevel')
     # Extract page from PDF file
-    pa_depto = convert_from_path(pdf_path,
-                                 first_page=int(table_pg_config.get_value('PADepto')),
-                                 last_page=int(table_pg_config.get_value('PADepto')),
+    pdf_image = convert_from_path(pdf_path,
+                                 first_page=int(main_config.get_value('PADepto_PDFPage')),
+                                 last_page=int(main_config.get_value('PADepto_PDFPage')),
                                  dpi=200)[0]
     # Apply postprocessing to image
-    pa_depto = ImageOps.invert(pa_depto)
-    pa_depto = ImageOps.grayscale(pa_depto)
-    enhancer = ImageEnhance.Contrast(pa_depto)
-    pa_depto = enhancer.enhance(1.5)
+    pdf_image = ImageOps.invert(pdf_image)
+    pdf_image = ImageOps.grayscale(pdf_image)
+    enhancer = ImageEnhance.Contrast(pdf_image)
+    pdf_image = enhancer.enhance(1.5)
     # Convert PIL image to opencv2 image
-    cv2_pa_depto = np.array(pa_depto)
+    cv2_pdf_image = np.array(pdf_image)
     # Resize image to fit in 1080p screen
     w_width = int(main_config.get_value('WindowWidth'))
     w_height = int(main_config.get_value('WindowHeight'))
-    cv2_pa_depto = cv2.resize(cv2_pa_depto, (w_width, w_height))
+    cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     # Get department names index
-    dept_index = cu.Config(main_config.get_value('DepartmentsIndex'))
+    dept_index = cu.Config(top_level_directory + main_config.get_value('DepartmentsIndex'))
     
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('PADepto_RTCols'))
@@ -91,37 +96,37 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
     for i in range(0, n_cols):
         # Append department names columns
         if(i == 0):
-            pa_depto_data = []
+            pdf_image_data = []
             n_rows = int(main_config.get_value('PADepto_RTRows'))
             for j in range(0, n_rows):
-                pa_depto_data.append(dept_index.get_value(str(j)))
-            parsed_columns.append(pa_depto_data)
+                pdf_image_data.append(dept_index.get_value(str(j)))
+            parsed_columns.append(pdf_image_data)
             continue
         # Append department total placeholder values
         if(i == 4):
-            pa_depto_data = []
+            pdf_image_data = []
             n_rows = int(main_config.get_value('PADepto_RTRows'))
             for j in range(0, n_rows):
-                pa_depto_data.append(0)
-            parsed_columns.append(pa_depto_data)
+                pdf_image_data.append(0)
+            parsed_columns.append(pdf_image_data)
             continue
         # Select area and crop image
         print('PADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
-        bounds_pa_depto = cv2.selectROI('PADepto', cv2_pa_depto, False, False)
+        bounds_pdf_image = cv2.selectROI('PADepto', cv2_pdf_image, False, False)
         cv2.destroyWindow('PADepto')
-        col_pa_depto = cv2_pa_depto[int(bounds_pa_depto[1]):int(bounds_pa_depto[1]+bounds_pa_depto[3]),
-                                    int(bounds_pa_depto[0]):int(bounds_pa_depto[0]+bounds_pa_depto[2])]
+        col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
+                                      int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'PADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols)
-            cv2.imshow(window_name, col_pa_depto)
+            cv2.imshow(window_name, col_pdf_image)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
-        img_pa_depto = Image.fromarray(col_pa_depto)
+        pil_pdf_image = Image.fromarray(col_pdf_image)
         # Perform OCR in PIL image with pytesseract
-        pa_depto_data = pytesseract.image_to_string(img_pa_depto)
-        pa_depto_data = pa_depto_data.split('\n')
-        parsed_columns.append(pa_depto_data)
+        pdf_image_data = pytesseract.image_to_string(pil_pdf_image)
+        pdf_image_data = pdf_image_data.split('\n')
+        parsed_columns.append(pdf_image_data)
     
     # Find column with most elements
     max_col_len = 0
@@ -130,10 +135,10 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
             max_col_len = len(parsed_columns[i])
 
     # Create new Table and add each row of data
-    out_filename = table_names_config.get_value('PADepto')
+    raw_table_abs_path = top_level_directory + main_config.get_value('PADepto_RT')
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names,
         delimiter=';'
     )
@@ -149,7 +154,7 @@ def process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path,
             else:
                 new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(raw_table_abs_path)
     print('PADepto - Done.')
 
 #####################################################################################################
@@ -221,10 +226,10 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
             max_col_len = len(parsed_columns[i])
 
     # Create new Table and add each row of data
-    out_filename = table_names_config.get_value('CADepto')
+    raw_table_abs_path = table_names_config.get_value('CADepto')
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names,
         delimiter=';'
     )
@@ -240,7 +245,7 @@ def process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path,
             else:
                 new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
     print('CADepto done.')
 
 #####################################################################################################
@@ -305,10 +310,10 @@ def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path
             max_col_len = len(parsed_columns[i])
 
     # Create new Table and add each row of data
-    out_filename = table_names_config.get_value('CPEdades')
+    raw_table_abs_path = table_names_config.get_value('CPEdades')
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names,
         delimiter=';'
     )
@@ -324,7 +329,7 @@ def process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path
             else:
                 new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
     print('CPEdades - Done.')
 
 #####################################################################################################
@@ -388,10 +393,10 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
             max_col_len = len(parsed_columns[i])
 
     # Create new Table and add each row of data
-    out_filename = table_names_config.get_value('MADepto')
+    raw_table_abs_path = table_names_config.get_value('MADepto')
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names,
         delimiter=';'
     )
@@ -407,7 +412,7 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
             else:
                 new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
     print('MADepto done.')
 
 #####################################################################################################
@@ -506,10 +511,10 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
             max_col_len_p2 = len(parsed_columns_p2[i])
 
     # Create new Table and add each row of data from part 1
-    out_filename = table_names_config.get_value('CADistr20P1')
+    raw_table_abs_path = table_names_config.get_value('CADistr20P1')
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names_p1,
         delimiter=';'
     )
@@ -525,13 +530,13 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
             else:
                 new_row.append(parsed_columns_p1[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
 
     # Create new Table and add each row of data from part 2
-    out_filename = table_names_config.get_value('CADistr20P2')
+    raw_table_abs_path = table_names_config.get_value('CADistr20P2')
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names_p2,
         delimiter=';'
     )
@@ -547,7 +552,7 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
             else:
                 new_row.append(parsed_columns_p2[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
     print('CADistr20 done.')
 
 #####################################################################################################
@@ -646,11 +651,11 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
             max_col_len_p2 = len(parsed_columns_p2[i])
 
     # Create new Table and add each row of data from part 1
-    out_filename = table_names_config.get_value('CADistr21P1')
+    raw_table_abs_path = table_names_config.get_value('CADistr21P1')
     n_rows = int(main_config.get_value('CADistr21P1_RTRows'))
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names_p1,
         delimiter=';'
     )
@@ -666,14 +671,14 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
             else:
                 new_row.append(parsed_columns_p1[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
 
     # Create new Table and add each row of data from part 2
-    out_filename = table_names_config.get_value('CADistr21P2')
+    raw_table_abs_path = table_names_config.get_value('CADistr21P2')
     n_rows = int(main_config.get_value('CADistr21P2_RTRows'))
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names_p2,
         delimiter=';'
     )
@@ -689,7 +694,7 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
             else:
                 new_row.append(parsed_columns_p2[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
     print('CADistr21 done.')
 
 #####################################################################################################
@@ -787,10 +792,10 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
             max_col_len_p2 = len(parsed_columns_p2[i])
 
     # Create new Table and add each row of data from part 1
-    out_filename = table_names_config.get_value('MADistrP1')
+    raw_table_abs_path = table_names_config.get_value('MADistrP1')
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names_p1,
         delimiter=';'
     )
@@ -805,13 +810,13 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
             else:
                 new_row.append(parsed_columns_p1[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
 
     # Create new Table and add each row of data from part 2
-    out_filename = table_names_config.get_value('MADistrP2')
+    raw_table_abs_path = table_names_config.get_value('MADistrP2')
     output_table = du.Table(
         'n',
-        filename=out_filename,
+        filename=raw_table_abs_path,
         header_index=col_names_p2,
         delimiter=';'
     )
@@ -826,17 +831,16 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
             else:
                 new_row.append(parsed_columns_p2[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + out_filename)
+    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
     print('MADistr done.')
 
 
 #####################################################################################################
 
 def main():
-    main_config = cu.Config('./config/ParsePDFConfig.cl')
-    table_names_config = cu.Config('./config/RawTableFileNames.cl')
-    table_pg_config = cu.Config('./config/PDFTablePages.cl')
-    pdf_path = table_pg_config.get_value('ReportPath') + table_pg_config.get_value('ReportName')
+    main_config = cu.Config('config/ParsePDFConfig.cl')
+    areas_config = cu.Config('config/AreasPDF.cl')
+    pdf_path = areas_config.get_value('ReportPath') + areas_config.get_value('ReportFilename')
 
     menu_selection = {
         'PADepto'     : True,
@@ -851,19 +855,19 @@ def main():
     menu_selection = select_read_tables_menu(menu_selection)
 
     if(menu_selection['PADepto']):
-        process_pa_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    if(menu_selection['CADepto']):
-        process_ca_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    if(menu_selection['CPEdades']):
-        process_cp_edades(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    if(menu_selection['MADepto']):
-        process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    if(menu_selection['CADistr20']):
-        process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    if(menu_selection['CADistr21']):
-        process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
-    if(menu_selection['MADistr']):
-        process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False)
+        process_pa_depto(main_config, pdf_path, showimg=False)
+    #if(menu_selection['CADepto']):
+    #    process_ca_depto(main_config, pdf_path, showimg=False)
+    #if(menu_selection['CPEdades']):
+    #    process_cp_edades(main_config, pdf_path, showimg=False)
+    #if(menu_selection['MADepto']):
+    #    process_ma_depto(main_config, pdf_path, showimg=False)
+    #if(menu_selection['CADistr20']):
+    #    process_ca_distr_20(main_config, pdf_path, showimg=False)
+    #if(menu_selection['CADistr21']):
+    #    process_ca_distr_21(main_config, pdf_path, showimg=False)
+    #if(menu_selection['MADistr']):
+    #    process_ma_distr(main_config, pdf_path, showimg=False)
     
 #####################################################################################################
 
