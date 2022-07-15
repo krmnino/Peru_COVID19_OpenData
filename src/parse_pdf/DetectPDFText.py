@@ -350,26 +350,32 @@ def process_cp_edades(main_config, pdf_path, showimg=False):
 
 #####################################################################################################
 
-def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
+def process_ma_depto(main_config, pdf_path, showimg=False):
+    # Get top level directory based on platform
+    top_level_directory = ''
+    if(sys.platform == 'win32'):
+        top_level_directory = main_config.get_value('WindowsTopLevel')
+    else:
+        top_level_directory = main_config.get_value('LinuxTopLevel')
     # Extract page from PDF file
-    ma_depto = convert_from_path(pdf_path,
-                                 first_page=int(table_pg_config.get_value('MADepto')),
-                                 last_page=int(table_pg_config.get_value('MADepto')),
+    pdf_image = convert_from_path(pdf_path,
+                                 first_page=int(main_config.get_value('MADepto_PDFPage')),
+                                 last_page=int(main_config.get_value('MADepto_PDFPage')),
                                   dpi=200)[0]
     # Apply postprocessing to image
-    ma_depto = ImageOps.invert(ma_depto)
-    ma_depto = ImageOps.grayscale(ma_depto)
-    enhancer = ImageEnhance.Contrast(ma_depto)
-    ma_depto = enhancer.enhance(1.5)
+    pdf_image = ImageOps.invert(pdf_image)
+    pdf_image = ImageOps.grayscale(pdf_image)
+    enhancer = ImageEnhance.Contrast(pdf_image)
+    pdf_image = enhancer.enhance(1.5)
     # Convert PIL image to opencv2 image
-    cv2_ma_depto = np.array(ma_depto)
+    cv2_pdf_image = np.array(pdf_image)
     # Resize image to fit in 1080p screen
     w_width = int(main_config.get_value('WindowWidth'))
     w_height = int(main_config.get_value('WindowHeight'))
-    cv2_ma_depto = cv2.resize(cv2_ma_depto, (w_width, w_height))
+    cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     # Get department names index
-    dept_index = cu.Config(main_config.get_value('DepartmentsIndex'))
+    dept_index = cu.Config(top_level_directory + main_config.get_value('DepartmentsIndex'))
 
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('MADepto_RTCols'))
@@ -378,29 +384,29 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
     for i in range(0, n_cols):
         # Append department names columns
         if(i == 0):
-            ma_depto_data = []
+            pdf_image_data = []
             n_rows = int(main_config.get_value('MADepto_RTRows'))
             for j in range(0, n_rows):
-                ma_depto_data.append(dept_index.get_value(str(j)))
-            parsed_columns.append(ma_depto_data)
+                pdf_image_data.append(dept_index.get_value(str(j)))
+            parsed_columns.append(pdf_image_data)
             continue
         # Select area and crop image
         print('MADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols))
-        bounds_ma_depto = cv2.selectROI('MADepto', cv2_ma_depto, False, False)
+        bounds_pdf_image = cv2.selectROI('MADepto', cv2_pdf_image, False, False)
         cv2.destroyWindow('MADepto')
-        col_ma_depto = cv2_ma_depto[int(bounds_ma_depto[1]):int(bounds_ma_depto[1]+bounds_ma_depto[3]),
-                                    int(bounds_ma_depto[0]):int(bounds_ma_depto[0]+bounds_ma_depto[2])]
+        col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
+                                    int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'MADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols)
-            cv2.imshow(window_name, col_ma_depto)
+            cv2.imshow(window_name, col_pdf_image)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
-        img_ma_depto = Image.fromarray(col_ma_depto)
+        pil_pdf_image = Image.fromarray(col_pdf_image)
         # Perform OCR in PIL image with pytesseract
-        ma_depto_data = pytesseract.image_to_string(img_ma_depto)
-        ma_depto_data = ma_depto_data.split('\n')
-        parsed_columns.append(ma_depto_data)
+        pdf_image_data = pytesseract.image_to_string(pil_pdf_image)
+        pdf_image_data = pdf_image_data.split('\n')
+        parsed_columns.append(pdf_image_data)
         
     # Find column with most elements
     max_col_len = 0
@@ -409,7 +415,7 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
             max_col_len = len(parsed_columns[i])
 
     # Create new Table and add each row of data
-    raw_table_abs_path = table_names_config.get_value('MADepto')
+    raw_table_abs_path = top_level_directory + main_config.get_value('MADepto_RT')
     output_table = du.Table(
         'n',
         filename=raw_table_abs_path,
@@ -428,7 +434,7 @@ def process_ma_depto(main_config, table_names_config, table_pg_config, pdf_path,
             else:
                 new_row.append(parsed_columns[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
+    output_table.save_as_csv(raw_table_abs_path)
     print('MADepto done.')
 
 #####################################################################################################
@@ -874,10 +880,10 @@ def main():
     #    process_pa_depto(main_config, pdf_path, showimg=False)
     #if(menu_selection['CADepto']):
     #    process_ca_depto(main_config, pdf_path, showimg=False)
-    if(menu_selection['CPEdades']):
-        process_cp_edades(main_config, pdf_path, showimg=False)
-    #if(menu_selection['MADepto']):
-    #    process_ma_depto(main_config, pdf_path, showimg=False)
+    #if(menu_selection['CPEdades']):
+    #    process_cp_edades(main_config, pdf_path, showimg=False)
+    if(menu_selection['MADepto']):
+        process_ma_depto(main_config, pdf_path, showimg=False)
     #if(menu_selection['CADistr20']):
     #    process_ca_distr_20(main_config, pdf_path, showimg=False)
     #if(menu_selection['CADistr21']):
