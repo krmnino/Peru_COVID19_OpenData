@@ -214,7 +214,7 @@ def process_ca_depto(main_config, pdf_path, showimg=False):
         bounds_pdf_image = cv2.selectROI('CADepto', cv2_pdf_image, False, False)
         cv2.destroyWindow('CADepto')
         col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
-                                    int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
+                                      int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'CADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols)
@@ -395,7 +395,7 @@ def process_ma_depto(main_config, pdf_path, showimg=False):
         bounds_pdf_image = cv2.selectROI('MADepto', cv2_pdf_image, False, False)
         cv2.destroyWindow('MADepto')
         col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
-                                    int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
+                                      int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'MADepto - Col[' + col_names[i] + '] ' + str(i + 1) + '/' + str(n_cols)
@@ -436,91 +436,105 @@ def process_ma_depto(main_config, pdf_path, showimg=False):
         output_table.append_end_row(new_row)
     output_table.save_as_csv(raw_table_abs_path)
     print('MADepto done.')
+    return 0
 
 #####################################################################################################
 
-def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
-    ca_distr_20 = convert_from_path(pdf_path,
-                                    first_page=int(table_pg_config.get_value('CADistr20P1')),
-                                    last_page=int(table_pg_config.get_value('CADistr20P1')),
+def process_ca_distr_20(main_config, pdf_path, showimg=False):
+    # Get top level directory based on platform
+    top_level_directory = ''
+    if(sys.platform == 'win32'):
+        top_level_directory = main_config.get_value('WindowsTopLevel')
+    else:
+        top_level_directory = main_config.get_value('LinuxTopLevel')
+    # Extract page from PDF file
+    pdf_image = convert_from_path(pdf_path,
+                                    first_page=int(main_config.get_value('CADistr20P1_PDFPage')),
+                                    last_page=int(main_config.get_value('CADistr20P1_PDFPage')),
                                     dpi=200)[0]
     # Apply postprocessing to image
-    ca_distr_20 = ImageOps.invert(ca_distr_20)
-    ca_distr_20 = ImageOps.grayscale(ca_distr_20)
-    enhancer = ImageEnhance.Contrast(ca_distr_20)
-    ca_distr_20 = enhancer.enhance(1.5)
+    pdf_image = ImageOps.invert(pdf_image)
+    pdf_image = ImageOps.grayscale(pdf_image)
+    enhancer = ImageEnhance.Contrast(pdf_image)
+    pdf_image = enhancer.enhance(1.5)
     # Convert PIL image to opencv2 image
-    cv2_ca_distr_20 = np.array(ca_distr_20)
+    cv2_pdf_image = np.array(pdf_image)
     # Resize image to fit in 1080p screen
     w_width = int(main_config.get_value('WindowWidth'))
     w_height = int(main_config.get_value('WindowHeight'))
-    cv2_ca_distr_20 = cv2.resize(cv2_ca_distr_20, (w_width, w_height))
+    cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     # Get district names index
-    distr_index = cu.Config(main_config.get_value('DistrictsIndex'))
+    distr_index = cu.Config(top_level_directory + main_config.get_value('DistrictsIndex'))
 
     n_cols_p1 = int(main_config.get_value('CADistr20P1_RTCols'))
-    col_names_p1 = main_config.get_value('CADistr20P2_RTHdr')
+    col_names_p1 = main_config.get_value('CADistr20P1_RTHdr')
     n_cols_p2 = int(main_config.get_value('CADistr20P2_RTCols'))
     col_names_p2 = main_config.get_value('CADistr20P2_RTHdr')
+
+    # Remove Percentage column from header
+    remove_cols = main_config.get_value('CADistr20_EraseFields')
+    for i in range(0, len(remove_cols)):
+        col_names_p1.remove(remove_cols[i])
+        col_names_p2.remove(remove_cols[i])
     
     # Parse data in image column by column of first table 
     parsed_columns_p1 = []
     for i in range(0, n_cols_p1):
         # Append district names columns
         if(i == 0):
-            ca_distr_20_data = []
+            pdf_image_data = []
             n_rows = int(main_config.get_value('CADistr20P1_RTRows'))
             for j in range(0, n_rows):
-                ca_distr_20_data.append(distr_index.get_value(str(j)))
-            parsed_columns_p1.append(ca_distr_20_data)
+                pdf_image_data.append(distr_index.get_value(str(j)))
+            parsed_columns_p1.append(pdf_image_data)
             continue
         # Select area and crop image
         print('CADistr20P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1))
-        bounds_ca_distr_20 = cv2.selectROI('CADistr20P1', cv2_ca_distr_20, False, False)
+        bounds_pdf_image = cv2.selectROI('CADistr20P1', cv2_pdf_image, False, False)
         cv2.destroyWindow('CADistr20P1')
-        col_ca_distr_20 = cv2_ca_distr_20[int(bounds_ca_distr_20[1]):int(bounds_ca_distr_20[1]+bounds_ca_distr_20[3]),
-                                          int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
+        col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
+                                      int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'CADistr20P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1)
-            cv2.imshow(window_name, col_ca_distr_20)
+            cv2.imshow(window_name, col_pdf_image)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
-        img_ca_distr_20 = Image.fromarray(col_ca_distr_20)
+        pil_pdf_image = Image.fromarray(col_pdf_image)
         # Perform OCR in PIL image with pytesseract
-        ca_distr_20_data = pytesseract.image_to_string(img_ca_distr_20)
-        ca_distr_20_data = ca_distr_20_data.split('\n')
-        parsed_columns_p1.append(ca_distr_20_data)
+        pdf_image_data = pytesseract.image_to_string(pil_pdf_image)
+        pdf_image_data = pdf_image_data.split('\n')
+        parsed_columns_p1.append(pdf_image_data)
 
     # Parse data in image column by column of second table 
     parsed_columns_p2 = []
     for i in range(0, n_cols_p2):
         # Append district names columns
         if(i == 0):
-            ca_distr_20_data = []
+            pdf_image_data = []
             n_rows = int(main_config.get_value('CADistr20P2_RTRows'))
             for j in range(0, n_rows):
-                ca_distr_20_data.append(distr_index.get_value(str(j + n_rows)))
-            parsed_columns_p2.append(ca_distr_20_data)
+                pdf_image_data.append(distr_index.get_value(str(j + n_rows)))
+            parsed_columns_p2.append(pdf_image_data)
             continue
         # Select area and crop image
         print('CADistr20P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2))
-        bounds_ca_distr_20 = cv2.selectROI('CADistr20P2', cv2_ca_distr_20, False, False)
+        bounds_pdf_image = cv2.selectROI('CADistr20P2', cv2_pdf_image, False, False)
         cv2.destroyWindow('CADistr20P2')
-        col_ca_distr_20 = cv2_ca_distr_20[int(bounds_ca_distr_20[1]):int(bounds_ca_distr_20[1]+bounds_ca_distr_20[3]),
-                                          int(bounds_ca_distr_20[0]):int(bounds_ca_distr_20[0]+bounds_ca_distr_20[2])]
+        col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
+                                      int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'CADistr20P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2)
-            cv2.imshow(window_name, col_ca_distr_20)
+            cv2.imshow(window_name, col_pdf_image)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
-        img_ca_distr_20 = Image.fromarray(col_ca_distr_20)
+        pil_pdf_image = Image.fromarray(col_pdf_image)
         # Perform OCR in PIL image with pytesseract
-        ca_distr_20_data = pytesseract.image_to_string(img_ca_distr_20)
-        ca_distr_20_data = ca_distr_20_data.split('\n')
-        parsed_columns_p2.append(ca_distr_20_data)
+        pdf_image_data = pytesseract.image_to_string(pil_pdf_image)
+        pdf_image_data = pdf_image_data.split('\n')
+        parsed_columns_p2.append(pdf_image_data)
 
     # Find column with most elements
     max_col_len_p1 = 0
@@ -533,7 +547,7 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
             max_col_len_p2 = len(parsed_columns_p2[i])
 
     # Create new Table and add each row of data from part 1
-    raw_table_abs_path = table_names_config.get_value('CADistr20P1')
+    raw_table_abs_path = top_level_directory + main_config.get_value('CADistr20P1_RT')
     output_table = du.Table(
         'n',
         filename=raw_table_abs_path,
@@ -552,10 +566,10 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
             else:
                 new_row.append(parsed_columns_p1[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
+    output_table.save_as_csv(raw_table_abs_path)
 
     # Create new Table and add each row of data from part 2
-    raw_table_abs_path = table_names_config.get_value('CADistr20P2')
+    raw_table_abs_path = top_level_directory + main_config.get_value('CADistr20P2_RT')
     output_table = du.Table(
         'n',
         filename=raw_table_abs_path,
@@ -574,93 +588,107 @@ def process_ca_distr_20(main_config, table_names_config, table_pg_config, pdf_pa
             else:
                 new_row.append(parsed_columns_p2[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
+    output_table.save_as_csv(raw_table_abs_path)
     print('CADistr20 done.')
+    return 0
 
 #####################################################################################################
 
-def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
-    ca_distr_21 = convert_from_path(pdf_path,
-                                    first_page=int(table_pg_config.get_value('CADistr21P1')),
-                                    last_page=int(table_pg_config.get_value('CADistr21P1')),
+def process_ca_distr_21(main_config, pdf_path, showimg=False):
+    # Get top level directory based on platform
+    top_level_directory = ''
+    if(sys.platform == 'win32'):
+        top_level_directory = main_config.get_value('WindowsTopLevel')
+    else:
+        top_level_directory = main_config.get_value('LinuxTopLevel')
+    # Extract page from PDF file
+    pdf_image = convert_from_path(pdf_path,
+                                    first_page=int(main_config.get_value('CADistr21P1_PDFPage')),
+                                    last_page=int(main_config.get_value('CADistr21P1_PDFPage')),
                                     dpi=200)[0]
     # Apply postprocessing to image
-    ca_distr_21 = ImageOps.invert(ca_distr_21)
-    ca_distr_21 = ImageOps.grayscale(ca_distr_21)
-    enhancer = ImageEnhance.Contrast(ca_distr_21)
-    ca_distr_21 = enhancer.enhance(1.5)
+    pdf_image = ImageOps.invert(pdf_image)
+    pdf_image = ImageOps.grayscale(pdf_image)
+    enhancer = ImageEnhance.Contrast(pdf_image)
+    pdf_image = enhancer.enhance(1.5)
     # Convert PIL image to opencv2 image
-    cv2_ca_distr_21 = np.array(ca_distr_21)
+    cv2_pdf_image = np.array(pdf_image)
     # Resize image to fit in 1080p screen
     w_width = int(main_config.get_value('WindowWidth'))
     w_height = int(main_config.get_value('WindowHeight'))
-    cv2_ca_distr_21 = cv2.resize(cv2_ca_distr_21, (w_width, w_height))
+    cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     n_cols_p1 = int(main_config.get_value('CADistr21P1_RTCols'))
-    col_names_p1 = main_config.get_value('CADistr21P2_RTHdr')
+    col_names_p1 = main_config.get_value('CADistr21P1_RTHdr')
     n_cols_p2 = int(main_config.get_value('CADistr21P2_RTCols'))
     col_names_p2 = main_config.get_value('CADistr21P2_RTHdr')
 
+    # Remove Percentage column from header
+    remove_cols = main_config.get_value('CADistr21_EraseFields')
+    for i in range(0, len(remove_cols)):
+        col_names_p1.remove(remove_cols[i])
+        col_names_p2.remove(remove_cols[i])
+
     # Get district names index
-    distr_index = cu.Config(main_config.get_value('DistrictsIndex'))
+    distr_index = cu.Config(top_level_directory + main_config.get_value('DistrictsIndex'))
 
     # Parse data in image column by column of first table 
     parsed_columns_p1 = []
     for i in range(0, n_cols_p1):
         # Append district names columns
         if(i == 0):
-            ca_distr_21_data = []
+            pdf_image_data = []
             n_rows = int(main_config.get_value('CADistr21P1_RTRows'))
             for j in range(0, n_rows):
-                ca_distr_21_data.append(distr_index.get_value(str(j)))
-            parsed_columns_p1.append(ca_distr_21_data)
+                pdf_image_data.append(distr_index.get_value(str(j)))
+            parsed_columns_p1.append(pdf_image_data)
             continue
         # Select area and crop image
         print('CADistr21P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1))
-        bounds_ca_distr_21 = cv2.selectROI('CADistr21P1', cv2_ca_distr_21, False, False)
+        bounds_pdf_image = cv2.selectROI('CADistr21P1', cv2_pdf_image, False, False)
         cv2.destroyWindow('CADistr21P1')
-        col_ca_distr_21 = cv2_ca_distr_21[int(bounds_ca_distr_21[1]):int(bounds_ca_distr_21[1]+bounds_ca_distr_21[3]),
-                                          int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
+        col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
+                                      int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'CADistr21P1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1)
-            cv2.imshow(window_name, col_ca_distr_21)
+            cv2.imshow(window_name, col_pdf_image)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
-        img_ca_distr_21 = Image.fromarray(col_ca_distr_21)
+        pil_pdf_image = Image.fromarray(col_pdf_image)
         # Perform OCR in PIL image with pytesseract
-        ca_distr_21_data = pytesseract.image_to_string(img_ca_distr_21)
-        ca_distr_21_data = ca_distr_21_data.split('\n')
-        parsed_columns_p1.append(ca_distr_21_data)
+        pdf_image_data = pytesseract.image_to_string(pil_pdf_image)
+        pdf_image_data = pdf_image_data.split('\n')
+        parsed_columns_p1.append(pdf_image_data)
 
     # Parse data in image column by column of second table 
     parsed_columns_p2 = []
     for i in range(0, n_cols_p2):
         # Append district names columns
         if(i == 0):
-            ca_distr_21_data = []
+            pdf_image_data = []
             n_rows = int(main_config.get_value('CADistr21P2_RTRows'))
             for j in range(0, n_rows):
-                ca_distr_21_data.append(distr_index.get_value(str(j + n_rows)))
-            parsed_columns_p2.append(ca_distr_21_data)
+                pdf_image_data.append(distr_index.get_value(str(j + n_rows)))
+            parsed_columns_p2.append(pdf_image_data)
             continue
         # Select area and crop image
         print('CADistr21P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2))
-        bounds_ca_distr_21 = cv2.selectROI('CADistr21P2', cv2_ca_distr_21, False, False)
+        bounds_pdf_image = cv2.selectROI('CADistr21P2', cv2_pdf_image, False, False)
         cv2.destroyWindow('CADistr21P2')
-        col_ca_distr_21 = cv2_ca_distr_21[int(bounds_ca_distr_21[1]):int(bounds_ca_distr_21[1]+bounds_ca_distr_21[3]),
-                                          int(bounds_ca_distr_21[0]):int(bounds_ca_distr_21[0]+bounds_ca_distr_21[2])]
+        col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
+                                      int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'CADistr21P2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2)
-            cv2.imshow(window_name, col_ca_distr_21)
+            cv2.imshow(window_name, col_pdf_image)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
-        img_ca_distr_21 = Image.fromarray(col_ca_distr_21)
+        img_pdf_image = Image.fromarray(col_pdf_image)
         # Perform OCR in PIL image with pytesseract
-        ca_distr_21_data = pytesseract.image_to_string(img_ca_distr_21)
-        ca_distr_21_data = ca_distr_21_data.split('\n')
-        parsed_columns_p2.append(ca_distr_21_data)
+        pdf_image_data = pytesseract.image_to_string(img_pdf_image)
+        pdf_image_data = pdf_image_data.split('\n')
+        parsed_columns_p2.append(pdf_image_data)
 
     # Find column with most elements
     max_col_len_p1 = 0
@@ -673,8 +701,7 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
             max_col_len_p2 = len(parsed_columns_p2[i])
 
     # Create new Table and add each row of data from part 1
-    raw_table_abs_path = table_names_config.get_value('CADistr21P1')
-    n_rows = int(main_config.get_value('CADistr21P1_RTRows'))
+    raw_table_abs_path = top_level_directory + main_config.get_value('CADistr21P1_RT')
     output_table = du.Table(
         'n',
         filename=raw_table_abs_path,
@@ -693,11 +720,10 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
             else:
                 new_row.append(parsed_columns_p1[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
+    output_table.save_as_csv(raw_table_abs_path)
 
     # Create new Table and add each row of data from part 2
-    raw_table_abs_path = table_names_config.get_value('CADistr21P2')
-    n_rows = int(main_config.get_value('CADistr21P2_RTRows'))
+    raw_table_abs_path = top_level_directory + main_config.get_value('CADistr21P2_RT')
     output_table = du.Table(
         'n',
         filename=raw_table_abs_path,
@@ -716,8 +742,9 @@ def process_ca_distr_21(main_config, table_names_config, table_pg_config, pdf_pa
             else:
                 new_row.append(parsed_columns_p2[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
+    output_table.save_as_csv(raw_table_abs_path)
     print('CADistr21 done.')
+    return 0
 
 #####################################################################################################
 
@@ -882,16 +909,17 @@ def main():
     #    process_ca_depto(main_config, pdf_path, showimg=False)
     #if(menu_selection['CPEdades']):
     #    process_cp_edades(main_config, pdf_path, showimg=False)
-    if(menu_selection['MADepto']):
-        process_ma_depto(main_config, pdf_path, showimg=False)
+    #if(menu_selection['MADepto']):
+    #    process_ma_depto(main_config, pdf_path, showimg=False)
     #if(menu_selection['CADistr20']):
     #    process_ca_distr_20(main_config, pdf_path, showimg=False)
-    #if(menu_selection['CADistr21']):
-    #    process_ca_distr_21(main_config, pdf_path, showimg=False)
+    if(menu_selection['CADistr21']):
+        process_ca_distr_21(main_config, pdf_path, showimg=False)
     #if(menu_selection['MADistr']):
     #    process_ma_distr(main_config, pdf_path, showimg=False)
     
 #####################################################################################################
 
-main()
+if __name__ == '__main__':
+    main()
     
