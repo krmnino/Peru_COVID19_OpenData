@@ -72,8 +72,8 @@ CADistr21_PTHdr = [Dia, Casos_Totales, Tasa_Ataque];
 MADistr_PTHdr = [Dia, Muertes_Totales, Tasa_Mortalidad];
 
 # Fields to be erased from raw tables
-EraseFieldsCADistr20 = [Porcentaje];
-EraseFieldsCADistr21 = [Porcentaje];
+CADistr20_EraseFields = [Porcentaje];
+CADistr21_EraseFields = [Porcentaje];
 
 # Global Constants
 WindowWidth = 1760;

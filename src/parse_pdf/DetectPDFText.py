@@ -72,9 +72,9 @@ def process_pa_depto(main_config, pdf_path, showimg=False):
         top_level_directory = main_config.get_value('LinuxTopLevel')
     # Extract page from PDF file
     pdf_image = convert_from_path(pdf_path,
-                                 first_page=int(main_config.get_value('PADepto_PDFPage')),
-                                 last_page=int(main_config.get_value('PADepto_PDFPage')),
-                                 dpi=200)[0]
+                                  first_page=int(main_config.get_value('PADepto_PDFPage')),
+                                  last_page=int(main_config.get_value('PADepto_PDFPage')),
+                                  dpi=200)[0]
     # Apply postprocessing to image
     pdf_image = ImageOps.invert(pdf_image)
     pdf_image = ImageOps.grayscale(pdf_image)
@@ -170,9 +170,9 @@ def process_ca_depto(main_config, pdf_path, showimg=False):
         top_level_directory = main_config.get_value('LinuxTopLevel')
     # Extract page from PDF file
     pdf_image = convert_from_path(pdf_path,
-                                 first_page=int(main_config.get_value('CADepto_PDFPage')),
-                                 last_page=int(main_config.get_value('CADepto_PDFPage')),
-                                 dpi=200)[0]
+                                  first_page=int(main_config.get_value('CADepto_PDFPage')),
+                                  last_page=int(main_config.get_value('CADepto_PDFPage')),
+                                  dpi=200)[0]
     # Apply postprocessing to image
     pdf_image = ImageOps.invert(pdf_image)
     pdf_image = ImageOps.grayscale(pdf_image)
@@ -268,9 +268,9 @@ def process_cp_edades(main_config, pdf_path, showimg=False):
         top_level_directory = main_config.get_value('LinuxTopLevel')
     # Extract page from PDF file
     pdf_image = convert_from_path(pdf_path,
-                                 first_page=int(main_config.get_value('CPEdades_PDFPage')),
-                                 last_page=int(main_config.get_value('CPEdades_PDFPage')),
-                                 dpi=200)[0]
+                                  first_page=int(main_config.get_value('CPEdades_PDFPage')),
+                                  last_page=int(main_config.get_value('CPEdades_PDFPage')),
+                                  dpi=200)[0]
     # Apply postprocessing to image
     pdf_image = ImageOps.invert(pdf_image)
     pdf_image = ImageOps.grayscale(pdf_image)
@@ -359,8 +359,8 @@ def process_ma_depto(main_config, pdf_path, showimg=False):
         top_level_directory = main_config.get_value('LinuxTopLevel')
     # Extract page from PDF file
     pdf_image = convert_from_path(pdf_path,
-                                 first_page=int(main_config.get_value('MADepto_PDFPage')),
-                                 last_page=int(main_config.get_value('MADepto_PDFPage')),
+                                  first_page=int(main_config.get_value('MADepto_PDFPage')),
+                                  last_page=int(main_config.get_value('MADepto_PDFPage')),
                                   dpi=200)[0]
     # Apply postprocessing to image
     pdf_image = ImageOps.invert(pdf_image)
@@ -449,9 +449,9 @@ def process_ca_distr_20(main_config, pdf_path, showimg=False):
         top_level_directory = main_config.get_value('LinuxTopLevel')
     # Extract page from PDF file
     pdf_image = convert_from_path(pdf_path,
-                                    first_page=int(main_config.get_value('CADistr20P1_PDFPage')),
-                                    last_page=int(main_config.get_value('CADistr20P1_PDFPage')),
-                                    dpi=200)[0]
+                                  first_page=int(main_config.get_value('CADistr20P1_PDFPage')),
+                                  last_page=int(main_config.get_value('CADistr20P1_PDFPage')),
+                                  dpi=200)[0]
     # Apply postprocessing to image
     pdf_image = ImageOps.invert(pdf_image)
     pdf_image = ImageOps.grayscale(pdf_image)
@@ -603,9 +603,9 @@ def process_ca_distr_21(main_config, pdf_path, showimg=False):
         top_level_directory = main_config.get_value('LinuxTopLevel')
     # Extract page from PDF file
     pdf_image = convert_from_path(pdf_path,
-                                    first_page=int(main_config.get_value('CADistr21P1_PDFPage')),
-                                    last_page=int(main_config.get_value('CADistr21P1_PDFPage')),
-                                    dpi=200)[0]
+                                  first_page=int(main_config.get_value('CADistr21P1_PDFPage')),
+                                  last_page=int(main_config.get_value('CADistr21P1_PDFPage')),
+                                  dpi=200)[0]
     # Apply postprocessing to image
     pdf_image = ImageOps.invert(pdf_image)
     pdf_image = ImageOps.grayscale(pdf_image)
@@ -748,22 +748,29 @@ def process_ca_distr_21(main_config, pdf_path, showimg=False):
 
 #####################################################################################################
 
-def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path, showimg=False):
-    ma_distr = convert_from_path(pdf_path,
-                                    first_page=int(table_pg_config.get_value('MADistrP1')),
-                                    last_page=int(table_pg_config.get_value('MADistrP1')),
-                                    dpi=200)[0]
+def process_ma_distr(main_config, pdf_path, showimg=False):
+    # Get top level directory based on platform
+    top_level_directory = ''
+    if(sys.platform == 'win32'):
+        top_level_directory = main_config.get_value('WindowsTopLevel')
+    else:
+        top_level_directory = main_config.get_value('LinuxTopLevel')
+    # Extract page from PDF file
+    pdf_image = convert_from_path(pdf_path,
+                                  first_page=int(main_config.get_value('MADistrP1_PDFPage')),
+                                  last_page=int(main_config.get_value('MADistrP1_PDFPage')),
+                                  dpi=200)[0]
     # Apply postprocessing to image
-    ma_distr = ImageOps.invert(ma_distr)
-    ma_distr = ImageOps.grayscale(ma_distr)
-    enhancer = ImageEnhance.Contrast(ma_distr)
-    ma_distr = enhancer.enhance(1.5)
+    pdf_image = ImageOps.invert(pdf_image)
+    pdf_image = ImageOps.grayscale(pdf_image)
+    enhancer = ImageEnhance.Contrast(pdf_image)
+    pdf_image = enhancer.enhance(1.5)
     # Convert PIL image to opencv2 image
-    cv2_ma_distr = np.array(ma_distr)
+    cv2_pdf_image = np.array(pdf_image)
     # Resize image to fit in 1080p screen
     w_width = int(main_config.get_value('WindowWidth'))
     w_height = int(main_config.get_value('WindowHeight'))
-    cv2_ma_distr = cv2.resize(cv2_ma_distr, (w_width, w_height))
+    cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     n_cols_p1 = int(main_config.get_value('MADistrP1_RTCols'))
     col_names_p1 = main_config.get_value('MADistrP1_RTHdr')
@@ -771,64 +778,64 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
     col_names_p2 = main_config.get_value('MADistrP2_RTHdr')
 
     # Get district names index
-    distr_index = cu.Config(main_config.get_value('DistrictsIndex'))
+    distr_index = cu.Config(top_level_directory + main_config.get_value('DistrictsIndex'))
     
     # Parse data in image column by column of first table 
     parsed_columns_p1 = []
     for i in range(0, n_cols_p1):
         # Append district names columns
         if(i == 0):
-            ma_distr_data = []
+            pdf_image_data = []
             n_rows = int(main_config.get_value('MADistrP1_RTRows'))
             for j in range(0, n_rows):
-                ma_distr_data.append(distr_index.get_value(str(j)))
-            parsed_columns_p1.append(ma_distr_data)
+                pdf_image_data.append(distr_index.get_value(str(j)))
+            parsed_columns_p1.append(pdf_image_data)
             continue
         # Select area and crop image
         print('MADistrP1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1))
-        bounds_ma_distr = cv2.selectROI('MADistrP1', cv2_ma_distr, False, False)
+        bounds_pdf_image = cv2.selectROI('MADistrP1', cv2_pdf_image, False, False)
         cv2.destroyWindow('MADistrP1')
-        col_ma_distr = cv2_ma_distr[int(bounds_ma_distr[1]):int(bounds_ma_distr[1]+bounds_ma_distr[3]),
-                                    int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
+        col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
+                                      int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'MADistrP1 - Col[' + col_names_p1[i] + '] ' + str(i + 1) + '/' + str(n_cols_p1)
-            cv2.imshow(window_name, col_ma_distr)
+            cv2.imshow(window_name, col_pdf_image)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
-        img_ma_distr = Image.fromarray(col_ma_distr)
+        pil_pdf_image = Image.fromarray(col_pdf_image)
         # Perform OCR in PIL image with pytesseract
-        ma_distr_data = pytesseract.image_to_string(img_ma_distr)
-        ma_distr_data = ma_distr_data.split('\n')
-        parsed_columns_p1.append(ma_distr_data)
+        pdf_image_data = pytesseract.image_to_string(pil_pdf_image)
+        pdf_image_data = pdf_image_data.split('\n')
+        parsed_columns_p1.append(pdf_image_data)
 
     # Parse data in image column by column of second table 
     parsed_columns_p2 = []
     for i in range(0, n_cols_p2):
         if(i == 0):
-            ma_distr_data = []
+            pdf_image_data = []
             n_rows = int(main_config.get_value('MADistrP2_RTRows'))
             for j in range(0, n_rows):
-                ma_distr_data.append(distr_index.get_value(str(j)))
-            parsed_columns_p2.append(ma_distr_data)
+                pdf_image_data.append(distr_index.get_value(str(j)))
+            parsed_columns_p2.append(pdf_image_data)
             continue
         # Select area and crop image
         print('MADistrP2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2))
-        bounds_ma_distr = cv2.selectROI('MADistrP2', cv2_ma_distr, False, False)
+        bounds_pdf_image = cv2.selectROI('MADistrP2', cv2_pdf_image, False, False)
         cv2.destroyWindow('MADistrP2')
-        col_ma_distr = cv2_ma_distr[int(bounds_ma_distr[1]):int(bounds_ma_distr[1]+bounds_ma_distr[3]),
-                                    int(bounds_ma_distr[0]):int(bounds_ma_distr[0]+bounds_ma_distr[2])]
+        col_pdf_image = cv2_pdf_image[int(bounds_pdf_image[1]):int(bounds_pdf_image[1]+bounds_pdf_image[3]),
+                                      int(bounds_pdf_image[0]):int(bounds_pdf_image[0]+bounds_pdf_image[2])]
         # Show cropped image if showimg = True
         if(showimg):
             window_name = 'MADistrP2 - Col[' + col_names_p2[i] + '] ' + str(i + 1) + '/' + str(n_cols_p2)
-            cv2.imshow(window_name, col_ma_distr)
+            cv2.imshow(window_name, col_pdf_image)
             cv2.waitKey(0)
         # Convert opencv2 image back to PIL image
-        img_ma_distr = Image.fromarray(col_ma_distr)
+        img_pdf_image = Image.fromarray(col_pdf_image)
         # Perform OCR in PIL image with pytesseract
-        ma_distr_data = pytesseract.image_to_string(img_ma_distr)
-        ma_distr_data = ma_distr_data.split('\n')
-        parsed_columns_p2.append(ma_distr_data)
+        pdf_image_data = pytesseract.image_to_string(img_pdf_image)
+        pdf_image_data = pdf_image_data.split('\n')
+        parsed_columns_p2.append(pdf_image_data)
 
     # Find column with most elements
     max_col_len_p1 = 0
@@ -841,7 +848,7 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
             max_col_len_p2 = len(parsed_columns_p2[i])
 
     # Create new Table and add each row of data from part 1
-    raw_table_abs_path = table_names_config.get_value('MADistrP1')
+    raw_table_abs_path = top_level_directory + main_config.get_value('MADistrP1_RT')
     output_table = du.Table(
         'n',
         filename=raw_table_abs_path,
@@ -859,10 +866,10 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
             else:
                 new_row.append(parsed_columns_p1[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
+    output_table.save_as_csv(raw_table_abs_path)
 
     # Create new Table and add each row of data from part 2
-    raw_table_abs_path = table_names_config.get_value('MADistrP2')
+    raw_table_abs_path = top_level_directory + main_config.get_value('MADistrP2_RT')
     output_table = du.Table(
         'n',
         filename=raw_table_abs_path,
@@ -880,8 +887,9 @@ def process_ma_distr(main_config, table_names_config, table_pg_config, pdf_path,
             else:
                 new_row.append(parsed_columns_p2[j][i])
         output_table.append_end_row(new_row)
-    output_table.save_as_csv(main_config.get_value('RawTablesDir') + '/' + raw_table_abs_path)
+    output_table.save_as_csv(raw_table_abs_path)
     print('MADistr done.')
+    return 0
 
 
 #####################################################################################################
@@ -903,20 +911,21 @@ def main():
 
     menu_selection = select_read_tables_menu(menu_selection)
 
-    #if(menu_selection['PADepto']):
-    #    process_pa_depto(main_config, pdf_path, showimg=False)
-    #if(menu_selection['CADepto']):
-    #    process_ca_depto(main_config, pdf_path, showimg=False)
-    #if(menu_selection['CPEdades']):
-    #    process_cp_edades(main_config, pdf_path, showimg=False)
-    #if(menu_selection['MADepto']):
-    #    process_ma_depto(main_config, pdf_path, showimg=False)
-    #if(menu_selection['CADistr20']):
-    #    process_ca_distr_20(main_config, pdf_path, showimg=False)
+    if(menu_selection['PADepto']):
+        process_pa_depto(main_config, pdf_path, showimg=False)
+    if(menu_selection['CADepto']):
+        process_ca_depto(main_config, pdf_path, showimg=False)
+    if(menu_selection['CPEdades']):
+        process_cp_edades(main_config, pdf_path, showimg=False)
+    if(menu_selection['MADepto']):
+        process_ma_depto(main_config, pdf_path, showimg=False)
+    if(menu_selection['CADistr20']):
+        process_ca_distr_20(main_config, pdf_path, showimg=False)
     if(menu_selection['CADistr21']):
         process_ca_distr_21(main_config, pdf_path, showimg=False)
-    #if(menu_selection['MADistr']):
-    #    process_ma_distr(main_config, pdf_path, showimg=False)
+    if(menu_selection['MADistr']):
+        process_ma_distr(main_config, pdf_path, showimg=False)
+    return 0
     
 #####################################################################################################
 
