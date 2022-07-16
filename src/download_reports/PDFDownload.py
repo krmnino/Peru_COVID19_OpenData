@@ -32,7 +32,9 @@ class PDF_Downloader:
     def download_pdf(self):
         print('\nDownloading:', self.current_filename)
         try:
-            abs_path = os.path.abspath(self.config.get_value('PDF_Path') + '/' + self.current_filename)
+            abs_path = self.config.get_value('WindowsTopLevel') + \
+                       self.config.get_value('PDF_Path') + \
+                       self.current_filename
             wget.download(self.current_url, out=abs_path)
         except Exception as e:
             print('Could not download PDF from url')
@@ -43,7 +45,9 @@ class PDF_Downloader:
         self.out_filenames.append(self.current_filename)
 
     def save_out_filenames(self, list_filename):
-        abs_path = os.path.abspath(self.config.get_value('PDF_Path') + '/' + list_filename)
+        abs_path = self.config.get_value('WindowsTopLevel') + \
+                       self.config.get_value('PDF_Path') + \
+                       list_filename + '.txt'
         with open(abs_path, 'w') as file:
             for i in range(0, len(self.out_filenames)):
                 file.write(self.out_filenames[i] + '\n')

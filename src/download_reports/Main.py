@@ -7,7 +7,6 @@ sys.path.insert(0, '../utilities')
 
 import ConfigUtility as cu
 
-
 def main():
     main_config = cu.Config('./config/PDFDownload.cl')
     
