@@ -98,11 +98,11 @@ int append_begin_cp_edades(tl::Table*& input_raw_table, cl::Config* main_config,
 
 int append_begin_ma_depto(tl::Table*& input_raw_table, cl::Config* main_config, std::string date, cl::Config * dept_index) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	std::string processed_dir = top_level_path + main_config->get_value("MADepto_Dir")->get_data<std::string>();
 	for (int i = 0; i < dept_index->get_n_entries(); i++) {
@@ -154,13 +154,13 @@ int append_begin_ma_deptosm(tl::Table*& input_raw_table, cl::Config* main_config
 	return 0;
 }
 
-int append_begin_ca_distr_20(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
+int append_begin_ca_distr_20(tl::Table*& input_raw_table, cl::Config* main_config, std::string date, cl::Config* distr_index) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	std::string processed_dir = top_level_path + main_config->get_value("CADistr20_Dir")->get_data<std::string>();
 	for (int i = 0; i < distr_index->get_n_entries(); i++) {
@@ -173,7 +173,7 @@ int append_begin_ca_distr_20(tl::Table*& input_raw_table, cl::Config* main_confi
 
 		// Extract row from raw table
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
-		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
+		input_row[0] = date;
 
 		// Save processed table
 		processed_table->append_begin_row(input_row);
