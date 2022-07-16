@@ -183,13 +183,13 @@ int append_end_ca_distr_20(tl::Table*& input_raw_table, cl::Config* main_config,
 	return 0;
 }
 
-int append_end_ca_distr_21(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
+int append_end_ca_distr_21(tl::Table*& input_raw_table, cl::Config* main_config, std::string date, cl::Config* distr_index) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	std::string processed_dir = top_level_path + main_config->get_value("CADistr21_Dir")->get_data<std::string>() + "/";
 	for (int i = 0; i < distr_index->get_n_entries(); i++) {
@@ -202,7 +202,7 @@ int append_end_ca_distr_21(tl::Table*& input_raw_table, cl::Config* main_config,
 
 		// Extract row from raw table
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
-		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
+		input_row[0] = date;
 
 		// Save processed table
 		distr_table->append_end_row(input_row);

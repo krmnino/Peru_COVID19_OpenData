@@ -431,13 +431,13 @@ int process_ca_distr_20(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::
 	return 0;
 }
 
-int process_ca_distr_21(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index){
+int process_ca_distr_21(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* distr_index){
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	// Open raw table files
 	std::string raw_table_path_p1 = main_config->get_value("CADistr21P1_RT")->get_data<std::string>();
@@ -471,7 +471,7 @@ int process_ca_distr_21(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::
 		throw ex;
 		return -1;
 	}
-	std::vector<Variant> erase_fields = main_config->get_value("EraseFieldsCADistr21")->get_data<cl::List>();
+	std::vector<Variant> erase_fields = main_config->get_value("CADistr21_EraseFields")->get_data<cl::List>();
 	// Remove percentage column
 	try {
 		raw_table_p1->remove_column(erase_fields[0].get_data<std::string>());
@@ -496,7 +496,7 @@ int process_ca_distr_21(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::
 	}
 	// Sanitize Tasa_Ataque data (INTEGER)
 	{
-		std::vector<std::string> table_col_str = { table_col_config_p1[2].get_data<std::string>() };
+		std::vector<std::string> table_col_str = { table_col_config_p1[3].get_data<std::string>() };
 		raw_table_p1->compute_update_column(table_col_str[0], table_col_str, convert2double);
 	}
 	return 0;
