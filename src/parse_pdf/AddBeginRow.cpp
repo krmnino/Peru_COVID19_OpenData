@@ -212,13 +212,13 @@ int append_begin_ca_distr_21(tl::Table*& input_raw_table, cl::Config* main_confi
 	return 0;
 }
 
-int append_begin_ma_distr(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
+int append_begin_ma_distr(tl::Table*& input_raw_table, cl::Config* main_config, std::string date, cl::Config* distr_index) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	std::string processed_dir = top_level_path + main_config->get_value("MADistr_Dir")->get_data<std::string>() + "/";
 	for (int i = 0; i < distr_index->get_n_entries(); i++) {
@@ -230,7 +230,7 @@ int append_begin_ma_distr(tl::Table*& input_raw_table, cl::Config* main_config, 
 		distr_table->set_filename(table_path);
 
 		std::vector<Variant> input_row = input_raw_table->get_row_data(i);
-		input_row[0] = areas_config->get_value("Date")->get_data<std::string>();
+		input_row[0] = date;
 
 		// Extract row from raw table
 		distr_table->append_begin_row(input_row);

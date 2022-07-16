@@ -502,13 +502,13 @@ int process_ca_distr_21(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::
 	return 0;
 }
 
-int process_ma_distr(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* areas_config, cl::Config* distr_index) {
+int process_ma_distr(tl::Table*& raw_table_p1, tl::Table*& raw_table_p2, cl::Config* main_config, cl::Config* distr_index) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	// Open raw table files
 	std::string raw_table_path_p1 = main_config->get_value("MADistrP1_RT")->get_data<std::string>();

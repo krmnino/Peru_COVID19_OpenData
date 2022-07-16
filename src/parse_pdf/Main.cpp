@@ -98,28 +98,28 @@ int main() {
 	
 	// Process CasosAcumuDistrito2021P1.csv
 	// Process CasosAcumuDistrito2021P2.csv
+	//{
+	//	tl::Table* input_raw_table_p1;
+	//	tl::Table* input_raw_table_p2;
+	//	process_ca_distr_21(input_raw_table_p1, input_raw_table_p2, main_config, distr_index);
+	//	append_end_ca_distr_21(input_raw_table_p1, main_config, report_date, distr_index);
+	//	//append_begin_ca_distr_21(input_raw_table_p1, main_config, areas_config, distr_index);
+	//	delete input_raw_table_p1;
+	//	delete input_raw_table_p2;
+	//}
+	
+	// Process MuertesAcumulaDistritoP1.csv
+	// Process MuertesAcumulaDistritoP2.csv
 	{
 		tl::Table* input_raw_table_p1;
 		tl::Table* input_raw_table_p2;
-		process_ca_distr_21(input_raw_table_p1, input_raw_table_p2, main_config, distr_index);
-		append_end_ca_distr_21(input_raw_table_p1, main_config, report_date, distr_index);
-		//append_begin_ca_distr_21(input_raw_table_p1, main_config, areas_config, distr_index);
+		process_ma_distr(input_raw_table_p1, input_raw_table_p2, main_config, distr_index);
+		append_end_ma_distr(input_raw_table_p1, main_config, report_date, distr_index);
+		//append_begin_ma_distr(input_raw_table_p1, main_config, areas_config, distr_index);
 		delete input_raw_table_p1;
 		delete input_raw_table_p2;
 	}
 	
-	//// Process MuertesAcumulaDistritoP1.csv
-	//// Process MuertesAcumulaDistritoP2.csv
-	//{
-	//	tl::Table* input_raw_table_p1;
-	//	tl::Table* input_raw_table_p2;
-	//	process_ma_distr(input_raw_table_p1, input_raw_table_p2, main_config, areas_config, distr_index);
-	//	append_end_ma_distr(input_raw_table_p1, main_config, areas_config, distr_index);
-	//	//append_begin_ma_distr(input_raw_table_p1, main_config, areas_config, distr_index);
-	//	delete input_raw_table_p1;
-	//	delete input_raw_table_p2;
-	//}
-	//
 	delete main_config;
 	delete dept_index;
 	delete distr_index;
