@@ -92,14 +92,44 @@ void set_proper_col_names(cl::Config& names_index, tl::Table& raw_table) {
 	}
 }
 
-
-int process_pa_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+std::string get_report_date(cl::Config* main_config) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
+
+	// Load AreasPDF configuration file
+	std::string config_path = main_config->get_value("AreasPDFCL")->get_data<std::string>();
+	cl::Config* areas_config = new cl::Config(top_level_path + config_path);
+
+	// Get filename and remove substrings
+	std::string report_filename = areas_config->get_value("ReportFilename")->get_data<std::string>();
+	std::string substr;
+	size_t position;
+	substr = "coronavirus";
+	position = report_filename.find(substr);
+	report_filename.erase(position, substr.length());
+	substr = ".pdf";
+	position = report_filename.find(substr);
+	report_filename.erase(position, substr.length());
+	
+	std::string date = "20" + report_filename.substr(4, 2) + 
+						"-" + report_filename.substr(2, 2) + 
+						"-" + report_filename.substr(0, 2);
+
+	return date;
+}
+
+
+int process_pa_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* dept_index) {
+	// Extract top level directory path
+	#ifdef LINUX
+	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
+	#else
+	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
+	#endif // LINUX
 
 	// Open raw table file
 	std::string raw_table_path = main_config->get_value("PADepto_RT")->get_data<std::string>();
