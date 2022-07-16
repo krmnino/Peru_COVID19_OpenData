@@ -1,25 +1,73 @@
-class Config:
-    def __init__(self, path):
-        self.contents = {}
-        self.entries = 0
-        buffer = ''
-        with open(path) as file:
-            for line in file:
-                if(line[0] == '#'):
+import enum
+
+class CL_ErrorCodes(enum.Enum):
+    OK = 0
+    SEMICOLON = 1
+    EQUALS_SIGN = 2
+    KEY_NOT_FOUND = 3
+    ADD_KEY_REPEAT = 4
+
+class CL_Error(Exception):
+    def __init__(self, message, error_code):
+        super().__init__(message)
+        self.err_code = error_code
+
+class CL_ErrorWrapper:
+    def __init__(self, error_code):
+        self.error_code = error_code
+        if(self.error_code == CL_ErrorCodes.OK):
+            self.message = ''
+        elif(self.error_code == CL_ErrorCodes.SEMICOLON):
+            self.message = 'Missing semicolon in config file.'
+        elif(self.error_code == CL_ErrorCodes.EQUALS_SIGN):
+            self.message = 'Missing equals sign at an entry in config file.'
+        elif(self.error_code == CL_ErrorCodes.KEY_NOT_FOUND):
+            self.message = 'Key not found in config file.'
+        elif(self.error_code == CL_ErrorCodes.ADD_KEY_REPEAT):
+            self.message = 'Key already exists in config file.'
+        else:
+            self.message = 'Undefinded error.'
+
+class Config:        
+    def __init__(self, path=''):
+        if(path == ''):
+            self.contents = {}
+            self.entries = 0
+        else:
+            self.contents = {}
+            self.entries = 0
+            buffer = ''
+            with open(path) as file:
+                for line in file:
+                    line = line.replace('\n', '')
+                    if(len(line) == 0):
+                        continue
+                    if(line[0] == '#'):
+                        continue
+                    if(line[len(line) - 1] != ';'):
+                        if(line[len(line) - 1] == ','):
+                            buffer += line
+                            continue
+                        else:
+                            ex = CL_ErrorWrapper(CL_ErrorCodes.SEMICOLON)
+                            raise CL_Error(ex.message, ex.error_code)
+                    buffer += line
+            buffer = buffer.replace('\t', '')
+            split_buffer = buffer.split(';')
+            for entry in split_buffer:
+                if(len(entry) == 0):
                     continue
-                buffer += line
-        buffer = buffer.replace('\n', '')
-        buffer = buffer.replace('\t', '')
-        split_buffer = buffer.split(';')
-        for entry in split_buffer:
-            if(len(entry) == 0):
-                continue
-            key_val = entry.split('=')
-            key = self.__remove_side_spaces(key_val[0])
-            value = self.__process_value(key_val[1])
-            self.contents[key] = value
-            self.entries += 1
-        self.inited = True    
+                key_val = entry.split('=')
+                if(len(key_val) != 2):
+                    ex = CL_ErrorWrapper(CL_ErrorCodes.EQUALS_SIGN)
+                    raise CL_Error(ex.message, ex.error_code)
+                key = self.__remove_side_spaces(key_val[0])
+                value = self.__process_value(key_val[1])
+                if(key in self.contents):
+                    self.contents[key] = value
+                else:    
+                    self.contents[key] = value
+                    self.entries += 1
 
     def __remove_side_spaces(self, raw_string):
         left_idx = 0
@@ -60,12 +108,34 @@ class Config:
             except:
                 return raw_string
 
-    def list_keys(self):
+    def get_all_keys(self):
         return [i for i in self.contents.keys()]
 
     def get_value(self, key):
+        if(key not in self.contents):
+            ex = CL_ErrorWrapper(CL_ErrorCodes.KEY_NOT_FOUND)
+            raise CL_Error(ex.message, ex.error_code)
         return self.contents[key]
 
     def get_n_entries(self):
         return self.entries
 
+    def get_all_key_values(self):
+        key_vals = []
+        keys = [i for i in self.contents.keys()]
+        for i in range(0, self.entries):
+            key_vals.append((keys[i], self.get_value(keys[i])))
+        return key_vals
+
+    def add_entry(self, key, value):
+        if(key in self.contents):
+            ex = CL_ErrorWrapper(CL_ErrorCodes.ADD_KEY_REPEAT)
+            raise CL_Error(ex.message, ex.error_code)
+        self.contents[key] = value
+        self.entries += 1
+
+    def edit_value(self, key, value):
+        if(key not in self.contents):
+            ex = CL_ErrorWrapper(CL_ErrorCodes.KEY_NOT_FOUND)
+            raise CL_Error(ex.message, ex.error_code)
+        self.contents[key] = value

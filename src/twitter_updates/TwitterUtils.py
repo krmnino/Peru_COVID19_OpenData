@@ -8,7 +8,6 @@ import pathlib
 from PIL import Image
 from PIL import ImageOps 
 from PIL import ImageEnhance
-from math import sqrt
 
 sys.path.insert(0, '../utilities')
 

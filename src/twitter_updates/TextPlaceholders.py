@@ -1,7 +1,5 @@
 import sys
 
-from numpy.lib.function_base import place
-
 class Text:
     def __init__(self, path):
         self.text = ''

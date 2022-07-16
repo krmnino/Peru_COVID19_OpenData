@@ -1,6 +1,5 @@
 import sys
 import wget
-import os
 
 from datetime import datetime, timedelta
 

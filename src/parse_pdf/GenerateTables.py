@@ -170,14 +170,14 @@ def generate_madeptosm_tables():
     print("MADeptoSM: Generating table complete")
 
 def main():
-    gen_padepto = False
-    gen_cadepto = False
-    gen_caedades = False
-    gen_madepto = False
-    gen_cadistr20 = False
-    gen_cadistr21 = False
-    gen_madistr = False
-    gen_madeptosm = False
+    gen_padepto = True
+    gen_cadepto = True
+    gen_caedades = True
+    gen_madepto = True
+    gen_cadistr20 = True
+    gen_cadistr21 = True
+    gen_madistr = True
+    gen_madeptosm = True
 
     if (gen_padepto):
         generate_padepto_tables()
