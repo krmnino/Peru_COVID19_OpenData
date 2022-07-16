@@ -465,7 +465,7 @@ def main():
     export_tweets_to_file(top_level_directory + main_config.get_value('TweetExport'), [tweet1, tweet2])
     
     # Reply to @Minsa_Peru with tweet thread
-    twitter_session.send_thread([tweet1, tweet2])
+    #twitter_session.send_thread([tweet1, tweet2])
     
     # Update GitHub repository with new data    
     if(sys.platform == 'win32'):
