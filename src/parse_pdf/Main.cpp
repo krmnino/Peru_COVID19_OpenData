@@ -41,23 +41,23 @@ int main() {
 	//int n_tables = areas_config->get_n_entries();
 	
 	// Process PruebasAcumuladasDepto.csv
-	{
-		tl::Table* input_raw_table;
-		process_pa_depto(input_raw_table, main_config, dept_index);
-		append_end_pa_depto(input_raw_table, main_config, report_date, dept_index);
-		//append_begin_pa_depto(input_raw_table, main_config, report_date, dept_index);
-		delete input_raw_table;
-	}
-
-	//// Process CasosAcumuladosDepto.csv
 	//{
 	//	tl::Table* input_raw_table;
-	//	process_ca_depto(input_raw_table, main_config, areas_config, dept_index);
-	//	append_end_ca_depto(input_raw_table, main_config, areas_config, dept_index);
-	//	//append_begin_ca_depto(input_raw_table, main_config, areas_config, dept_index);
+	//	process_pa_depto(input_raw_table, main_config, dept_index);
+	//	append_end_pa_depto(input_raw_table, main_config, report_date, dept_index);
+	//	//append_begin_pa_depto(input_raw_table, main_config, report_date, dept_index);
 	//	delete input_raw_table;
 	//}
-	//
+
+	//// Process CasosAcumuladosDepto.csv
+	{
+		tl::Table* input_raw_table;
+		process_ca_depto(input_raw_table, main_config, dept_index);
+		append_end_ca_depto(input_raw_table, main_config, report_date, dept_index);
+		//append_begin_ca_depto(input_raw_table, main_config, report_date, dept_index);
+		delete input_raw_table;
+	}
+	
 	//// Process CasosPositivosEdades.csv
 	//{
 	//	tl::Table* input_raw_table;
@@ -121,7 +121,6 @@ int main() {
 	//}
 	//
 	delete main_config;
-	//delete areas_config;
 	delete dept_index;
 	delete distr_index;
 	delete age_index;

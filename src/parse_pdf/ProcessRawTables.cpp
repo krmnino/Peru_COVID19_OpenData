@@ -115,10 +115,12 @@ std::string get_report_date(cl::Config* main_config) {
 	position = report_filename.find(substr);
 	report_filename.erase(position, substr.length());
 	
+	// Put together date
 	std::string date = "20" + report_filename.substr(4, 2) + 
 						"-" + report_filename.substr(2, 2) + 
 						"-" + report_filename.substr(0, 2);
 
+	delete areas_config;
 	return date;
 }
 
@@ -173,13 +175,13 @@ int process_pa_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config*
 	return 0;
 }
 
-int process_ca_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int process_ca_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* dept_index) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	// Open raw table file
 	std::string raw_table_path = main_config->get_value("CADepto_RT")->get_data<std::string>();
