@@ -1,8 +1,6 @@
 import datetime
 import os
 import sys
-import time
-import copy
 import numpy as np
 
 sys.path.insert(0, '../utilities')
@@ -11,31 +9,31 @@ import DataUtility as du
 import ConfigUtility as cu
 import PlottingUtility as pu
 
-from TwitterUpdate import get_bulletin_image_path
-from TwitterUpdate import process_image
-from TwitterUpdate import decode_image
-from TwitterUpdate import get_top_level_directory_path
-from TwitterUpdate import check_date
-from TwitterUpdate import get_bulletin_dimensions
-from TwitterUpdate import clean_dir
-from TwitterUpdate import compute_new_cases
-from TwitterUpdate import compute_cases_growth_factor
-from TwitterUpdate import compute_active_cases
-from TwitterUpdate import compute_new_active_cases
-from TwitterUpdate import compute_new_deaths
-from TwitterUpdate import compute_deaths_growth_factor
-from TwitterUpdate import compute_case_fatality_rate
-from TwitterUpdate import compute_new_tests
-from TwitterUpdate import compute_tests_growth_factor
-from TwitterUpdate import compute_daily_positivity_rate
-from TwitterUpdate import compute_new_recovered
-from TwitterUpdate import compute_recovered_growth_factor
-from TwitterUpdate import compute_new_hospitalized
-from TwitterUpdate import compute_hospitalized_growth_factor
-from TwitterUpdate import compute_days
-from TwitterUpdate import generate_first_tweet_text
-from TwitterUpdate import generate_second_tweet_text
-from TwitterUpdate import export_tweets_to_file
+from TwitterUtils import get_bulletin_image_path
+from TwitterUtils import process_image
+from TwitterUtils import decode_image
+from TwitterUtils import get_top_level_directory_path
+from TwitterUtils import check_date
+from TwitterUtils import get_bulletin_dimensions
+from TwitterUtils import clean_dir
+from TwitterUtils import compute_new_cases
+from TwitterUtils import compute_cases_growth_factor
+from TwitterUtils import compute_active_cases
+from TwitterUtils import compute_new_active_cases
+from TwitterUtils import compute_new_deaths
+from TwitterUtils import compute_deaths_growth_factor
+from TwitterUtils import compute_case_fatality_rate
+from TwitterUtils import compute_new_tests
+from TwitterUtils import compute_tests_growth_factor
+from TwitterUtils import compute_daily_positivity_rate
+from TwitterUtils import compute_new_recovered
+from TwitterUtils import compute_recovered_growth_factor
+from TwitterUtils import compute_new_hospitalized
+from TwitterUtils import compute_hospitalized_growth_factor
+from TwitterUtils import compute_days
+from TwitterUtils import generate_first_tweet_text
+from TwitterUtils import generate_second_tweet_text
+from TwitterUtils import export_tweets_to_file
 from CommandLineUtility import check_data_menu
 from CommandLineUtility import check_tweets_menu
 from StatAnalysis import Stats

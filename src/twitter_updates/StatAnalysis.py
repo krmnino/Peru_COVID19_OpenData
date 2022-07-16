@@ -2,7 +2,6 @@ import sys
 from math import e, pi, sqrt
 import random
 import numpy as np
-from numpy.core.numeric import Infinity
 
 sys.path.insert(0, '../utilities')
 

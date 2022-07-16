@@ -5,7 +5,6 @@ import datetime
 import numpy as np
 import pytesseract
 import pathlib
-from datetime import date
 from PIL import Image
 from PIL import ImageOps 
 from PIL import ImageEnhance
