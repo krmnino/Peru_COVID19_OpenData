@@ -42,7 +42,7 @@ from StatAnalysis import Stats
 from TwitterUtility import TwitterAPISession
 from TwitterUtility import Tweet
 
-def run():
+def main():
     # Obtain current date
     current_date = datetime.date.today().strftime('%Y-%m-%d')
 
@@ -514,4 +514,5 @@ def run():
 
 #####################################################################################################################
 
-run()
+if __name__ == '__main__':
+    main()
