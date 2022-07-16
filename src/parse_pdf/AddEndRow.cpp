@@ -58,13 +58,13 @@ int append_end_ca_depto(tl::Table*& input_raw_table, cl::Config* main_config, st
 	return 0;
 }
 
-int append_end_cp_edades(tl::Table*& input_raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* age_index) {
+int append_end_cp_edades(tl::Table*& input_raw_table, cl::Config* main_config, std::string date, cl::Config* age_index) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	// Open processed table
 	std::string table_path = top_level_path + main_config->get_value("CPEdades_PTF")->get_data<std::string>();
@@ -78,7 +78,7 @@ int append_end_cp_edades(tl::Table*& input_raw_table, cl::Config* main_config, c
 	size_t num_entries = main_config->get_value("CPEdades_PTHdr")->get_data<cl::List>().size();
 	std::vector<Variant> input_row;
 	input_row.resize(num_entries);
-	input_row[input_row_index++] = areas_config->get_value("Date")->get_data<std::string>();
+	input_row[input_row_index++] = date;
 
 	// For each row in raw table
 	for (int i = 0; i < input_raw_table->get_rows(); i++) {
