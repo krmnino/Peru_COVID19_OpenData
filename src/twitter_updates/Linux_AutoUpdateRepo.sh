@@ -1,5 +1,5 @@
-../utilities/CSVtoJSON ../../data/PER_data.csv ../../data/PER_data.json
-../utilities/CSVtoJSON ../../data/PER_full_data.csv ../../data/PER_full_data.json
+../utilities/CSVtoJSON/CSVtoJSON ../../data/PER_data.csv ../../data/PER_data.json
+../utilities/CSVtoJSON/CSVtoJSON ../../data/PER_full_data.csv ../../data/PER_full_data.json
 
 git add ../../data/PER_data.csv
 git add ../../data/PER_full_data.csv
