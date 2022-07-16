@@ -1,10 +1,10 @@
 # Set up working environment
-working_dir <- "C:/Users/kurt_/github/Peru_COVID19_Stats/src/parse_pdf"
+working_dir <- "C:/Users/kurt_/github/Peru_COVID19_Stats/"
 setwd(working_dir)
 
 # Include dependencies
 library("tabulizer")
-source("../utilities/ConfigLoader/ConfigLoader.R")
+source("src/utilities/ConfigLoader/ConfigLoader.R")
 
 # Set up environment for ConfigLoader
 ConfigLoader_set_env(working_dir)
@@ -12,8 +12,9 @@ ConfigLoader_set_env(working_dir)
 ################################################################################
 
 # Load configuration files
-Main_Config <- ConfigLoader_init("config/ParsePDFConfig.cl")
-Areas_Config <- ConfigLoader_init("config/AreasPDF.cl")
+Main_Config <- ConfigLoader_init("src/parse_pdf/config/ParsePDFConfig.cl")
+areas_config_path <- ConfigLoader_get_value(Main_Config, "AreasPDFCL")
+Areas_Config <- ConfigLoader_init(paste(working_dir, areas_config_path, sep=""))
 
 # Extract and concatenate PDF report absolute path
 report_path <- ConfigLoader_get_value(Areas_Config, "ReportPath")
@@ -322,4 +323,6 @@ Areas_Config <- ConfigLoader_edit_value(Areas_Config,
 
 ################################################################################
 
-ConfigLoader_save_file(Areas_Config, "config/AreasPDF.cl")
+ConfigLoader_save_file(Areas_Config, paste(working_dir,
+                                           areas_config_path,
+                                           sep=""))
