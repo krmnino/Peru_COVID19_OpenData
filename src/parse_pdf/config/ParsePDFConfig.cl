@@ -16,7 +16,6 @@ MADistrP1_RT = res/raw_tables/MuertesAcumuladoDistritoP1.csv;
 MADistrP2_RT = res/raw_tables/MuertesAcumuladoDistritoP2.csv;
 
 # Paths to directories
-ConfigFilesDir = res/config_files/;
 PADepto_Dir = data/PruebasAcumuladasDepto/;
 CADepto_Dir = data/CasosAcumuladosDepto/;
 CPEdades_PTF = data/CasosPositivosEdades/CasosPositivosEdades.csv;
@@ -26,9 +25,8 @@ CADistr20_Dir = data/CasosAcumuDistrito2020/;
 CADistr21_Dir = data/CasosAcumuDistrito2021/;
 MADistr_Dir = data/MuertesAcumulaDistrito/;
 
-# PDF Area config and csv files
-PDFAreasCSV = src/parse_pdf/config/PDFAreas.csv;
-PDFAreasCL = src/parse_pdf/config/PDFAreas.cl;
+# PDF Area config file
+AreasPDFCL = src/parse_pdf/config/AreasPDF.cl;
 
 # Config files with information about departments and districts
 DepartmentsAreas = res/config_files/DepartmentsAreas.cl;
