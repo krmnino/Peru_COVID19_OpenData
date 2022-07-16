@@ -6910,5 +6910,13 @@
 		"Pruebas": 32131466,
 		"Recuperados": 3645962,
 		"Hospitalizados": 1101
+	},
+	{
+		"Fecha": "2022-07-15",
+		"Casos": 3729879,
+		"Fallecidos": 213769,
+		"Pruebas": 32200364,
+		"Recuperados": 3653341,
+		"Hospitalizados": 1086
 	}
 ]
