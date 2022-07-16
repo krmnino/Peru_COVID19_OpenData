@@ -46,15 +46,21 @@ def main():
     # Obtain current date
     current_date = datetime.date.today().strftime('%Y-%m-%d')
 
-    # Get top level directory
-    top_level_directory = get_top_level_directory_path()
+    # Load main configuration file 
+    main_config = cu.Config('config/TwitterUpdateConfig.cl')
+
+    # Get top level directory based on platform
+    top_level_directory = ''
+    if(sys.platform == 'win32'):
+        top_level_directory = main_config.get_value('WindowsTopLevel')
+    else:
+        top_level_directory = main_config.get_value('LinuxTopLevel')
     
     # Load configuration files for program and Twitter authentication
-    main_config = cu.Config(top_level_directory + '/src/twitter_updates/TwitterUpdateConfig.cl')
     auth_config = cu.Config(top_level_directory + main_config.get_value('TwitterAuth'))
     
     # Remove any old files from /res/raw_images
-    clean_dir(main_config.get_value('RawImages'))
+    clean_dir(top_level_directory + main_config.get_value('RawImages'))
     
     # Authenticate Twitter API session
     twitter_session = TwitterAPISession(auth_config)
@@ -110,7 +116,7 @@ def main():
     }
 
     # Remove any old files from /res/raw_images
-    clean_dir(main_config.get_value('RawImages'))
+    clean_dir(top_level_directory + main_config.get_value('RawImages'))
 
     # Open temporary command line to check if data is correct
     check_data_menu(input_data) 

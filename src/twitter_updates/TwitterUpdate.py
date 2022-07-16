@@ -35,8 +35,7 @@ def get_top_level_directory_path():
     return path
 
 def clean_dir(ext_path):
-    path = get_top_level_directory_path() + ext_path
-    files = [path + '/' + f for f in os.listdir(path)]
+    files = [ext_path + '/' + f for f in os.listdir(ext_path)]
     for file in files:
         try:
             os.remove(file)

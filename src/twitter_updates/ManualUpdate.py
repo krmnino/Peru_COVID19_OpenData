@@ -45,15 +45,21 @@ def main():
     # Obtain current date
     current_date = datetime.date.today().strftime('%Y-%m-%d')
 
-    # Get top level directory
-    top_level_directory = get_top_level_directory_path()
+    # Load main configuration file 
+    main_config = cu.Config('config/TwitterUpdateConfig.cl')
 
-    # Load configuration files for program and Twitter authentication
-    main_config = cu.Config(top_level_directory + '/src/twitter_updates/TwitterUpdateConfig.cl')
+    # Get top level directory based on platform
+    top_level_directory = ''
+    if(sys.platform == 'win32'):
+        top_level_directory = main_config.get_value('WindowsTopLevel')
+    else:
+        top_level_directory = main_config.get_value('LinuxTopLevel')
+
+    # Load Twitter authentication configuration file
     auth_config = cu.Config(top_level_directory + main_config.get_value('TwitterAuth'))
     
     # Remove any old files from /res/raw_images
-    clean_dir(main_config.get_value('RawImages'))
+    clean_dir(top_level_directory + main_config.get_value('RawImages'))
 
     # Authenticate Twitter API session
     twitter_session = TwitterAPISession(auth_config)
@@ -468,6 +474,7 @@ def main():
         os.system('sh Windows_AutoUpdateRepo.sh "' + input_data['Date'] + '"')
     else:
         os.system('./Linux_AutoUpdateRepo.sh "' + input_data['Date'] + '"')
+    return 0
 
 #####################################################################################################################
 
