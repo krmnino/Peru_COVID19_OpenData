@@ -49,7 +49,7 @@ int main() {
 	//	delete input_raw_table;
 	//}
 
-	//// Process CasosAcumuladosDepto.csv
+	// Process CasosAcumuladosDepto.csv
 	//{
 	//	tl::Table* input_raw_table;
 	//	process_ca_depto(input_raw_table, main_config, dept_index);
@@ -58,29 +58,29 @@ int main() {
 	//	delete input_raw_table;
 	//}
 	
-	//// Process CasosPositivosEdades.csv
-	{
-		tl::Table* input_raw_table;
-		process_cp_edades(input_raw_table, main_config, age_index);
-		append_end_cp_edades(input_raw_table, main_config, report_date, age_index);
-		//append_begin_cp_edades(input_raw_table, main_config, areas_config, age_index);
-		delete input_raw_table;
-	}
-	//
-	//// Process MuertesAcumuladasDepto.csv
+	// Process CasosPositivosEdades.csv
 	//{
 	//	tl::Table* input_raw_table;
-	//	process_ma_depto(input_raw_table, main_config, areas_config, dept_index);
-	//	append_end_ma_depto(input_raw_table, main_config, areas_config, dept_index);
-	//	//append_begin_ma_depto(input_raw_table, main_config, areas_config, dept_index);
+	//	process_cp_edades(input_raw_table, main_config, age_index);
+	//	append_end_cp_edades(input_raw_table, main_config, report_date, age_index);
+	//	//append_begin_cp_edades(input_raw_table, main_config, areas_config, age_index);
 	//	delete input_raw_table;
 	//}
+	
+	// Process MuertesAcumuladasDepto.csv
+	{
+		tl::Table* input_raw_table;
+		process_ma_depto(input_raw_table, main_config, dept_index);
+		append_end_ma_depto(input_raw_table, main_config, report_date, dept_index);
+		//append_begin_ma_depto(input_raw_table, main_config, report_date, dept_index);
+		delete input_raw_table;
+	}
 
 	//{
 	//	Table* input_raw_table;
 	//	process_ma_deptosm(input_raw_table, main_config, areas_config, dept_index);
-	//	//append_end_ma_depto(input_raw_table, main_config, areas_config, dept_index);
-	//	append_begin_ma_deptosm(input_raw_table, main_config, areas_config, dept_index);
+	//	//append_end_ma_depto(input_raw_table, main_config, report_date, dept_index);
+	//	append_begin_ma_deptosm(input_raw_table, main_config, report_date, dept_index);
 	//	delete input_raw_table;
 	//}
 

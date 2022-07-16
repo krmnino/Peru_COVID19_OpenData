@@ -270,13 +270,13 @@ int process_cp_edades(tl::Table*& raw_table, cl::Config* main_config, cl::Config
 	return 0;
 }
 
-int process_ma_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int process_ma_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config* dept_index) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	// Open raw table file
 	std::string raw_table_path = main_config->get_value("MADepto_RT")->get_data<std::string>();
@@ -310,13 +310,13 @@ int process_ma_depto(tl::Table*& raw_table, cl::Config* main_config, cl::Config*
 	return 0;
 }
 
-int process_ma_deptosm(tl::Table*& raw_table, cl::Config* main_config, cl::Config* areas_config, cl::Config* dept_index) {
+int process_ma_deptosm(tl::Table*& raw_table, cl::Config* main_config, cl::Config* dept_index) {
 	// Extract top level directory path
-#ifdef LINUX
+	#ifdef LINUX
 	std::string top_level_path = main_config->get_value("LinuxTopLevel")->get_data<std::string>();
-#else
+	#else
 	std::string top_level_path = main_config->get_value("WindowsTopLevel")->get_data<std::string>();
-#endif // LINUX
+	#endif // LINUX
 
 	// Open raw table file
 	std::string raw_table_path = main_config->get_value("MADeptoSM_RT")->get_data<std::string>();
