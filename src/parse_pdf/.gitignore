@@ -4,3 +4,4 @@
 *.exe
 RawTableProcessing
 rawtableprocessing
+.Rhistory
