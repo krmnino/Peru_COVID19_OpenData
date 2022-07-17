@@ -1,6 +1,6 @@
 # Top Level Paths
 WindowsTopLevel = C:/Users/kurt_/github/Peru_COVID19_Stats/;
-LinuxTopLevel = /remote/github/Peru_COVID19_Stats/;
+LinuxTopLevel = /home/kurt/remote/github/Peru_COVID_Stats/;
 
 # Paths to raw tables
 PADepto_RT = res/raw_tables/PruebasAcumuladoDepto.csv;

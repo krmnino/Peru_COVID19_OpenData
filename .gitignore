@@ -30,3 +30,4 @@ src/utilities/TwitterUtility/__pycache__
 # res/
 res/raw_tables
 res/raw_images
+res/reports

@@ -1,6 +1,6 @@
 # Top Level Paths
 WindowsTopLevel = C:/Users/kurt_/github/Peru_COVID19_Stats/;
-LinuxTopLevel = /remote/github/Peru_COVID19_Stats/;
+LinuxTopLevel = /home/kurt/remote/github/Peru_COVID_Stats/;
 
 # Twitter auth
 TwitterAuth = src/twitter_updates/config/auth.cl;
