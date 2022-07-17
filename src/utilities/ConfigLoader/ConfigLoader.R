@@ -165,7 +165,7 @@ ConfigLoader_edit_value <- function(config, key, new_value){
 
 
 # Save current state of ConfigLoader object to a file
-ConfigLoader_save_file <- function(config, path){
+ConfigLoader_save_config <- function(config, path){
   # Initialize empty buffer
   buffer <- c()
   # Loop through each key-value pair

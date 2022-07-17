@@ -323,6 +323,6 @@ Areas_Config <- ConfigLoader_edit_value(Areas_Config,
 
 ################################################################################
 
-ConfigLoader_save_file(Areas_Config, paste(working_dir,
-                                           areas_config_path,
-                                           sep=""))
+ConfigLoader_save_config(Areas_Config, paste(working_dir,
+                                             areas_config_path,
+                                             sep=""))
