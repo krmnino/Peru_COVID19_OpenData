@@ -7,10 +7,13 @@ sys.path.insert(0, '../utilities')
 sys.path.insert(0, '../utilities/ConfigLoader')
 sys.path.insert(0, '../utilities/TableLoader')
 sys.path.insert(0, '../utilities/TwitterUtility')
+sys.path.insert(0, '../utilities/PlottingUtility')
 
 import TableLoader as tl
 import ConfigLoader as cl
-import PlottingUtility as pu
+import BarPlot as pubp
+import ScatterPlot as pusp
+import QuadPlot as puqp
 
 from TwitterUtils import get_bulletin_image_path
 from TwitterUtils import process_image
@@ -189,7 +192,7 @@ def main():
     PER_full_data.save_as_csv(top_level_directory + main_config.get_value('PeruFullData'))
 
     # Create QuadPlot for first tweet
-    cases183_plot = pu.BarPlot(
+    cases183_plot = pubp.BarPlot(
         PER_full_data.get_column_data('Fecha')[-183:],          # x_dataset -> array
         PER_full_data.get_column_data('NuevosCasos')[-183:],    # y_dataset -> array
         main_config.get_value('CasesColor'),                    # color -> string
@@ -215,7 +218,7 @@ def main():
         'output1.png'                                           # filename -> string
     )
 
-    cases30_plot = pu.BarPlot(
+    cases30_plot = pubp.BarPlot(
         PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
         PER_full_data.get_column_data('NuevosCasos')[-30:],         # y_dataset -> array
         main_config.get_value('CasesColor'),                        # color -> string
@@ -241,7 +244,7 @@ def main():
         'output1.png'                                               # filename -> string
     )
 
-    recovered_plot = pu.BarPlot(
+    recovered_plot = pubp.BarPlot(
         PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
         PER_full_data.get_column_data('NuevosRecuperados')[-30:],   # y_dataset -> array
         main_config.get_value('RecoveredColor'),                    # color -> string
@@ -267,7 +270,7 @@ def main():
         'output1.png'                                               # filename -> string
     )
     
-    hospitalized_plot = pu.BarPlot(
+    hospitalized_plot = pubp.BarPlot(
         PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
         PER_full_data.get_column_data('Hospitalizados')[-30:],      # y_dataset -> array
         main_config.get_value('HospitalizedColor'),                 # color -> string
@@ -294,7 +297,7 @@ def main():
     )
 
     # Create QuadPlot for first tweet
-    deaths_plot = pu.BarPlot(
+    deaths_plot = pubp.BarPlot(
         PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
         PER_full_data.get_column_data('NuevosFallecidos')[-30:],    # y_dataset -> array
         main_config.get_value('DeathsColor'),                       # color -> string
@@ -320,7 +323,7 @@ def main():
         'output1.png'                                               # filename -> string
     )
     
-    case_fatality_plot = pu.ScatterPlot(
+    case_fatality_plot = pusp.ScatterPlot(
         PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
         PER_full_data.get_column_data('TasaLetalidad')[-30:],       # y_dataset -> array
         '-',                                                        # linestyle -> string
@@ -349,7 +352,7 @@ def main():
         'output1.png'                                               # filename -> string
     )
 
-    tests_plot = pu.BarPlot(
+    tests_plot = pubp.BarPlot(
         PER_full_data.get_column_data('Fecha')[-30:],               # x_dataset -> array
         PER_full_data.get_column_data('NuevasPruebas')[-30:],       # y_dataset -> array
         main_config.get_value('TestsColor'),                        # color -> string
@@ -375,7 +378,7 @@ def main():
         'output1.png'                                               # filename -> string
     )
     
-    positivity_plot = pu.ScatterPlot(
+    positivity_plot = pusp.ScatterPlot(
         PER_full_data.get_column_data('Fecha')[-30:],                       # x_dataset -> array
         PER_full_data.get_column_data('%PruebasPositivasDiarias')[-30:],    # y_dataset -> array
         '-',                                                                # linestyle -> string
@@ -405,7 +408,7 @@ def main():
     )
 
     # Generate and store quadplot
-    quadplot_1 = pu.QuadPlot(
+    quadplot_1 = puqp.QuadPlot(
         cases183_plot,                                                      # plot1 -> ScatterPlot/BarPlot/LayeredScatterPlot
         cases30_plot,                                                       # plot2 -> ScatterPlot/BarPlot/LayeredScatterPlot
         recovered_plot,                                                     # plot3 -> ScatterPlot/BarPlot/LayeredScatterPlot
@@ -418,7 +421,7 @@ def main():
     quadplot_1.export()
 
     # Generate and store quadplot
-    quadplot_2 = pu.QuadPlot(
+    quadplot_2 = puqp.QuadPlot(
         deaths_plot,                                                        # plot1 -> ScatterPlot/BarPlot/LayeredScatterPlot
         case_fatality_plot,                                                 # plot2 -> ScatterPlot/BarPlot/LayeredScatterPlot
         tests_plot,                                                         # plot3 -> ScatterPlot/BarPlot/LayeredScatterPlot
