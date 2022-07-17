@@ -1,13 +1,14 @@
 import sys
 
 sys.path.insert(0, '../utilities')
+sys.path.insert(0, '../utilities/ConfigLoader')
 
 import DataUtility as du
-import ConfigUtility as cu
+import ConfigLoader as cl
 
 def generate_padepto_tables():
     # Load main configuration file
-    config = cu.Config('config/ParsePDFConfig.cl')
+    config = cl.Config('config/ParsePDFConfig.cl')
     # Get top level directory based on platform
     top_level_directory = ''
     if(sys.platform == 'win32'):
@@ -15,7 +16,7 @@ def generate_padepto_tables():
     else:
         top_level_directory = config.get_value('LinuxTopLevel')
     # Load department index configuration file
-    dept_config = cu.Config(top_level_directory + config.get_value('DepartmentsIndex'))
+    dept_config = cl.Config(top_level_directory + config.get_value('DepartmentsIndex'))
     # Get number of departments and processed table headers
     depto_num = int(dept_config.get_n_entries())
     processed_table_header = config.get_value('PADepto_PTHdr')
@@ -28,7 +29,7 @@ def generate_padepto_tables():
 
 def generate_cadepto_tables():
     # Load main configuration file
-    config = cu.Config('config/ParsePDFConfig.cl')
+    config = cl.Config('config/ParsePDFConfig.cl')
     # Get top level directory based on platform
     top_level_directory = ''
     if(sys.platform == 'win32'):
@@ -36,7 +37,7 @@ def generate_cadepto_tables():
     else:
         top_level_directory = config.get_value('LinuxTopLevel')
     # Load department index configuration file
-    dept_config = cu.Config(top_level_directory + config.get_value('DepartmentsIndex'))
+    dept_config = cl.Config(top_level_directory + config.get_value('DepartmentsIndex'))
     # Get number of departments and processed table headers
     depto_num = int(dept_config.get_n_entries())
     processed_table_header = config.get_value('CADepto_PTHdr')
@@ -49,7 +50,7 @@ def generate_cadepto_tables():
 
 def generate_cpedades_table():
      # Load main configuration file
-    config = cu.Config('config/ParsePDFConfig.cl')
+    config = cl.Config('config/ParsePDFConfig.cl')
     # Get top level directory based on platform
     top_level_directory = ''
     if(sys.platform == 'win32'):
@@ -66,7 +67,7 @@ def generate_cpedades_table():
 
 def generate_madepto_tables():
     # Load main configuration file
-    config = cu.Config('config/ParsePDFConfig.cl')
+    config = cl.Config('config/ParsePDFConfig.cl')
     # Get top level directory based on platform
     top_level_directory = ''
     if(sys.platform == 'win32'):
@@ -74,7 +75,7 @@ def generate_madepto_tables():
     else:
         top_level_directory = config.get_value('LinuxTopLevel')
     # Load department index configuration file
-    dept_config = cu.Config(top_level_directory + config.get_value('DepartmentsIndex'))
+    dept_config = cl.Config(top_level_directory + config.get_value('DepartmentsIndex'))
     # Get number of departments and processed table headers
     depto_num = int(dept_config.get_n_entries())
     processed_table_header = config.get_value('MADepto_PTHdr')
@@ -87,7 +88,7 @@ def generate_madepto_tables():
 
 def generate_cadistr20_tables():
     # Load main configuration file
-    config = cu.Config('config/ParsePDFConfig.cl')
+    config = cl.Config('config/ParsePDFConfig.cl')
     # Get top level directory based on platform
     top_level_directory = ''
     if(sys.platform == 'win32'):
@@ -95,7 +96,7 @@ def generate_cadistr20_tables():
     else:
         top_level_directory = config.get_value('LinuxTopLevel')
     # Load district index configuration file
-    distr_config = cu.Config(top_level_directory + config.get_value('DistrictsIndex'))
+    distr_config = cl.Config(top_level_directory + config.get_value('DistrictsIndex'))
     # Get number of district and processed table headers
     distr_num = int(distr_config.get_n_entries())
     processed_table_header = config.get_value('CADistr20_PTHdr')
@@ -108,7 +109,7 @@ def generate_cadistr20_tables():
 
 def generate_cadistr21_tables():
     # Load main configuration file
-    config = cu.Config('config/ParsePDFConfig.cl')
+    config = cl.Config('config/ParsePDFConfig.cl')
     # Get top level directory based on platform
     top_level_directory = ''
     if(sys.platform == 'win32'):
@@ -116,7 +117,7 @@ def generate_cadistr21_tables():
     else:
         top_level_directory = config.get_value('LinuxTopLevel')
     # Load district index configuration file
-    distr_config = cu.Config(top_level_directory + config.get_value('DistrictsIndex'))
+    distr_config = cl.Config(top_level_directory + config.get_value('DistrictsIndex'))
     # Get number of district and processed table headers
     distr_num = int(distr_config.get_n_entries())
     processed_table_header = config.get_value('CADistr21_PTHdr')
@@ -129,7 +130,7 @@ def generate_cadistr21_tables():
     
 def generate_madistr_tables():
     # Load main configuration file
-    config = cu.Config('config/ParsePDFConfig.cl')
+    config = cl.Config('config/ParsePDFConfig.cl')
     # Get top level directory based on platform
     top_level_directory = ''
     if(sys.platform == 'win32'):
@@ -137,7 +138,7 @@ def generate_madistr_tables():
     else:
         top_level_directory = config.get_value('LinuxTopLevel')
     # Load district index configuration file
-    distr_config = cu.Config(top_level_directory + config.get_value('DistrictsIndex'))
+    distr_config = cl.Config(top_level_directory + config.get_value('DistrictsIndex'))
     # Get number of district and processed table headers
     distr_num = int(distr_config.get_n_entries())
     processed_table_header = config.get_value('MADistr_PTHdr')
@@ -150,7 +151,7 @@ def generate_madistr_tables():
 
 def generate_madeptosm_tables():
     # Load main configuration file
-    config = cu.Config('config/ParsePDFConfig.cl')
+    config = cl.Config('config/ParsePDFConfig.cl')
     # Get top level directory based on platform
     top_level_directory = ''
     if(sys.platform == 'win32'):
@@ -158,7 +159,7 @@ def generate_madeptosm_tables():
     else:
         top_level_directory = config.get_value('LinuxTopLevel')
     # Load department index configuration file
-    dept_config = cu.Config(top_level_directory + config.get_value('DepartmentsIndex'))
+    dept_config = cl.Config(top_level_directory + config.get_value('DepartmentsIndex'))
     # Get number of departments and processed table headers
     depto_num = int(dept_config.get_n_entries())
     processed_table_header = config.get_value('MADeptoSM_PTHdr')

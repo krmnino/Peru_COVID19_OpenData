@@ -1,13 +1,7 @@
 import tweepy
 import wget
-import os
 import time
-import datetime
-import pathlib
 import sys
-
-sys.path.insert(0, './utilities')
-import ConfigUtility as cu
 
 class Tweet:    
     def __init__(self):

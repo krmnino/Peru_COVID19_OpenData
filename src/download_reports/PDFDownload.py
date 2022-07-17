@@ -46,7 +46,7 @@ class PDF_Downloader:
     def save_out_filenames(self, list_filename):
         abs_path = self.config.get_value('WindowsTopLevel') + \
                        self.config.get_value('PDF_Path') + \
-                       list_filename + '.txt'
+                       list_filename
         with open(abs_path, 'w') as file:
             for i in range(0, len(self.out_filenames)):
                 file.write(self.out_filenames[i] + '\n')

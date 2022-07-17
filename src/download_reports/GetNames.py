@@ -3,13 +3,12 @@ import sys
 import PDFDownload as gf
 from PDFDownload import check_convert_date
 
-sys.path.insert(0, '../utilities')
+sys.path.insert(0, '../utilities/ConfigLoader')
 
-import ConfigUtility as cu
-
+import ConfigLoader as cl
 
 def main():
-    main_config = cu.Config('./config/PDFDownload.cl')
+    main_config = cl.Config('./config/PDFDownload.cl')
         
     # from date to date exclusive
     start_date = main_config.get_value('StartDate')

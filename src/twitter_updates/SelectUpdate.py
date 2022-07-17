@@ -4,9 +4,10 @@ import sys
 import numpy as np
 
 sys.path.insert(0, '../utilities')
+sys.path.insert(0, '../utilities/ConfigLoader')
 
 import DataUtility as du
-import ConfigUtility as cu
+import ConfigLoader as cl
 import PlottingUtility as pu
 
 from TwitterUtils import get_bulletin_image_path
@@ -45,7 +46,7 @@ def main():
     current_date = datetime.date.today().strftime('%Y-%m-%d')
 
     # Load main configuration file 
-    main_config = cu.Config('config/TwitterUpdateConfig.cl')
+    main_config = cl.Config('config/TwitterUpdateConfig.cl')
 
     # Get top level directory based on platform
     top_level_directory = ''
@@ -55,7 +56,7 @@ def main():
         top_level_directory = main_config.get_value('LinuxTopLevel')
     
     # Load configuration files for program and Twitter authentication
-    auth_config = cu.Config(top_level_directory + main_config.get_value('TwitterAuth'))
+    auth_config = cl.Config(top_level_directory + main_config.get_value('TwitterAuth'))
     
     # Remove any old files from /res/raw_images
     clean_dir(top_level_directory + main_config.get_value('RawImages'))

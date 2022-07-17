@@ -8,8 +8,9 @@ from PIL import ImageEnhance
 import pytesseract
 
 sys.path.insert(0, '../utilities')
+sys.path.insert(0, '../utilities/ConfigLoader')
 
-import ConfigUtility as cu
+import ConfigLoader as cl
 import DataUtility as du
 
 if(sys.platform == 'win32'):
@@ -88,7 +89,7 @@ def process_pa_depto(main_config, pdf_path, showimg=False):
     cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     # Get department names index
-    dept_index = cu.Config(top_level_directory + main_config.get_value('DepartmentsIndex'))
+    dept_index = cl.Config(top_level_directory + main_config.get_value('DepartmentsIndex'))
     
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('PADepto_RTCols'))
@@ -186,7 +187,7 @@ def process_ca_depto(main_config, pdf_path, showimg=False):
     cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     # Get department names index
-    dept_index = cu.Config(top_level_directory + main_config.get_value('DepartmentsIndex'))
+    dept_index = cl.Config(top_level_directory + main_config.get_value('DepartmentsIndex'))
 
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('CADepto_RTCols'))
@@ -284,7 +285,7 @@ def process_cp_edades(main_config, pdf_path, showimg=False):
     cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     # Get age group names index
-    age_group_index = cu.Config(top_level_directory + main_config.get_value('AgeGroupsIndex'))
+    age_group_index = cl.Config(top_level_directory + main_config.get_value('AgeGroupsIndex'))
 
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('CPEdades_RTCols'))
@@ -375,7 +376,7 @@ def process_ma_depto(main_config, pdf_path, showimg=False):
     cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     # Get department names index
-    dept_index = cu.Config(top_level_directory + main_config.get_value('DepartmentsIndex'))
+    dept_index = cl.Config(top_level_directory + main_config.get_value('DepartmentsIndex'))
 
     # Parse data in image column by column 
     n_cols = int(main_config.get_value('MADepto_RTCols'))
@@ -465,7 +466,7 @@ def process_ca_distr_20(main_config, pdf_path, showimg=False):
     cv2_pdf_image = cv2.resize(cv2_pdf_image, (w_width, w_height))
 
     # Get district names index
-    distr_index = cu.Config(top_level_directory + main_config.get_value('DistrictsIndex'))
+    distr_index = cl.Config(top_level_directory + main_config.get_value('DistrictsIndex'))
 
     n_cols_p1 = int(main_config.get_value('CADistr20P1_RTCols'))
     col_names_p1 = main_config.get_value('CADistr20P1_RTHdr')
@@ -630,7 +631,7 @@ def process_ca_distr_21(main_config, pdf_path, showimg=False):
         col_names_p2.remove(remove_cols[i])
 
     # Get district names index
-    distr_index = cu.Config(top_level_directory + main_config.get_value('DistrictsIndex'))
+    distr_index = cl.Config(top_level_directory + main_config.get_value('DistrictsIndex'))
 
     # Parse data in image column by column of first table 
     parsed_columns_p1 = []
@@ -778,7 +779,7 @@ def process_ma_distr(main_config, pdf_path, showimg=False):
     col_names_p2 = main_config.get_value('MADistrP2_RTHdr')
 
     # Get district names index
-    distr_index = cu.Config(top_level_directory + main_config.get_value('DistrictsIndex'))
+    distr_index = cl.Config(top_level_directory + main_config.get_value('DistrictsIndex'))
     
     # Parse data in image column by column of first table 
     parsed_columns_p1 = []
@@ -895,8 +896,8 @@ def process_ma_distr(main_config, pdf_path, showimg=False):
 #####################################################################################################
 
 def main():
-    main_config = cu.Config('config/ParsePDFConfig.cl')
-    areas_config = cu.Config('config/AreasPDF.cl')
+    main_config = cl.Config('config/ParsePDFConfig.cl')
+    areas_config = cl.Config('config/AreasPDF.cl')
     pdf_path = areas_config.get_value('ReportPath') + areas_config.get_value('ReportFilename')
 
     menu_selection = {

@@ -2,11 +2,12 @@ import sys
 import PyPDF2 
 
 sys.path.insert(0, '../utilities')
+sys.path.insert(0, '../utilities/ConfigLoader')
 
-import ConfigUtility as cu    
+import ConfigLoader as cl
 
 def main():
-    config = cu.Config('PDFTablePages.cl')
+    config = cl.Config('PDFTablePages.cl')
     pdf_path = config.get_value('ReportPath') + '/' + config.get_value('ReportName')
 
     with open(pdf_path, 'rb') as file:
