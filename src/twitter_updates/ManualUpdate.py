@@ -6,6 +6,7 @@ import numpy as np
 sys.path.insert(0, '../utilities')
 sys.path.insert(0, '../utilities/ConfigLoader')
 sys.path.insert(0, '../utilities/TableLoader')
+sys.path.insert(0, '../utilities/TwitterUtility')
 
 import TableLoader as tl
 import ConfigLoader as cl
