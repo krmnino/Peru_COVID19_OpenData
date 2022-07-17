@@ -1,0 +1,32 @@
+# src/download_reports/
+src/download_reports/__pycache__
+
+# src/parse_pdf/
+src/parse_pdf/.Rhistory
+src/parse_pdf/.RData
+src/parse_pdf/.vscode
+src/parse_pdf/*.exe
+src/parse_pdf/RawTableProcessing
+src/parse_pdf/rawtableprocessing
+src/parse_pdf/.Rhistory
+
+# src/twitter_updates/
+src/twitter_updates/__pycache__
+src/twitter_updates/auth.dat
+src/twitter_updates/config/auth.dat
+src/twitter_updates/auth.cl
+src/twitter_updates/config/auth.cl
+
+# src/utilities/
+src/utilities/__pycache__
+src/utilities/.vscode
+src/utilities/ConfigLoader/__pycache__
+src/utilities/CSVtoJSON/CSVtoJSON
+src/utilities/CSVtoJSON/CSVtoJSON.exe
+src/utilities/PlottingUtility/__pycache__
+src/utilities/TableLoader/__pycache__
+src/utilities/TwitterUtility/__pycache__
+
+# res/
+res/raw_tables
+res/raw_images
