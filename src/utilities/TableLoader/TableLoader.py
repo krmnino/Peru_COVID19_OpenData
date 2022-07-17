@@ -147,10 +147,10 @@ class Table:
         for i in range(0, self.rows):
             self.contents[col_key][i] = function(i, table_columns)        
 
-    def rearrange_header_index(self, input_header_index):
-        if(len(input_header_index) != len(self.header_index)):
+    def rearrange_header_index(self, new_header_index):
+        if(len(new_header_index) != len(self.header_index)):
             sys.exit('The length new header index is not equal to the length of the current header index.')
-        for i in input_header_index:
+        for i in new_header_index:
             if(i not in self.header_index):
                 sys.exit('The field ' + str(i) + 'does not exist.')
-        self.header_index = input_header_index
+        self.header_index = new_header_index

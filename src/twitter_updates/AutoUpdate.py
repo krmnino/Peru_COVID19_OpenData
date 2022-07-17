@@ -5,9 +5,9 @@ import numpy as np
 
 sys.path.insert(0, '../utilities')
 sys.path.insert(0, '../utilities/ConfigLoader')
+sys.path.insert(0, '../utilities/TableLoader')
 
-
-import DataUtility as du
+import TableLoader as tl
 import ConfigLoader as cl
 import PlottingUtility as pu
 
@@ -121,7 +121,7 @@ def main():
     check_data_menu(input_data) 
     
     # Load simple Peru data set
-    PER_data = du.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'), delimiter=',')
+    PER_data = tl.Table('l', filename=top_level_directory + main_config.get_value('PeruSimpleData'), delimiter=',')
 
     # Agregate new data entry
     PER_data.append_end_row([   
@@ -137,7 +137,7 @@ def main():
     PER_data.save_as_csv(top_level_directory + main_config.get_value('PeruSimpleData'))
 
     # Create copy of simple Peru data set to perform extrapolation 
-    PER_full_data = du.Table('c', table=PER_data)
+    PER_full_data = tl.Table('c', table=PER_data)
 
     # Compute new derived statistics
     PER_full_data.compute_new_column('NuevosCasos', ['Casos'], compute_new_cases)

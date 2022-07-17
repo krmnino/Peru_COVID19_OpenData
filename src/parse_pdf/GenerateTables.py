@@ -1,9 +1,9 @@
 import sys
 
-sys.path.insert(0, '../utilities')
+sys.path.insert(0, '../utilities/TableLoader')
 sys.path.insert(0, '../utilities/ConfigLoader')
 
-import DataUtility as du
+import TableLoader as tl
 import ConfigLoader as cl
 
 def generate_padepto_tables():
@@ -23,7 +23,7 @@ def generate_padepto_tables():
     # Generate department tables
     for i in range(0, depto_num):
         table_filename = top_level_directory + config.get_value('PADepto_Dir') + dept_config.get_value(str(i)) + '.csv'
-        processed_table = du.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
+        processed_table = tl.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
         processed_table.save_as_csv(table_filename)
     print("PADepto: Generating table complete")
 
@@ -44,7 +44,7 @@ def generate_cadepto_tables():
     # Generate department tables
     for i in range(0, depto_num):
         table_filename = top_level_directory + config.get_value('CADepto_Dir') + dept_config.get_value(str(i)) + '.csv'
-        processed_table = du.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
+        processed_table = tl.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
         processed_table.save_as_csv(table_filename)
     print("CADepto: Generating table complete")
 
@@ -61,7 +61,7 @@ def generate_cpedades_table():
     ca_edades_hdr = config.get_value('CPEdades_PTHdr')
     # Generate cases by age group table
     table_filename = top_level_directory + config.get_value('CPEdades_PTF')
-    ca_edades_table = du.Table('n', filename=table_filename, header_index=ca_edades_hdr, delimiter=',')
+    ca_edades_table = tl.Table('n', filename=table_filename, header_index=ca_edades_hdr, delimiter=',')
     ca_edades_table.save_as_csv(table_filename)
     print("CPEdades: Generating table complete")
 
@@ -82,7 +82,7 @@ def generate_madepto_tables():
     # Generate department tables
     for i in range(0, depto_num):
         table_filename = top_level_directory + config.get_value('MADepto_Dir') + dept_config.get_value(str(i)) + '.csv'
-        processed_table = du.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
+        processed_table = tl.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
         processed_table.save_as_csv(table_filename)
     print("MADepto: Generating table complete")
 
@@ -103,7 +103,7 @@ def generate_cadistr20_tables():
     # Generate district tables
     for i in range(0, distr_num):
         table_filename = top_level_directory + config.get_value('CADistr20_Dir') + distr_config.get_value(str(i)) + '.csv'
-        processed_table = du.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
+        processed_table = tl.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
         processed_table.save_as_csv(table_filename)
     print("CADistr20: Generating table complete")
 
@@ -124,7 +124,7 @@ def generate_cadistr21_tables():
     # Generate district tables
     for i in range(0, distr_num):
         table_filename = top_level_directory + config.get_value('CADistr21_Dir') + distr_config.get_value(str(i)) + '.csv'
-        processed_table = du.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
+        processed_table = tl.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
         processed_table.save_as_csv(table_filename)
     print("CADistr21: Generating table complete")
     
@@ -145,7 +145,7 @@ def generate_madistr_tables():
     # Generate district tables
     for i in range(0, distr_num):
         table_filename = top_level_directory + config.get_value('MADistr_Dir') + distr_config.get_value(str(i)) + '.csv'
-        processed_table = du.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
+        processed_table = tl.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
         processed_table.save_as_csv(table_filename)
     print("MADistr: Generating table complete")
 
@@ -166,7 +166,7 @@ def generate_madeptosm_tables():
     # Generate department tables
     for i in range(0, depto_num):
         table_filename = top_level_directory + config.get_value('MADeptoSM_Dir') + dept_config.get_value(str(i)) + '.csv'
-        processed_table = du.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
+        processed_table = tl.Table('n', filename=table_filename, header_index=processed_table_header, delimiter=',')
         processed_table.save_as_csv(table_filename)
     print("MADeptoSM: Generating table complete")
 

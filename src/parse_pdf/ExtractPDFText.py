@@ -1,7 +1,6 @@
 import sys
 import PyPDF2 
 
-sys.path.insert(0, '../utilities')
 sys.path.insert(0, '../utilities/ConfigLoader')
 
 import ConfigLoader as cl

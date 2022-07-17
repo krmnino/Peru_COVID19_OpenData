@@ -7,11 +7,11 @@ from PIL import ImageOps
 from PIL import ImageEnhance
 import pytesseract
 
-sys.path.insert(0, '../utilities')
+sys.path.insert(0, '../utilities/TableLoader')
 sys.path.insert(0, '../utilities/ConfigLoader')
 
 import ConfigLoader as cl
-import DataUtility as du
+import TableLoader as tl
 
 if(sys.platform == 'win32'):
     pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
@@ -138,7 +138,7 @@ def process_pa_depto(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data
     raw_table_abs_path = top_level_directory + main_config.get_value('PADepto_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names,
@@ -236,7 +236,7 @@ def process_ca_depto(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data
     raw_table_abs_path = top_level_directory + main_config.get_value('CADepto_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names,
@@ -327,7 +327,7 @@ def process_cp_edades(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data
     raw_table_abs_path = top_level_directory + main_config.get_value('CPEdades_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names,
@@ -417,7 +417,7 @@ def process_ma_depto(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data
     raw_table_abs_path = top_level_directory + main_config.get_value('MADepto_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names,
@@ -549,7 +549,7 @@ def process_ca_distr_20(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data from part 1
     raw_table_abs_path = top_level_directory + main_config.get_value('CADistr20P1_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names_p1,
@@ -571,7 +571,7 @@ def process_ca_distr_20(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data from part 2
     raw_table_abs_path = top_level_directory + main_config.get_value('CADistr20P2_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names_p2,
@@ -703,7 +703,7 @@ def process_ca_distr_21(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data from part 1
     raw_table_abs_path = top_level_directory + main_config.get_value('CADistr21P1_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names_p1,
@@ -725,7 +725,7 @@ def process_ca_distr_21(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data from part 2
     raw_table_abs_path = top_level_directory + main_config.get_value('CADistr21P2_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names_p2,
@@ -850,7 +850,7 @@ def process_ma_distr(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data from part 1
     raw_table_abs_path = top_level_directory + main_config.get_value('MADistrP1_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names_p1,
@@ -871,7 +871,7 @@ def process_ma_distr(main_config, pdf_path, showimg=False):
 
     # Create new Table and add each row of data from part 2
     raw_table_abs_path = top_level_directory + main_config.get_value('MADistrP2_RT')
-    output_table = du.Table(
+    output_table = tl.Table(
         'n',
         filename=raw_table_abs_path,
         header_index=col_names_p2,
