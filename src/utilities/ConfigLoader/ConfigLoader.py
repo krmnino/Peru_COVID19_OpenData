@@ -1,4 +1,5 @@
 import enum
+import os.path
 
 class CL_ErrorCodes(enum.Enum):
     OK = 0
@@ -6,6 +7,7 @@ class CL_ErrorCodes(enum.Enum):
     EQUALS_SIGN = 2
     KEY_NOT_FOUND = 3
     ADD_KEY_REPEAT = 4
+    FAILED_2_OPEN = 5
 
 class CL_Error(Exception):
     def __init__(self, message, error_code):
@@ -25,6 +27,8 @@ class CL_ErrorWrapper:
             self.message = 'Key not found in config file.'
         elif(self.error_code == CL_ErrorCodes.ADD_KEY_REPEAT):
             self.message = 'Key already exists in config file.'
+        elif(self.error_code == CL_ErrorCodes.FAILED_2_OPEN):
+            self.message = 'Could not open/find specified config file.'
         else:
             self.message = 'Undefinded error.'
 
@@ -37,6 +41,9 @@ class Config:
             self.contents = {}
             self.entries = 0
             buffer = ''
+            if(not os.path.isfile(path)):
+                ex = CL_ErrorWrapper(CL_ErrorCodes.FAILED_2_OPEN)
+                raise CL_Error(ex.message, ex.error_code)
             with open(path) as file:
                 for line in file:
                     line = line.replace('\n', '')
@@ -45,12 +52,8 @@ class Config:
                     if(line[0] == '#'):
                         continue
                     if(line[len(line) - 1] != ';'):
-                        if(line[len(line) - 1] == ','):
-                            buffer += line
-                            continue
-                        else:
-                            ex = CL_ErrorWrapper(CL_ErrorCodes.SEMICOLON)
-                            raise CL_Error(ex.message, ex.error_code)
+                        ex = CL_ErrorWrapper(CL_ErrorCodes.SEMICOLON)
+                        raise CL_Error(ex.message, ex.error_code)
                     buffer += line
             buffer = buffer.replace('\t', '')
             split_buffer = buffer.split(';')
@@ -108,6 +111,9 @@ class Config:
             except:
                 return raw_string
 
+    def get_n_entries(self):
+        return self.entries
+
     def get_all_keys(self):
         return [i for i in self.contents.keys()]
 
@@ -116,9 +122,6 @@ class Config:
             ex = CL_ErrorWrapper(CL_ErrorCodes.KEY_NOT_FOUND)
             raise CL_Error(ex.message, ex.error_code)
         return self.contents[key]
-
-    def get_n_entries(self):
-        return self.entries
 
     def get_all_key_values(self):
         key_vals = []
@@ -139,3 +142,10 @@ class Config:
             ex = CL_ErrorWrapper(CL_ErrorCodes.KEY_NOT_FOUND)
             raise CL_Error(ex.message, ex.error_code)
         self.contents[key] = value
+
+    def save_config(self, path):
+        with open(path, 'w') as file:
+            keys = [i for i in self.contents.keys()]
+            for i in range(0, self.entries):
+                file.write(keys[i] + ' = ')
+                file.write(str(self.contents[keys[i]]) + ';\n')
