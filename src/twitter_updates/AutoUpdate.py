@@ -228,7 +228,7 @@ def main():
     ]
 
     # Rearrange header index in Peru full data
-    PER_full_data.rearrange_header_index(new_header)
+    PER_full_data.rearrange_header(new_header)
 
     # Save full Peru data set
     PER_full_data.save_as_csv(top_level_directory + main_config.get_value('PeruFullData'))
@@ -475,8 +475,12 @@ def main():
     )
     quadplot_2.export()
 
-    # Obtain the last entry of Peru full data
+    # Obtain the last entry of Peru full data and header -> create dictionary
+    header = PER_full_data.get_header()
     latest_entry = PER_full_data.get_end_row()
+    header_latest_entry = {}
+    for i in range(0, len(header)):
+        header_latest_entry[header[i]] = latest_entry[i]
     
     # Create instances of tweets to store text and image paths
     tweet1 = Tweet()
@@ -485,7 +489,7 @@ def main():
     # Create and add tweet body for first tweet
     tweet1.set_message(generate_first_tweet_text(
         top_level_directory + main_config.get_value('TwTemplate1'),
-        latest_entry,
+        header_latest_entry,
         int(input_data['Cases24H']),
         new_cases_ind,
         new_recovered_ind,
@@ -495,7 +499,7 @@ def main():
     # Create and add tweet body for second tweet
     tweet2.set_message(generate_second_tweet_text(
         top_level_directory + main_config.get_value('TwTemplate2'),
-        latest_entry,
+        header_latest_entry,
         PER_full_data.get_cell_data('TasaLetalidad', PER_full_data.rows-2),
         PER_full_data.get_cell_data('%PruebasPositivasDiarias',
         PER_full_data.rows-2),
