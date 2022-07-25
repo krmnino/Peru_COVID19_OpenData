@@ -8,7 +8,7 @@ Config::Config(std::string filename) {
 	std::ifstream file;
 	file.open(filename);
 	if (!file.is_open()) {
-		CL_Error ex(CLErrorCode::FAIL_2_OPEN);
+		CL_Error ex(CLErrorCode::FAILED_2_OPEN);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
@@ -280,5 +280,70 @@ void Config::edit_value(std::string key, List value) {
 	int idx = it->second;
 	delete this->values[idx];
 	this->values[idx] = new_val;
+}
+
+void Config::save_config(std::string path) {
+	std::ofstream out(path);
+
+	std::string key;
+	int value_idx;
+	Value value;
+	ValueType value_type;
+
+	cl::List list_value;
+	DataType list_value_type;
+	for (std::map<std::string, int>::iterator it = this->keys_index.begin(); it != this->keys_index.end(); it++) {
+		key = it->first;
+		value_idx = it->second;
+		value = *this->values[value_idx];
+		value_type = value.get_type();
+		out << key << " = ";
+		// Value is either an integer, double, string, or list
+		switch (value_type) {
+		case ValueType::INT_NUM:
+			out << std::to_string(value.get_data<int>()) << ";\n";
+			break;
+		case ValueType::DBL_NUM:
+			out << std::to_string(value.get_data<double>()) << ";\n";
+			break;
+		case ValueType::STRING:
+			out << value.get_data<std::string>() << ";\n";
+			break;
+		case ValueType::LIST:
+			// If value is list, get integer, double, or string data from Variant object
+			out << "[";
+			list_value = value.get_data<cl::List>();
+			for (int i = 0; i < list_value.size(); i++) {
+				list_value_type = list_value[i].get_type();
+				switch (list_value_type) {
+				case DataType::INTEGER:
+					out << std::to_string(list_value[i].get_data<int>());
+					break;
+				case DataType::DOUBLE:
+					out << std::to_string(list_value[i].get_data<double>());
+					break;
+				case DataType::STRING:
+					out << list_value[i].get_data<std::string>();
+					break;
+				case DataType::BOOLEAN:
+				case DataType::CHARACTER:
+				case DataType::UNDEFINED:
+				default:
+					out << "0";
+					break;
+				}
+				if (i != list_value.size() - 1) {
+					out << ", ";
+				}
+			}
+			out << "]" << ";\n";
+			break;
+		case ValueType::UNDEF:
+		default:
+			out << "0";
+			break;
+		}
+	}
+	out.close();
 }
 }

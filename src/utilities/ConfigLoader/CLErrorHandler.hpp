@@ -11,7 +11,7 @@ enum class CLErrorCode {
 	EQUALS_SIGN,
 	KEY_NOT_FOUND,
 	ADD_KEY_REPEAT,
-	FAIL_2_OPEN,
+	FAILED_2_OPEN,
 };
 
 class CL_Error : public std::exception {

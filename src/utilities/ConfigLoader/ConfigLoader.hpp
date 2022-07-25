@@ -36,6 +36,7 @@ public:
 	void edit_value(std::string, std::string);
 	void edit_value(std::string, const char*);
 	void edit_value(std::string, List);
+	void save_config(std::string);
 };
 }
 
