@@ -189,10 +189,6 @@ std::string Table::get_filename() {
 	return this->filename;
 }
 
-std::vector<std::string> Table::get_fields() {
-	return this->header_index;
-}
-
 std::vector<Variant> Table::get_column_data(std::string field_name) {
 	if (this->contents.find(field_name) == this->contents.end()) {
 		TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
@@ -212,12 +208,12 @@ std::vector<Variant> Table::get_column_data(int field_idx) {
 }
 
 std::vector<Variant> Table::get_row_data(int row_n) {
-	std::vector<Variant> out;
 	if (0 > row_n || row_n >= this->rows) {
 		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
+	std::vector<Variant> out;
 	for (int i = 0; i < this->columns; i++) {
 		out.push_back(this->contents[this->header_index[i]][row_n]);
 	}
@@ -247,7 +243,6 @@ std::vector<Variant> Table::get_end_row() {
 }
 
 Variant Table::get_cell_data(std::string field, int row) {
-	Variant out;
 	if (0 > row || row >= this->rows) {
 		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
 		std::cerr << ex.what() << std::endl;
@@ -261,12 +256,45 @@ Variant Table::get_cell_data(std::string field, int row) {
 	return this->contents[field][row];
 }
 
+Variant Table::get_cell_data(int field, int row) {
+	if (0 > row || row >= this->rows) {
+		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	if (0 > field || field >= this->columns) {
+		TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	return this->contents[this->header_index[field]][row];
+}
+
 void Table::set_filename(std::string fn) {
 	this->filename = fn;
 }
 
 void Table::set_delimiter(char new_delim) {
 	this->delimiter = new_delim;
+}
+
+void Table::set_header(std::vector<std::string> new_header_index){
+	if(new_header_index.size() != this->header_index.size()){
+		TL_Error ex(TLErrorCode::UNEVEN_NEW_HEADER);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	for(int i = 0; i < new_header_index.size(); i++){
+		if (this->contents.find(new_header_index[i]) != this->contents.end()) {
+			TL_Error ex(TLErrorCode::DUPLICATE_FIELD);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+		std::vector<Variant> col = this->contents[this->header_index[i]];
+		this->contents.erase(this->header_index[i]);
+		this->header_index[i] = new_header_index[i];
+		this->contents.insert(std::make_pair(new_header_index[i], col));
+	}
 }
 
 void Table::append_begin_row(std::vector<Variant> data) {
@@ -308,13 +336,13 @@ void Table::update_cell_data(std::string field, int row, Variant data) {
 }
 
 void Table::update_cell_data(int col, int row, Variant data) {
-	if (0 > col || col >= this->columns) {
-		TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
+	if (0 > row || row >= this->rows) {
+		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
-	if (0 > row || row >= this->rows) {
-		TL_Error ex(TLErrorCode::INVALID_ROW_INDEX);
+	if (0 > col || col >= this->columns) {
+		TL_Error ex(TLErrorCode::INVALID_COLUMN_INDEX);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
@@ -486,8 +514,9 @@ void Table::compute_update_column(int col_idx, std::vector<int>& table_col_idxs,
 
 void Table::join_tables(Table& src) {
 	if (this->columns != src.get_columns()) {
-		std::cout << "Number of columns do not match" << std::endl;
-		return;
+		TL_Error ex(TLErrorCode::UNEVEN_TABLES);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	// Resize vectors (this + src)
 	for (int i = 0; i < this->columns; i++) {
@@ -542,5 +571,21 @@ void Table::remove_row(int row_idx) {
 		this->contents[this->header_index[i]].erase(this->contents[this->header_index[i]].begin() + row_idx);
 	}
 	this->rows--;
+}
+
+void Table::rearrange_header(std::vector<std::string> new_header_index){
+	if(new_header_index.size() != this->header_index.size()){
+		TL_Error ex(TLErrorCode::UNEVEN_NEW_HEADER);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	for(int i = 0; i < new_header_index.size(); i++){
+		if (this->contents.find(new_header_index[i]) == this->contents.end()) {
+			TL_Error ex(TLErrorCode::FIELD_NOT_FOUND);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+		this->header_index[i] = new_header_index[i];
+	}
 }
 }

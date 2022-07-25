@@ -28,6 +28,9 @@ TL_Error::TL_Error(TLErrorCode error) {
 	case TLErrorCode::UNEVEN_TABLES:
 		this->message = "Column count between two tables is not the same.";
 		break;
+	case TLErrorCode::UNEVEN_NEW_HEADER:
+		this->message = "The size of the new header does not match the current table header length.";
+		break;
 	default:
 		this->message = "Undefinded error.";
 		break;

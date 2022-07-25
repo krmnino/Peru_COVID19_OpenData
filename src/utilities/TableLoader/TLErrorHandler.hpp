@@ -13,6 +13,7 @@ enum class TLErrorCode {
 	INVALID_COLUMN_INDEX,
 	DUPLICATE_FIELD,
 	UNEVEN_TABLES,
+	UNEVEN_NEW_HEADER,
 };
 
 class TL_Error : public std::exception {
