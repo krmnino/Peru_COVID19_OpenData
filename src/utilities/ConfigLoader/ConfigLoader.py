@@ -52,8 +52,12 @@ class Config:
                     if(line[0] == '#'):
                         continue
                     if(line[len(line) - 1] != ';'):
-                        ex = CL_ErrorWrapper(CL_ErrorCodes.SEMICOLON)
-                        raise CL_Error(ex.message, ex.error_code)
+                        if(line[len(line) - 1] == ','):
+                            buffer += line
+                            continue
+                        else:
+                            ex = CL_ErrorWrapper(CL_ErrorCodes.SEMICOLON)
+                            raise CL_Error(ex.message, ex.error_code)
                     buffer += line
             buffer = buffer.replace('\t', '')
             split_buffer = buffer.split(';')
