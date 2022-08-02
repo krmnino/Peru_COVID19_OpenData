@@ -7022,5 +7022,37 @@
 		"Pruebas": 32973273,
 		"Recuperados": 3774212,
 		"Hospitalizados": 1318
+	},
+	{
+		"Fecha": "2022-07-29",
+		"Casos": 3895496,
+		"Fallecidos": 214195,
+		"Pruebas": 33003706,
+		"Recuperados": 3785029,
+		"Hospitalizados": 1335
+	},
+	{
+		"Fecha": "2022-07-30",
+		"Casos": 3900950,
+		"Fallecidos": 214227,
+		"Pruebas": 33025603,
+		"Recuperados": 3793598,
+		"Hospitalizados": 1309
+	},
+	{
+		"Fecha": "2022-07-31",
+		"Casos": 3909870,
+		"Fallecidos": 214303,
+		"Pruebas": 33058821,
+		"Recuperados": 3805556,
+		"Hospitalizados": 1331
+	},
+	{
+		"Fecha": "2022-08-01",
+		"Casos": 3914506,
+		"Fallecidos": 214364,
+		"Pruebas": 33082702,
+		"Recuperados": 3816821,
+		"Hospitalizados": 1356
 	}
 ]
