@@ -134,6 +134,11 @@ class Config:
             key_vals.append((keys[i], self.get_value(keys[i])))
         return key_vals
 
+    def key_exists(self, key):
+        if(key not in self.contents):
+            return False
+        return True
+
     def add_entry(self, key, value):
         if(key in self.contents):
             ex = CL_ErrorWrapper(CL_ErrorCodes.ADD_KEY_REPEAT)
