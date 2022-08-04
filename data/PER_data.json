@@ -7062,5 +7062,13 @@
 		"Pruebas": 33131204,
 		"Recuperados": 3817027,
 		"Hospitalizados": 1383
+	},
+	{
+		"Fecha": "2022-08-03",
+		"Casos": 3932838,
+		"Fallecidos": 214431,
+		"Pruebas": 33185333,
+		"Recuperados": 3824676,
+		"Hospitalizados": 1406
 	}
 ]
