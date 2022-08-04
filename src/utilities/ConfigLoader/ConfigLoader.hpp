@@ -26,6 +26,7 @@ public:
 	std::vector<std::string> get_all_keys();
 	Value* get_value(std::string);
 	std::vector<std::pair<std::string, Value*>> get_all_key_values();
+	bool key_exists(std::string);
 	void add_entry(std::string, int);
 	void add_entry(std::string, double);
 	void add_entry(std::string, std::string);

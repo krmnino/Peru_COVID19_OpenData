@@ -152,6 +152,14 @@ std::vector<std::pair<std::string, Value*>> Config::get_all_key_values() {
 	return ret;
 }
 
+bool Config::key_exists(std::string key){
+	std::map<std::string, int>::const_iterator it = this->keys_index.find(key);
+	if (it == this->keys_index.end()) {
+		return false;
+	}
+	return true;
+}
+
 void Config::add_entry(std::string key, int value) {
 	std::map<std::string, int>::const_iterator it = this->keys_index.find(key);
 	if (it != this->keys_index.end()) {
