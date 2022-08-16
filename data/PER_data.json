@@ -7158,5 +7158,13 @@
 		"Pruebas": 33716142,
 		"Recuperados": 3913569,
 		"Hospitalizados": 1238
+	},
+	{
+		"Fecha": "2022-08-15",
+		"Casos": 4031007,
+		"Fallecidos": 215028,
+		"Pruebas": 33733561,
+		"Recuperados": 3923497,
+		"Hospitalizados": 1229
 	}
 ]

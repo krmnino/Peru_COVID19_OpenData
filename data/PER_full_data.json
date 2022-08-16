@@ -20583,5 +20583,28 @@
 		"Hospitalizados": 1238,
 		"NuevosHospitalizados": -21.0,
 		"%DifHospitalizados": -1.0169628432956381
+	},
+	{
+		"Fecha": "2022-08-15",
+		"Dia": 895.0,
+		"Casos": 4031007,
+		"NuevosCasos": 3393.0,
+		"%DifCasos": 1.0008424342551199,
+		"CasosActivos": -107518.0,
+		"NuevosCasosActivos": -6607.0,
+		"Fallecidos": 215028,
+		"NuevosFallecidos": 72.0,
+		"%DifFallecidos": 1.0003349522693017,
+		"TasaLetalidad": 0.053343494565998024,
+		"Pruebas": 33733561,
+		"NuevasPruebas": 17419.0,
+		"%DifPruebas": 1.000516636808565,
+		"%PruebasPositivasDiarias": 0.1947873012228027,
+		"Recuperados": 3923497,
+		"NuevosRecuperados": 9928.0,
+		"%DifRecuperados": 1.0025368148613196,
+		"Hospitalizados": 1229,
+		"NuevosHospitalizados": -9.0,
+		"%DifHospitalizados": -1.0073230268510984
 	}
 ]
