@@ -12,7 +12,7 @@ GraphPath = res/graphs;
 # Tweet search attributes
 TwitterMINSA = Minsa_Peru;
 TweetPattern = Esta es la situaci;
-QueryTweets = 50;
+QueryTweets = 45;
 
 # Bulletin cropped images location
 RawCases = res/raw_images/cases.jpeg;
