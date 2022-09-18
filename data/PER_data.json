@@ -7422,5 +7422,13 @@
 		"Pruebas": 34796829,
 		"Recuperados": 4026028,
 		"Hospitalizados": 709
+	},
+	{
+		"Fecha": "2022-09-17",
+		"Casos": 4131996,
+		"Fallecidos": 216287,
+		"Pruebas": 34823147,
+		"Recuperados": 4026773,
+		"Hospitalizados": 681
 	}
 ]
