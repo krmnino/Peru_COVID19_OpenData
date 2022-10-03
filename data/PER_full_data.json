@@ -21687,5 +21687,28 @@
 		"Hospitalizados": 568,
 		"NuevosHospitalizados": 0.0,
 		"%DifHospitalizados": 1.0
+	},
+	{
+		"Fecha": "2022-10-02",
+		"Dia": 943.0,
+		"Casos": 4145301,
+		"NuevosCasos": 253.0,
+		"%DifCasos": 1.000061036687633,
+		"CasosActivos": -111027.0,
+		"NuevosCasosActivos": -202.0,
+		"Fallecidos": 216596,
+		"NuevosFallecidos": 18.0,
+		"%DifFallecidos": 1.0000831109346286,
+		"TasaLetalidad": 0.052250970436163745,
+		"Pruebas": 35213941,
+		"NuevasPruebas": 14702.0,
+		"%DifPruebas": 1.0004176794844912,
+		"%PruebasPositivasDiarias": 0.017208543055366617,
+		"Recuperados": 4039732,
+		"NuevosRecuperados": 437.0,
+		"%DifRecuperados": 1.000108187196033,
+		"Hospitalizados": 562,
+		"NuevosHospitalizados": -6.0,
+		"%DifHospitalizados": -1.01067615658363
 	}
 ]
