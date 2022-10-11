@@ -7606,5 +7606,13 @@
 		"Pruebas": 35348161,
 		"Recuperados": 4042622,
 		"Hospitalizados": 504
+	},
+	{
+		"Fecha": "2022-10-10",
+		"Casos": 4148691,
+		"Fallecidos": 216788,
+		"Pruebas": 35354211,
+		"Recuperados": 4042991,
+		"Hospitalizados": 498
 	}
 ]
