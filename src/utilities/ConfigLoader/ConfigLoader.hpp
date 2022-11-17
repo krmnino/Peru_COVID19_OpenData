@@ -17,6 +17,7 @@ private:
 
 	void split_string(std::vector<std::string>&, std::string&, char);
 	void remove_side_spaces(std::string&);
+	void Config_free();
 
 public:
 	Config(std::string);

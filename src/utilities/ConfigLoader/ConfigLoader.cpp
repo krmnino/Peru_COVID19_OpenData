@@ -45,6 +45,7 @@ Config::Config(std::string filename) {
 		}
 		split_string(raw_keyvals, raw_entries[i], '=');
 		if (raw_keyvals.size() != 2) {
+			this->Config_free();
 			CL_Error ex(CLErrorCode::EQUALS_SIGN);
 			std::cerr << ex.what() << std::endl;
 			throw ex;
@@ -75,9 +76,7 @@ Config::Config() {
 }
 
 Config::~Config() {
-	for (size_t i = 0; i < this->values.size(); i++) {
-		delete this->values[i];
-	}
+	this->Config_free();
 }
 
 void Config::split_string(std::vector<std::string>& processed, std::string& buffer, char delimiter) {
@@ -120,6 +119,12 @@ void Config::remove_side_spaces(std::string& raw_str) {
 	raw_str = raw_str.substr(0, right_idx);
 }
 
+void Config::Config_free() {
+	for (size_t i = 0; i < this->values.size(); i++) {
+		delete this->values[i];
+	}
+}
+
 int Config::get_n_entries() {
 	return this->n_pairs;
 }
@@ -152,7 +157,7 @@ std::vector<std::pair<std::string, Value*>> Config::get_all_key_values() {
 	return ret;
 }
 
-bool Config::key_exists(std::string key){
+bool Config::key_exists(std::string key) {
 	std::map<std::string, int>::const_iterator it = this->keys_index.find(key);
 	if (it == this->keys_index.end()) {
 		return false;
