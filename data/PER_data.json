@@ -7934,5 +7934,13 @@
 		"Pruebas": 36158138,
 		"Recuperados": 4062684,
 		"Hospitalizados": 158
+	},
+	{
+		"Fecha": "2022-11-20",
+		"Casos": 4190948,
+		"Fallecidos": 217264,
+		"Pruebas": 36174825,
+		"Recuperados": 4064598,
+		"Hospitalizados": 143
 	}
 ]
