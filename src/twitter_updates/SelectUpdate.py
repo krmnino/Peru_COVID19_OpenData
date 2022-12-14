@@ -241,7 +241,7 @@ def main():
         main_config.get_value('CasesColor'),                    # color -> string
         'Nuevos Casos',                                         # label -> string
         True,                                                   # legend -> boolean
-        True,                                                   # rolling_avg -> boolean 
+        False,                                                  # rolling_avg -> boolean 
         PER_full_data.get_column_data('NuevosCasos')[-190:],    # rolling_avg_data -> array
         7,                                                      # n_rolling_avg -> integer
         'Promedio ultimos 7 dias',                              # rolling_avg_label -> string
