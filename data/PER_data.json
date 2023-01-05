@@ -8294,5 +8294,13 @@
 		"Pruebas": 37383089,
 		"Recuperados": 4206578,
 		"Hospitalizados": 396
+	},
+	{
+		"Fecha": "2023-01-04",
+		"Casos": 4463641,
+		"Fallecidos": 218304,
+		"Pruebas": 37405734,
+		"Recuperados": 4207079,
+		"Hospitalizados": 383
 	}
 ]
