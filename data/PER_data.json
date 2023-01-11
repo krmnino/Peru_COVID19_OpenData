@@ -8342,5 +8342,13 @@
 		"Pruebas": 37481592,
 		"Recuperados": 4208572,
 		"Hospitalizados": 295
+	},
+	{
+		"Fecha": "2023-01-10",
+		"Casos": 4470919,
+		"Fallecidos": 218414,
+		"Pruebas": 37495286,
+		"Recuperados": 4208815,
+		"Hospitalizados": 308
 	}
 ]
