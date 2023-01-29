@@ -24401,5 +24401,28 @@
 		"Hospitalizados": 142,
 		"NuevosHospitalizados": -4.0,
 		"%DifHospitalizados": -1.028169014084507
+	},
+	{
+		"Fecha": "2023-01-28",
+		"Dia": 1061.0,
+		"Casos": 4481101,
+		"NuevosCasos": 273.0,
+		"%DifCasos": 1.0000609262395255,
+		"CasosActivos": 51263.0,
+		"NuevosCasosActivos": 216.0,
+		"Fallecidos": 218750,
+		"NuevosFallecidos": 21.0,
+		"%DifFallecidos": 1.000096009216885,
+		"TasaLetalidad": 0.04881612800068555,
+		"Pruebas": 37728611,
+		"NuevasPruebas": 12166.0,
+		"%DifPruebas": 1.000322564865273,
+		"%PruebasPositivasDiarias": 0.02243958573072497,
+		"Recuperados": 4211088,
+		"NuevosRecuperados": 36.0,
+		"%DifRecuperados": 1.0000085489326658,
+		"Hospitalizados": 130,
+		"NuevosHospitalizados": -12.0,
+		"%DifHospitalizados": -1.0923076923076922
 	}
 ]
