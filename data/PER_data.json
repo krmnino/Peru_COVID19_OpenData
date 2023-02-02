@@ -8510,5 +8510,13 @@
 		"Pruebas": 37739460,
 		"Recuperados": 4211171,
 		"Hospitalizados": 138
+	},
+	{
+		"Fecha": "2023-01-31",
+		"Casos": 4481621,
+		"Fallecidos": 218931,
+		"Pruebas": 37754603,
+		"Recuperados": 4211201,
+		"Hospitalizados": 136
 	}
 ]
