@@ -8558,5 +8558,13 @@
 		"Pruebas": 37813540,
 		"Recuperados": 4211349,
 		"Hospitalizados": 123
+	},
+	{
+		"Fecha": "2023-02-06",
+		"Casos": 4482629,
+		"Fallecidos": 219205,
+		"Pruebas": 37816702,
+		"Recuperados": 4211384,
+		"Hospitalizados": 128
 	}
 ]
