@@ -24654,5 +24654,28 @@
 		"Hospitalizados": 133,
 		"NuevosHospitalizados": 5.0,
 		"%DifHospitalizados": 1.0390625
+	},
+	{
+		"Fecha": "2023-02-08",
+		"Dia": 1072.0,
+		"Casos": 4483036,
+		"NuevosCasos": 184.0,
+		"%DifCasos": 1.000041045298841,
+		"CasosActivos": 52358.0,
+		"NuevosCasosActivos": 148.0,
+		"Fallecidos": 219228,
+		"NuevosFallecidos": 14.0,
+		"%DifFallecidos": 1.0000638645341995,
+		"TasaLetalidad": 0.048901681806704206,
+		"Pruebas": 37840397,
+		"NuevasPruebas": 10881.0,
+		"%DifPruebas": 1.0002876325459729,
+		"%PruebasPositivasDiarias": 0.016910210458597554,
+		"Recuperados": 4211450,
+		"NuevosRecuperados": 22.0,
+		"%DifRecuperados": 1.0000052238813057,
+		"Hospitalizados": 133,
+		"NuevosHospitalizados": 0.0,
+		"%DifHospitalizados": 1.0
 	}
 ]
