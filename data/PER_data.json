@@ -8774,5 +8774,13 @@
 		"Pruebas": 38089514,
 		"Recuperados": 4212194,
 		"Hospitalizados": 80
+	},
+	{
+		"Fecha": "2023-03-05",
+		"Casos": 4486934,
+		"Fallecidos": 219513,
+		"Pruebas": 38095743,
+		"Recuperados": 4212235,
+		"Hospitalizados": 85
 	}
 ]
