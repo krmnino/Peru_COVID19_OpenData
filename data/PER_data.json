@@ -8932,7 +8932,7 @@
 		"Casos": 4491136,
 		"Fallecidos": 219712,
 		"Pruebas": 38267891,
-		"Recuperados": 4218942,
+		"Recuperados": 4212996,
 		"Hospitalizados": 88
 	},
 	{
@@ -8949,6 +8949,14 @@
 		"Fallecidos": 219741,
 		"Pruebas": 38284227,
 		"Recuperados": 4213075,
+		"Hospitalizados": 96
+	},
+	{
+		"Fecha": "2023-01-28",
+		"Casos": 4492115,
+		"Fallecidos": 219759,
+		"Pruebas": 38297872,
+		"Recuperados": 4213158,
 		"Hospitalizados": 96
 	}
 ]
