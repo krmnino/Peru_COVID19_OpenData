@@ -25737,7 +25737,7 @@
 		"%DifHospitalizados": 1.103448275862069
 	},
 	{
-		"Fecha": "2023-01-28",
+		"Fecha": "2023-03-28",
 		"Dia": 1119.0,
 		"Casos": 4492115,
 		"NuevosCasos": 462.0,
@@ -25760,7 +25760,7 @@
 		"%DifHospitalizados": 1.0
 	},
 	{
-		"Fecha": "2023-01-29",
+		"Fecha": "2023-03-29",
 		"Dia": 1120.0,
 		"Casos": 4492505,
 		"NuevosCasos": 390.0,
@@ -25781,5 +25781,28 @@
 		"Hospitalizados": 96,
 		"NuevosHospitalizados": 0.0,
 		"%DifHospitalizados": 1.0
+	},
+	{
+		"Fecha": "2023-03-30",
+		"Dia": 1121.0,
+		"Casos": 4492891,
+		"NuevosCasos": 386.0,
+		"%DifCasos": 1.0000859208837831,
+		"CasosActivos": 59814.0,
+		"NuevosCasosActivos": 296.0,
+		"Fallecidos": 219784,
+		"NuevosFallecidos": 8.0,
+		"%DifFallecidos": 1.0000364006988933,
+		"TasaLetalidad": 0.04891816872476987,
+		"Pruebas": 38320190,
+		"NuevasPruebas": 11379.0,
+		"%DifPruebas": 1.0002970334944616,
+		"%PruebasPositivasDiarias": 0.03392213727041041,
+		"Recuperados": 4213293,
+		"NuevosRecuperados": 82.0,
+		"%DifRecuperados": 1.000019462590409,
+		"Hospitalizados": 93,
+		"NuevosHospitalizados": -3.0,
+		"%DifHospitalizados": -1.032258064516129
 	}
 ]
