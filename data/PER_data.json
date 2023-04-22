@@ -9126,5 +9126,13 @@
 		"Pruebas": 38477677,
 		"Recuperados": 4215247,
 		"Hospitalizados": 107
+	},
+	{
+		"Fecha": "2023-04-19",
+		"Casos": 4499355,
+		"Fallecidos": 220073,
+		"Pruebas": 38486602,
+		"Recuperados": 4215312,
+		"Hospitalizados": 103
 	}
 ]
