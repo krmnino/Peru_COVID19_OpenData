@@ -26563,5 +26563,28 @@
 		"Hospitalizados": 106,
 		"NuevosHospitalizados": -9.0,
 		"%DifHospitalizados": -1.0849056603773586
+	},
+	{
+		"Fecha": "2023-05-03",
+		"Dia": 1155.0,
+		"Casos": 4503508,
+		"NuevosCasos": 286.0,
+		"%DifCasos": 1.0000635100823365,
+		"CasosActivos": 66801.0,
+		"NuevosCasosActivos": 157.0,
+		"Fallecidos": 220259,
+		"NuevosFallecidos": 63.0,
+		"%DifFallecidos": 1.0002861087394865,
+		"TasaLetalidad": 0.048908317693673466,
+		"Pruebas": 38609612,
+		"NuevasPruebas": 9041.0,
+		"%DifPruebas": 1.0002342193331804,
+		"%PruebasPositivasDiarias": 0.03163366884194226,
+		"Recuperados": 4216448,
+		"NuevosRecuperados": 66.0,
+		"%DifRecuperados": 1.0000156532306608,
+		"Hospitalizados": 112,
+		"NuevosHospitalizados": 6.0,
+		"%DifHospitalizados": 1.0566037735849056
 	}
 ]

@@ -9238,5 +9238,13 @@
 		"Pruebas": 38600571,
 		"Recuperados": 4216382,
 		"Hospitalizados": 106
+	},
+	{
+		"Fecha": "2023-05-03",
+		"Casos": 4503508,
+		"Fallecidos": 220259,
+		"Pruebas": 38609612,
+		"Recuperados": 4216448,
+		"Hospitalizados": 112
 	}
 ]
