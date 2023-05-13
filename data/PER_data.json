@@ -9254,5 +9254,13 @@
 		"Pruebas": 38618080,
 		"Recuperados": 4216499,
 		"Hospitalizados": 100
+	},
+	{
+		"Fecha": "2023-05-05",
+		"Casos": 4054117,
+		"Fallecidos": 220462,
+		"Pruebas": 38627442,
+		"Recuperados": 4216527,
+		"Hospitalizados": 92
 	}
 ]
